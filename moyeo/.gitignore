@@ -93,4 +93,8 @@ local.properties
 hs_err_pid*
 replay_pid*
 
+target/*
+META-INF/*
+.springBeans
+
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java
