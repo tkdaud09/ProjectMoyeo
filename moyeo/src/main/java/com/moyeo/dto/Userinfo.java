@@ -27,6 +27,6 @@ public class Userinfo {
 	private String address;
 	private String phone;
 	private String regdate;
-	private String lastlogdate;
+	private String logdate;
 	private int status;
 }
