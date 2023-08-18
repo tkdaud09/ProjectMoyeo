@@ -7,7 +7,7 @@
    <name>moyeo</name>
    <packaging>war</packaging>
    <version>1.0.0-BUILD-SNAPSHOT</version>
-   
+    
    <properties>
       <org.springframework-version>5.3.29</org.springframework-version>
       <org.aspectj-version>1.9.19</org.aspectj-version>
