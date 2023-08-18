@@ -1,7 +1,7 @@
 package com.moyeo.dto;
 
 public class abc {
-	private void name() {
-		
+	public abc() {
+		// TODO Auto-generated constructor stub
 	}
 }
