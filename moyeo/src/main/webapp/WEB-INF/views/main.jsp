@@ -22,8 +22,8 @@
 				<h1>Search area</h1>
 			</div>
 			<div class="login_area">
-				<div class="login_button"><a href="/member/login">로그인</a></div>
-				<span><a href="/member/join">회원가입</a></span>
+				<div class="login_button"><a href="/userinfo/login">로그인</a></div>
+				<span><a href="/userinfo/join">회원가입</a></span>
 			</div>
 			<div class="clearfix"></div>			
 		</div>
