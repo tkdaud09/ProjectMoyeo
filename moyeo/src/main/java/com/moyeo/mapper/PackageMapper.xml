@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.PackageMapper">
+
+	<!-- 관리자  -->
+	
+	<!-- 패키지 등록 -->
+	<insert id="insertPackage" parameterType="Pack">
+		<selectKey resultType="int" keyProperty="packIdx" order="BEFORE">
+			SELECT pack_seq.nextval 
+			FROM DUAL
+		</selectKey>
+		INSERT INTO 
+		pack (
+			pack_idx
+			, pack_Name
+			, pack_kind
+			, pack_startdate
+			, pack_enddate
+			, pack_regdate
+			, pack_people
+			, pack_childcount
+			, pack_adultcount
+			, pack_adultprice
+			, pack_childprice
+			, pack_status
+		) 
+		VALUES (
+			#{packIdx}
+			, #{packName}
+			, #{packKind}
+			, TO_CHAR(#{packStartDate}, 'YYYY-MM-DD')
+			, TO_CHAR(#{packEndDate}, 'YYYY-MM-DD')
+			, sysdate
+			, #{packPeople}
+			, #{packChildCount}
+			, #{packAdultCount}
+			, #{packAdultPrice}
+			, #{packChildPrice}
+			, #{packStatus}
+		)
+	</insert>
+
+	<!-- 패키지 변경 -->
+	<update id="updatePack">
+		UPDATE pack
+		<set>
+			<if test="pack_kind != null and pack_kind != ''">
+				pack_kind=#{packKind},
+			</if>
+			<if test="pack_name != null and pack_name != ''">
+				pack_name=#{packName},
+			</if>
+			<if test="pack_content != null and pack_content != ''">
+				pack_content=#{packContent},
+			</if>
+			<if test="pack_price != null and pack_price != ''">
+				pack_price=#{packPrice},
+			</if>
+			<if test="pack_people != null and pack_people != ''">
+				pack_people=#{packPeople},
+			</if>
+			<if test="pack_adultprice != null and pack_adultprice != ''">
+				pack_adultprice=#{packAdultprice},
+			</if>
+			<if test="pack_childprice != null and pack_childprice != ''">
+				pack_childprice=#{packChildprice},
+			</if>
+			<if test="pack_totalprice != null and pack_totalprice != ''">
+				pack_totalprice=#{packTotalprice},
+			</if>
+			<if test="pack_status == 0 or pack_status == 1">
+				pack_status=#{packStatus}
+			</if>
+		</set>
+		WEHRE pack_idx=#{packIdx}
+	</update>
+	
+	<!-- 패키지 삭제 -->
+	<delete id="deletePack">
+		DELETE FROM pack WHERE pack_idx=#{packIdx}
+	</delete>
+
+	<!-- 패키지 제목으로 패키지 검색 -->
+	<select id="selectPackByName" resultType="Pack">
+		SELECT 
+			pack_idx
+			, pack_kind
+			, pack_name
+			, pack_content
+			, pack_price
+			, pack_date
+			, pack_regdate
+			, pack_people
+			, pack_adultprice
+			, pack_childprice
+			, pack_totalprice
+			, pack_jan
+			, pack_status FROM pack 
+		WHERE pack_name LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<!-- 패키지 전체 목록 검색  -->
+	<select id="selectPackList" resultType="Pack">
+		SELECT 
+			pack_idx
+			, pack_kind
+			, pack_name
+			, pack_content
+			, pack_price
+			, pack_date
+			, pack_regdate
+			, pack_people
+			, pack_adultprice
+			, pack_childprice
+			, pack_totalprice
+			, pack_jan
+			, pack_status 
+		FROM pack 
+		ORDER BY pack_idx
+	</select>
+</mapper>

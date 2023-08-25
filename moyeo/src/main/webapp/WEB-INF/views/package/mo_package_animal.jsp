@@ -156,15 +156,15 @@
       <div class="col-md-7 col-lg-8">
         <div id="package-slider" class="owl-carousel owl-theme package-slider">
           <div class="item">
-            <img class="lazyestload" data-src="assets/img/packages/package-slider-03.jpg" src="assets/img/packages/package-slider-03.jpg" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-slider-03.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-slider-03.jpg" alt="image">
           </div>
 
           <div class="item">
-            <img class="lazyestload" data-src="assets/img/packages/package-slider-04.jpg" src="assets/img/packages/package-slider-04.jpg" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-slider-04.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-slider-04.jpg" alt="image">
           </div>
 
           <div class="item">
-            <img class="lazyestload" data-src="assets/img/packages/package-slider-05.jpg" src="assets/img/packages/package-slider-05.jpg" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-slider-05.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-slider-05.jpg" alt="image">
           </div>
         </div>
 
@@ -172,7 +172,7 @@
 
 		<div class="package_con">
 			<div class="pack_img1">
-				<img src="assets/img/packages/pack_img_calendar.png">
+				<img src="${pageContext.request.contextPath}/assets/img/packages/pack_img_calendar.png">
 			</div>
 			<div class="pack_text">여행 상세 내용이 들어갈 공간 </div>
 		</div>
@@ -201,7 +201,7 @@
 
           <div class="media mb-6">
             <a class="me-6" href="">
-              <img class="rounded lazyestload" data-src="assets/img/blog/comments-02.jpg" src="assets/img/blog/comments-02.jpg" alt="Generic placeholder image">
+              <img class="rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/comments-02.jpg" src="${pageContext.request.contextPath}/assets/img/blog/comments-02.jpg" alt="Generic placeholder image">
             </a>
 
             <div class="media-body">
@@ -214,7 +214,7 @@
 
           <div class="media mb-6">
             <a class="me-6" href="">
-              <img class="rounded lazyestload" data-src="assets/img/blog/comments-01.jpg" src="assets/img/blog/comments-01.jpg" alt="Generic placeholder image">
+              <img class="rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/comments-01.jpg" src="${pageContext.request.contextPath}/assets/img/blog/comments-01.jpg" alt="Generic placeholder image">
             </a>
 
             <div class="media-body">
@@ -228,7 +228,7 @@
 
           <div class="media">
             <a class="me-6" href="">
-              <img class="rounded lazyestload" data-src="assets/img/blog/comments-03.jpg" src="assets/img/blog/comments-03.jpg" alt="Generic placeholder image">
+              <img class="rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/comments-03.jpg" src="${pageContext.request.contextPath}/assets/img/blog/comments-03.jpg" alt="Generic placeholder image">
             </a>
             <div class="media-body">
               <h5>Rodney Artichoke</h5>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.CartMapper">
+	
+    <!-- 1. 장바구니 추가 -->
+    <insert id="addCart" parameterType="com.moyeo.dto.CartDTO">
+    INSERT INTO cart (cart_idx, userinfo_id, pack_idx)
+    VALUES (cart_seq.NEXTVAL, #{userinfoId}, #{packIdx})
+</insert>
+    
+    <!-- 2. 장바구니 목록 -->
+<select id="cartList" parameterType="java.lang.String" resultType="com.moyeo.dto.CartDTO">
+    SELECT
+        c.cart_idx,
+        c.userinfo_id,
+        c.pack_idx,
+        p.pack_name, 
+        p.pack_startdate,
+        p.pack_enddate,
+        p.pack_adultcount,
+        p.pack_childcount,
+        p.pack_totalprice
+    FROM
+        cart c
+    JOIN
+        pack p ON c.pack_idx = p.pack_idx
+    WHERE
+        c.userinfo_id = #{userinfoId}
+</select>
+    <!-- 3. 장바구니 인원수 및 일정 수정 -->
+<update id="updateCart" parameterType="com.moyeo.dto.CartDTO">
+    UPDATE cart c
+    JOIN pack p ON c.pack_idx = p.pack_idx
+    SET c.pack_adultcount = #{packAdultcount},
+        c.pack_childcount = #{packChildcount},
+        c.pack_totalprice = (p.pack_adultprice * #{packAdultcount}) + (p.pack_childprice * #{packChildcount}),
+        p.pack_startdate = #{newStartDate},
+        p.pack_enddate = #{newEndDate}
+    WHERE c.cart_idx = #{cartIdx}
+</update>
+
+   <!-- 4. 장바구니 전체금액 합계 -->
+<select id="totalCart" parameterType="java.lang.String" resultType="int">
+    SELECT SUM(p.pack_totalprice) AS totalSum
+    FROM cart c
+    JOIN pack p ON c.pack_idx = p.pack_idx
+    WHERE c.userinfo_id = #{userinfoId}
+</select>
+
+    <!-- 5. 장바구니 삭제 -->
+    <delete id="deleteCart" parameterType="int">
+        DELETE FROM cart
+        WHERE cart_idx = #{cartIdx}
+    </delete>
+    
+    
+    <select id="getAllCartItemsWithPackages" resultMap="cartWithPackage" parameterType="String">
+    SELECT c.cart_idx, c.userinfo_id, c.pack_idx, p.pack_name
+    FROM cart c
+    JOIN pack p ON c.pack_idx = p.pack_idx
+    WHERE c.userinfo_id = #{userinfoId}
+</select>
+
+<resultMap id="cartWithPackage" type="com.moyeo.dto.CartDTO">
+    <result property="cartIdx" column="cart_idx"/>
+    <result property="userinfoId" column="userinfo_id"/>
+    <result property="packIdx" column="pack_idx"/>
+</resultMap>
+</mapper>

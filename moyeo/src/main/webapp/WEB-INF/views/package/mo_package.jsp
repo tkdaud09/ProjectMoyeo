@@ -20,7 +20,7 @@
 ———	PAGE TITLE
 ===================================== -->
 <section class="page-title">
-  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(assets/img/pages/page-title-bg6.jpg);">
+  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg6.jpg);">
     <div class="container">
       <div class="row align-items-center justify-content-center" style="height: 200px;">
         <div class="col-lg-6">
@@ -60,8 +60,8 @@
 	<div class="row grid">
       <div class="col-md-6 col-lg-4 mb-5 element-item  animal">
         <div class="card card-hover">
-          <a href="mo_package_animal.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-01.jpg" src="assets/img/home/deal/deal-01.jpg" alt="Card image cap">
+          <a href="${pageContext.request.contextPath}/package/detail" class="position-relative">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/home/deal/deal-01.jpg" src="${pageContext.request.contextPath}/assets/img/home/deal/deal-01.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <div class="badge bg-primary badge-rounded-circle">
                 <span class="d-block">
@@ -119,7 +119,7 @@
       <div class="col-md-6 col-lg-4 mb-5 element-item child">
         <div class="card card-hover">
           <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-02.jpg" src="assets/img/home/deal/deal-02.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/home/deal/deal-02.jpg" src="${pageContext.request.contextPath}/assets/img/home/deal/deal-02.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
                 <li>
@@ -171,7 +171,7 @@
       <div class="col-md-6 col-lg-4 mb-5 element-item alone animal">
         <div class="card card-hover">
           <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-03.jpg" src="assets/img/home/deal/deal-03.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/home/deal/deal-03.jpg" src="${pageContext.request.contextPath}/assets/img/home/deal/deal-03.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
                 <li>
@@ -223,7 +223,7 @@
       <div class="col-md-6 col-lg-4 mb-5 element-item couple">
         <div class="card card-hover">
           <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/packages/package-01.jpg" src="assets/img/packages/package-01.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-01.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-01.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
                 <li>
@@ -280,7 +280,7 @@
       <div class="col-md-6 col-lg-4 mb-5 element-item alone consideration">
         <div class="card card-hover">
           <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/packages/package-02.jpg" src="assets/img/packages/package-02.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-02.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-02.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
                 <li>
@@ -337,7 +337,7 @@
       <div class="col-md-6 col-lg-4 mb-5 element-item couple">
         <div class="card card-hover">
           <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/packages/package-03.jpg" src="assets/img/packages/package-03.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-03.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-03.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <div class="badge bg-primary badge-rounded-circle">
                 <span class="d-block">
@@ -399,7 +399,7 @@
       <div class="col-md-6 col-lg-4 mb-5 mb-lg-0 element-item alone friend">
         <div class="card card-hover">
           <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/packages/package-04.jpg" src="assets/img/packages/package-04.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-04.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-04.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
                 <li>
@@ -455,7 +455,7 @@
       <div class="col-md-6 col-lg-4 mb-5 mb-lg-0 element-item animal">
         <div class="card card-hover">
           <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/packages/package-05.jpg" src="assets/img/packages/package-05.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-05.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-05.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <div class="badge bg-primary badge-rounded-circle">
                 <span class="d-block">
@@ -517,7 +517,7 @@
       <div class="col-md-6 col-lg-4 element-item child friend">
         <div class="card card-hover">
           <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/packages/package-06.jpg" src="assets/img/packages/package-06.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-06.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-06.jpg" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
                 <li>

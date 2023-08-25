@@ -39,21 +39,18 @@
         <ul class="list-inline d-flex justify-content-end mb-0">
 
           <li class="me-6">
-            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
-              <!-- <i class="fa fa-user me-2"></i> -->
-              <div class="media-body">
-                로그인
-              </div>
-            </a>
+            
+                <a href="${pageContext.request.contextPath}/user/login">로그인</a>
+              
+            
           </li>
 
 		  <li class="me-6">
-            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
+           
               <!-- <i class="fa fa-user me-2"></i> -->
-              <div class="media-body">
-                회원가입
-              </div>
-            </a>
+              
+                <a href="${pageContext.request.contextPath}/user/join">회원가입</a>
+              
           </li>
 
 		   <li class="me-6">
@@ -103,7 +100,7 @@
     <nav class="nav-menuzord navbar-sticky">
       <div class="container clearfix">
         <div id="menuzord" class="menuzord">
-          <a href="${pageContext.request.contextPath}/index.jsp" class="menuzord-brand">
+          <a href="${pageContext.request.contextPath}/" class="menuzord-brand">
             <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/logo-color-big.png" src="${pageContext.request.contextPath}/assets/img/logo-color-big.png" alt="logo-img">
           </a>
 
@@ -152,17 +149,17 @@
               </ul>
             </li>
 
-            <li class="active">
+            <li class="">
 				<a class="" href="javascript:void(0)">DIY</a>
               <ul class="dropdown drop-up">
                 <li class=" ">
-                  <a href="mo_diy.jsp">DIY</a>
+                  <a href="${pageContext.request.contextPath}/diy/mo_diy">DIY</a>
                 </li>
 				<li class=" ">
-                  <a href="mo_diy_form.jsp">DIY 참여하기</a>
+                  <a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
                 </li>
 				<li class=" ">
-                  <a href="mo_diy_list.jsp">DIY 전체보기</a>
+                  <a href="#">DIY 전체보기</a>
                 </li>
               </ul>
             </li>
@@ -246,7 +243,7 @@
 				<a class="" href="javascript:void(0)">이벤트</a>
               <ul class="dropdown drop-up">
                 <li class=" ">
-                  <a href="mo_event.jsp">이벤트</a>
+                  <a href="${pageContext.request.contextPath}/event">이벤트</a>
                 </li>
               </ul>
             </li>
@@ -255,7 +252,7 @@
               <a href="javascript:void(0)">후기</a>
               <ul class="dropdown drop-up">
                 <li class="">
-                  <a href="mo_review.jsp">후기</a>
+                  <a href="${pageContext.request.contextPath}/review/list">후기</a>
                 </li>
 
                 <!-- <li class="">
@@ -297,7 +294,12 @@
                   </ul>
                 </li>-->
 
-                <li class=""> 
+
+
+
+	<!---------------- 필요한거 여기서 가져가기 -------------------->
+
+                <!-- <li class=""> 
                     
                   <a href="javascript:void(0)">Components</a>
 
@@ -370,7 +372,7 @@
                       <a class="removeNav" href="components.html#progress">Progress</a>
                     </li>
                   </ul>
-                </li>
+                </li>------------------------------------------------------------------------->
 
                 <!-- <li><a href="404.html">404 Not Found</a></li>
 
@@ -382,7 +384,12 @@
               <a href="javascript:void(0)">공지사항</a>
 
               <ul class="dropdown drop-up">
-                <li class=" ||
+               
+	               <li class="">
+	                  <a href="${pageContext.request.contextPath}/notice">공지사항</a>
+	                </li>
+               
+                <!--  <li class=" ||
                   ">
 
                   <a href="javascript:void(0)">Blog Grid View</a>
@@ -435,9 +442,9 @@
                   </ul>
                 </li>
               </ul>
-            </li>
+            </li>-->
 
-            <li class="">
+           <!--  <li class="">
               <a href="javascript:void(0)">Admin</a>
               <ul id="admin" class="dropdown drop-up">
                 <li class="">
@@ -476,7 +483,7 @@
                 </div>
               </form>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </nav>

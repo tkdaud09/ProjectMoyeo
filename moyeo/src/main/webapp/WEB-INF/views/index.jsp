@@ -307,7 +307,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-4">
         <div class="card card-hover mb-5 mb-lg-0">
-          <a href="mo_package_animal.html" class="position-relative">
+          <a href="mo_package_animal.jsp" class="position-relative">
             <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-01.jpg" src="assets/img/home/deal/deal-01.jpg" alt="Card image cap">
             
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">

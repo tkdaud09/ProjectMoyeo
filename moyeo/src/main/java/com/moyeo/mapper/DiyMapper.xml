@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.DiyMapper">
+	<insert id="insertDiy">
+		<selectKey resultType="int" keyProperty="diyIdx" order="BEFORE">
+			SELECT diy_seq.nextval 
+			FROM DUAL
+		</selectKey>
+        INSERT INTO diy (
+        		diy_idx,
+        		userinfo_id,
+        		diy_startdate,
+        		diy_enddate,
+        		diy_people,
+        		diy_loc,
+        		diy_price,
+        		diy_map,
+        		diy_regdate,
+        		love_idx,
+        		diy_title,
+        		diy_content1,
+        		diy_content2,
+        		diy_content3,
+        		diy_content4,
+        		diy_content5)
+        
+        VALUES(
+                to_char(#{diyIdx}, 'yyyy-mm-dd'),
+                to_char(#{userinfoId}, 'yyyy-mm-dd'),
+                #{diyStartdate},
+                #{diyEnddate},
+                #{diyPeople},
+                #{diyLoc},
+                to_char(#{diyPrice}, 'fml999,999,999'), 
+                #{diyMap},
+               to_char(sysdate, 'yyyy-mm-dd amhh:mi:ss day'),
+                #{loveIdx},
+                #{diyTitle},
+                #{diyContent1},
+                #{diyContent2},
+                #{diyContent3},
+                #{diyContent4},
+                #{diyContent5})
+                	</insert>
+
+	<select id="selectDiyList" resultType="Diy">
+        SELECT 
+                diyIdx
+                ,userinfoId 
+                ,diyStartDate
+                ,diyEndDate
+                ,diyPeople
+                ,diyLoc
+                ,diyPrice
+                ,diyMap
+                ,diyRegdate
+                ,loveIdx
+                ,diyTitle
+                ,diyContent1
+                ,diyContent2
+                ,diyContent3
+                ,diyContent4
+                ,diyContent5)
+        FROM diy, love 
+        WHERE loveidx=(SELECT COUNT(loveCheck)
+                        FROM love
+                        WHERE userinfoId=#{userinfoId} and diyIdx=#{diyIdx})
+        ORDER BY loveIdx desc
+	</select>
+
+
+	<select id="selectDiy">
+        SELECT 
+                diyIdx
+                ,userinfoId 
+                ,diyStartDate
+                ,diyEndDate
+                ,diyPeople
+                ,diyLoc
+                ,diyPrice
+                ,diyMap
+                ,diyRegdate
+                ,loveIdx
+                ,diyTitle
+                ,diyContent1
+                ,diyContent2
+                ,diyContent3
+                ,diyContent4
+                ,diyContent5
+        FROM diy
+        ORDER BY diyRegdate desc;
+	</select>
+       
+
+	<delete id="deleteDiy">
+        DELETE 
+        FROM 
+        	diy
+        WHERE userinfoId=#{userinfoId} and diyIdx=#{diyIdx}
+	</delete>
+
+	<update id="updateDiy">
+        update diy
+        <set>
+        	<if test="diyStartDate != null and diyStartDate != ''">
+        		 diyStartDate=#{diyStartDate},
+        	</if>
+        	
+        	<if test="diyEndDate != null and diyEndDate != ''">
+        		 diyEndDate=#{diyEndDate},
+        	</if>
+        	
+        	<if test="diyPeople != null and diyPeople != ''">
+        		 diyPeople=#{diyPeople},
+        	</if>
+        	
+        	<if test="diyLoc != null and diyLoc != ''">
+        		 diyLoc=#{diyLoc},
+        	</if>
+        	
+        	<if test="diyPrice != null and diyPrice != ''">
+        		 diyPrice=#{diyPrice},
+        	</if>
+        	
+        	<if test="diyMap != null and diyMap != ''">
+        		 diyMap=#{diyMap},
+        	</if>
+        	
+        	<if test="diyRegdate != null and diyRegdate != ''">
+        		 diyRegdate=#{diyRegdate},
+        	</if>
+        	
+        	<if test="diyTitle != null and diyTitle != ''">
+        		 diyTitle=#{diyTitle},
+        	</if>
+        	
+        	<if test="diyContent1 != null and diyContent1 != ''">
+        		 diyContent1=#{diyContent1},
+        	</if>
+        	
+        	<if test="diyContent2 != null and diyContent2 != ''">
+        		 diyContent2=#{diyContent2},
+        	</if>
+        	
+        	<if test="diyContent3 != null and diyContent3 != ''">
+        		 diyContent3=#{diyContent3},
+        	</if>
+        	
+        	<if test="diyContent4 != null and diyContent4 != ''">
+        		 diyContent4=#{diyContent4},
+        	</if>
+        	
+        	<if test="diyContent5 != null and diyContent5 != ''">
+        		 diyContent5=#{diyContent5},
+        	</if>
+       </set>
+        where idDiy=#{idDiy}
+	</update>
+</mapper>

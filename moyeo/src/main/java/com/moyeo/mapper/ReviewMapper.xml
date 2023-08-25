@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moyeo.mapper.ReviewMapper">
+	
+	<!-- 후기 등록 -->
+	<insert id="insertReview">
+	    <selectKey resultType="int" keyProperty="reviewNum" order="BEFORE">
+	        SELECT review_seq.nextval FROM dual
+	    </selectKey>
+	    INSERT INTO review 
+	    VALUES(
+	        #{reviewNum}   <!-- Correct field name -->
+	        , #{idReview}
+	        , #{orderNumReview}
+	        , #{reviewStar}
+	        , #{reviewTitle}
+	        , #{reviewContent}
+	        , #{reviewRegdate}
+	    )
+	</insert>		
+	
+
+	
+	<!-- 후기 업데이트 -->
+	<update id="updateReview">
+		UPDATE review SET 
+			review_title=#{reviewTitle}
+			, review_content=#{reviewContent} 
+			WHERE userinfo_id=#{userinfoId}
+	</update>
+	
+	
+	<!-- 후기 삭제 -->
+	<delete id="deleteReview">
+		DELETE FROM review WHERE userinfo_id=#{userinfoId}      
+		<!-- reviewIdx 후기번호? userinfo_id 아이디? -->
+	</delete>
+	
+	
+	<!-- 후기 제목으로 검색 -->
+	<select id="selectReviewByTitle" resultType="Review">
+		SELECT 
+			review_idx
+			, userinfo_id
+			, order_idx
+			, review_star
+			, review_title
+			, review_content
+			, review_regdate FROM review 
+		WHERE review_title=#{reviewTitle}
+	</select>
+	
+	<!-- 후기 내용으로 검색 -->
+	<select id="selectReviewByContent" resultType="Review">
+		SELECT 
+			review_idx
+			, userinfo_id
+			, order_idx
+			, review_star
+			, review_title
+			, review_content
+			, review_regdate FROM review 
+		WHERE review_content=#{reviewContent}
+	</select>
+	
+	<!-- 후기 전체리스트검색 -->
+	<select id="selectReview" resultType="Review">
+		SELECT 
+			review_idx
+			, userinfo_id
+			, order_idx
+			, review_star
+			, review_title
+			, review_content
+			, review_regdate 
+			FROM review 
+			ORDER BY userinfo_id desc
+	</select>
+	
+
+	<!-- 후기 게시글 카운트 -->
+	<select id="selectReviewCount" resultType="int">
+		SELECT 
+			review_idx
+			, userinfo_id
+			, order_idx
+			, review_star
+			, review_title
+			, review_content
+			, review_regdate FROM review 
+	</select>
+	
+	
+	<!-- 후기페이지 번호 -->
+	<select id="selectReviewList" resultType="Review">
+		SELECT * FROM 
+			(SELECT 
+				rownum rn
+				, review_idx
+				, userinfo_id
+				, order_idx
+				, review_star
+				, review_title
+				, review_content
+				, review_regdate 
+				FROM (SELECT 
+					review_idx
+					, userinfo_id
+					, order_num
+					, review_star
+					, review_title
+					, review_content
+					, review_regdate 
+					FROM review ORDER BY review_idx DESC) 
+			review) 
+			WHERE rn between #{startRow} and #{endRow}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+	
+	
+	

@@ -14,7 +14,7 @@
 ———	PAGE TITLE
 ===================================== -->
 <section class="page-title">
-  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(assets/img/pages/page-title-bg6.jpg);">
+  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg6.jpg);">
     <div class="container">
       <div class="row align-items-center justify-content-center" style="height: 200px;">
         <div class="col-lg-6">
@@ -83,7 +83,7 @@
 
 						
 						 <div class="div_btn1">
-							<a href="mo_diy_form.html"><button>참여하기</button></a>
+							<a href="${pageContext.request.contextPath}/diy/diy_add"><button>참여하기</button></a>
 						</div>
 
 					</div><!-- /div_p -->

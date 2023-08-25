@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.UserinfoMapper">
+
+	<!--회원가입 -->
+	
+	<!-- 회원정보 삽입 -->
+	<insert id="insertUserinfo">
+		INSERT INTO 
+		userinfo (
+			id
+			, pw
+			, name
+			, gender 
+			, email
+			, birth
+			, address
+			, phone
+			, regdate
+			, status  
+		)
+		VALUES (
+			#{id}
+			, #{pw}
+			, #{name}
+			, #{gender}
+			, #{email}
+			, TO_DATE(#{birth}, 'YYYY-MM-DD')
+			, #{address}
+			, #{phone}
+			, sysdate
+			, #{status}
+		)
+	</insert>
+	
+	<!-- 아이디 중복검사 -->
+  	<select id="idCheck" resultType="int">
+  		SELECT count(*) FROM userinfo 
+  		WHERE id = #{id}
+  	</select>
+	
+	
+	<!--로그인 -->
+	
+	
+	<!-- 비밀번호 인코딩 전 -->
+	<!-- 
+	<select id="userinfoLogin" resultType="Userinfo">
+		SELECT *
+		FROM userinfo
+		WHERE id=#{id} and pw = #{pw}
+	</select> -->
+	
+	
+	<!-- 비밀번호 인코딩 후 -->
+	<select id="userinfoLogin" resultType="Userinfo">
+		SELECT *
+		FROM userinfo
+		WHERE id=#{id}
+	</select>
+	
+    
+	<!-- 로그인 시간 변경 -->
+	<update id="updateLogdate"> 
+        UPDATE userinfo
+        SET logdate= SYSTIMESTAMP
+        WHERE id= #{id}
+	</update>
+	
+	
+	<!-- 휴면계정전환 -->
+	<update id="updateUserToRest">
+		UPDATE userinfo
+		<set>
+			<if test="MONTHS_BETWEEN(SYSDATE, logdate) > 12">
+				status=2
+			</if>
+		</set>
+		WHERE id=#{id}	
+	</update>
+	
+	
+	<!-- 마이페이지 -->
+	
+	<!-- 회원정보 변경 -->
+	<update id="updateUserinfo">
+		UPDATE userinfo
+		<set>
+			<if test="pw != null and pw != ''">
+				pw=#{pw},
+			</if>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="email != null and email != ''">
+				email=#{email},
+			</if>
+			<if test="address != null and address != ''">
+				address=#{address},
+			</if>
+			<if test="phone != null and phone != ''">
+				phone=#{phone},
+			</if>
+			<if test="status == 0 or status == 1 or status == 2">
+				status=#{status}
+			</if>
+		</set>
+		WHERE id=#{id}	
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="outUser">
+		UPDATE userinfo
+		SET status = 3
+		WHERE id=#{id}	
+	</update>
+	
+	
+	<!-- 새로 추가했음 -->
+	<!-- 아이디로 유저 정보 검색 -->
+	<select id="selectUserinfoById" resultType="Userinfo">
+		SELECT id
+			, pw
+			, name
+			, gender 
+			, email
+			, birth
+			, address
+			, phone
+			, regdate
+			, logdate
+			, status 
+		FROM userinfo
+		WHERE id=#{id}
+	</select>	
+	
+	<!-- 관리자 -->
+	
+	
+	<!-- 조건에 따른 유저 정보 검색 -->
+	<sql id="search">
+		<if test="condition != null and keyword != null">
+	   		<if test="condition == 'name'">
+	   			<!-- 검색조건이 name이라면 -->
+	   			AND name LIKE '%'||#{keyword}||'%'
+	   		</if>
+	   		<if test="condition == 'id'">
+	   			<!-- 검색조건이 id라면 -->
+	   			AND id LIKE '%'||#{keyword}||'%'
+	   		</if>
+	   		<if test="condition == 'email'">
+	   			<!-- 검색조건이 email라면 -->
+	   			AND email LIKE '%'||#{keyword}||'%'
+	   		</if>
+	   		<if test="condition == 'regdate'">
+	   			<!-- 검색조건이 regdate라면 -->
+	   			AND regdate LIKE '%'||#{keyword}||'%' 
+	   		</if>
+	   		<if test="condition == 'status'">
+	   			<!-- 검색조건이 status라면 -->
+	   			AND status LIKE '%'||#{keyword}||'%' 
+	   		</if>
+	   	</if>
+   	</sql>
+   	
+   	<select id="selectUserinfo" resultType="Userinfo">
+		SELECT 
+			id
+			, pw
+			, name
+			, gender 
+			, email
+			, birth
+			, address
+			, phone
+			, regdate
+			, logdate
+			, status 
+		FROM userinfo 
+		WHERE 1 = 1
+    	<include refid="search" />
+	</select>
+	
+	
+	<!-- 가입일에 따른 유저 정보 검색 -->
+	<!--  
+	<choose>
+		가입일 
+		<when test="optionDate == 1"> 
+		AND regdate BETWEEN #{startDatePicker} AND #{endDatePicker}</when>
+		<when test="shOptionDate == 2">
+		AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	</choose> -->
+	
+
+	
+	<!-- 전체 유저 정보 검색 -->
+	<select id="selectUserinfoList" resultType="Userinfo">
+		SELECT 
+			id
+			, pw
+			, name
+			, gender 
+			, email
+			, birth
+			, address
+			, phone
+			, regdate
+			, logdate
+			, status 
+		FROM userinfo 
+		ORDER BY id
+	</select>
+	
+	
+	
+</mapper>

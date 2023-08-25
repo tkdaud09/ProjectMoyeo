@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.NoticeMapper">
+	
+	<!-- 공지사항 등록 -->
+	<insert id="insertNotice">
+        <selectKey resultType="int" keyProperty="noticeIdx" order="BEFORE">
+          SELECT notice_seq.nextval
+        </selectKey>
+        INSERT INTO notice 
+            values(
+            	#{noticeIdx}
+            	, #{noticeTitle}
+            	, #{noticeContent}
+            	, #{noticeRegdate}
+            	, #{noticeStatus}
+            	)
+	</insert>
+	
+
+	<!-- 공지사항 업데이트 -->
+	<update id="updateNotice">
+        UDATE notice set
+           notice_title = #{noticeTitle},
+           notice_content = #{noticeContent},
+           notice_regdate = #{noticeRegdate},
+           notice_status = #{noticeStatus}
+           WHERE notice_idx = #{noticeIdx}
+	</update>
+	
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice">
+	  DELETE FROM notice WHERE noticeIdx = #{notice_idx}
+	</delete>        
+	
+
+	
+	<!-- 공지사항 리스트 전체 검색 -->
+	<select id="selectNoticeList" resultType="Notice">
+        SELECT 
+        	notice_idx
+        	, notice_title
+        	, notice_content
+        	, notice_regdate
+        	, noticeStatus 
+        	FROM notice 
+            WHERE noticeTitle 
+            	like '%' || #{@param} || '%'
+            	or noticeContent 
+            	like '%' || #{@param} || '%'
+                ORDER BY noticeStatus DESC, noticeRegdate
+	</select>
+	
+	
+	
+	<!-- 공지사항 게시글 카운트 -->
+	<select id="selectNoticeCount" resultType="int">
+		SELECT 
+			notice_idx
+        	, notice_title
+        	, notice_content
+        	, notice_regdate
+        	, noticeStatus 
+			 FROM notice
+	</select>
+	
+	
+	<!-- 공지사항 페이지 번호 -->
+	<!--  <select id="selectNoticeList" resultType="Notice>
+		SELECT * FROM 
+			(SELECT 
+				rownum rn
+				, notice_idx
+	        	, notice_title
+	        	, notice_content
+	        	, notice_regdate
+	        	, noticeStatus
+				FROM (SELECT 
+					notice_idx
+		        	, notice_title
+		        	, notice_content
+		        	, notice_regdate
+		        	, noticeStatus
+					FROM notice ORDER BY notice_idx DESC) 
+			notice) 
+			WHERE rn between #{startRow} and #{endRow}
+	</select>-->
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
