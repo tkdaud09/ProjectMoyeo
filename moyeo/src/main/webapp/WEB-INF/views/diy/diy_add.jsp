@@ -4,16 +4,11 @@
 <html lang="utf-8">
   
   <head>
-<jsp:include page="/WEB-INF/views/inc/head.jsp"/>
 
   </head>     
 
 <body id="body" class="up-scroll">
 
-  <!-- ====================================
-  ——— HEADER
-  ===================================== -->
-<jsp:include page="/WEB-INF/views/inc/header.jsp"/>
   <div class="main-wrapper booking-step-1">
 
 
@@ -234,10 +229,6 @@
 
   </div><!-- element wrapper ends -->
 
-    <!-- ====================================
-    ——— FOOTER SECTION
-    ===================================== -->
-    <jsp:include page="/WEB-INF/views/inc/footer.jsp"/>
   
     <!-- ====================================
     ——— MODAL SECTION

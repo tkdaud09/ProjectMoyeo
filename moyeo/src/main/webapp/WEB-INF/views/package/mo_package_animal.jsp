@@ -3,15 +3,9 @@
 <!DOCTYPE html>
 <html lang="utf-8">
   
-  <head>
-  
-  	<jsp:include page="/WEB-INF/views/inc/head.jsp"/>
-
-  </head>     
 
 <body id="body" class="up-scroll">
 
- <jsp:include page="/WEB-INF/views/inc/header.jsp"/>
   <div class="main-wrapper packages-grid">
 
 
@@ -466,7 +460,6 @@
 
   </div><!-- element wrapper ends -->
 
-  <jsp:include page="/WEB-INF/views/inc/footer.jsp"/>
 
 
 

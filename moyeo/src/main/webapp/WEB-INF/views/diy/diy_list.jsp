@@ -3,10 +3,6 @@
 <!DOCTYPE html>
 <html lang="UTF-8">
   
-   <head>
-<jsp:include page="/WEB-INF/views/inc/head.jsp"/>
-
-  </head>  
   
 <body id="body" class="up-scroll">
 
@@ -288,7 +284,6 @@
   <!-- ====================================
     ——— FOOTER SECTION
     ===================================== -->
-    <jsp:include page="/WEB-INF/views/inc/footer.jsp"/>
    
   
     <!-- ====================================

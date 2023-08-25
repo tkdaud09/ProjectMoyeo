@@ -3,10 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
-	
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <meta charset="utf-8" />
@@ -16,10 +12,10 @@
     position: absolute;
 
     left: 50%;
-    top: 112.8%;
+    top: 20%;
     transform: translate(-50%, -50%);
     width: 670px;
-    height: 1750px;
+    height: 1000px;
     background: #FFFFFF;
     border: 1px solid #AACDFF;
     box-shadow: 7px 7px 39px rgba(0, 104, 255, 0.25);
@@ -218,8 +214,6 @@ input.agree {
 </style>
 </head>
 <body>
-
-	
    <div>
         <div class="container" >
             <h2>회원가입을 위해<br>정보를 입력해주세요.</h2>
@@ -294,8 +288,8 @@ input.agree {
               <input type="text" class="phone_input" name="phone" id="phone" placeholder="010-****-****" ><br> <br>
             </label><br><br>
             <div class="button-container">
-               <input type="button" class="join_button" value="가입하기">
-         </div>
+  	 			<input type="button" class="join_button" value="가입하기">
+			</div>
             </form>
         </div>
     </div>
@@ -414,16 +408,16 @@ input.agree {
           
             /* 최종 유효성 검사 */
             if(idCheck&&
-                  idckCheck&&
-                  pwCheck&&
-                  pwckCheck&&
-                  pwckcorCheck&&
-                  nameCheck&&
-                  emailCheck&&
-                  mailnumCheck&&
-                  genderCheck&&
-                  yearCheck&&
-                  phoneCheck){
+            		idckCheck&&
+            		pwCheck&&
+            		pwckCheck&&
+            		pwckcorCheck&&
+            		nameCheck&&
+            		emailCheck&&
+            		mailnumCheck&&
+            		genderCheck&&
+            		yearCheck&&
+            		phoneCheck){
                  $("#join_form").attr("action", "/moyeo/user/join");
                  $("#join_form").submit();
               }
@@ -432,7 +426,7 @@ input.agree {
           });
       });
  
-             
+          	
    /* 아이디 중복검사 */
    
    //아이디 중복검사 길이
@@ -617,24 +611,24 @@ input.agree {
       /* 이메일 유효성 */
       
       $(document).ready(function() {
-       $('.email_input').on("input", function() {
-           var userPart = $(this).val();
-           var fullEmail = userPart;
-   
-           var emailCheckMessage = $('.email_input_re');
-           var regMail = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
-   
-           if (!regMail.test(fullEmail)) {
-               emailCheckMessage.css("display", "block");
-               emailCheck = false;
-               $('#mail-Check-Btn').attr('disabled', true);
-           } else { 
-               emailCheckMessage.css("display", "none");
-               emailCheck = true;
-               $('#mail-Check-Btn').attr('disabled', false);
-           }
-       });
-   });
+	    $('.email_input').on("input", function() {
+	        var userPart = $(this).val();
+	        var fullEmail = userPart;
+	
+	        var emailCheckMessage = $('.email_input_re');
+	        var regMail = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
+	
+	        if (!regMail.test(fullEmail)) {
+	            emailCheckMessage.css("display", "block");
+	            emailCheck = false;
+	            $('#mail-Check-Btn').attr('disabled', true);
+	        } else { 
+	            emailCheckMessage.css("display", "none");
+	            emailCheck = true;
+	            $('#mail-Check-Btn').attr('disabled', false);
+	        }
+	    });
+	});
       
     /*주소 API*/
       
@@ -717,7 +711,5 @@ input.agree {
          });
       
    </script>
-
-  </body>
+ </body>
 </html>
-

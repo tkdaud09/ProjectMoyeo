@@ -7,13 +7,11 @@
 
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<jsp:include page="/WEB-INF/views/inc/head.jsp" />
 
 </head>
 
 <body id="body" class="up-scroll">
 
-	<jsp:include page="/WEB-INF/views/inc/header.jsp" />
 	<div class="main-wrapper packages-grid">
 
 
@@ -405,7 +403,6 @@
 
 
 
-	<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 
 
 	<!-- Javascript -->

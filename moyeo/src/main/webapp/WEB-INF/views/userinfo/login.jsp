@@ -18,6 +18,12 @@
 <link rel="stylesheet" href="/resources/css/member/login.css">
 </head>
 <body>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
 
 <div class="wrapper">
    
