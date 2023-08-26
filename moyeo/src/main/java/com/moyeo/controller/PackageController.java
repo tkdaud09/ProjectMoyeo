@@ -17,7 +17,7 @@ public class PackageController {
 	private PackageService packageService;
 	
 	// 패키지 메인 페이지 이동
-	@RequestMapping(value = "/mo_package", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String packageMainGET() {
 		return "package/mo_package";
 	}

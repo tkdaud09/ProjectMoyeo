@@ -144,7 +144,7 @@
               <a class="" href="javascript:void(0)">패키지여행</a>
               <ul class="dropdown drop-up">
                 <li class=" ">
-                  <a href="${pageContext.request.contextPath}/package/mo_package">패키지여행</a>
+                  <a href="${pageContext.request.contextPath}/package/">패키지여행</a>
                 </li>
               </ul>
             </li>
