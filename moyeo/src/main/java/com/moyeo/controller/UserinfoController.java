@@ -58,8 +58,8 @@ public class UserinfoController {
 		userinfo.setPw(encodePw);
 
 		userinfoservice.registerUser(userinfo);// 회원가입 쿼리 실행
-
-		return "redirect:/user/main";
+ 
+		return "redirect:/"; //메인 페이지
 
 	}
 
@@ -140,7 +140,7 @@ public class UserinfoController {
 
 				userinfoservice.updateUserLogindate(lto.getId());// 마지막 로그인 날짜 업데이트
 
-				return "redirect:/user/main"; // 메인페이지 이동
+				return "redirect:/"; // 메인페이지 이동
 
 			} else {
 				rttr.addFlashAttribute("result", 0);
@@ -161,12 +161,14 @@ public class UserinfoController {
 
 		return "redirect:/user/login";
 	}
-
-	/* 메인페이지 이동 */
+	
+	
+	/* 메인페이지 이동
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String mainGET() {
 		return "userinfo/main";
 	}
+	*/
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String userGET(Model model, HttpSession session) {
@@ -187,50 +189,7 @@ public class UserinfoController {
 		return "userinfo/user";
 	}
 
-	/* 마이페이지 */
-
-	// 마이 페이지로 이동
-
-	/*
-	 * @RequestMapping(value = "/mypage", method = RequestMethod.GET) public String
-	 * mypage(HttpSession session) { session.invalidate();
-	 * 
-	 * return "mypage/main";
-	 * 
-	 * }
-	 * 
-	 * // 아이디를 전달받아 USEINFO 테이블에 저장된 회원정보를 검색하여 마이페이지로 이동
-	 * 
-	 * @RequestMapping(value = "/mypage", method = RequestMethod.POST) public String
-	 * view(@RequestParam String id, Model model) throws UserinfoNotFoundException {
-	 * model.addAttribute("userinfo", userinfoservice.getUserinfoById(id)); return
-	 * "mypage/main"; }
-	 * 
-	 * // 여기부터!!!!!
-	 * 
-	 * // 정보 수정 페이지로 이동
-	 * 
-	 * @RequestMapping(value = "/modify", method = RequestMethod.GET) public String
-	 * modify(@RequestParam String id, Model model) throws UserinfoNotFoundException
-	 * { model.addAttribute("userinfo", userinfoservice.getUserinfoById(id)); return
-	 * "mypage/modify"; }
-	 * 
-	 * // 정보 수정
-	 * 
-	 * @RequestMapping(value = "/modify", method = RequestMethod.POST) public String
-	 * modify(@ModelAttribute Userinfo userinfo, HttpSession session) throws
-	 * UserinfoNotFoundException { userinfoservice.modifyUserinfo(userinfo);
-	 * 
-	 * Userinfo loginUserinfo = (Userinfo) session.getAttribute("loginUserinfo");
-	 * 
-	 * // 로그인 사용자와 변경 처리된 사용자가 동일한 경우 if
-	 * (loginUserinfo.getId().equals(userinfo.getId())) { // 세션에 권한 관련 정보(회원정보)로 저장된
-	 * 속성값 변경 session.setAttribute("loginUserinfo",
-	 * userinfoservice.getUserinfoById(userinfo.getId())); }
-	 * 
-	 * return "redirect:/user/mypage?userid=" + userinfo.getId(); }
-	 */
-
+	
 	/* 마이페이지 */
 
 	// 마이페이지 메인으로 이동
@@ -328,7 +287,8 @@ public class UserinfoController {
 
 				userinfoservice.updateUserLogindate(lto.getId());// 마지막 로그인 날짜 업데이트
 
-				return "redirect:/user/main"; // 메인페이지 이동
+				return "redirect:/"; // 메인페이지 이동
+
  
 			} else {
 				rttr.addFlashAttribute("result", 0);
