@@ -32,7 +32,7 @@ public class CartController {
 
         cartService.addCart(dto);
 
-        return "redirect:/cart/list";
+       return "redirect:/cart/list";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)

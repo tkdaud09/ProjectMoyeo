@@ -179,6 +179,6 @@
 			, pack_status 
 			, pack_heart
 		FROM pack
-		WEHRE pack_idx=#{packIdx}
+		WHERE pack_idx=#{packIdx}
 	</select>
 </mapper>
