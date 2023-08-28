@@ -49,6 +49,35 @@
 		)
 	</insert>
 
+	<!-- 모든 접속자 -->  
+
+	<!-- 패키지 상품 정보 출력 (상세페이지) -->
+	<select id="selectPackInfo" resultType="Pack">
+		SELECT 
+			pack_idx
+			, pack_kind
+			, pack_title
+			, pack_preview
+			, pack_main
+			, pack_content
+			, pack_calendar
+			, pack_startdate
+			, pack_enddate
+			, pack_regdate
+			, pack_people
+			, pack_childcount
+			, pack_adultcount
+			, pack_adultprice
+			, pack_childprice
+			, pack_totalprice
+			, pack_left
+			, pack_status 
+			, pack_heart
+		FROM pack
+		WHERE pack_idx=#{packIdx}
+	</select>
+
+
 	<!-- 패키지 변경 -->
 	<update id="updatePack">
 		UPDATE pack
@@ -156,29 +185,4 @@
 		ORDER BY pack_idx
 	</select>
 	
-	<!-- 패키지 상품 정보 -->
-	<select id="selectPackInfo" resultType="Pack">
-		SELECT 
-			pack_idx
-			, pack_kind
-			, pack_title
-			, pack_preview
-			, pack_main
-			, pack_content
-			, pack_calendar
-			, pack_startdate
-			, pack_enddate
-			, pack_regdate
-			, pack_people
-			, pack_childcount
-			, pack_adultcount
-			, pack_adultprice
-			, pack_childprice
-			, pack_totalprice
-			, pack_left
-			, pack_status 
-			, pack_heart
-		FROM pack
-		WHERE pack_idx=#{packIdx}
-	</select>
 </mapper>

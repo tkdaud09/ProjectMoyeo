@@ -30,9 +30,8 @@
 </section> -->
 
 <div class="pack_detail_title">
-	<p>동물과 함께</p>
+	<p>${pack.packTitle} </p>
 </div>
-
 
 <!-- ====================================
 ———	PACKAGES SECTION
