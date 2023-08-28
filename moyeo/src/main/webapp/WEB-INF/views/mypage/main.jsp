@@ -4,15 +4,9 @@
 <html lang="utf-8">
   
   <head>
-  </head>     
 
-<body id="body" class="up-scroll">  
  
 
-<head>
-<meta charset="UTF-8">
-<title>moyeo</title>
-</head>
 <style> 
     .my{
         max-width: 1200px;
@@ -87,8 +81,11 @@
     
 
 </style>
+</head>     
 
-<body>
+<body id="body" class="up-scroll">  
+
+
 <div class="my">
 	<h1>마이페이지</h1>
 

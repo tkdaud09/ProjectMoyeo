@@ -33,7 +33,36 @@
 
 
 
-
+<!--메인 자바스크립트-->
+	 <!-- Javascript -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/menuzord/js/menuzord.js"></script>
+    
+    <script src='${pageContext.request.contextPath}/assets/plugins/isotope/isotope.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/images-loaded/js/imagesloaded.pkgd.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/fancybox/jquery.fancybox.min.js'></script>
+    
+    <script src='${pageContext.request.contextPath}/assets/plugins/selectric/jquery.selectric.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/moment.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/daterangepicker.min.js'></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/plugins/lazyestload/lazyestload.js"></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/rateyo/jquery.rateyo.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/dzsparallaxer/dzsparallaxer.js'></script>
+    
+    
+    
+    
+    
+    <script src='${pageContext.request.contextPath}/assets/plugins/revolution/js/jquery.themepunch.tools.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/revolution/js/jquery.themepunch.revolution.min.js'></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
+    
+    <script src='${pageContext.request.contextPath}/assets/plugins/owl-carousel/owl.carousel.min.js'></script>
+    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDU79W1lu5f6PIiuMqNfT1C6M0e_lq1ECY'></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
 
 
 

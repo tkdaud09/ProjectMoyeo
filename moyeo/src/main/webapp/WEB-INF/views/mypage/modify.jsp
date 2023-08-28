@@ -2,169 +2,108 @@
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<meta charset="utf-8" />
-<title>마이페이지</title>
-<style type="text/css">
-.container {
-   position: absolute;
-   left: 50%;
-   top: 106.4%;
-   transform: translate(-50%, -50%);
-   width: 670px;
-   height: 1650px;
-   background: #FFFFFF;
-   border: 1px solid #AACDFF;
-   box-shadow: 7px 7px 39px rgba(0, 104, 255, 0.25);
-   border-radius: 20px;
-   margin: 0px;
-   padding: 100px;
-   box-sizing: border-box;
-   display: flex;
-   flex-direction: column;
-   flex-wrap: nowrap;
-}
-
-h2 {
-   width: 466px;
-   height: 104px;
-   left: 725px;
-   top: 102px;
-   font-family: 'Noto Sans CJK KR';
-   font-style: normal;
-   font-weight: 700;
-   font-size: 38px;
-   line-height: 47px;
-   color: #0068FF;
-   justify-content: space-evenly;
-}
-
-button {
-   width: 400px;
-   height: 50px;
-   left: 725px;
-   top: 875px;
-   background-color: #FFFFFF;
-   color: royalblue;
-   border-radius: 8px;
-   border: #0068FF solid 1px;
-}
-
-input {
-   padding: 0px;
-   border: none;
-   border-bottom: 1px solid #CFCFCF;
-   width: 466px;
-   height: 30px;
-}
-
-label {
-   color: lightgrey;
-}
-
-.radio {
-   align-items: center;
-   font-size: 20pt;
-   width: 15px;
-   height: 15px;
-}
-
-/* div.container {
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-} */
-input.agree {
-   align-items: center;
-   font-size: 20pt;
-   width: 15px;
-   height: 15px;
-}
-
-/* 이메일 정규식 */
-.email_input_re {
-   color: red;
-   display: none;
-}
-
-/* 휴대폰번호 정규식 */
-.phone_input_re {
-   color: red;
-   display: none;
-}
-
-/* 유효성 검사 문구 */
-.final_email_ck {
-   display: none;
-   color: red;
-}
-
-.final_phone_ck {
-   display: none;
-   color: red;
-}
-</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css" >
 </head>
-<body>
 
-   <div>
-      <div class="container">
-         <h2>마이페이지</h2>
+
+<body>
+   <section class="">
+	  <div class="container">
+		<div class="py-10">
+		<div class="join_form_section">
+			 
+         <h2  class="title_f">마이페이지</h2>
          <form id="mypage_form" name="login" action="modify" method="post">
+         
             <input type="hidden"  value="${userinfo.id}">
-            <input type="hidden"  value="${userinfo.name}"> <label
-               for="id">* 아이디<br> <input type="text" class="id_input"
-                value="${userinfo.id }" readonly> <br>
-            </label><br> <br> <label for="name">* 이름<br> <input
-               type="text" class="name_input" class="name_input" 
+            <input type="hidden"  value="${userinfo.name}"> 
+            <label for="id"><p class="s_tit">아이디</p>
+            <input type="text" class="id_input input_f"
+                value="${userinfo.id }" readonly> 
+            </label>
+            
+            <label for="name" class="sp"><p class="s_tit">이름</p><input
+               type="text" class="name_input input_f" 
                value="${userinfo.name }" readonly><br>
-            </label><br> <br> <label for="year">* 생년월일<br> <input
-               type="text" class="year_input" name="birth"
-               value="${userinfo.birth }" readonly><br>
-            </label><br> <br> <label for="address">* 주소</label><br> <input
-               type="text" id="address_input"
-               value="${userinfo.address}" readonly> <br> <input
-               type="text" id="postcode" placeholder="우편번호" readonly="readonly">
-            <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
-            <input type="text" id="roadAddress" placeholder="도로명주소" size="60"
-               readonly="readonly"><br> <input type="hidden" id="jibunAddress"
-               placeholder="지번주소" size="60"> <span id="guide"
-               style="color: #999; display: none"></span> <input type="text"
-               id="detailAddress" placeholder="상세주소" size="60"> <input
-               type="hidden" id="extraAddress" placeholder="참고항목" size="60"> <input
-               type="hidden" id="engAddress" placeholder="영문주소" size="60"> <input
-               type="hidden" id="totaladdress" name="address" value=""> <br> <br> <label for="gender">성별<br></label> <input type="radio" class="radio" name="gender" value="m" id="man">&nbsp;
+            </label>
+            
+            <label for="year" class="sp"><p class="s_tit">생년월일</p><br> 
+            <input
+               type="text" class="year_input input_f" name="birth"
+               value="${userinfo.birth }" readonly>
+            </label>
+            
+            <label for="address" class="sp"><p class="s_tit">주소</p></label> <input
+               type="text" id="address_input" class="input_f"
+               value="${userinfo.address}" readonly>
+               <input
+               type="text" id="postcode" class="input_f" placeholder="우편번호" readonly="readonly">
+            <input type="button" onclick="execDaumPostcode()"  class="input_f" value="우편번호 찾기">
+            <input type="text" id="roadAddress"  class="input_f" placeholder="도로명주소" size="60"
+               readonly="readonly"><br> <input type="hidden" id="jibunAddress" class="input_f"
+               placeholder="지번주소" size="60"> <span id="guide" style="color: #999; display: none"></span> 
+               <input type="text" class="input_f"
+               id="detailAddress" placeholder="상세주소" size="60"> <input class="input_f"
+               type="hidden" id="extraAddress" placeholder="참고항목" size="60"> <input class="input_f"
+               type="hidden" id="engAddress" placeholder="영문주소" size="60"> <input class="input_f"
+               type="hidden" id="totaladdress" name="address" value="">
+               <br><br>
+               <label for="gender" class="sp"><p class="s_tit">성별</p></label> 
+               <input type="radio" class="radio" name="gender" value="m" id="man">&nbsp;
             남성 <input type="radio" class="radio" name="gender"
-               value="f" id="woman">&nbsp; 여성 <br> <br> <br> <br> <label
-               for="email">* 이메일<br>
-            </label> <span class="final_email_ck">이메일을 입력해주세요.</span> <span
-               class="email_input_re">이메일을 형식에 맞게 입력해주세요</span> <input
-               type="text" class="email_input" id="user_email" 
-               value="${userinfo.email }"><br> <input type="hidden"
-               id="totalemail" name="email" > <br>
-            <div class="input-group-addon">
-               <button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
-            </div>
+               value="f" id="woman">&nbsp; 여성 <br> <br> <br>
+               
+               
+               
+               <label for="email" class="sp"><p class="s_tit">이메일</p></label>
+             <span class="final_email_ck">이메일을 입력해주세요.</span> <span
+               class="email_input_re input_f" >이메일을 형식에 맞게 입력해주세요</span> 
+               
+               <div class="join_tt">
+		           <div class="join_right">
+	              	 <input type="text" class="email_input input_f" id="user_email" value="${userinfo.email }">
+	              	 <input type="hidden" class="input_f"  id="totalemail" name="email" > 
+	               </div>  
+	           
+		            <div class="input-group-addon join_left">
+		               <button type="button" class="btn btn-primary me_btn" id="mail-Check-Btn">본인인증</button>
+		            </div>
+		        </div>  
+	           
+            
+            
+            
             <br>
             <div class="mail-check-box">
-                  <input class="mail-check-input" placeholder="인증번호 6자리를 입력해주세요!"
+                  <input class="mail-check-input input_f" placeholder="인증번호 6자리를 입력해주세요!"
                      disabled="disabled" maxlength="6">
                </div>
                <div>
                   <span id="mail-check-warn"></span>
-               </div> <br> <br> <br> <br> <br> <label
-               for="phone">* 휴대전화<br> <input type="text"
-                  class="phone_input" name="phone" id="phone"
+               </div> <br>
+               
+               
+               
+               
+               <label for="phone" class="sp"><p class="s_tit">휴대폰 번호</p>
+               <input type="text"
+                  class="phone_input input_f" name="phone" id="phone" placeholder="010-****-****" 
                   value="${userinfo.phone }"><br> <span
                   class="final_phone_ck">휴대폰번호를 입력해주세요.</span> <span
                   class="phone_input_re">번호를 형식에 맞게 입력해주세요.</span>
-            </label> <br> <input type="button" class="join_button" value="수정완료">
+            </label> 
+            <br><br>
+            <input type="button" class="join_button" value="수정완료">
          </form>
       </div>
    </div>
+   </div>
+</section>
 
    <script>
    

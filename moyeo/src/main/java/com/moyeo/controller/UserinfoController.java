@@ -96,6 +96,10 @@ public class UserinfoController {
 	public String loginGET() {
 		return "userinfo/login";
 	}
+	
+	
+	
+	
 
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

@@ -2,297 +2,148 @@
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<meta charset="utf-8" />
-<title>Moyeo 회원가입</title> 
-<style type="text/css">
-.container {
-    position: absolute;
-
-    left: 50%;
-    top: 20%;
-    transform: translate(-50%, -50%);
-    width: 670px;
-    height: 1000px;
-    background: #FFFFFF;
-    border: 1px solid #AACDFF;
-    box-shadow: 7px 7px 39px rgba(0, 104, 255, 0.25);
-    border-radius: 20px;
-
-    margin: 0px;
-    padding: 100px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-
-h2 {
-    width: 466px;
-    height: 104px;
-    left: 725px;
-    top: 102px;
-
-    font-family: 'Noto Sans CJK KR';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 38px;
-    line-height: 47px;
-
-    color: #0068FF;
-    justify-content: space-evenly;
-
-
-}
-
-button {
-    width: 467px;
-    height: 50px;
-    left: 725px;
-    top: 875px;
-    background-color: #FFFFFF;
-    color: royalblue;
-    border-radius: 8px;
-    border: #0068FF solid 1px;
-}
-
-input {
-    padding: 0px;
-    border: none;
-    border-bottom: 1px solid #CFCFCF;
-    width: 466px;
-    height: 30px;
-}
-
-label {
-    color: lightgrey;
-}
-
-.radio {
-    align-items: center;
-    font-size: 20pt;
-    width: 15px;
-    height: 15px;
-}
-
-/* div.container {
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-} */ 
-
-input.agree {
-    align-items: center;
-    font-size: 20pt;
-    width: 15px;
-    height: 15px;
-}
-
-.join_button {
-    width: 300px;
-    height: 70px;
-    background-color: #0068FF;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    font-family: 'Noto Sans CJK KR';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 38px;
-}
-
-.join_button:hover {
-    background-color: #0052CC;
-    transform: scale(1.05);
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* 필요한 여백을 조정해주세요 */
-}
-
-
-.id_input_re_1{
-   color : blue;
-   display : none;
-}
-/* 중복아이디 존재하는 경우 */
-.id_input_re_2{
-   color : red;
-   display : none;
-}
-.id_input_re_1, .id_input_re_2 {
-        display: none;
-}
-
-/* 이름 2글자 */
-.name_input_re{
-   color: red;
-   display: none;
-}
-/* 아이디 정규식 */
-.id_input_re{
-   color: red;
-   display: none;
-}
-/* 비밀번호 정규식 */
-.pw_input_re{
-   color: red;
-   display: none;
-}
-.pw_input_re2{
-   color: blue;
-   display: none;
-}
-/* 이메일 정규식 */
-.email_input_re{
-   color: red;
-   display: none;
-}
-/* 생년월일 정규식 */
-.year_input_re{
-   color: red;
-   display: none;
-}
-/* 휴대폰번호 정규식 */
-.phone_input_re{
-   color: red;
-   display: none;
-}
-
-/* 유효성 검사 문구 */
-.final_id_ck{
-    display: none;
-    color: red;
-}
-.final_pw_ck{
-    display: none;
-    color: red;
-}
-.final_pwck_ck{
-    display: none;
-    color: red;
-}
-.final_name_ck{
-    display: none;
-    color: red;
-}
-.final_email_ck{
-    display: none;
-    color: red;
-}
-.final_gender_ck{
-    display: none;
-    color: red;
-}    
-.final_year_ck{
-    display: none;
-    color: red;
-}
-.final_phone_ck{
-    display: none;
-    color: red;
-}
-.final_address_ck{
-    display: none;
-    color: red;
-}
-/* 비밀번호 확인 일치 유효성검사 */
-.pwck_input_re_1{
-        color : blue;
-        display : none;    
-}
-.pwck_input_re_2{
-        color : red;
-        display : none;    
-}
-</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css" >
 </head>
+
+
 <body>
-   <div>
-        <div class="container" >
-            <h2>회원가입을 위해<br>정보를 입력해주세요.</h2>
+   <section class="">
+	  <div class="container">
+		<div class="py-10">
+			 
+			 
+   
+   <div class="join_form_section">
+            <h2 class="title_f">회원가입</h2>
             <form id="join_form" name="login" action="/join" method="post" >
-            <label for="id">* 아이디<br>
-               <input type="text" class="id_input" name="id" id="id" >
+            
+            
+            <label for="id" class="sp">
+            	<p class="s_tit">아이디</p>
+               <input type="text" class="id_input input_f" name="id" id="id" placeholder="아이디를 입력하세요." >
                <span class="id_input_re_1">사용 가능한 아이디입니다.</span>
                 <span class="id_input_re_2">사용 불가(중복, 조건미달) 아이디입니다.</span>
                 <span class="final_id_ck">아이디를 입력해주세요.</span>
                 <span class="id_input_re">4~20자의 영문 대소문자 및 숫자만 입력가능합니다.</span>
-            </label><br><br>
-            <label for="pw">* 비밀번호<br>
-                 <input type="password" class="pw_input" name="pw" id="pw" >
+            </label>
+            
+            
+            
+            <label for="pw" class="sp" >
+            	<p class="s_tit">비밀번호</p>
+                 <input type="password" class="pw_input input_f" name="pw" id="pw" placeholder="비밀번호를 입력하세요."  >
                <span class="final_pw_ck">비밀번호를 입력해주세요.</span>
                <span class="pw_input_re">8~16자의 영문 대소문자 숫자 및 특수문자를 최소 하나씩 입력해주세요.</span>
                <span class="pw_input_re2">사용 가능한 비밀번호 입니다.</span>
-            </label><br><br>
-            <label for="pw2">* 비밀번호 확인<br>
-                 <input type="password" class="pwck_input" name="pw2" id="pw2" ><span id="check"></span>
+            </label>
+            <label for="pw2"  class="sp">
+            	<p class="s_tit">비밀번호 확인</p>
+                 <input type="password" class="pwck_input input_f"  name="pw2" id="pw2" placeholder="비밀번호를 재입력하세요." ><span id="check"></span>
                <span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span> 
                <span class="pwck_input_re_1">비밀번호가 일치합니다.</span> 
                <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span> 
-          </label><br><br>
-         <label for="name">* 이름<br>
-            <input type="text" class="name_input" name="name" id="name" value="" >
+          </label>
+          
+          
+          
+         <label for="name" class="sp">
+         	<p class="s_tit">이름</p>
+            <input type="text" class="name_input input_f" name="name" id="name" value=""  placeholder="이름을 입력하세요.">
                 <span class="name_input_re">2~4 글자의 한글만 가능합니다.</span>
                <span class="final_name_ck">이름을 입력해주세요.</span>
-            </label><br><br>
-         <label for="year">* 생년월일<br>
-                 <input type="text" class="year_input" name="birth" id="birth" placeholder="ex)2000-01-01" ><br>
+            </label>
+            
+            
+         	<label for="year"  class="sp">
+         		<p class="s_tit">생년월일</p>
+                 <input type="text" class="year_input input_f" name="birth" id="birth" placeholder="ex) 2000-01-01" ><br>
                <span class="final_year_ck">생년월일을 입력해주세요.</span>
                <span class="year_input_re">생년월일을 맞게 입력해주세요.</span>
-            </label><br><br>
-            <label for="address">* 주소</label><br>
+            </label>
+            
+            
+            <div class="sp">
+            	<label for="address"><p class="s_tit">주소</p></label>
                <span class="final_address_ck">우편번호 찾기를 선택해주세요.</span>
-               <input type="text" class="address_input" id="postcode" placeholder="우편번호" readonly="readonly" >
-               <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
-               <input type="text" id="roadAddress" placeholder="도로명주소" size="60" readonly="readonly" ><br>
-               <input type="hidden" id="jibunAddress" placeholder="지번주소" size="60">
+               <input type="text" class="address_input input_f" id="postcode" placeholder="우편번호" readonly="readonly" >
+               <input type="button" class="input_f" onclick="execDaumPostcode()" value="우편번호 찾기">
+               <input type="text" class="input_f" id="roadAddress" placeholder="도로명주소" size="60" readonly="readonly" ><br>
+               <input type="hidden" class="input_f" id="jibunAddress" placeholder="지번주소" size="60">
                <span id="guide" style="color:#999;display:none"></span>
-               <input type="text" id="detailAddress" placeholder="상세주소" size="60">
-               <input type="hidden" id="extraAddress" placeholder="참고항목" size="60">
-               <input type="hidden" id="engAddress" placeholder="영문주소" size="60">
-               <input type="hidden" id="totaladdress" name="address" value="">
-            <br><br>
+               <input type="text" class="input_f" id="detailAddress" placeholder="상세주소" size="60">
+               <input type="hidden" iclass="input_f" d="extraAddress" placeholder="참고항목" size="60">
+               <input type="hidden" class="input_f" id="engAddress" placeholder="영문주소" size="60">
+               <input type="hidden" class="input_f" id="totaladdress" name="address" value="">
+            </div>
             
-            <label for="gender">성별<br></label>
-               <input type="radio" class="radio" name="gender" value="m" id="man">&nbsp; 남성
-               <input type="radio" class="radio" name="gender" value="f" id="woman">&nbsp; 여성
-               <span class="final_gender_ck">성별을 선택해주세요.</span><br><br>
-            <br><br>
             
-         <label for="email">* 이메일<br></label>
-           <span class="final_email_ck">이메일을 입력해주세요.</span>
-           <span class="email_input_re">이메일을 형식에 맞게 입력해주세요</span>
-           <input type="text" class="email_input" id="user_email" ><br>
-              <input type="hidden" id="totalemail" name="email" value=""> <br>
-           <div class="input-group-addon">
-              <button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
-             </div><br>
-           <div class="mail-check-box">
-              <input class="mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+            <div class="sp">
+            	<label for="gender"><p class="s_tit">성별</p></label>
+               <input type="radio" class="radio " name="gender" value="m" id="man" ><span class="gen_m"> 남성</span>
+               <input type="radio" class="radio gen_w" name="gender" value="f" id="woman"><span class="gen_m"> 여성</span>
+               <span class="final_gender_ck">성별을 선택해주세요.</span><br>
            </div>
-             <div>
-              <span id="mail-check-warn"></span>
-           </div><br><br>
+            
+          <div class="sp">  
+	         <label for="email"><p class="s_tit">이메일</p></label>
+	           <span class="final_email_ck">이메일을 입력해주세요.</span>
+	           <span class="email_input_re">이메일을 형식에 맞게 입력해주세요</span>
+	           
+	           
+	           <div class="join_tt">
+		           <div class="join_right">
+		           	  <input type="text" class="email_input input_f" id="user_email"  placeholder="이메일을 입력해주세요" >
+		              <input type="hidden" id="totalemail" name="email" value="">
+		            </div>  
+		              
+		           <div class="input-group-addon join_left">
+		              <button type="button" class="btn btn-primary me_btn" id="mail-Check-Btn">본인인증</button>
+		             </div>
+	           </div>  
+	             
+	           <div class="mail-check-box">
+	              <input class="mail-check-input input_f" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+	           </div>
+	             <div>
+	              <span id="mail-check-warn" class="sp"></span>
+	           </div>
+            </div>
            
            
-           <label for="phone">* 휴대전화<br>
-                <span class="final_phone_ck">휴대폰번호를 입력해주세요.</span>
-              <span class="phone_input_re">번호를 형식에 맞게 입력해주세요.</span>
-              <input type="text" class="phone_input" name="phone" id="phone" placeholder="010-****-****" ><br> <br>
-            </label><br><br>
-            <div class="button-container">
+            <div class="sp">  
+	           <label for="phone"><p class="s_tit">휴대폰 번호</p>
+	                <span class="final_phone_ck">휴대폰번호를 입력해주세요.</span>
+	              <span class="phone_input_re">번호를 형식에 맞게 입력해주세요.</span>
+	              <input type="text" class="phone_input input_f" name="phone" id="phone" placeholder="010-****-****" ><br> <br>
+	            </label>
+            </div>
+            
+            
+            <br>
   	 			<input type="button" class="join_button" value="가입하기">
-			</div>
+			
             </form>
         </div>
-    </div>
+    
+    
+   </div>
+ </div> 
+</section>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 <script>
    

@@ -6,13 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>SPRING</title>
+	<tiles:insertAttribute name="head" />
 </head>
 <body>
-	<div id="head">
-		<tiles:insertAttribute name="head"/>
-	</div>
 	
 	<div id="header">
 		<%-- insertAttribute 태그 : TilesView 프로그램의 환경설정파일에서 put-attribute 엘리먼트로

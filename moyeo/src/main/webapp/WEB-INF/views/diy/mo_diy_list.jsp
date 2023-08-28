@@ -59,47 +59,6 @@
 
 
 
-    <!-- Javascript
-    <script src="assets/plugins/jquery/jquery-3.4.1.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/plugins/menuzord/js/menuzord.js"></script>
-
-    <script src='assets/plugins/fancybox/jquery.fancybox.min.js'></script>
-
-    <script src="assets/plugins/lazyestload/lazyestload.js"></script>
-   
-    <script src="assets/plugins/smoothscroll/SmoothScroll.js"></script>
-    
-    <script src="assets/js/star.js"></script>
- -->
-
-
-	<!--메인 자바스크립트-->
-	 <!-- Javascript -->
-    <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/plugins/menuzord/js/menuzord.js"></script>
-    
-    <script src='${pageContext.request.contextPath}/assets/plugins/isotope/isotope.min.js'></script>
-    <script src='${pageContext.request.contextPath}/assets/plugins/images-loaded/js/imagesloaded.pkgd.min.js'></script>
-    <script src='${pageContext.request.contextPath}/assets/plugins/fancybox/jquery.fancybox.min.js'></script>
-    
-    <script src='${pageContext.request.contextPath}/assets/plugins/selectric/jquery.selectric.min.js'></script>
-    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/moment.min.js'></script>
-    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/daterangepicker.min.js'></script>
-    
-    <script src="${pageContext.request.contextPath}/assets/plugins/lazyestload/lazyestload.js"></script>
-    <script src='${pageContext.request.contextPath}/assets/plugins/dzsparallaxer/dzsparallaxer.js'></script>
-    
-    
-    
-    
-    
-    <script src='${pageContext.request.contextPath}/assets/plugins/revolution/js/jquery.themepunch.tools.min.js'></script>
-    <script src='${pageContext.request.contextPath}/assets/plugins/revolution/js/jquery.themepunch.revolution.min.js'></script>
-    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
-    
-    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
   </body>
 </html>
 

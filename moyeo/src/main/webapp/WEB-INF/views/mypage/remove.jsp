@@ -1,40 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
-<html>
+<html >
+  
+
 <head>
-<meta charset="UTF-8">
-<title>moyeo</title>
-<style>
-.login_warn {
-	color : red;
-}
-</style>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/resources/css/member/login.css">
+	 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css" >
+	 
+	<style>
+	.login_warn {
+		color : red;
+	}
+	</style>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	  crossorigin="anonymous"></script>
+  
 </head>
 <body>
 
-<div class="wrapper">
-	
-	<div class="wrap">
+<section class="">
+  <div class="container">
+		<div class="py-10">
+		
 		<form id="login_form" method="post">
-			<div class="logo_wrap">
+			<div class="logo_wrap title_f">
 				<span>회원 탈퇴 확인 페이지</span>
 			</div>
 			<div class="login_wrap"> 
 				<div class="id_wrap">
 						<div class="id_input_box">
-						<input type="text" name="id" value="${userinfo.id }" readonly>
+						<input class="input_f" type="text" name="id" value="${userinfo.id }" readonly>
 					</div>
 				</div>
 				<div class="pw_wrap">
 					<div class="pw_input_box">
-						<input class="pw_iput" name="pw">
+						<input class="pw_iput input_f" name="pw" placeholder="비밀번호를 입력하세요.">
 					</div>
 				</div>
 				
@@ -43,16 +46,18 @@
 				</c:if>
 				
 				<div class="login_button_wrap">
-					<input type="button" class="confirm_button" value="탈퇴하기">
-				</div>			
+					<input type="button" class="confirm_button btn2" value="탈퇴하기">
+					<button class="btn1" onclick="goBack()">취소</button>
+				</div>		
 			</div>
 		</form>
 		
-		<button onclick="goBack()">취소</button>
+
 		
 	</div>
 
 </div>
+</section>
 
 <script>
 

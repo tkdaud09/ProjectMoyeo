@@ -41,29 +41,7 @@
     <link href='${pageContext.request.contextPath}/assets/plugins/owl-carousel/owl.carousel.min.css' rel='stylesheet' media='screen'>
     <link href='${pageContext.request.contextPath}/assets/plugins/owl-carousel/owl.theme.default.min.css' rel='stylesheet' media='screen'>
 
-    
-  
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
     
 
     <!-- GOOGLE FONT -->
