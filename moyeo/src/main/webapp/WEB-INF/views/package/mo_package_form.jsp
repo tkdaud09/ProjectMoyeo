@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -56,7 +56,7 @@
     }
     
     .aihocf{
-    	font-size: 0.3px;
+       font-size: 0.3px;
         display: block;
         position: absolute;
         left: 245px;
@@ -83,213 +83,213 @@
     }
     
     .btn_section{
-    	text-align: center;
-    	margin-top: 70px;
-	}
+       text-align: center;
+       margin-top: 70px;
+   }
     
-	.btn_section button{
-		width: 130px;
-		padding: 8px;
+   .btn_section button{
+      width: 130px;
+      padding: 8px;
         border: none;
         font-size: 0.9em;
         letter-spacing: 2px;
         cursor: pointer;
-	}
+   }
     
-	.btn_section .btn{
-		background: #eee;
-		margin-right: 5px;
-	}
+   .btn_section .btn{
+      background: #eee;
+      margin-right: 5px;
+   }
     
-	.btn_section .enroll_btn{
-		background:#000;
-		color:#fff;
-	}
+   .btn_section .enroll_btn{
+      background:#000;
+      color:#fff;
+   }
 
 
 </style>
 
 <body id="body" class="up-scroll">
 
-	<div class="main-wrapper packages-grid">
+   <div class="main-wrapper packages-grid">
 
 
-		<!-- ====================================
-———	PAGE TITLE
-=====================================-->
-		<section class="page-title">
-			<div class="page-title-img bg-img bg-overlay-darken"
-				style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg13.jpg);">
-				<div class="container">
-					<div class="row align-items-center justify-content-center"
-						style="height: 200px;">
-						<div class="col-lg-6">
-							<div class="page-title-content">
-								<div class="">
-									<h2 class="text-uppercase text-white font-weight-bold">패키지
-										여행</h2>
-								</div>
-								<p class="text-white mb-0"></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+      <!-- ====================================
+———   PAGE TITLE
+===================================== -->
+      <section class="page-title">
+         <div class="page-title-img bg-img bg-overlay-darken"
+            style="background-image: url(assets/img/pages/page-title-bg13.jpg);">
+            <div class="container">
+               <div class="row align-items-center justify-content-center"
+                  style="height: 200px;">
+                  <div class="col-lg-6">
+                     <div class="page-title-content">
+                        <div class="">
+                           <h2 class="text-uppercase text-white font-weight-bold">패키지
+                              여행</h2>
+                        </div>
+                        <p class="text-white mb-0"></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
 
-		<div class="pack_detail_title">
-			<p></p>
-		</div>
+      <div class="pack_detail_title">
+         <p></p>
+      </div>
 
-		<!-- ====================================
-———	PACKAGES SECTION
-=====================================-->
-	      <div class="admin_content_wrap">
+      <!-- ====================================
+———   PACKAGES SECTION
+===================================== -->
+         <div class="admin_content_wrap">
                     <div class="admin_content_subject"><span>패키지 등록</span></div>
                     <div class="admin_content_main">
                     
-                    	<form action="/moyeo/package/addPackage" method="post" id="enrollForm">
-                    		<div class="form_section">
-                    			<div class="form_section_title">
-                    				<label>제목</label>
-                    			</div>
-                    			<div class="form_section_content">
-                    				<input name="packName" placeholder="ex) 강아지와 함께하는 2박3일 제주도 여행">
+                       <form action="addPackage" method="post" id="enrollForm"  enctype="multipart/form-data">
+                          <div class="form_section">
+                             <div class="form_section_title">
+                                <label>제목</label>
+                             </div>
+                             <div class="form_section_content">
+                                <input name="packTitle" placeholder="ex) 강아지와 함께하는 2박3일 제주도 여행">
                     
-                    			</div>
-                    		</div>
-                    		
-                    		<div class="form_section">
-                    			<div class="form_section_title">
-                    				<label>패키지 시작일자</label>
-                    			</div>
-                    			<div class="form_section_content">
-                    				<input type="date" name="packStartDate" id="fundingStart" 
-                    				class="form-control festival-form-control">
-                    	
-                    			</div>
-                    		</div>
-                    		
-                    		<div class="form_section">
-                    			<div class="form_section_title">
-                    				<label>패키지 종료일자</label>
-                    			</div>
-                    			<div class="form_section_content">
-                    				<input type="date" name="packEndDate" id="fundingStart" 
-                    				class="form-control festival-form-control">
-                    			</div>
-                    		</div>
-                    		
-                    		<div class="form_section">
-                    			<div class="form_section_title">
-                    				<label>패키지 종류</label>
-                    			</div>
-                    			<div class="form_section_content">
-                    				<div class="cate_wrap">
-                    					<span>분류</span>
-                    					 <select class="cate1" name="packKind">
-							                <option value="A">A</option> 
-							                <option value="I">I</option>
-							                <option value="H">H</option>
-							                <option value="P">P</option>
-							                <option value="C">C</option>
-							                <option value="F">F</option>
-           								 </select>
-                    				</div>
-                    			</div>
-                                <span class="aihocf">A : 혼자, I : 아이, H : 배려, P : 동물, C : 연인, F : 친구</span>
-                    		</div>          
-                    		
+                             </div>
+                          </div>
+                          
+                          <div class="form_section">
+                             <div class="form_section_title">
+                                <label>패키지 시작일자</label>
+                             </div>
+                             <div class="form_section_content">
+                                <input type="date" name="packStartDate" id="fundingStart" 
+                                class="form-control festival-form-control">
                        
-                    		<div class="form_section">
-                    			<div class="form_section_title">
-                    				<label>인원수</label>
-                    			</div>
-                    			<div class="form_section_content">
-                    				<input name="packPeople" placeholder="ex) 50">
+                             </div>
+                          </div>
+                          
+                          <div class="form_section">
+                             <div class="form_section_title">
+                                <label>패키지 종료일자</label>
+                             </div>
+                             <div class="form_section_content">
+                                <input type="date" name="packEndDate" id="fundingStart" 
+                                class="form-control festival-form-control">
+                             </div>
+                          </div>
+                          
+                          <div class="form_section">
+                             <div class="form_section_title">
+                                <label>패키지 종류</label>
+                             </div>
+                             <div class="form_section_content">
+                                <div class="cate_wrap">
+                                   <span>분류</span>
+                                    <select class="cate1" name="packKind">
+                                     <option value="A">A</option> 
+                                     <option value="I">I</option>
+                                     <option value="H">H</option>
+                                     <option value="P">P</option>
+                                     <option value="C">C</option>
+                                     <option value="F">F</option>
+                                    </select>
+                                </div>
+                             </div>
+                                <span class="aihocf">A : 혼자, I : 아이, H : 배려, P : 동물, C : 연인, F : 친구</span>
+                          </div>          
+                          
+                       
+                          <div class="form_section">
+                             <div class="form_section_title">
+                                <label>인원수</label>
+                             </div>
+                             <div class="form_section_content">
+                                <input name="packPeople" placeholder="ex) 50">
                     
-                    			</div>
-                    		</div>       
-                    		
-                    		<div class="form_section">
-                    			<div class="form_section_title">
-                    				<label>성인 1인 가격</label>
-                    			</div>
-                    			<div class="form_section_content">
-                    				<input name="packAdultPrice" placeholder="ex) 150000">
+                             </div>
+                          </div>       
+                          
+                          <div class="form_section">
+                             <div class="form_section_title">
+                                <label>성인 1인 가격</label>
+                             </div>
+                             <div class="form_section_content">
+                                <input name="packAdultPrice" placeholder="ex) 150000">
                     
-                    			</div>
-                    		</div>      
-                    		
-                    		<div class="form_section">
-                    			<div class="form_section_title">
-                    				<label>소인 1인 가격</label>
-                    			</div>
-                    			<div class="form_section_content">
-                    				<input name="packChildPrice" placeholder="ex) 50000">
+                             </div>
+                          </div>      
+                          
+                          <div class="form_section">
+                             <div class="form_section_title">
+                                <label>소인 1인 가격</label>
+                             </div>
+                             <div class="form_section_content">
+                                <input name="packChildPrice" placeholder="ex) 50000">
                     
-                    			</div>
-                    		</div>                 
+                             </div>
+                          </div>                 
 
                         
-                   		</form>
-                   	
-	                    		<div class="form_section">
-	                    			<div class="form_section_title">
-	                    				<label>패키지 미리보기 이미지</label>
-	                    			</div>
-	                    			<div class="form_section_content">
-										<input type="file" id ="fileItem" name='uploadFile' style="height: 25px;line-height: 15px;margin-left: 200px">
-										<div id="uploadResult">						
-										</div>
-	                    			</div>
-	                    		</div>   		
-	                    		
-	                    		<div class="form_section">
-	                    			<div class="form_section_title">
-	                    				<label>패키지 메인 이미지</label>
-	                    			</div>
-	                    			<div class="form_section_content">
-										<input type="file" id ="fileItem" name='uploadFile' style="height: 25px;line-height: 15px;margin-left: 200px">
-										<div id="uploadResult">						
-										</div>
-	                    			</div>
-	                    		</div>   		
-	                    		
-	                    		<div class="form_section">
-	                    			<div class="form_section_title">
-	                    				<label>패키지 설명 이미지</label>
-	                    			</div>
-	                    			<div class="form_section_content">
-										<input type="file" id ="fileItem" name='uploadFile' style="height: 25px;line-height: 15px;margin-left: 200px">
-										<div id="uploadResult">						
-										</div>
-	                    			</div>
-	                    		</div>   		
-	                    		
-	                    		<div class="form_section">
-	                    			<div class="form_section_title">
-	                    				<label>패키지 달력 이미지</label>
-	                    			</div>
-	                    			<div class="form_section_content">
-										<input type="file" id ="fileItem" name='uploadFile' style="height: 25px;line-height: 15px;margin-left: 200px">
-										<div id="uploadResult">						
-										</div>
-	                    			</div>
-	                    		</div>   		
+                      
+                             <div class="form_section">
+                                <div class="form_section_title">
+                                   <label>패키지 미리보기 이미지</label>
+                                </div>
+                                <div class="form_section_content">
+                              <input type="file" id ="previewMultipartFile" name="previewMultipartFile" style="height: 25px;line-height: 15px;margin-left: 200px;">
+                              <div id="uploadResult">                  
+                              </div>
+                                </div>
+                             </div>         
+                             
+                             <div class="form_section">
+                                <div class="form_section_title">
+                                   <label>패키지 메인 이미지</label>
+                                </div>
+                                <div class="form_section_content">
+                              <input type="file" id ="mainMultipartFile" name="mainMultipartFile" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <div id="uploadResult">                  
+                              </div>
+                                </div>
+                             </div>         
+                             
+                             <div class="form_section">
+                                <div class="form_section_title">
+                                   <label>패키지 설명 이미지</label>
+                                </div>
+                                <div class="form_section_content">
+                              <input type="file" id ="contentMultipartFile" name="contentMultipartFile" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <div id="uploadResult">                  
+                              </div>
+                                </div>
+                             </div>         
+                             
+                             <div class="form_section">
+                                <div class="form_section_title">
+                                   <label>패키지 달력 이미지</label>
+                                </div>
+                                <div class="form_section_content">
+                              <input type="file" id ="calendarMultipartFile" name="calendarMultipartFile" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <div id="uploadResult">                  
+                              </div>
+                                </div>
+                             </div>         
                 
-                	<div class="btn_section">
-                   				<button id="cancelBtn" class="btn">취 소</button>
-	                    		<button id="enrollBtn" class="btn enroll_btn">등 록</button>
-	                    	</div> 
+                   <div class="btn_section">
+                               <button id="cancelBtn" class="btn">취 소</button>
+                             <button id="enrollBtn" class="btn enroll_btn">등 록</button>
+                          </div> 
+                         </form>
                     </div>                    
                 </div>
 
 
-		<!-- ====================================
-———	PACKAGES LIKE SECTION
-=====================================-->
-		<!--  <section class="pb-10">
+      <!-- ====================================
+———   PACKAGES LIKE SECTION
+===================================== -->
+      <!-- <section class="pb-10">
   <div class="container">
     <div class="text-uppercase mb-4">
       <h2 class="mb-0">you may also like</h2>
@@ -484,13 +484,65 @@
     </div>
   </div>
 </section>
--->
+ —>
 
 
-	</div>
-	<!--element wrapper ends-->
+   </div>
+   <!— element wrapper ends —>
 
-	<script>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- Javascript -->
+   <script
+      src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
+   <script
+      src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script
+      src="${pageContext.request.contextPath}/assets/plugins/menuzord/js/menuzord.js"></script>
+
+   <script
+      src='${pageContext.request.contextPath}/assets/plugins/fancybox/jquery.fancybox.min.js'></script>
+
+   <script
+      src='${pageContext.request.contextPath}/assets/plugins/selectric/jquery.selectric.min.js'></script>
+      
+      
+   <script
+      src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/moment.min.js'></script>
+   <script
+      src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/daterangepicker.min.js'></script>
+   <script
+      src='${pageContext.request.contextPath}/assets/plugins/rateyo/jquery.rateyo.min.js'></script>
+   <script
+      src="${pageContext.request.contextPath}/assets/plugins/lazyestload/lazyestload.js"></script>
+
+   <script
+      src='${pageContext.request.contextPath}/assets/plugins/owl-carousel/owl.carousel.min.js'></script>
+
+
+   <script
+      src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
+   <script
+      src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDU79W1lu5f6PIiuMqNfT1C6M0e_lq1ECY'></script>
+   <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
+
+
+<script>
     let enrollForm = $("#enrollForm");
 
     /* 취소 버튼 */
@@ -503,10 +555,7 @@
         e.preventDefault();
         enrollForm.submit();
     });
-	</script>
-
-
-
+   </script>
 
 </body>
 </html>

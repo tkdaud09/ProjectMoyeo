@@ -500,7 +500,7 @@
           </nav>
         </header>
     </c:when>
-    <c:when test="${userinfo.status == 1}">
+    <c:when test="${userinfo.status == 9}">
         <!-- 관리자일 때의 헤더 -->
         <header class="header" id="pageTop">
         <!-- 관리자용 헤더 내용 추가 -->

@@ -98,9 +98,7 @@ public class UserinfoController {
 	}
 	
 	
-	
-	
-
+	// 로그인
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(HttpServletRequest request, Userinfo userinfo, RedirectAttributes rttr) throws Exception {
