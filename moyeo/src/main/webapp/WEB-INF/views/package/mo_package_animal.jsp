@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="utf-8">
   
@@ -45,22 +47,32 @@
             <h2 class="card-header text-uppercase text-center bg-smoke border-bottom">
               옵션선택
             </h2>
-
+			
+			
             <div class="card-body px-3 py-4">
               <div class="border-bottom mb-5">
                 <div class="form-group mb-5">
                   <div class="row">
                     <label for="inputTime" class="col-xl-5 col-form-label text-center text-xl-right px-2">여행 일정</label>
-
-                    <div class="col-xl-7">
+					
+					<!-- 데이트피커 부분  -->
+					<!--  <div class="col-xl-7">
                       <div class="form-group form-group-icon form-group-icon-category-2 mb-0">
                         <i class="far fa-calendar-alt" aria-hidden="true"></i>
                         <input type="text" class="form-control daterange-picker-category-2" autocomplete="off" name="dateRange" value=""
                           placeholder="MM/DD/YYYY">
                       </div>
-                    </div>
+                    </div>  -->
+                    
+                    	  <div class="pack_date">
+                     		 <p>${pack.packStartDate}</p>
+                     		 <p>${pack.packEndDate}</p>
+                   		 </div>
+   
+	                  
                   </div>
                 </div>
+                
 
                 <!-- <div class="form-group mb-5">
                   <div class="row">
@@ -98,7 +110,7 @@
                     </div>
 
                     <div class="col-xl-2">
-                      <p class="text-center mt-3 mt-xl-0 mb-0">50원</p>
+                      <p class="text-center mt-3 mt-xl-0 mb-0">${pack.packAdultPrice }원</p>
                     </div>
                   </div>
                 </div>
@@ -116,7 +128,7 @@
                     </div>
 
                     <div class="col-xl-2">
-                      <p class="text-center mt-3 mt-xl-0 mb-0">50원</p>
+                      <p class="text-center mt-3 mt-xl-0 mb-0">${pack.packChildPrice }원</p>
                     </div>
                   </div>
                 </div>
@@ -145,19 +157,20 @@
           </div>
         </form>
       </div>
-
+		
+	  <!-- 이미지 출력 -->
       <div class="col-md-7 col-lg-8">
         <div id="package-slider" class="owl-carousel owl-theme package-slider">
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-slider-03.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-slider-03.jpg" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" alt="image">
           </div>
 
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-slider-04.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-slider-04.jpg" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" alt="image">
           </div>
 
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/packages/package-slider-05.jpg" src="${pageContext.request.contextPath}/assets/img/packages/package-slider-05.jpg" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" alt="image">
           </div>
         </div>
 
@@ -165,12 +178,14 @@
 
 		<div class="package_con">
 			<div class="pack_img1">
-				<img src="${pageContext.request.contextPath}/assets/img/packages/pack_img_calendar.png">
+			<!-- <img src="${pageContext.request.contextPath}/assets/img/packages/pack_img_calendar.png">  -->
+			<img src="<c:url value='/assets/img/upload/${pack.packPreview}'/>">
+			
+			
 			</div>
 			<div class="pack_text">여행 상세 내용이 들어갈 공간 </div>
 		</div>
 
-     
 
         <div class="mb-7">
           <h2 class="text-uppercase mb-6">Reviews</h2>

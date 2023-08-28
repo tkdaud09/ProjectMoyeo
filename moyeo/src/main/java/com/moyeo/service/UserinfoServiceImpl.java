@@ -40,7 +40,13 @@ public class UserinfoServiceImpl implements UserinfoService {
     public void updateUserLogindate(String id) {
        userinfoDAO.updateLogdate(id);
     }
-
+    
+    /* 아이디 찾기 */
+    @Override
+    public Userinfo findUserByEmail(String email) {
+        return userinfoDAO.findUserByEmail(email);
+    }
+    
 	
 	/*마이페이지*/
 	

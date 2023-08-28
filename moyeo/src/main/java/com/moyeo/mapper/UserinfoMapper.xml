@@ -68,6 +68,15 @@
 	</update>
 	
 	
+	<!-- 이메일로 사용자 ID 찾기 -->
+    <select id="findUserByEmail" parameterType="string" resultType="com.moyeo.dto.Userinfo">
+        SELECT * 
+        FROM userinfo 
+        WHERE email = #{email}
+    </select>
+	
+	
+	
 	<!-- 휴면계정전환 -->
 	<update id="updateUserToRest">
 		UPDATE userinfo

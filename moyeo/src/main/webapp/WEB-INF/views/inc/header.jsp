@@ -544,7 +544,7 @@
                  
                     <!-- <i class="fa fa-user me-2"></i> -->
                     
-                      <a href="${pageContext.request.contextPath}/user/join">관리자페이지</a>
+                      <a href="${pageContext.request.contextPath}/admin/main">관리자페이지</a>
                     
                 </li>
       

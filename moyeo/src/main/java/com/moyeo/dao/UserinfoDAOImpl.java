@@ -48,6 +48,15 @@ public class UserinfoDAOImpl implements UserinfoDAO {
 		return 0;
 	}
 	
+	/* 아이디 찾기 */
+    
+    @Override
+    public Userinfo findUserByEmail(String email) {
+        //return sqlSession.selectOne("userinfoMapper.findUserByEmail", email);
+       return sqlSession.getMapper(UserinfoMapper.class).findUserByEmail(email);
+    }
+	
+	
 	/* 마이페이지 */
 	
 	//회원정보변경

@@ -58,8 +58,8 @@ public class UserinfoController {
 		userinfo.setPw(encodePw);
 
 		userinfoservice.registerUser(userinfo);// 회원가입 쿼리 실행
- 
-		return "redirect:/"; //메인 페이지
+
+		return "redirect:/"; // 메인 페이지
 
 	}
 
@@ -96,8 +96,7 @@ public class UserinfoController {
 	public String loginGET() {
 		return "userinfo/login";
 	}
-	
-	
+
 	// 로그인
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -128,8 +127,8 @@ public class UserinfoController {
 		Userinfo lto = userinfoservice.userLogin(userinfo);
 
 		String birth = lto.getBirth().substring(0, 10);
-	      lto.setBirth(birth);
-		
+		lto.setBirth(birth);
+
 		if (lto != null) {// 일치하는 아이디 존재
 
 			rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
@@ -163,14 +162,35 @@ public class UserinfoController {
 
 		return "redirect:/user/login";
 	}
-	
-	
-	/* 메인페이지 이동
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String mainGET() {
-		return "userinfo/main";
+
+	/*
+	 * 메인페이지 이동
+	 * 
+	 * @RequestMapping(value = "/main", method = RequestMethod.GET) public String
+	 * mainGET() { return "userinfo/main"; }
+	 */
+
+	/* 아이디 찾기 */
+
+	// 아이디 찾기 메인으로 이동
+	@RequestMapping(value = "/findId", method = RequestMethod.GET)
+	public String findIdForm() {
+		return "/userinfo/findId"; // ID 찾기 페이지로 이동
 	}
-	*/
+
+	// 아이디 찾기
+	@RequestMapping(value = "/findId", method = RequestMethod.POST)
+	public String findId(@RequestParam("email") String email, Model model) {
+		Userinfo userinfo = userinfoservice.findUserByEmail(email);
+
+		if (userinfo != null) {
+			model.addAttribute("foundId", userinfo.getId());
+		} else {
+			model.addAttribute("notFound", true);
+		}
+
+		return "/userinfo/findIdResult"; // ID 찾기 결과 페이지로 이동
+	}
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String userGET(Model model, HttpSession session) {
@@ -191,7 +211,6 @@ public class UserinfoController {
 		return "userinfo/user";
 	}
 
-	
 	/* 마이페이지 */
 
 	// 마이페이지 메인으로 이동
@@ -232,10 +251,10 @@ public class UserinfoController {
 		String encodePw = "";
 
 		Userinfo lto = userinfoservice.userLogin(userinfo);
-		
+
 		String birth = lto.getBirth().substring(0, 10);
-	    lto.setBirth(birth);
-		
+		lto.setBirth(birth);
+
 		if (lto != null) {// 일치하는 아이디 존재
 
 			rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
@@ -294,7 +313,6 @@ public class UserinfoController {
 
 				return "redirect:/"; // 메인페이지 이동
 
- 
 			} else {
 				rttr.addFlashAttribute("result", 0);
 				return "redirect:/user/remove"; // 비밀번호 확인 페이지 이동
@@ -305,12 +323,12 @@ public class UserinfoController {
 			return "redirect:/user/remove"; // 비밀번호 확인 페이지 이동
 		}
 	}
-	 
+
 	// 회원정보 삭제
 	@RequestMapping("/remove")
 	public String remove(@RequestParam String id, HttpSession session) throws UserinfoNotFoundException {
 		userinfoservice.removeUserinfo(id);
-		
+
 		return "redirect:/user/login";
 	}
 

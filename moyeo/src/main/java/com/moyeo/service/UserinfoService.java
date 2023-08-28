@@ -14,6 +14,9 @@ public interface UserinfoService {
 	Userinfo userLogin(Userinfo userinfo) throws LoginAuthFailException;//로그인
 	void updateUserLogindate(String id);//마지막 로그인 시간
 	
+	/*아이디 찾기*/
+	Userinfo findUserByEmail(String email);
+	
 	/*마이페이지*/
 	void modifyUserinfo(Userinfo userinfo) throws UserinfoNotFoundException;//회원정보변경
 	void removeUserinfo(String id) throws UserinfoNotFoundException;//회원탈퇴

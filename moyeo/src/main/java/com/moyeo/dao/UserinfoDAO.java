@@ -14,6 +14,9 @@ public interface UserinfoDAO {
 	int updateLogdate(String id);//로그인 시간 변경
 	int updateUserToRest(String id);//휴면계정전환
 
+	//아이디 찾기
+	Userinfo findUserByEmail(String email);
+	
 	//마이페이지
 	int updateUserinfo(Userinfo userinfo);//회원정보 변경
 	int outUser(String id);//회원 탈퇴
