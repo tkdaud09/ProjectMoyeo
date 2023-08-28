@@ -6,7 +6,6 @@ import com.moyeo.dao.PackageDAO;
 import com.moyeo.dto.Pack;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +19,17 @@ public class PackageServiceImpl implements PackageService {
 	@Override
 	public void addPackage(Pack pack) {
 		packageDAO.insertPackage(pack);
+	}
+
+	//패키지 상품 정보
+	@Override
+	public Pack selectPackInfo(int packIdx) {
+		return packageDAO.selectPackInfo(packIdx);
+	}
+
+	//패키지 수정
+	@Override
+	public int updatePackage(Pack pack) {
+		return packageDAO.updatePack(pack);
 	}
 }
