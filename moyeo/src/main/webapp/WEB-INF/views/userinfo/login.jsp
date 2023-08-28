@@ -7,6 +7,12 @@
   
 <head>
 	 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css" >
+
+<style>
+.login_warn {
+	color : red;
+}
+</style>
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
