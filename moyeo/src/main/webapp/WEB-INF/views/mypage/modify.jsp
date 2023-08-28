@@ -20,7 +20,7 @@
          <h2  class="title_f">마이페이지</h2>
          <form id="mypage_form" name="login" action="modify" method="post">
          
-            <input type="hidden"  value="${userinfo.id}">
+            <input type="hidden"  value="${userinfo.id}" name="id">
             <input type="hidden"  value="${userinfo.name}"> 
             <label for="id"><p class="s_tit">아이디</p>
             <input type="text" class="id_input input_f"
@@ -75,8 +75,7 @@
 		            </div>
 		        </div>  
 	           
-            
-            
+
             
             <br>
             <div class="mail-check-box">
@@ -182,7 +181,7 @@
              
                /* 최종 유효성 검사 */
               if (emailCheck && mailnumCheck && phoneCheck) {
-                    $("#mypage_form").attr("action", "/testmoyeo/user/modify");
+                    $("#mypage_form").attr("action", "${pageContext.request.contextPath}/user/modify");
                     $("#mypage_form").submit();
                  }
                  

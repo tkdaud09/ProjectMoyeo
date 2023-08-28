@@ -234,7 +234,10 @@ public class UserinfoController {
 		String encodePw = "";
 
 		Userinfo lto = userinfoservice.userLogin(userinfo);
-
+		
+		String birth = lto.getBirth().substring(0, 10);
+	    lto.setBirth(birth);
+		
 		if (lto != null) {// 일치하는 아이디 존재
 
 			rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호

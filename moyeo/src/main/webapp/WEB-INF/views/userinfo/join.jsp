@@ -137,15 +137,7 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-<script>
+    <script>
    
    /* 주소 합성 */
    function address() {
@@ -259,16 +251,16 @@
           
             /* 최종 유효성 검사 */
             if(idCheck&&
-            		idckCheck&&
-            		pwCheck&&
-            		pwckCheck&&
-            		pwckcorCheck&&
-            		nameCheck&&
-            		emailCheck&&
-            		mailnumCheck&&
-            		genderCheck&&
-            		yearCheck&&
-            		phoneCheck){
+                  idckCheck&&
+                  pwCheck&&
+                  pwckCheck&&
+                  pwckcorCheck&&
+                  nameCheck&&
+                  emailCheck&&
+                  mailnumCheck&&
+                  genderCheck&&
+                  yearCheck&&
+                  phoneCheck){
                  $("#join_form").attr("action", "/moyeo/user/join");
                  $("#join_form").submit();
               }
@@ -277,7 +269,7 @@
           });
       });
  
-          	
+             
    /* 아이디 중복검사 */
    
    //아이디 중복검사 길이
@@ -462,24 +454,24 @@
       /* 이메일 유효성 */
       
       $(document).ready(function() {
-	    $('.email_input').on("input", function() {
-	        var userPart = $(this).val();
-	        var fullEmail = userPart;
-	
-	        var emailCheckMessage = $('.email_input_re');
-	        var regMail = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
-	
-	        if (!regMail.test(fullEmail)) {
-	            emailCheckMessage.css("display", "block");
-	            emailCheck = false;
-	            $('#mail-Check-Btn').attr('disabled', true);
-	        } else { 
-	            emailCheckMessage.css("display", "none");
-	            emailCheck = true;
-	            $('#mail-Check-Btn').attr('disabled', false);
-	        }
-	    });
-	});
+       $('.email_input').on("input", function() {
+           var userPart = $(this).val();
+           var fullEmail = userPart;
+   
+           var emailCheckMessage = $('.email_input_re');
+           var regMail = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
+   
+           if (!regMail.test(fullEmail)) {
+               emailCheckMessage.css("display", "block");
+               emailCheck = false;
+               $('#mail-Check-Btn').attr('disabled', true);
+           } else { 
+               emailCheckMessage.css("display", "none");
+               emailCheck = true;
+               $('#mail-Check-Btn').attr('disabled', false);
+           }
+       });
+   });
       
     /*주소 API*/
       
@@ -562,5 +554,13 @@
          });
       
    </script>
+    
+    
+    
+    
+    
+    
+    
+
  </body>
 </html>

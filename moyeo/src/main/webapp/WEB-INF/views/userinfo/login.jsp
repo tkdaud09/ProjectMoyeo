@@ -7,6 +7,11 @@
   
 <head>
 	 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css" >
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+
 </head>     
   
 <body id="body" class="up-scroll">
@@ -64,7 +69,24 @@
 </section>
 
 
-  
+ <script>
+
+
+   /* 로그인 버튼 클릭 메서드 */
+   $(".login_button.btn_f").click(function(){
+      
+      //alert("로그인 버튼 작동");
+      
+      /* 로그인 메서드 서버 요청 */
+      $("#login_form").attr("action", "login");
+      $("#login_form").submit();
+      
+      
+
+   });
+   
+
+</script> 
   
   
 
