@@ -22,4 +22,6 @@ public interface UserinfoService {
 	void removeUserinfo(String id) throws UserinfoNotFoundException;//회원탈퇴
 	Userinfo getUserinfoById(String id) throws UserinfoNotFoundException;//아이디로 유저 검색 
 	int modifyPw(Userinfo userinfo) throws UserinfoNotFoundException; //비밀번호 변경
+	void updatePasswordByEmail(String email, String encryptedPassword);//이메일로 아이디 찾기
+
 }

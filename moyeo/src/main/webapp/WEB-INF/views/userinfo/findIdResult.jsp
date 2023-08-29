@@ -54,9 +54,18 @@
         <c:if test="${notFound}">
             <p class="result-message">일치하는 사용자를 찾을 수 없습니다.</p>
         </c:if>
-        
-        <!-- 다시 로그인하는 버튼 -->
-        <a href="/moyeo/user/login" class="login-button">로그인하러 가기</a>
-    </div>
+
+		<div class="button-container">
+			<div class="button">
+        		<!-- 다시 로그인하는 버튼 -->
+        		<a href="/moyeo/user/login" class="login-button">로그인하러 가기</a>
+			</div>
+			<div class="button">
+			    <!-- 비밀번호 찾기 버튼 -->
+        		<a href="/moyeo/user/findPw" class="login-button">비밀번호 찾기</a>
+			</div>
+		</div>
+	</div>
+    <hr>
 </body>
 </html>

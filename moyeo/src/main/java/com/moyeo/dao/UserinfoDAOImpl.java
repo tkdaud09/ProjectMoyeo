@@ -51,7 +51,7 @@ public class UserinfoDAOImpl implements UserinfoDAO {
 
 	@Override
 	public Userinfo findUserByEmail(String email) {
-		// return sqlSession.selectOne("userinfoMapper.findUserByEmail", email);
+		//return sqlSession.selectOne("userinfoMapper.findUserByEmail", email);
 		return sqlSession.getMapper(UserinfoMapper.class).findUserByEmail(email);
 	}
 

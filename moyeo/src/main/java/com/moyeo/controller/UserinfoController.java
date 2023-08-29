@@ -1,5 +1,7 @@
 package com.moyeo.controller;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -98,70 +100,52 @@ public class UserinfoController {
 	}
 
 	// 로그인
-	@SuppressWarnings("unused")
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(HttpServletRequest request, Userinfo userinfo, RedirectAttributes rttr) throws Exception {
+		@SuppressWarnings("unused")
+		@RequestMapping(value = "/login", method = RequestMethod.POST)
+		public String loginPOST(HttpServletRequest request, Userinfo userinfo, RedirectAttributes rttr) throws Exception {
+		    HttpSession session = request.getSession();
+		    String rawPw = "";
+		    String encodePw = "";
 
-		// System.out.println("login 메서드 진입");
-		// System.out.println("전달된 데이터 : " + userinfo);
+		    Userinfo lto = userinfoservice.userLogin(userinfo);
 
-		/*
-		 * HttpSession session = request.getSession(); Userinfo lto =
-		 * userinfoservice.userLogin(userinfo);
-		 * 
-		 * if (lto == null) { // 일치하지 않는 아이디, 비밀번호 입력 경우
-		 * 
-		 * int result = 0; rttr.addFlashAttribute("result", result); return
-		 * "redirect:/user/login";
-		 * 
-		 * }
-		 * 
-		 * session.setAttribute("userinfo", lto); // 일치하는 아이디, 비밀번호 경우 (로그인 성공) return
-		 * "redirect:/user/main";
-		 */
+		    if (lto != null) { // 일치하는 아이디 존재
 
-		HttpSession session = request.getSession();
-		String rawPw = "";
-		String encodePw = "";
+		        if (lto.getBirth() != null) {
+		            String birth = lto.getBirth().substring(0, 10);
+		            lto.setBirth(birth);
+		        }
 
-		Userinfo lto = userinfoservice.userLogin(userinfo);
+		        rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
+		        encodePw = lto.getPw(); // 데이터베이스에 저장한 인코딩된 비밀번호
 
-		String birth = lto.getBirth().substring(0, 10);
-		lto.setBirth(birth);
+		        if (true == pwEncoder.matches(rawPw, encodePw)) { // 비밀번호 일치여부 판단
 
-		if (lto != null) {// 일치하는 아이디 존재
+		            lto.setPw(""); // 인코딩된 비밀번호 정보 지움
+		            session.setAttribute("userinfo", lto); // session에 사용자의 정보 저장
 
-			rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
-			encodePw = lto.getPw(); // 데이터베이스에 저장한 인코딩된 비밀번호
+		            userinfoservice.updateUserLogindate(lto.getId()); // 마지막 로그인 날짜 업데이트
 
-			if (true == pwEncoder.matches(rawPw, encodePw)) { // 비밀번호 일치여부 판단
+		            return "redirect:/"; // 메인페이지 이동
 
-				lto.setPw(""); // 인코딩된 비밀번호 정보 지움
-				session.setAttribute("userinfo", lto); // session에 사용자의 정보 저장
+		        } else {
+		            rttr.addFlashAttribute("result", 0);
+		            return "redirect:/user/login"; // 로그인 페이지 이동
+		        }
 
-				userinfoservice.updateUserLogindate(lto.getId());// 마지막 로그인 날짜 업데이트
-
-				return "redirect:/"; // 메인페이지 이동
-
-			} else {
-				rttr.addFlashAttribute("result", 0);
-				return "redirect:/user/login"; // 로그인 페이지 이동
-			}
-
-		} else { // 일치하는 아이디 미존재 (로그인 실패)
-			rttr.addFlashAttribute("result", 0);
-			return "redirect:/user/login"; // 로그인 페이지 이동
+		    } else { // 일치하는 아이디 미존재 (로그인 실패)
+		        rttr.addFlashAttribute("result", 0);
+		        return "redirect:/user/login"; // 로그인 페이지 이동
+		    }
 		}
 
-	}
+		// 로그아웃 후 로그인 페이지로 이동
+		@RequestMapping(value = "/logout")
+		public String logout(HttpSession session) {
+			session.invalidate();
 
-	// 로그아웃 후 로그인 페이지로 이동
-	@RequestMapping(value = "/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-
-		return "redirect:/user/login";
-	}
+			return "redirect:/user/login";
+		}
 
 	/*
 	 * 메인페이지 이동
@@ -188,10 +172,65 @@ public class UserinfoController {
 		} else {
 			model.addAttribute("notFound", true);
 		}
-
 		return "/userinfo/findIdResult"; // ID 찾기 결과 페이지로 이동
 	}
+	
+	/* 비밀번호 찾기 */
+	
+	//비밀번호 찾기 메인
+	@RequestMapping(value = "/findPw", method = RequestMethod.GET)
+    public String findPwForm() {
+        return "/userinfo/findPw";
+    }
+	
+	//비밀번호 찾기
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	public String findPw(@RequestParam("email") String email, 
+	                     @RequestParam("id") String enteredUserId,
+	                     Model model,
+	                     HttpServletRequest request) {
+	    Userinfo userinfo = userinfoservice.findUserByEmail(email);
 
+	    if (userinfo != null) {
+	        // 아이디와 이메일이 일치하는지 검증
+	        if (enteredUserId.equals(userinfo.getId())) { // 입력한 아이디와 찾은 사용자의 아이디가 일치하는지 확인
+	            String newPassword = generateRandomPassword(); // 임시 비밀번호 생성
+	            mailService.sendPwEmail(email, newPassword); // MailSendService 이용해 이메일 전송
+
+	            String encryptedPassword = pwEncoder.encode(newPassword);
+
+	            // 비밀번호 변경
+	            userinfoservice.updatePasswordByEmail(email, encryptedPassword);
+
+	            // 아이디 찾기에서 찾았던 아이디를 가져와 모델에 저장
+	            model.addAttribute("foundUserinfoId", userinfo.getId());
+	            model.addAttribute("foundPw", newPassword);
+	            return "/userinfo/findPwResult"; // 비밀번호 찾기 결과 페이지로 이동
+	        } else {
+	            model.addAttribute("notFound", true);
+	            return "/userinfo/findPwResult"; // 비밀번호 찾기 결과 페이지로 이동
+	        }
+	    } else {
+	        model.addAttribute("notFound", true);
+	        return "/userinfo/findPwResult"; // 비밀번호 찾기 결과 페이지로 이동
+	    }
+	}
+    
+    // 임시 비밀번호 생성 함수
+    private String generateRandomPassword() {
+        Random r = new Random();
+        int passwordLength = 6;
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder newPassword = new StringBuilder();
+
+        for (int i = 0; i < passwordLength; i++) {
+            int index = r.nextInt(characters.length());
+            newPassword.append(characters.charAt(index));
+        }
+        return newPassword.toString();
+    }
+    
+    //사용자 정보, 마지막 로그인 시간 가져오기
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String userGET(Model model, HttpSession session) {
 		// 사용자 정보와 마지막 로그인 시간 가져오기
@@ -280,7 +319,44 @@ public class UserinfoController {
 		}
 	}
 
-	// 여기부터
+	//비밀번호 변경 - GET
+	@RequestMapping(value = "/modifypw", method = RequestMethod.GET)
+	public String modifypwGET() {
+		return "mypage/modify_pw";
+	}
+
+	//비밀번호 변경 - POST
+	@RequestMapping(value = "/modifypw", method = RequestMethod.POST)
+	public String modiftpwPOST(HttpSession session, Userinfo userinfo, @RequestParam String updatePw, Model model) throws Exception {
+
+		String rawPw = "";
+		String encodePw = "";
+
+		//String newpw = request.getParameter("newpw");
+
+		Userinfo lto = userinfoservice.userLogin(userinfo);
+
+		if (lto != null) {
+
+			rawPw = userinfo.getPw(); 
+			encodePw = lto.getPw(); 
+
+			if (pwEncoder.matches(rawPw, encodePw)) {
+				lto.setPw(encodePw = pwEncoder.encode(updatePw));
+				userinfoservice.modifyPw(lto);
+				session.setAttribute("userinfo", lto);
+				return "redirect:/user/mypage"; 
+
+			} else {
+				model.addAttribute("result", 0);
+				return "mypage/modify_pw"; 
+			}
+
+		} else { 
+			model.addAttribute("result", 0);
+			return "mypage/modify_pw"; 
+		}
+	}
 
 	// 회원 탈퇴 확인 페이지 (비밀번호 확인) - GET
 	@RequestMapping(value = "/removePwCheck", method = RequestMethod.GET)
@@ -331,48 +407,4 @@ public class UserinfoController {
 
 		return "redirect:/user/login";
 	}
-	
-	
-	/* 비밀번호 변경 */
-
-	// 비밀번호 변경 - GET
-	@RequestMapping(value = "/modifypw", method = RequestMethod.GET)
-	public String modifypwGET() {
-		return "mypage/modify_pw";
-	}
-
-	// 비밀번호 변경 - POST
-	@RequestMapping(value = "/modifypw", method = RequestMethod.POST)
-	public String modiftpwPOST(HttpSession session, Userinfo userinfo, @RequestParam String updatePw, Model model)
-			throws Exception {
-
-		String rawPw = "";
-		String encodePw = "";
-
-		// String newpw = request.getParameter("newpw");
-
-		Userinfo lto = userinfoservice.userLogin(userinfo);
-
-		if (lto != null) {
-
-			rawPw = userinfo.getPw();
-			encodePw = lto.getPw();
-
-			if (pwEncoder.matches(rawPw, encodePw)) {
-				lto.setPw(encodePw = pwEncoder.encode(updatePw));
-				userinfoservice.modifyPw(lto);
-				session.setAttribute("userinfo", lto);
-				return "redirect:/user/mypage";
-
-			} else {
-				model.addAttribute("result", 0);
-				return "mypage/modify_pw";
-			}
-
-		} else {
-			model.addAttribute("result", 0);
-			return "mypage/modify_pw";
-		}
-	}
-
 }

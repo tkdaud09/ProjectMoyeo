@@ -52,6 +52,12 @@ public class UserinfoServiceImpl implements UserinfoService {
 	public void modifyUserinfo(Userinfo userinfo) {
 		userinfoDAO.updateUserinfo(userinfo);
 	}
+	
+	//비밀번호 변경
+	@Override
+	public int modifyPw(Userinfo userinfo) throws UserinfoNotFoundException {
+		return userinfoDAO.updatePw(userinfo);
+	}
 
 	// 회원탈퇴
 	@Override
@@ -70,9 +76,12 @@ public class UserinfoServiceImpl implements UserinfoService {
 		return userinfo;
 	}
 
-	// 비밀번호 변경
-	@Override
-	public int modifyPw(Userinfo userinfo) throws UserinfoNotFoundException {
-		return userinfoDAO.updatePw(userinfo);
+	//이메일로 newPassword 비밀번호 찾기 구현
+		public void updatePasswordByEmail(String email, String newPassword) {
+	        Userinfo userinfo = userinfoDAO.findUserByEmail(email);
+	        if (userinfo != null) {
+	            userinfo.setPw(newPassword);
+	            userinfoDAO.updateUserinfo(userinfo);
+	        }
+	    }
 	}
-}
