@@ -37,65 +37,85 @@
 ———	DIY SECTION
 ===================================== -->
 
-
 <section class="">
   <div class="container">
 			<div class="py-10">
-			<div class="review_content">
-			
+			<div class="review_content border_con">
+				
 				<div class="diy_form_title">
-					여행 후기 작성
+					여행 후기
 				</div>
 				
-				<div class="write_form">
-				
-				
-				
-				
-				
-				<form class="w_f" action="add" method="post" id="enrollForm">		   	
-					    <p>작성자</p>
-					    <input class="text" type="text" name="id" value="${userinfo.id }" readonly>
-					   
-					    <p>별점선택</p>
-					    <input class="text" type="text" name=reviewStar placeholder="1~5까지 별점을 입력해 주세요">
-					   
-					   <p>패키지 상품</p>
-					    <select name="">
-					        <option>선택</option>
-					        <option>반려견과 함께하는 1박2일 투어 1</option>
-					        <option>반려견과 함께하는 1박2일 투어 2</option>
-					        <option>반려견과 함께하는 1박2일 투어 3</option>
-					        <option>반려견과 함께하는 1박2일 투어 4</option>
-					    </select>
-					   
-					    <p>제목</p>
-					    <input class="text" type="text" name="reviewTitle" placeholder="제목">
-					   
-					    <p>내용</p>
-					    <textarea name="reviewContent" placeholder="내용"></textarea>
-					    
-					    <div class="review_form_btn">
-					        <a href="${pageContext.request.contextPath}/review/list"><button class="btn1" id="cancelBtn" type="button">취소</button></a>
-					        <button class="btn2" id="enrollBtn" type="submit">등록 </button>
-					    </div>
-					</form>
-
-	
+				<div class="bord_search">
 					
+					<div class="search-area">	
+						<div class="sel-search">
+							<select class="sel-base" id="schKeyword">
+								<option value="both">제목+내용</option>
+								<option value="sub">제목</option>
+								<option value="cont">내용</option>
+							</select>
+						</div>
+						
+						<div class="inp-search">
+							<input  type="text" class="inp-base" id="schValue" placeholder="검색어를 입력하세요">
+							<button class="btn-type-s search" id="btnSearch">검색</button>
+						</div>
+					</div><!-- search-area -->
+
+				</div>
+				
+				
+				
+				
+				<div class="review_list border_list">
+					
+					<table>
+					<colgroup>
+						<col width="10%">
+						<col width="65%">
+						<col width="10%">
+						<col width="15%">
+					</colgroup>
+						<tr>
+							<td class="t1">번호</td>
+							<td class="t1">제목</td>
+							<td class="t1">작성자</td>
+							<td class="t1">작성일</td>
+						</tr>
+						
+						<c:forEach var="review" items="${reviewList }">
+							<tr>
+								<td class="t2">${review.reviewIdx }</td>
+								<td class="t2">
+									<a href="<c:url value="/review/view"/>">
+										${review.reviewTitle }
+									</a>
+								</td>
+
+								<td class="t2">${review.userinfoId }</td>
+								<td class="t2">${review.reviewRegdate }</td>
+							</tr>
+							<tr>
+								<td class="t2">1</td>
+								<td class="t2">제목이 들어갈 공간입니다.</td>
+								<td class="t2">홍길동</td>
+								<td class="t2">2023-08-24</td>
+							</tr>
+						</c:forEach>
+					</table>
+					
+
+					<a href="${pageContext.request.contextPath}/review/write"><button class="btn">글쓰기</button></a>
 				</div>
 
-			</div><!-- /diy_content -->
+
+			</div><!-- /review_content -->
 		</div>	<!-- /py-10 -->
     </div>	<!-- /container -->
-   
-    
- 
-    
-   
-    
-    
 </section>
+
+
  </div>
 
 

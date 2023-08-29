@@ -12,7 +12,7 @@ public interface ReviewDAO {
 
     Review selectReviewByTitle(String reviewTitle);
     Review selectReviewByContent(String reviewContent);
-    Review selectReview(int userinfoId);
+    Review selectReview(int reviewIdx);
 
     int selectReviewCount();
     List<Review> selectReviewList(Map<String, Object> map);

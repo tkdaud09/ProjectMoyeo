@@ -17,3 +17,4 @@ public interface ReviewMapper {
     int selectReviewCount();
     List<Review> selectReviewList(Map<String, Object> map);
 }
+

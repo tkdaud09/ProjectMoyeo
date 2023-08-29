@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
     
 <!DOCTYPE html>
 <html lang="en">
   
 <head>
 </head>     
-  
-<body id="body" class="up-scroll">
 
-  <div class="main-wrapper packages-grid"></div>
+<body id="body" class="up-scroll">
+  <div class="main-wrapper packages-grid">
 
 
 <!-- ====================================
@@ -41,14 +44,15 @@
 <section class="">
   <div class="container">
 			<div class="py-10">
-			<div class="review_content">
+			<div class="review_content border_con">
 				
 				<div class="diy_form_title">
 					여행 후기
 				</div>
 				
 				<div class="bord_search">
-					<div class="search-area">
+					
+					<div class="search-area">	
 						<div class="sel-search">
 							<select class="sel-base" id="schKeyword">
 								<option value="both">제목+내용</option>
@@ -56,59 +60,105 @@
 								<option value="cont">내용</option>
 							</select>
 						</div>
+						
 						<div class="inp-search">
 							<input  type="text" class="inp-base" id="schValue" placeholder="검색어를 입력하세요">
 							<button class="btn-type-s search" id="btnSearch">검색</button>
 						</div>
 					</div><!-- search-area -->
-					
-					
-					
+
 				</div>
 				
+						
 				
-				
-				
-				<div class="review_list">
+				<div class="review_list border_list">
 					
 					<table>
-					<colgroup>
-						<col width="10%">
-						<col width="65%">
-						<col width="10%">
-						<col width="15%">
-					</colgroup>
-						<tr>
-							<td class="t1">번호</td>
-							<td class="t1">제목</td>
-							<td class="t1">작성자</td>
-							<td class="t1">작성일</td>
-						</tr>
-						
-						<c:forEach var="review" items="${reviewList }">
-							<tr>
-								<td class="t2">${review.reviewIdx }</td>
-								<td class="t2">
-									<a href="<c:url value="/review/view"/>">
-										${review.reviewTitle }
-									</a>
-								</td>
-
-								<td class="t2">${review.userinfoId }</td>
-								<td class="t2">${review.reviewRegdate }</td>
-							</tr>
-							<tr>
-								<td class="t2">1</td>
-								<td class="t2">제목이 들어갈 공간입니다.</td>
-								<td class="t2">홍길동</td>
-								<td class="t2">2023-08-24</td>
-							</tr>
-						</c:forEach>
+					    <colgroup>
+					        <col width="10%">
+					        <col width="65%">
+					        <col width="10%">
+					        <col width="15%">
+					    </colgroup>
+					    <tr>
+					        <td class="t1">번호</td>
+					        <td class="t1">제목</td>
+					        <td class="t1">작성자</td>
+					        <td class="t1">작성일</td>
+					    </tr>
+					    <c:forEach var="review" items="${reviewList}">
+					        <c:set var="today" value="<%= new java.util.Date() %>" />
+					        <c:set var="dateFormat" value="<%= new java.text.SimpleDateFormat(\"yyyy-MM-dd\") %>" />
+					        <c:set var="todayDate" value="${dateFormat.format(today)}" />
+					        <tr>
+					            <td class="t2">${review.reviewIdx}</td>
+					            <td class="t2">
+					                <a href="${pageContext.request.contextPath}/review/view/${review.reviewIdx}">
+					                    ${review.reviewTitle}
+					                </a>
+					            </td>
+					            <td class="t2">${userinfo.id}</td>
+					           <!--  <td class="t2 .write">${review.reviewRegdate}</td> -->
+					            <td class="t2">${todayDate}</td>
+					        </tr>
+					    </c:forEach>
 					</table>
-					
 
-					<a href="${pageContext.request.contextPath}/review/write"><button class="btn">글쓰기</button></a>
+
+
+
+
+				<div class="page_t">	
+					<%-- 페이지 번호 출력 --%>
+					<c:choose >
+						<c:when test="${pager.startPage > pager.blockSize }">
+							<a href="<c:url value="/review/list"/>?pageNum=${pager.prevPage}"><!-- [이전] --></a>
+						</c:when>
+						<c:otherwise>
+							<!-- [이전] -->
+						</c:otherwise>
+					</c:choose>	
+					
+					<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
+						<c:choose>
+							<c:when test="${pager.pageNum != i  }">
+								<a href="<c:url value="/review/list"/>?pageNum=${i}"><span class="p_num">${i }</span></a>
+							</c:when>
+							<c:otherwise>
+								<span class="p_num">${i }</span>
+							</c:otherwise>
+						</c:choose>	
+					</c:forEach>
+				
+					<c:choose >
+						<c:when test="${pager.endPage != pager.totalPage }">
+							<a href="<c:url value="/review/list"/>?pageNum=${pager.nextPage}"><span class="p_next"><!--[다음]  --></span></a>
+						</c:when>
+						<c:otherwise>
+							<!--[다음]  -->
+						</c:otherwise>
+					</c:choose>	
 				</div>
+
+
+
+				
+					<a href="${pageContext.request.contextPath}/review/write" class="btn_right">
+						<button class="btn">글쓰기</button>
+					</a>
+				
+				
+				
+				
+				
+				
+				</div>
+				
+				
+				
+				
+				
+				
 
 
 			</div><!-- /review_content -->
@@ -117,9 +167,39 @@
 </section>
 
 
+ </div>
+
+
+ 
+    <script>
+	    let enrollForm = $("#enrollForm");
+	    
+	    // Cancel button
+	    $("#cancelBtn").click(function() {
+	        console.log("Cancel button clicked");
+	        location.href = "/moyeo/review/review_list";
+	    });
+	
+	    // Enroll button
+	    $("#enrollBtn").click(function(e) {
+	        e.preventDefault();
+	        console.log("Enroll button clicked");
+	        enrollForm.submit();
+   		 });
+	    
+
+	    
+	    
+	    let today = new Date();  
+	    document.write(today.toLocaleDateString()); 
+	    
+	    
+	    
+	    
+	</script>
   
-  
-  
+
+
 
   </body>
 </html>

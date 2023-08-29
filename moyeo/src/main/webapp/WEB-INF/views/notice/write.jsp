@@ -22,7 +22,7 @@
         <div class="col-lg-6">
           <div class="page-title-content">
             <div class="title-border">
-              <h2 class="text-uppercase text-white font-weight-bold">여행후기</h2>
+              <h2 class="text-uppercase text-white font-weight-bold">공지사항</h2>
             </div>
             <p class="text-white mb-0"></p>
           </div>
@@ -44,7 +44,7 @@
 			<div class="review_content">
 			
 				<div class="diy_form_title">
-					여행 후기 작성
+					공지사항 작성
 				</div>
 				
 				<div class="write_form">
@@ -57,26 +57,14 @@
 					    <p>작성자</p>
 					    <input class="text" type="text" name="id" value="${userinfo.id }" readonly>
 					   
-					    <p>별점선택</p>
-					    <input class="text" type="text" name=reviewStar placeholder="1~5까지 별점을 입력해 주세요">
-					   
-					   <p>패키지 상품</p>
-					    <select name="">
-					        <option>선택</option>
-					        <option>반려견과 함께하는 1박2일 투어 1</option>
-					        <option>반려견과 함께하는 1박2일 투어 2</option>
-					        <option>반려견과 함께하는 1박2일 투어 3</option>
-					        <option>반려견과 함께하는 1박2일 투어 4</option>
-					    </select>
-					   
 					    <p>제목</p>
-					    <input class="text" type="text" name="reviewTitle" placeholder="제목">
+					    <input class="text" type="text" name="noticeTitle" placeholder="제목">
 					   
 					    <p>내용</p>
-					    <textarea name="reviewContent" placeholder="내용"></textarea>
+					    <textarea name="noticeContent" placeholder="내용"></textarea>
 					    
 					    <div class="review_form_btn">
-					        <a href="${pageContext.request.contextPath}/review/list"><button class="btn1" id="cancelBtn" type="button">취소</button></a>
+					        <a href="${pageContext.request.contextPath}/notice/list"><button class="btn1" id="cancelBtn" type="button">취소</button></a>
 					        <button class="btn2" id="enrollBtn" type="submit">등록 </button>
 					    </div>
 					</form>
@@ -106,7 +94,7 @@
 	    // Cancel button
 	    $("#cancelBtn").click(function() {
 	        console.log("Cancel button clicked");
-	        location.href = "/moyeo/review/review_list";
+	        location.href = "/moyeo/notice/notice_list";
 	    });
 	
 	    // Enroll button

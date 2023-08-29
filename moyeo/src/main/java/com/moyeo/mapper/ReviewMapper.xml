@@ -5,21 +5,22 @@
 	
 	<!-- 후기 등록 -->
 	<insert id="insertReview">
-	    <selectKey resultType="int" keyProperty="reviewNum" order="BEFORE">
+	    <selectKey resultType="int" keyProperty="reviewIdx" order="BEFORE">
 	        SELECT review_seq.nextval FROM dual
 	    </selectKey>
 	    INSERT INTO review 
 	    VALUES(
-	        #{reviewNum}   <!-- Correct field name -->
+	        #{reviewIdx}
 	        , #{idReview}
-	        , #{orderNumReview}
+	        , #{ordersIdx} 
 	        , #{reviewStar}
 	        , #{reviewTitle}
 	        , #{reviewContent}
 	        , #{reviewRegdate}
 	    )
-	</insert>		
+	</insert>
 	
+
 
 	
 	<!-- 후기 업데이트 -->
@@ -27,15 +28,23 @@
 		UPDATE review SET 
 			review_title=#{reviewTitle}
 			, review_content=#{reviewContent} 
-			WHERE userinfo_id=#{userinfoId}
+			WHERE review_title=#{reviewTitle}
 	</update>
 	
 	
 	<!-- 후기 삭제 -->
 	<delete id="deleteReview">
-		DELETE FROM review WHERE userinfo_id=#{userinfoId}      
-		<!-- reviewIdx 후기번호? userinfo_id 아이디? -->
+  	  DELETE FROM review WHERE review_idx=#{reviewIdx}
 	</delete>
+
+
+
+
+
+	
+	
+	
+	
 	
 	
 	<!-- 후기 제목으로 검색 -->
@@ -43,7 +52,7 @@
 		SELECT 
 			review_idx
 			, userinfo_id
-			, order_idx
+			, orders_idx
 			, review_star
 			, review_title
 			, review_content
@@ -56,7 +65,7 @@
 		SELECT 
 			review_idx
 			, userinfo_id
-			, order_idx
+			, orders_idx
 			, review_star
 			, review_title
 			, review_content
@@ -65,33 +74,30 @@
 	</select>
 	
 	<!-- 후기 전체리스트검색 -->
-	<select id="selectReview" resultType="Review">
-		SELECT 
-			review_idx
-			, userinfo_id
-			, order_idx
-			, review_star
-			, review_title
-			, review_content
-			, review_regdate 
-			FROM review 
-			ORDER BY userinfo_id desc
+	<select id="selectReview" resultType="Review" parameterType="int">
+	    SELECT 
+	        review_idx
+	        , userinfo_id
+	        , orders_idx
+	        , review_star
+	        , review_title
+	        , review_content
+	        , review_regdate 
+	    FROM review 
+	    WHERE review_idx=#{reviewIdx}
+	    ORDER BY review_idx desc
 	</select>
-	
+		
 
 	<!-- 후기 게시글 카운트 -->
 	<select id="selectReviewCount" resultType="int">
-		SELECT 
-			review_idx
-			, userinfo_id
-			, order_idx
-			, review_star
-			, review_title
-			, review_content
-			, review_regdate FROM review 
+	    SELECT COUNT(*) FROM review 
 	</select>
+						
 	
 	
+	
+
 	<!-- 후기페이지 번호 -->
 	<select id="selectReviewList" resultType="Review">
 		SELECT * FROM 
@@ -99,7 +105,7 @@
 				rownum rn
 				, review_idx
 				, userinfo_id
-				, order_idx
+				, orders_idx
 				, review_star
 				, review_title
 				, review_content
@@ -107,7 +113,7 @@
 				FROM (SELECT 
 					review_idx
 					, userinfo_id
-					, order_num
+					, orders_idx
 					, review_star
 					, review_title
 					, review_content
@@ -116,6 +122,16 @@
 			review) 
 			WHERE rn between #{startRow} and #{endRow}
 	</select>
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
 	
 </mapper>
 

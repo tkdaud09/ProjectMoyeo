@@ -22,7 +22,7 @@
         <div class="col-lg-6">
           <div class="page-title-content">
             <div class="title-border">
-              <h2 class="text-uppercase text-white font-weight-bold">여행후기</h2>
+              <h2 class="text-uppercase text-white font-weight-bold">공지사항</h2>
             </div>
             <p class="text-white mb-0"></p>
           </div>
@@ -42,7 +42,7 @@
         <div class="py-10">
             <div class="review_content">
                 <div class="diy_form_title">
-                    여행 후기 수정
+                    공지사항 수정
                 </div>
                 <div class="write_form">
                     <form class="w_f" action="modify" method="post" id="modifyForm">

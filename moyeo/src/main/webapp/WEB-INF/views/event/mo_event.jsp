@@ -46,9 +46,65 @@
 				<div class="diy_form_title">
 					이벤트
 				</div>
-					<br>	<br>	<br>	<br>
-					이벤트 내용이 들어갈 공간입니다.
-					<br>	<br>	<br>	<br>
+				
+				
+				<div class="event_con">
+					<ul>
+						<li class="li_1"></li>
+						<li class="li_2">제목이 들어갈 공간입니다.</li>
+						<li class="li_3">2023-08-29</li>
+					</ul>
+					<ul>
+						<li class="li_1"></li>
+						<li class="li_2">제목이 들어갈 공간입니다.</li>
+						<li class="li_3">2023-08-29</li>
+					</ul>
+					<ul>
+						<li class="li_1"></li>
+						<li class="li_2">제목이 들어갈 공간입니다.</li>
+						<li class="li_3">2023-08-29</li>
+					</ul>
+					
+				</div>
+					
+					
+					
+					
+					
+					
+				<div class="page_t">	
+					<%-- 페이지 번호 출력 --%>
+					<c:choose >
+						<c:when test="${pager.startPage > pager.blockSize }">
+							<a href="<c:url value="/review/list"/>?pageNum=${pager.prevPage}"><!-- [이전] --></a>
+						</c:when>
+						<c:otherwise>
+							<!-- [이전] -->
+						</c:otherwise>
+					</c:choose>	
+					
+					<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
+						<c:choose>
+							<c:when test="${pager.pageNum != i  }">
+								<a href="<c:url value="/review/list"/>?pageNum=${i}"><span class="p_num">${i }</span></a>
+							</c:when>
+							<c:otherwise>
+								<span class="p_num">${i }</span>
+							</c:otherwise>
+						</c:choose>	
+					</c:forEach>
+				
+					<c:choose >
+						<c:when test="${pager.endPage != pager.totalPage }">
+							<a href="<c:url value="/review/list"/>?pageNum=${pager.nextPage}"><span class="p_next"><!--[다음]  --></span></a>
+						</c:when>
+						<c:otherwise>
+							<!--[다음]  -->
+						</c:otherwise>
+					</c:choose>	
+				</div>	
+					
+					
 			</div><!-- /diy_content -->
 		</div>	<!-- /py-10 -->
     </div>	<!-- /container -->

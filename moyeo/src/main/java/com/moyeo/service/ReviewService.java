@@ -11,7 +11,7 @@ public interface ReviewService {
 
     Review getReviewByTitle(String reviewTitle);
     Review getReviewByContent(String reviewContent);
-    Review getReview(int userinfoId);
+    Review getReview(int reviewIdx);
 
     Map<String, Object> getReviewList(int pageNum);
 }

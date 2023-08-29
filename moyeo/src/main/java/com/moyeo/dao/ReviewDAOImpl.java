@@ -46,11 +46,9 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-		public  Review selectReview(int userinfoId) {
-			return sqlSession.getMapper(ReviewMapper.class).selectReview(userinfoId);
+	public Review selectReview(int reviewIdx) {
+	    return sqlSession.getMapper(ReviewMapper.class).selectReview(reviewIdx);
 	}
-	
-	
 	
 	@Override
 	public int selectReviewCount() {
@@ -58,10 +56,9 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 
 	@Override
-	public List<Review> selectReviewList(Map<String, Object> map) {
-		return sqlSession.getMapper(ReviewMapper.class).selectReviewList(map);
-	}
-
+    public List<Review> selectReviewList(Map<String, Object> map) {
+        return sqlSession.getMapper(ReviewMapper.class).selectReviewList(map);
+    }
 	
 
 }

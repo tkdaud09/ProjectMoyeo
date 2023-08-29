@@ -14,15 +14,16 @@ import com.moyeo.util.Pager;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewServiceImpl implements ReviewService{
+public class ReviewServiceImpl implements ReviewService {
     private final ReviewDAO reviewDAO;
 
-	@Override
-	public void addReview(Review review) {
-		 reviewDAO.insertReview(review);
-		
-	}
-
+    @Override
+    public void addReview(Review review) {
+        // 리뷰 번호가 자동으로 생성되도록 리뷰 서비스에서 reviewIdx을 설정해줌
+        reviewDAO.insertReview(review);
+    }
+    
+    
 	@Override
 	public void modifyReview(Review review) {
 		reviewDAO.updateReview(review);
@@ -30,12 +31,12 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public void removeReview(int userinfoId) {
-	    Review existingReview = reviewDAO.selectReview(userinfoId);
+	public void removeReview(int reviewTitle) {
+	    Review existingReview = reviewDAO.selectReview(reviewTitle);
 	    if (existingReview == null) {
 	        throw new ReviewNotFoundException("리뷰를 찾을 수 없습니다");
 	    }
-	    reviewDAO.deleteReview(userinfoId);
+	    reviewDAO.deleteReview(reviewTitle);
 	}
 	
 
@@ -50,29 +51,33 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public Review getReview(int userinfoId) {
-		return reviewDAO.selectReview(userinfoId);
+	public Review getReview(int reviewTitle) {
+		return reviewDAO.selectReview(reviewTitle);
 	}
 	
 
 	@Override
-	public Map<String, Object> getReviewList(int pageNum) {
-		int totalBoard=reviewDAO.selectReviewCount();
-		
-		Pager pager=new Pager(pageNum, totalBoard, 5, 5);
-		
-		Map<String, Object> pageMap=new HashMap<String, Object>();
+    public Map<String, Object> getReviewList(int pageNum) {
+        int totalBoard = reviewDAO.selectReviewCount();
+
+        Pager pager = new Pager(pageNum, totalBoard, 10, 10);
+
+        Map<String, Object> pageMap = new HashMap<String, Object>();
         pageMap.put("startRow", pager.getStartRow());
         pageMap.put("endRow", pager.getEndRow());
+
         
-        List<Review> reviewList=reviewDAO.selectReviewList(pageMap);
-        
-        Map<String, Object> resultMap=new HashMap<String, Object>();
+        List<Review> reviewList = reviewDAO.selectReviewList(pageMap);
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("reviewList", reviewList);
         resultMap.put("pager", pager);
 
-		return resultMap;
-	}
+        return resultMap;
+    }
+	
+	
+	
 
 
     
