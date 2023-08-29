@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moyeo.mapper.DiyMapper">
-	<insert id="insertDiy">
+	<insert id="insertDiy" parameterType="com.moyeo.dto.Diy">
 		<selectKey resultType="int" keyProperty="diyIdx" order="BEFORE">
 			SELECT diy_seq.nextval 
-			FROM DUAL
+			FROM DUAL;
 		</selectKey>
         INSERT INTO diy (
         		diy_idx,
@@ -18,142 +18,153 @@
         		diy_regdate,
         		love_idx,
         		diy_title,
+        		diy_introduction,
+        		diy_thumbnail,
+        		diy_content1img,
         		diy_content1,
+        		diy_content2img,
         		diy_content2,
+        		diy_content3img,
         		diy_content3,
-        		diy_content4,
-        		diy_content5)
+        		diy_content4img,
+        		diy_content4)
         
         VALUES(
-                to_char(#{diyIdx}, 'yyyy-mm-dd'),
-                to_char(#{userinfoId}, 'yyyy-mm-dd'),
-                #{diyStartdate},
-                #{diyEnddate},
+                #{diyIdx},
+                #{userinfoId},
+                to_char(#{diyStartdate}, 'yyyy-mm-dd'),
+                to_char(#{diyEnddate}, 'yyyy-mm-dd'),
                 #{diyPeople},
                 #{diyLoc},
-                to_char(#{diyPrice}, 'fml999,999,999'), 
+                #{diyPrice}, 
                 #{diyMap},
-               to_char(sysdate, 'yyyy-mm-dd amhh:mi:ss day'),
+                SYSTIMESTAMP,
                 #{loveIdx},
                 #{diyTitle},
+                #{diyIntroduction},
+                #{diyThumbnail},
+                #{diyContent1Img},
                 #{diyContent1},
+                #{diyContent2Img},
                 #{diyContent2},
+                #{diyContent3Img},
                 #{diyContent3},
-                #{diyContent4},
-                #{diyContent5})
-                	</insert>
+                #{diyContent4Img},
+                #{diyContent4});
+    </insert>
 
-	<select id="selectDiyList" resultType="Diy">
+
+	<select id="selectDiy" resultType="com.moyeo.dto.Diy">
         SELECT 
-                diyIdx
-                ,userinfoId 
-                ,diyStartDate
-                ,diyEndDate
-                ,diyPeople
-                ,diyLoc
-                ,diyPrice
-                ,diyMap
-                ,diyRegdate
-                ,loveIdx
-                ,diyTitle
-                ,diyContent1
-                ,diyContent2
-                ,diyContent3
-                ,diyContent4
-                ,diyContent5)
-        FROM diy, love 
-        WHERE loveidx=(SELECT COUNT(loveCheck)
-                        FROM love
-                        WHERE userinfoId=#{userinfoId} and diyIdx=#{diyIdx})
-        ORDER BY loveIdx desc
-	</select>
-
-
-	<select id="selectDiy">
-        SELECT 
-                diyIdx
-                ,userinfoId 
-                ,diyStartDate
-                ,diyEndDate
-                ,diyPeople
-                ,diyLoc
-                ,diyPrice
-                ,diyMap
-                ,diyRegdate
-                ,loveIdx
-                ,diyTitle
-                ,diyContent1
-                ,diyContent2
-                ,diyContent3
-                ,diyContent4
-                ,diyContent5
+        		diy_idx,
+        		userinfo_id,
+        		diy_startdate,
+        		diy_enddate,
+        		diy_people,
+        		diy_loc,
+        		diy_price,
+        		diy_map,
+        		diy_regdate,
+        		diy_modifydate,
+        		love_idx,
+        		diy_title,
+        		diy_introduction,
+        		diy_thumbnail,
+        		diy_content1img,
+        		diy_content1,
+        		diy_content2img,
+        		diy_content2,
+        		diy_content3img,
+        		diy_content3,
+        		diy_content4img,
+        		diy_content4)
         FROM diy
-        ORDER BY diyRegdate desc;
+        WHERE diy_idx=#{diyIdx}
 	</select>
+	
+	
+	<select id="selectDiyList" resultType="com.moyeo.dto.Diy">
+        SELECT 
+        		diy_thumbnail,
+        		diy_title,
+        		diy_people,
+        		diy_startdate,
+        		diy_loc,
+        		diy_regdate,
+        		love_idx,
+        		diy_introduction
+        FROM diy  
+        ORDER BY diy_regdate DESC
+    </select>
        
-
-	<delete id="deleteDiy">
+       
+	<delete id="deleteDiy" parameterType="com.moyeo.dto.Diy">
         DELETE 
-        FROM 
-        	diy
-        WHERE userinfoId=#{userinfoId} and diyIdx=#{diyIdx}
+        FROM diy
+        WHERE userinfo_id=#{userinfoId} and diy_idx=#{diyIdx};
 	</delete>
 
-	<update id="updateDiy">
-        update diy
+
+	<update id="updateDiy" parameterType="com.moyeo.dto.Diy">
+        UPDATE diy
         <set>
-        	<if test="diyStartDate != null and diyStartDate != ''">
-        		 diyStartDate=#{diyStartDate},
+        	<if test="diyStartdate != null and diyStartdate != ''">
+        		 diy_startdate=#{diyStartDate},
         	</if>
         	
-        	<if test="diyEndDate != null and diyEndDate != ''">
-        		 diyEndDate=#{diyEndDate},
+        	<if test="diyEnddate != null and diyEnddate != ''">
+        		 diy_enddate=#{diyEndDate},
         	</if>
         	
         	<if test="diyPeople != null and diyPeople != ''">
-        		 diyPeople=#{diyPeople},
+        		 diy_people=#{diyPeople},
         	</if>
         	
         	<if test="diyLoc != null and diyLoc != ''">
-        		 diyLoc=#{diyLoc},
+        		 diy_loc=#{diyLoc},
         	</if>
         	
         	<if test="diyPrice != null and diyPrice != ''">
-        		 diyPrice=#{diyPrice},
+        		 diy_price=#{diyPrice},
         	</if>
         	
         	<if test="diyMap != null and diyMap != ''">
-        		 diyMap=#{diyMap},
+        		 diy_map=#{diyMap},
         	</if>
         	
-        	<if test="diyRegdate != null and diyRegdate != ''">
-        		 diyRegdate=#{diyRegdate},
+			<if test="diyRegdate != null and diyRegdate != ''">
+        		 diy_modifydate=SYSTIMESTAMP,
         	</if>
         	
         	<if test="diyTitle != null and diyTitle != ''">
-        		 diyTitle=#{diyTitle},
+        		 diy_title=#{diyTitle},
+        	</if>
+        	
+        	<if test="diyTitle != null and diyTitle != ''">
+        		 diy_introduction=#{diyIntroduction},
         	</if>
         	
         	<if test="diyContent1 != null and diyContent1 != ''">
-        		 diyContent1=#{diyContent1},
+        		 diy_content1=#{diyContent1},
         	</if>
         	
         	<if test="diyContent2 != null and diyContent2 != ''">
-        		 diyContent2=#{diyContent2},
+        		 diy_content2=#{diyContent2},
         	</if>
         	
         	<if test="diyContent3 != null and diyContent3 != ''">
-        		 diyContent3=#{diyContent3},
+        		 diy_content3=#{diyContent3},
         	</if>
         	
         	<if test="diyContent4 != null and diyContent4 != ''">
-        		 diyContent4=#{diyContent4},
+        		 diy_content4=#{diyContent4},
         	</if>
         	
         	<if test="diyContent5 != null and diyContent5 != ''">
-        		 diyContent5=#{diyContent5},
+        		 diy_content5=#{diyContent5}
         	</if>
-       </set>
-        where idDiy=#{idDiy}
+        </set>
+
+        WHERE userinfo_id=#{userinfoId};
 	</update>
 </mapper>

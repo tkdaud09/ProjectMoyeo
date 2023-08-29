@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="UTF-8">
   
+   <head>
+<jsp:include page="/WEB-INF/views/inc/head.jsp"/>
+
+  </head>  
   
 <body id="body" class="up-scroll">
 
@@ -18,7 +24,7 @@
         <div class="col-lg-6">
           <div class="page-title-content">
             <div class="title-border">
-              <h2 class="text-uppercase text-white font-weight-bold">Booking step 2</h2>
+              <h2 class="text-uppercase text-white font-weight-bold">DIY List</h2>
             </div>
             <p class="text-white mb-0"></p>
           </div>
@@ -32,258 +38,141 @@
 <!-- ====================================
 ———	BOOKING SECTION
 ===================================== -->
-<section class="py-8 py-md-10">
+
+<section class="py-9 py-md-10">
   <div class="container">
-    <div class="mb-8">
-      <div class="row progress-wizard">
-        <div class="col-4 progress-wizard-step complete">
-          <div class="progress">
-            <div class="progress-bar"></div>
-          </div>
-      
-          <a href="diy_add" class="progress-wizard-dot">
-            <div class="progress-wizard-content">
-              <i class="fa fa-user" aria-hidden="true"></i>
-              <span class="d-block">1. Personal info</span>
-            </div>
-          </a>
-        </div>
-      
-        <div class="col-4 progress-wizard-step active">
-          <div class="progress">
-            <div class="progress-bar"></div>
-          </div>
-      
-          <a href="diy_list" class="progress-wizard-dot">
-            <div class="progress-wizard-content">
-              <i class="fas fa-dollar-sign" aria-hidden="true"></i>
-              <span class="d-block">2. Payment info</span>
-            </div>
-          </a>
-        </div>
-      
-        <div class="col-4 progress-wizard-step incomplete">
-          <div class="progress">
-            <div class="progress-bar"></div>
-          </div>
-      
-          <a href="booking-step-3.html" class="progress-wizard-dot">
-            <div class="progress-wizard-content">
-              <i class="fa fa-check" aria-hidden="true"></i>
-              <span class="d-block">3. Confirmation</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-    
     <div class="row">
-      <div class="col-md-7 col-lg-8 order-1 order-md-0">
-        <h3 class="text-capitalize mb-5">Billing address</h3>
-    
-        <form action="" method="post" target="_blank">
-          <div class="mb-5">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">First Name</label>
-                  <input type="text" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">Last Name</label>
-                  <input type="text" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">Adderss 1</label>
-                  <input type="text" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">Adderss 2</label>
-                  <input type="text" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">City</label>
-                  <input type="text" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">Zip Code</label>
-                  <input type="number" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">State/Region</label>
-                  <input type="text" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">Country</label>
-                  <div class="select-default select-confirm">
-                    <select class="select-option">
-                      <option>Select Country</option>
-                      <option>USA</option>
-                      <option>UK</option>
-                      <option>CANADA</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mb-8">
-            <h3 class="text-capitalize mb-5">Card Info</h3>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">Card Name</label>
-                  <input type="text" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputNumber">Card Number</label>
-                  <input type="number" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">CVV</label>
-                  <input type="text" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputNumber">Pay with</label>
-                  <div class="row">
-                    <div class="col-3 pe-lg-1 pe-xl-3">
+    <!-- ============================================================================== -->
+        <div class="container">
+        <div class="row">
+        
+          <c:choose>
+          		<c:when test="${empty(diyList) }">
+    				<tr align="center">
+						<td colspan="5">글정보가 없습니다.</td>
+					</tr>	
+    			</c:when>
+    			
+    		<c:otherwise>
+          	  <c:forEach var="diyList" items="${diyList}">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-transparent mb-7">
+                        <a href="" class="position-relative">
+                            <img class="card-img-top rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/blog-01.jpg" src="${pageContext.request.contextPath}/assets/img/blog/blog-01.jpg" alt="thumbnail">
+                            <!-- <div class="card-img-overlay card-hover-overlay rounded"></div> -->
+                        </a>
 
-                      <div class="img-overlay rounded">
-                        <img class="w-100 lazyestload" data-src="assets/img/booking/master-card.jpg" src="assets/img/booking/master-card.jpg" alt="Generic placeholder image">
-                        <a href="" class="hover-img-overlay-dark"></a>
-                      </div>
-                    </div>
+                        <div class="card-body py-6">
+                            <h3 class="mb-4">
+                               <a class="text-capitalize text-dark hover-text-primary">${diyList.diyTitle}</a>
+                            </h3>
 
-                    <div class="col-3 px-lg-2 px-xl-3">
-                      <div class="img-overlay rounded">
-                        <img class="w-100 lazyestload" data-src="assets/img/booking/discover.jpg" src="assets/img/booking/discover.jpg" alt="Generic placeholder image">
-                        <a href="" class="hover-img-overlay-dark"></a>
-                      </div>
-                    </div>
+                            <div class="meta-post-sm mb-4">
+                                <ul class="list-unstyled d-flex flex-wrap mb-0">
+                                    <li class="meta-tag me-4 mb-1">
+                                        <i class="fa fa-user text-gray-color" aria-hidden="true"></i>
+                                        <a class="text-gray-color hover-text-primary">
+                                            <span class="ms-1 text-capitalize">${diyList.diyPeople}</span>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="meta-tag text-gray-color me-4 mb-1">
+					                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+					                  <span class="ms-1 text-capitalize">${diyList.diyStartdate}</span>
+					                </li>
+					
+					                <li class="meta-tag text-gray-color me-4 mb-1">
+					                  <i class="fa fa fa-tags" aria-hidden="true"></i>
+					                  <span class="ms-1 text-capitalize">${diyList.diyLoc}</span>
+					                </li>
+					                
+					                <li class="meta-tag text-gray-color me-4 mb-1">
+					                  <i class="fa fa-envelope" aria-hidden="true"></i>
+					                  <span class="ms-1 text-capitalize">${diyList.diyRegdate}</span>
+					                </li>
+					
+					                <li class="meta-tag text-gray-color me-4 mb-1">
+					                  <i class="fa fa-envelope" aria-hidden="true"></i>
+					                  <span class="ms-1 text-capitalize">${diyList.loveIdx}</span>
+					                </li>
+                                    
+                                    <!-- Other meta tags... -->
+                                </ul>
+                            </div>
 
-                    <div class="col-3 px-lg-2 px-xl-3">
-                      <div class="img-overlay rounded">
-                        <img class="w-100 lazyestload" data-src="assets/img/booking/visa.jpg" src="assets/img/booking/visa.jpg" alt="Generic placeholder image">
-                        <a href="" class="hover-img-overlay-dark"></a>
-                      </div>
-                    </div>
+                            <p class="mb-0">${diyList.diyIntroduction}</p>
+                        </div>
 
-                    <div class="col-3 ps-lg-1 ps-xl-3">
-                      <div class="img-overlay rounded">
-                        <img class="w-100 lazyestload" data-src="assets/img/booking/paypal.jpg" src="assets/img/booking/paypal.jpg" alt="Generic placeholder image">
-                        <a href="" class="hover-img-overlay-dark"></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                        <div class="card-footer px-5">
+                            <a href="${pageContext.request.contextPath}/diy/diy_detail" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+                        </div>
+                   	 </div>
+             	   </div>
+         	   	  </c:forEach>
+         	 	 </c:otherwise>
+        	   </c:choose>
+        	 </div>
+   		   </div>
+   		   <div class="text-center text-md-start text-lg-end">
+            <a href="${pageContext.request.contextPath}/diy/diy_add" class="btn btn-primary text-uppercase">작성하기</a>
+           </div>
+  	   	</div>
+	 </div>
 
-              <div class="col-lg-6">
-                <label for="exampleInputText">Expiration Date</label>
-                <div class="form-group form-group-icon form-group-icon-default">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <input type="text" class="form-control border-0 bg-smoke" name="dateRange" value="" placeholder="DD/MM/YY">
-                </div>
-              </div>
-
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="inputName">Security Code</label>
-                  <input type="password" class="form-control border-0 bg-smoke">
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="d-flex justify-content-between">
-            <button type="button" onclick="location.href='diy_add';" class="btn btn-primary text-uppercase">
-              Back
-            </button>
-
-            <button type="button" onclick="location.href='booking-step-3.html';" class="btn btn-primary text-uppercase">
-              Confirm
-            </button>
-          </div>
-        </form>
-      </div>
+  <!-- ====================================
+———	PAGINATION
+===================================== -->
+<section class="pt-5 pt-md-7">
+  <div class="container">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center align-items-center">
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)" tabindex="-1">
+            <i class="fas fa-long-arrow-alt-left d-none d-md-inline-block me-md-1" aria-hidden="true"></i> Previous
+          </a>
+        </li>
     
-      <div class="col-md-5 col-lg-4">
-        <h3 class="mb-5">Booking Details</h3>
-        <div class="card bg-smoke mb-6 mb-md-0">
-          <img class="card-img-top lazyestload" data-src="assets/img/booking/booking.jpg" src="assets/img/booking/booking.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h6 class="card-title text-dark">Maldives Tour</h6>
+        <li class="page-item">
+          <a class="page-link active" href="javascript:void(0)">1</a>
+        </li>
     
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item bg-transparent border-top-0 px-0 py-4">
-                <span><i class="far fa-calendar-alt me-1" aria-hidden="true"></i>From:</span>
-                <span class="text-gray-color">25 Mar, 2019</span>
-              </li>
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">2</a>
+        </li>
     
-              <li class="list-group-item bg-transparent px-0 py-4 border-off-white">
-                <span><i class="far fa-calendar-alt me-1" aria-hidden="true"></i>To:</span>
-                <span class="text-gray-color">28 Mar, 2019</span>
-              </li>
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">3</a>
+        </li>
     
-              <li class="list-group-item bg-transparent px-0 py-4 border-off-white">
-                <span><i class="fa fa-user me-1" aria-hidden="true"></i>Guests:</span>
-                <span class="text-gray-color">2 Adults, 1Child</span>
-              </li>
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">...</a>
+        </li>
     
-              <li class="list-group-item bg-transparent px-0 py-4 d-none"></li>
-            </ul>
-          </div>
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">9</a>
+        </li>
     
-          <div class="card-footer mt-6">
-            <h2 class="mb-0">
-              <span>Total:</span>
-              <span class="text-primary font-weight-bold">$6,500</span>
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">Next
+            <i class="fas fa-long-arrow-alt-right d-none d-md-inline-block ms-md-1" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
+</section>
+
 </section>
 
 
 
   </div><!-- element wrapper ends -->
 
+
   <!-- ====================================
     ——— FOOTER SECTION
     ===================================== -->
+    <jsp:include page="/WEB-INF/views/inc/footer.jsp"/>
    
   
     <!-- ====================================
@@ -418,6 +307,25 @@
       </div>
     </div>
 
+      <!-- Javascript -->
     
+    <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/menuzord/js/menuzord.js"></script>
+    
+    <script src='${pageContext.request.contextPath}/assets/plugins/fancybox/jquery.fancybox.min.js'></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/lazyestload/lazyestload.js"></script>
+    
+    <script src='${pageContext.request.contextPath}/assets/plugins/selectric/jquery.selectric.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/moment.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/daterangepicker.min.js'></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
   </body>
 </html>

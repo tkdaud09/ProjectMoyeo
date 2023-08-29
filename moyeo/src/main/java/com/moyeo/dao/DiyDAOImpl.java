@@ -21,7 +21,6 @@ public class DiyDAOImpl implements DiyDAO {
 	@Override
 	public int insertDiy(Diy diy) {
 		// TODO Auto-generated method stub
-		System.out.println("DiyDAOImple 클래스 오류");
 		return sqlSession.getMapper(DiyMapper.class).insertDiy(diy);
 	}
 
@@ -32,24 +31,37 @@ public class DiyDAOImpl implements DiyDAO {
 	}
 
 	@Override
-	public int deleteDiy(String diyIdx) {
+	public int deleteDiy(int diyIdx) {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(DiyMapper.class).deleteDiy(diyIdx);
 	}
-	
+
 	@Override
-	public Diy selectDiy(String diyTitle) {
+	public Diy selectDiy(int diyIdx) {
 		// TODO Auto-generated method stub
-		return sqlSession.getMapper(DiyMapper.class).selectDiy(diyTitle);
+		return sqlSession.getMapper(DiyMapper.class).selectDiy(diyIdx);
 	}
-	
 
 	@Override
 	public List<Diy> selectDiyList() {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(DiyMapper.class).selectDiyList();
 	}
-	
+
+	@Override
+	public List<Diy> selectDiyList(String diyTitle) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(DiyMapper.class).selectDiyList(diyTitle);
+	}
+
+	@Override
+	public int selectDiyListCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(DiyMapper.class).selectDiyListCount();
+	}
+
+
+	// *** 내용으로도 검색하는거 만들기
 	
 
 }
