@@ -1,5 +1,7 @@
 package com.moyeo.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +33,14 @@ public class PackageDAOImpl implements PackageDAO {
 	@Override
 	public int updatePack(Pack pack) {
 		return sqlSession.getMapper(PackageMapper.class).updatePack(pack);
+	}
+	
+	/* 검색 */
+	
+	//패키지 리스트
+	@Override
+	public List<Pack> selectPackList() {
+		return sqlSession.getMapper(PackageMapper.class).selectPackList();
 	}
 	
 }

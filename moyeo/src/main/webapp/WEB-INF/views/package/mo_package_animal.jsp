@@ -181,8 +181,9 @@
 		<div class="package_con">
 			<div class="pack_img1">
 			<!-- <img src="${pageContext.request.contextPath}/assets/img/packages/pack_img_calendar.png">  -->
-			<img src="<c:url value='/assets/img/upload/${pack.packPreview}'/>">
+			<!-- <img src="<c:url value='/assets/img/upload/${pack.packPreview}'/>"> -->
 			
+			<img src="<c:url value='/assets/img/upload/${pack.packCalendar}'/>" alt="">   
 			
 			</div>
 			<div class="pack_text">여행 상세 내용이 들어갈 공간 </div>

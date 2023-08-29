@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="utf-8">
   
@@ -42,20 +44,23 @@
 
     <div id="filters" class="button-group">
       <button class="button is-checked" data-filter="*">전체상품</button>
-      <button class="button" data-filter=".alone">나홀로</button>
-      <button class="button" data-filter=".child">아이와 함께</button>
-      <button class="button" data-filter=".consideration">배려와 함께</button>
-	  <button class="button" data-filter=".animal">동물과 함께</button>
-	  <button class="button" data-filter=".couple">연인과 함께</button>
-	  <button class="button" data-filter=".friend">친구과 함께</button>
+      <button class="button" data-filter=".A">나홀로</button>
+      <button class="button" data-filter=".I">아이와 함께</button>
+      <button class="button" data-filter=".H">배려와 함께</button>
+	  <button class="button" data-filter=".P">동물과 함께</button>
+	  <button class="button" data-filter=".C">연인과 함께</button>
+	  <button class="button" data-filter=".F">친구과 함께</button>
     </div>
 
 
 	<div class="row grid">
-      <div class="col-md-6 col-lg-4 mb-5 element-item  animal">
+	
+	<c:forEach items="${packList}" var="pack">
+	
+      <div class="col-md-6 col-lg-4 mb-5 element-item  ${pack.packKind}">
         <div class="card card-hover">
-          <a href="${pageContext.request.contextPath}/package/detail" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/home/deal/deal-01.jpg" src="${pageContext.request.contextPath}/assets/img/home/deal/deal-01.jpg" alt="Card image cap">
+          <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="position-relative">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <div class="badge bg-primary badge-rounded-circle">
                 <span class="d-block">
@@ -93,10 +98,9 @@
         
           <div class="card-body px-4">
             <h5>
-              <a href="single-package-right-sidebar.html" class="card-title text-uppercase">동물과 함께 투어 제목 공간</a>
+              <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="card-title text-uppercase">${pack.packTitle}</a>
             </h5>
-            <p class="mb-5">Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus et pharetra
-              egestas.</p>
+            <p class="mb-5">${pack.packStartDate} ~ ${pack.packEndDate}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <p class="mb-0 text-capitalize">Start from</p>
@@ -109,6 +113,7 @@
           </div>
         </div>
       </div>
+      </c:forEach>
 
       <div class="col-md-6 col-lg-4 mb-5 element-item child">
         <div class="card card-hover">

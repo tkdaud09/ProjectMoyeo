@@ -37,8 +37,8 @@
 			, #{packMain}
 			, #{packContent}
 			, #{packCalendar}
-			, #{packStartDate}
-			, #{packEndDate}
+			, TO_DATE(#{packStartDate}, 'YYYY-MM-DD')
+       		, TO_DATE(#{packEndDate}, 'YYYY-MM-DD')   
 			, sysdate
 			, #{packPeople}
 			, #{packChildCount}
@@ -61,8 +61,8 @@
 			, pack_main
 			, pack_content
 			, pack_calendar
-			, pack_startdate
-			, pack_enddate
+			, TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
+         	, TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
 			, pack_regdate
 			, pack_people
 			, pack_childcount
@@ -169,8 +169,8 @@
 			, pack_main
 			, pack_content
 			, pack_calendar
-			, pack_startdate
-			, pack_enddate
+			, TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
+         	, TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
 			, pack_regdate
 			, pack_people
 			, pack_childcount

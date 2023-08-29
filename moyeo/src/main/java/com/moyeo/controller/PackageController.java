@@ -34,9 +34,10 @@ public class PackageController {
 	@Autowired
 	private PackageService packageService; // 패키지 등록 관련 service
 
-	// 패키지 메인 페이지 이동
+	// 패키지 리스트 페이지 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String packageMainGET() {
+	public String packageMainGET(Model model) {
+		model.addAttribute("packList", packageService.getPackageList());
 		return "package/mo_package";
 	}
 
@@ -73,7 +74,7 @@ public class PackageController {
 		}
 
 		// 전달파일을 저장하기 위한 서버 디렉토리의시스템 경로 반환
-		String uploadDirectory = context.getServletContext().getRealPath("/assets/img/upload");
+		String uploadDirectory = context.getServletContext().getRealPath("resources/assets/img/upload");
 
 		// 서버 디렉토리에 업로드 처리되며 저장된 파일의 이름을 반환하여 Command 객체의 필드값 변경
 		String uploadPreview = UUID.randomUUID().toString() + "-" + previewMultipartFile.getOriginalFilename();
@@ -99,6 +100,7 @@ public class PackageController {
 
 		return "redirect:/package/";
 	}
+
 
 	/* 패키지 상품 정보 수정 */
 	@RequestMapping(value = "/packinfoModify", method = RequestMethod.POST)

@@ -1,5 +1,7 @@
 package com.moyeo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.moyeo.dao.PackageDAO;
@@ -31,5 +33,13 @@ public class PackageServiceImpl implements PackageService {
 	@Override
 	public int updatePackage(Pack pack) {
 		return packageDAO.updatePack(pack);
+	}
+	
+	/* 검색 */
+		
+	//전체 패키지 리스트
+	@Override
+	public List<Pack> getPackageList() {
+		return packageDAO.selectPackList();
 	}
 }
