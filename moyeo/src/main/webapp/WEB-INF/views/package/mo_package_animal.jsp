@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="utf-8">
   
-
+<head><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script></head>
 <body id="body" class="up-scroll">
 
   <div class="main-wrapper packages-grid">
@@ -103,9 +103,9 @@
 
                     <div class="col-xl-5">
                       <div class="count-input mx-auto">
-                        <a class="incr-btn" data-action="decrease" href="javascript:void(0)">–</a>
-                        <input class="quantity" type="number" value="1">
-                        <a class="incr-btn" data-action="increase" href="javascript:void(0)">+</a>
+                        <a class="incr-btn adult" data-action="decrease" href="javascript:void(0)">–</a>
+                        <input class="quantity adult" type="number" value="0">
+                        <a class="incr-btn adult" data-action="increase" href="javascript:void(0)">+</a>
                       </div>
                     </div>
 
@@ -121,9 +121,9 @@
 
                     <div class="col-xl-5">
                       <div class="count-input mx-auto">
-                        <a class="incr-btn" data-action="decrease" href="javascript:void(0)">–</a>
-                        <input class="quantity" type="number" value="0">
-                        <a class="incr-btn" data-action="increase" href="javascript:void(0)">+</a>
+                        <a class="incr-btn child" data-action="decrease" href="javascript:void(0)">–</a>
+                        <input class="quantity child" type="number" value="0">
+                        <a class="incr-btn child" data-action="increase" href="javascript:void(0)">+</a>
                       </div>
                     </div>
 
@@ -136,7 +136,9 @@
 
               <div class="d-flex justify-content-between border-bottom mb-5 pb-5">
                 <span class="text-uppercase h4 mb-0">Total cost</span>
-                <span class="font-weight-bold text-primary h3 mb-0">$158</span>
+           		<span class="font-weight-bold text-primary h3 mb-0" id="total-cost">0원</span>
+              
+             
               </div>
 
               <div class="text-center px-4">
@@ -185,7 +187,6 @@
 			</div>
 			<div class="pack_text">여행 상세 내용이 들어갈 공간 </div>
 		</div>
-
 
         <div class="mb-7">
           <h2 class="text-uppercase mb-6">Reviews</h2>
@@ -247,7 +248,9 @@
           </div>
         </div>
 
-        <form class="mb-9 mb-md-0">
+		<!-- 
+		
+		    <form class="mb-9 mb-md-0">
           <h3 class="text-uppercase mb-6">Leave your review</h3>
 
           <p class="rating-view d-flex align-items-center">
@@ -266,10 +269,16 @@
             </button>
           </div>
         </form>
+		
+		 -->
+        
       </div>
     </div>
   </div>
 </section>
+
+			
+
 
 <!-- ====================================
 ———	PACKAGES LIKE SECTION
@@ -473,9 +482,37 @@
 
 
   </div><!-- element wrapper ends -->
+	
 
+		<!-- 가격 계산 -->
+		<script>
+		// 성인 가격 소인 가격 설정 
+	    const adultPrice = ${pack.packAdultPrice};
+	    const childPrice = ${pack.packChildPrice};
+	
+	    // 요소 선택
+	    const adultInput = document.querySelector('.quantity.adult');
+	    const childInput = document.querySelector('.quantity.child');
+	    const totalCostSpan = document.getElementById('total-cost');
+    
+    
+	    $(document).ready(function () {
+	        $(".incr-btn.adult").click(function () {
+	          const adultTotalCost = adultInput.value * adultPrice;
+	          const childTotalCost = childInput.value * childPrice;
+	          const totalCost = adultTotalCost + childTotalCost;
+	          totalCostSpan.textContent = totalCost +"원" ;
+	        });
 
-   
+	        $(".incr-btn.child").click(function () {
+	          const adultTotalCost = adultInput.value * adultPrice;
+	          const childTotalCost = childInput.value * childPrice;
+	          const totalCost = adultTotalCost + childTotalCost;
+	          totalCostSpan.textContent = totalCost +"원";
+	        });
+	      });
+
+	</script>
   </body>
 </html>
 
