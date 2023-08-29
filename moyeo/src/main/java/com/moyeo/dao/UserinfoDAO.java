@@ -21,7 +21,8 @@ public interface UserinfoDAO {
 	int updateUserinfo(Userinfo userinfo);//회원정보 변경
 	int outUser(String id);//회원 탈퇴
 	Userinfo selectUserinfoById(String id);//아이디로 유저 정보 검색
-
+	int updatePw(Userinfo userinfo); //비밀번호 변경
+	
 	//관리자
 	Userinfo selectUserinfo(String id);//조건에 따른 유저 정보 검색
 	List<Userinfo> selectUserinfoList();//전체 유저 정보 검색

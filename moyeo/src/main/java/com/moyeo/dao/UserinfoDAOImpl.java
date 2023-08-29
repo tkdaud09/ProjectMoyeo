@@ -14,24 +14,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserinfoDAOImpl implements UserinfoDAO {
 	private final SqlSession sqlSession;
-	
+
 	/* 회원가입 */
-	
-	//회원가입
+
+	// 회원가입
 	@Override
 	public int insertUserinfo(Userinfo userinfo) {
 		return sqlSession.getMapper(UserinfoMapper.class).insertUserinfo(userinfo);
 	}
-	
-	//아이디 중복검사
+
+	// 아이디 중복검사
 	@Override
 	public int idCheck(String id) {
 		return sqlSession.getMapper(UserinfoMapper.class).idCheck(id);
 	}
-	
-	
+
 	/* 로그인 */
-	
+
 	@Override
 	public Userinfo userinfoLogin(Userinfo userinfo) {
 		return sqlSession.getMapper(UserinfoMapper.class).userinfoLogin(userinfo);
@@ -41,45 +40,48 @@ public class UserinfoDAOImpl implements UserinfoDAO {
 	public int updateLogdate(String id) {
 		return sqlSession.getMapper(UserinfoMapper.class).updateLogdate(id);
 	}
-	
+
 	@Override
 	public int updateUserToRest(String id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	/* 아이디 찾기 */
-    
-    @Override
-    public Userinfo findUserByEmail(String email) {
-        //return sqlSession.selectOne("userinfoMapper.findUserByEmail", email);
-       return sqlSession.getMapper(UserinfoMapper.class).findUserByEmail(email);
-    }
-	
-	
+
+	@Override
+	public Userinfo findUserByEmail(String email) {
+		// return sqlSession.selectOne("userinfoMapper.findUserByEmail", email);
+		return sqlSession.getMapper(UserinfoMapper.class).findUserByEmail(email);
+	}
+
 	/* 마이페이지 */
-	
-	//회원정보변경
+
+	// 회원정보변경
 	@Override
 	public int updateUserinfo(Userinfo userinfo) {
 		return sqlSession.getMapper(UserinfoMapper.class).updateUserinfo(userinfo);
 	}
-	
-	//회원탈퇴
+
+	// 회원탈퇴
 	@Override
 	public int outUser(String id) {
 		return sqlSession.getMapper(UserinfoMapper.class).outUser(id);
 	}
-	
-	//아이디로 유저 검색
+
+	// 아이디로 유저 검색
 	@Override
 	public Userinfo selectUserinfoById(String id) {
 		return sqlSession.getMapper(UserinfoMapper.class).selectUserinfoById(id);
 	}
-	
-	
+
+	// 비밀번호 변경
+	@Override
+	public int updatePw(Userinfo userinfo) {
+		return sqlSession.getMapper(UserinfoMapper.class).updatePw(userinfo);
+	}
+
 	/* 관리자 */
-	
 
 	@Override
 	public Userinfo selectUserinfo(String id) {
@@ -98,8 +100,5 @@ public class UserinfoDAOImpl implements UserinfoDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
 
 }

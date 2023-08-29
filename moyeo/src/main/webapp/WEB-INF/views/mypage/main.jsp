@@ -98,7 +98,10 @@
                 <input type="button" value="회원정보변경"
                     onclick="location.href='/moyeo/user/pwCheck';">
             </li>
-
+            <li>
+                <input type="button" value="비밀번호변경"
+                    onclick="location.href='/moyeo/user/modifypw';">
+            </li>
             <li>
                 <input type="button" value="찜한 내역"
                     onclick="location.href='#';">

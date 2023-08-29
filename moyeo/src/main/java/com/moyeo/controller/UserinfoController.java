@@ -331,5 +331,48 @@ public class UserinfoController {
 
 		return "redirect:/user/login";
 	}
+	
+	
+	/* 비밀번호 변경 */
+
+	// 비밀번호 변경 - GET
+	@RequestMapping(value = "/modifypw", method = RequestMethod.GET)
+	public String modifypwGET() {
+		return "mypage/modify_pw";
+	}
+
+	// 비밀번호 변경 - POST
+	@RequestMapping(value = "/modifypw", method = RequestMethod.POST)
+	public String modiftpwPOST(HttpSession session, Userinfo userinfo, @RequestParam String updatePw, Model model)
+			throws Exception {
+
+		String rawPw = "";
+		String encodePw = "";
+
+		// String newpw = request.getParameter("newpw");
+
+		Userinfo lto = userinfoservice.userLogin(userinfo);
+
+		if (lto != null) {
+
+			rawPw = userinfo.getPw();
+			encodePw = lto.getPw();
+
+			if (pwEncoder.matches(rawPw, encodePw)) {
+				lto.setPw(encodePw = pwEncoder.encode(updatePw));
+				userinfoservice.modifyPw(lto);
+				session.setAttribute("userinfo", lto);
+				return "redirect:/user/mypage";
+
+			} else {
+				model.addAttribute("result", 0);
+				return "mypage/modify_pw";
+			}
+
+		} else {
+			model.addAttribute("result", 0);
+			return "mypage/modify_pw";
+		}
+	}
 
 }

@@ -91,6 +91,14 @@
 	
 	<!-- 마이페이지 -->
 	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw">
+		UPDATE userinfo
+	    SET pw=#{pw}
+	    WHERE id=#{id}
+	</update>
+	
+	
 	<!-- 회원정보 변경 -->
 	<update id="updateUserinfo">
 		UPDATE userinfo
