@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="utf-8">
   
@@ -13,15 +15,13 @@
   <!-- ====================================
   ——— HEADER
   ===================================== -->
-<jsp:include page="/WEB-INF/views/inc/header.jsp"/>
-  <div class="main-wrapper booking-step-1">
 
 
 <!-- ====================================
 ———	PAGE TITLE
 ===================================== -->
 <section class="page-title">
-  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg7.jpg);">
+  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url( ${pageContext.request.contextPath}/assets/img/pages/page-title-bg7.jpg);">
     <div class="container">
       <div class="row align-items-center justify-content-center" style="height: 200px;">
         <div class="col-lg-6">
@@ -81,24 +81,22 @@
       <div class="col-md-7 col-lg-8 order-1 order-md-0">
         <h3 class="text-capitalize mb-5">여행 정보!</h3>
 
-        <form action="diy_detail" name="diy_add" method="post" target="_blank" enctype="multipart/form-data">
+        <form action="diy_add" id="diy_add" method="post" enctype="multipart/form-data">
+        	<input type="hidden" name="userinfoId" value="${userinfo }">
+        
      	   <div class="row">
-
+			
               <div class="col-lg-6">
-                <label for="exampleInputText">출발일</label>
+                <label for="diyStartdatev">출발일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <input type="text" class="form-control border-0 bg-smoke" name="dateRange" value="" placeholder="DD/MM/YYYY">
+                  <input type="date" value="2000-09-22" class="form-control border-0 bg-smoke" name="diyStartdate" value="" placeholder="DD/MM/YYYY">
                 </div>
                 </div>
-                
-  	  
     
              <div class="col-lg-6">
-                <label for="exampleInputText">도착일</label>
+                <label for="diyEnddate">도착일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <input type="text" class="form-control border-0 bg-smoke" name="dateRange" value="" placeholder="DD/MM/YYYY">
+                  <input type="date" value="2000-09-22" class="form-control border-0 bg-smoke" name="diyEnddate" value="" placeholder="DD/MM/YYYY">
                 </div>
               </div>
         
@@ -106,34 +104,34 @@
     
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">인원</label>
+                <label for="diyPeople">인원</label>
                 <input type="text" class="form-control border-0 bg-smoke" name="diyPeople" placeholder="ex) 3" >
               </div>
             </div>
     
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">지역</label>
+                <label for="diyLoc">지역</label>
                 <input type="text" class="form-control border-0 bg-smoke" name="diyLoc" placeholder="ex) 서울">
               </div>
             </div>
     
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">비용</label>
+                <label for="diyPrice">비용</label>
                 <input type="text" class="form-control border-0 bg-smoke" name="diyPrice" placeholder="ex) 10">
               </div>
             </div>
     
           <div class="form-group mb-5">
-    		<label for="imgUpload">썸네일 올리기</label>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyThumbnail" name="diyThumbnail">
-    		<div id="imagePreview"  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+    		<label for="diyThumbnailimage">썸네일 올리기</label>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyThumbnail" name="diyThumbnailFile">
+    		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
 		  </div>
 		  
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">제목</label>
+                <label for="diyTitle">제목</label>
                 <input type="text" class="form-control border-0 bg-smoke" name="diyTitle" placeholder="ex) 3박 4일 강릉여행 후기!!">
               </div>
             </div>
@@ -147,8 +145,8 @@
            
           <div class="form-group mb-5">
     		<label for="imgUpload">DAY 1 사진올리기</label>
-    		<div id="imagePreview" style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent1Img" name="diyContent1Img">
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent1Img" name="diyContent1ImgFile">
+    		<div id="" style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
 		  </div>
           
           <div class="form-group mb-5">
@@ -158,35 +156,35 @@
             
           <div class="form-group mb-5">
     		<label for="imgUpload">DAY 2 사진올리기</label>
-    		<div id="imagePreview"  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent2Img" name="diyContent2Img">
+    		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent2Img" name="diyContent2ImgFile">
 		  </div>
             
            <div class="form-group mb-5">
             <label for="exampleFormControlTextarea1">DAY 2</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7"></textarea>
+            <textarea class="form-control border-0 bg-smoke" rows="7" name="diyContent2" ></textarea>
           </div>
           
           <div class="form-group mb-5">
     		<label for="imgUpload">DAY 3 사진올리기</label>
-    		<div id="imagePreview"  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent3Img" name="diyContent3Img">
+    		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent3Img" name="diyContent3ImgFile">
 		  </div>
           
            <div class="form-group mb-5">
             <label for="exampleFormControlTextarea1">DAY 3</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7"></textarea>
+            <textarea class="form-control border-0 bg-smoke" rows="7" name="diyContent3" ></textarea>
           </div>
           
           <div class="form-group mb-5">
-    		<label for="imgUpload">sDAY 4 사진올리기</label>
-    		<div id="imagePreview"  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent4Img" name="diyContent4Img">
+    		<label for="imgUpload">DAY 4 사진올리기</label>
+    		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent4Img" name="diyContent4ImgFile">
 		  </div>
 		  
 			<div class="form-group mb-5">
             <label for="exampleFormControlTextarea1">DAY 4</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7"></textarea>
+            <textarea class="form-control border-0 bg-smoke" rows="7" name="diyContent4" ></textarea>
           </div>
           
            <div class="container mt-5">
@@ -196,18 +194,14 @@
 	        </button>
 	      </div>
 
-          <div class="form-group form-check mb-9">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">졸리<a href="https://www.naver.com/">다아아아아아</a>
-            </label>
-          </div>
-        </div>
     
            <div class="text-center text-md-start text-lg-end">
-            <button type="submit" class="btn btn-primary text-uppercase" id="enrollBtn">
+            <button type="submit" id="enrollBtn" class="btn btn-primary text-uppercase" >
               작성하기
             </button>
            </div>
+           
+         </div>
            
 	  </form>	  
 	  
@@ -216,142 +210,27 @@
 </section>
 
     <!-- ====================================
-    ——— FOOTER SECTION
-    ===================================== -->
-    <jsp:include page="/WEB-INF/views/inc/footer.jsp"/>
-  
-    <!-- ====================================
     ——— MODAL SECTION
     ===================================== -->
     <!-- Signup Modal -->
-    <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-label="signupModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header rounded">
-            <h3 class="modal-title text-uppercase font-weight-bold">Create your account</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <div class="modal-body">
-            <form class="" action="index.html" method="get">
-              <div class="mb-3">
-                <input type="text" class="form-control bg-smoke" required="" placeholder="Full Name">
-              </div>
-
-              <div class="mb-3">
-                <input type="email" class="form-control bg-smoke" required="" placeholder="Email">
-              </div>
     
-              <div class="mb-3">
-                <input type="password" class="form-control bg-smoke" required="" placeholder="Password">
-              </div>
-    
-              <div class="mb-3 form-check mb-0">
-                <input type="checkbox" class="form-check-input" id="exampleCheck4">
-                <label class="form-check-label text-gray-color mb-3" for="exampleCheck4">
-                  I agree to the terms of use and privacy.
-                </label>
-              </div>
-
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Login</button>
-              </div>
-
-              <div class="text-uppercase text-center py-3">Or</div>
-
-              <div class="d-grid">
-                <button type="submit" class="btn btn-facebook btn-block text-uppercase text-white">Login with facebook</button>
-              </div>
-            </form>
-          </div>
-    
-          <div class="modal-footer justify-content-center">
-            <p class="mb-1">Don’t have an Account? <a href="javascript:void(0)">Sign up</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Login Modal -->
-    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-label="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header rounded">
-            <h3 class="modal-title text-uppercase font-weight-bold">Log in to your account</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <div class="modal-body">
-            <form class="" action="index.html" method="get">
-              <div class="mb-3">
-                <input type="email" class="form-control bg-smoke" required="" placeholder="Email">
-              </div>
-
-              <div class="mb-3">
-                <input type="password" class="form-control bg-smoke" required="" placeholder="Password">
-              </div>
-
-              <div class="mb-3 form-check mb-0">
-                <input type="checkbox" class="form-check-input" id="exampleCheck5">
-                <label class="form-check-label text-gray-color mb-3" for="exampleCheck5">
-                  Remember me
-                </label>
-                <a class="pull-right" href="javascript:void(0)">Fogot Password?</a>
-             </div>
-
-             <div class="d-grid">
-              <button type="submit" class="btn btn-primary text-uppercase">Login</button>
-             </div>
-
-              <div class="text-uppercase text-center py-3">Or</div>
-
-              <div class="d-grid">
-                <button type="submit" class="btn btn-facebook text-uppercase text-white">Login with facebook</button>
-               </div>
-            </form>
-          </div>
-
-          <div class="modal-footer justify-content-center">
-            <p class="mb-1">Don’t have an Account? <a href="javascript:void(0)">Sign up</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    
     <!-- INQUIRY IN MODAL -->
-    <div class="modal fade" id="inquiry" tabindex="-1" role="dialog" aria-label="inquiryModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header rounded">
-            <h3 class="modal-title text-uppercase font-weight-bold">Inquiry about tour</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+    <script>
+    let diy_add = $("#diy_add");
 
-          <div class="modal-body pb-3">
-            <form class="" action="index.html" method="get">
-              <div class="mb-3">
-                <input type="text" class="form-control bg-smoke" required="" placeholder="Your Name">
-              </div>
+   
 
-              <div class="mb-3">
-                <input type="email" class="form-control bg-smoke" required="" placeholder="Your Email">
-              </div>
-    
-              <div class="mb-3">
-                <input type="number" class="form-control bg-smoke" required="" placeholder="Phone Number">
-              </div>
-
-              <div class="mb-3">
-                <textarea class="form-control bg-smoke" rows="6" placeholder="Message"></textarea>
-              </div>
-    
-              <button type="submit" class="btn btn-primary text-uppercase">Submit</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    /* 상품 등록 버튼 */
+    $("#enrollBtn").on("click", function(e){
+        e.preventDefault();
+        diy_add.submit();
+    });
+   </script>
+   
+   
 
     <script >
     const addButton = document.getElementById('addButton');
@@ -404,11 +283,34 @@
     // Add event listener to the "Add DAY" button
     addButton.addEventListener('click', addNewDay);
     </script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('enrollForm');
+        form.addEventListener('submit', function(event) {
+            let hasEmptyFields = false;
 
+            const inputs = form.querySelectorAll('input[type="text"], textarea');
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    hasEmptyFields = true;
+                    input.classList.add('border-danger'); // Highlight the empty field
+                } else {
+                    input.classList.remove('border-danger');
+                }
+            });
+
+            if (hasEmptyFields) {
+                event.preventDefault();
+            }
+        });
+    });
+	</script>
+	
 	<script type="text/javascript">
 	
 	function submitCheck() {
-		let enrollForm = $("#diy_form");
+		let diy_add = $("#diy_add");
 
 		if(dateRange.value=="") {
 			alert("날짜를 입력해주세요.");

@@ -60,7 +60,7 @@
                 <li class="me-6">
                  
                     
-                      <a href="${pageContext.request.contextPath}/user/cart">장바구니</a>
+                      <a href="${pageContext.request.contextPath}/cart/list">장바구니</a>
                     
                 </li>
       
@@ -164,13 +164,13 @@
                   <a class="" href="javascript:void(0)">DIY</a>
                     <ul class="dropdown drop-up">
                       <li class=" ">
-                        <a href="${pageContext.request.contextPath}/diy/mo_diy">DIY</a>
+                        <a href="${pageContext.request.contextPath}/diy/diy">DIY</a>
                       </li>
                   <li class=" ">
                         <a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
                       </li>
                   <li class=" ">
-                        <a href="#">DIY 전체보기</a>
+                        <a href="${pageContext.request.contextPath}/diy/diy_list">DIY 전체보기</a>
                       </li>
                     </ul>
                   </li>
@@ -648,7 +648,7 @@
                   <a class="" href="javascript:void(0)">DIY</a>
                     <ul class="dropdown drop-up">
                       <li class=" ">
-                        <a href="${pageContext.request.contextPath}/diy/mo_diy">DIY</a>
+                        <a href="${pageContext.request.contextPath}/diy/diy">DIY</a>
                       </li>
                   <li class=" ">
                         <a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
@@ -1132,7 +1132,7 @@
                   <a class="" href="javascript:void(0)">DIY</a>
                     <ul class="dropdown drop-up">
                       <li class=" ">
-                        <a href="${pageContext.request.contextPath}/diy/mo_diy">DIY</a>
+                        <a href="${pageContext.request.contextPath}/diy/diy">DIY</a>
                       </li>
                   <li class=" ">
                         <a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>

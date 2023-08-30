@@ -44,19 +44,19 @@
 
 				<div class="border_view">
 				    <div class="view">
-				        <h3 class="tit">${review.reviewTitle}</h3>
+				        <h3 class="tit">${notice.noticeTitle}</h3>
 				        <p class="t1">작성자: ${userinfo.id}</p>
-				        <p class="t1">작성일: ${review.reviewRegdate}</p>
-				        <p class="t1">별점: ${review.reviewStar}</p>  
+				        <p class="t1">작성일: ${notice.noticeRegdate}</p>
+				        <p class="t1">별점: ${notice.noticeStar}</p>  
 				    </div><hr>
-					<div class="view_con">${review.reviewContent}</div>
+					<div class="view_con">${notice.noticeContent}</div>
 					
 					
 					<div class="border_btn">
-						<div class="list_btn"><a href="${pageContext.request.contextPath}/review/list">목록</a></div>
-						<div class="list_btn sp"><a href="${pageContext.request.contextPath}/review/modify/{reviewIdx}">수정</a></div>
+						<div class="list_btn"><a href="${pageContext.request.contextPath}/notice/list">목록</a></div>
+						<div class="list_btn sp"><a href="${pageContext.request.contextPath}/notice/modify/{noticeIdx}">수정</a></div>
 						
-						<button type="button" class="list_btn sp"  id="deleteBtn" onclick="deleteReview(${review.reviewIdx});">삭제</button>
+						<button type="button" class="list_btn sp"  id="deleteBtn" onclick="deletenotice(${notice.noticeIdx});">삭제</button>
 					</div>
 				</div>
 				
@@ -86,14 +86,14 @@
 	
 	
 	
-    function deleteReview(reviewIdx) {
+    function deletenotice(noticeIdx) {
         if (confirm("자료를 정말로 삭제 하시겠습니까?")) {
-            fetch("${pageContext.request.contextPath}/review/delete/" + reviewIdx, {
+            fetch("${pageContext.request.contextPath}/notice/delete/" + noticeIdx, {
                 method: "DELETE"
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "${pageContext.request.contextPath}/review/list";
+                    window.location.href = "${pageContext.request.contextPath}/notice/list";
                 } else {
                     alert("삭제 실패");
                 }

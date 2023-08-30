@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="utf-8">
   
@@ -22,7 +24,7 @@
 ———	PAGE TITLE
 ===================================== -->
 <section class="page-title">
-  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(assets/img/pages/page-title-bg7.jpg);">
+  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg7.jpg);">
     <div class="container">
       <div class="row align-items-center justify-content-center" style="height: 200px;">
         <div class="col-lg-6">
@@ -71,21 +73,9 @@
             </div>
           </a>
         </div>
-      
-        <div class="col-4 progress-wizard-step incomplete">
-          <div class="progress">
-            <div class="progress-bar"></div>
-          </div>
-      
-          <a href="${pageContext.request.contextPath}/moyeo/diy/diy_addmodify" class="progress-wizard-dot">
-            <div class="progress-wizard-content">
-              <i class="fa fa-check" aria-hidden="true"></i>
-              <span class="d-block">3. Confirmation</span>
-            </div>
-          </a>
-        </div>
         
        </div>
+      </div>
     
     
     <div class="row">
@@ -93,7 +83,7 @@
         <h3 class="text-capitalize mb-5">personal info</h3>
 
 
-        <form action="/moyeo/diy/diy_detail" name="diyAdd" method="post" target="_blank">
+        <form action="/moyeo/diy/diy_add" name="diy_add" id="diy_add" method="post" target="_blank">
      	   <div class="row">
      	   
      	   
@@ -203,18 +193,15 @@
 		  <!--  추가 버튼 글 + 사진 스크립트 작성 -->
 			 <button id="addPhotoAndField" class="badge bg-secondary">추가</button>
     
-          <div class="form-group form-check mb-9">
-            <input type="checkbox" class="form-check-input" id="checkBox">
-            <label class="form-check-label" for="checkBox">졸리<a href="">다</a>
-            </label>
-          </div>
-      </div>
     
            <div class="text-center text-md-start text-lg-end">
             <button type="submit" class="btn btn-primary text-uppercase" id="enrollBtn">
-              작성
+              수정하기
             </button>
            </div>
+          </div>
+          
+          
          </form>
       </div>
     </div>
@@ -360,12 +347,12 @@
 
     
     <script>
-    let enrollForm = $("#diy_form");
+    let enrollForm = $("#diy_add");
 
     /* 상품 등록 버튼 */
     $("#enrollBtn").on("click", function(e){
         e.preventDefault();
-        diy_add.submit();
+        diy_modify.submit();
     });
 	</script>
     

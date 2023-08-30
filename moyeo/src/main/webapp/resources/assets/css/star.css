@@ -18328,7 +18328,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media (min-width: 1200px) {
   .nav-menuzord .menuzord .menuzord-brand {
-    padding: 20px 0;
+    /*padding: 20px 0;*/
     width: auto;
   }
 }
@@ -21849,13 +21849,13 @@ img.lazyestload {
 /*--메인 패키지--------------------------------------------------*/
 .swiper-container {
 	width: 100%;
-	height: 300px;
+	height: 400px;
 	margin: 20px auto;
 }
 .swiper-slide {
 	text-align: center;
 	font-size: 18px;
-	background: #eee;
+	/*background: #eee;*/
 	
 	/* Center slide text vertically */
 	display: -webkit-box;
@@ -21871,6 +21871,50 @@ img.lazyestload {
 	-webkit-align-items: center;
 	align-items: center;
 }
+
+.slide_new_img_01{
+	width:100%;
+}
+.main_s_img01{
+	width: 100%;
+	height: 400px;
+	/*background-image:url('${pageContext.request.contextPath}/assets/img/main_best_img01.jpg');*/
+	
+}
+
+
+.main_best_text {
+	position:relative;
+}
+
+.main_best_text p{
+	color:#fff;
+}
+.main_best_text .p1{
+	position: absolute;
+    left: 10%;
+    top: 40px;
+    font-size: 20px;
+     font-weight: 700;
+}
+.main_best_text .p2{    
+	position: absolute;
+    left: 10%;
+    top: 70px;
+    font-size: 14px;
+}
+.main_best_text .p3{
+	position: absolute;
+    left: 10%;
+    bottom: 40px;
+    font-size: 45px;
+    font-weight: 700;
+}
+
+
+
+
+
 
 #main_pack {
 	width:100%;
@@ -21930,7 +21974,11 @@ img.lazyestload {
 #main_review ul .t3 span{
 	margin-left:8px;
 }
-
+.review_content{
+	width:1200px;
+	margin:0 auto;
+	
+}
 
 
 
@@ -22536,7 +22584,7 @@ label {
 	/*--메인 패키지--------------------------------------------------*/
 	#main_pack {
 		width:100%;
-		padding:80px 0 ;
+		padding:90px 0 ;
 	}
 	.main_pack_title{
 		width:1200px;
@@ -23282,6 +23330,81 @@ label {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/***************************************/
+	/*--게시판 상세
+	.view .tit{
+		font-size: 30px;
+	    font-weight: 700;
+	    color: #000;
+	    margin-bottom: 13px;
+	}
+	.view:after{
+		content:"";
+		display:block;
+		clear:both;
+	}
+	.view .t1{
+		font-size:15px;
+		color:#777;
+		float:left;
+		margin-right:10px;
+	}
+	.view_con{
+	    margin-top: 50px;
+	    font-size: 16px;
+	    margin-bottom: 80px;
+	    line-height: 26px;
+	}
+	.border_view{
+		margin:100px 0 ;
+	}
+	.border_view .list_btn a{
+		padding: 10px 30px;
+	    background: #ddd;
+	    border-radius: 5px;
+	    color: #000;
+	}
+	.border_view .list_btn{
+		text-align:right;
+	}
+	  
+	
+	
+	.border_btn{
+		float:right;
+	}
+	.border_btn:after{
+		content:"";
+		display:block;
+		clear:both;
+	}
+	.border_btn .sp{
+		margin-left:5px;
+	}
+	.border_btn .list_btn{
+		float:left;
+	}
+	 --*/
+	
+	
+	
+	
+	
+	
+	
 	/*--게시판 상세--*/
 	.view .tit{
 		font-size: 30px;
@@ -23336,7 +23459,6 @@ label {
 	.border_btn .list_btn{
 		float:left;
 	}
-	
 	
 	
 	.border_btn button{
@@ -23407,6 +23529,95 @@ label {
 		color:#ddd;
 	}
 	
+	
+	
+
+	
+	
+	/**장바구니*****/
+	.cart_f {
+		width:100%;
+		margin:80px 0;
+	}
+	.cart_f table{
+		width:100%;
+	}
+	.cart_f table td{
+		border-top:1px solid #ddd;
+		border-bottom:1px solid #ddd;
+	}
+	.cart_f table .th{
+		border-top:2px solid #000;
+	}
+	.cart_f table .t1{
+		text-align:center;
+		font-weight:600;
+		padding:10px 0;
+		background:#f9f9f9;
+	}
+	.cart_f table .t2{
+		text-align:center;
+		font-weight:400;
+		padding:20px 0;
+	}
+	.cart_f table .t_img a{
+		padding: 30px;
+	    background: #eee;
+	    border-radius: 30px;
+	    color:#000;
+	} 
+	.cart_f input{
+		width:15px;
+		height:15px;
+	}
+	
+	.cart_totbar:after{
+		content:"";
+		diaplay:block;
+		clear:both;
+	}
+	.cart_totbar{
+		width:100%;
+		height:47px;
+		background:#eee;
+		text-align:right;
+		margin-top:30px;
+		border-radius:5px;
+	}
+	.cart_totbar li{
+		float:left;
+		padding:10px 0;
+	}
+	.cart_totbar .tot1{
+		font-size:16px;
+		font-weight:400;
+		margin-right:40px;
+	}
+	.cart_totbar .tot2{
+		font-size:16px;
+		font-weight:700;
+		margin-right:5px;
+	}
+	.cart_totbar .tot3{
+		font-size:16px;
+		font-weight:700;
+		margin-right:30px;
+	}
+	
+	.cart_btn {
+		margin-top:40px;
+		text-align:right;
+	}
+	.cart_totbar ul{
+   	 float: right;
+	}
+	.cart_btn button{
+		padding:5px 20px;
+		background:#3333;
+		border-radius:5px;
+		border:1px solid #0000;
+		color:#000;
+	}
 	
 	
 	

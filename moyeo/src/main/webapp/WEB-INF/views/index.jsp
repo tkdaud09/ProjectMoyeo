@@ -36,7 +36,7 @@
           data-frames='[{"delay":10,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
           data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
           data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-          style="z-index: 5;background-color:rgba(0,0,0,0.15);"> </div>
+          style="z-index: 5;"> </div>
 
      
         <!-- LAYER NR. 3 -->
@@ -48,20 +48,17 @@
           data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
           data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
           style="z-index: 7; white-space: wrap; font-size: 65px; line-height: 70px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:montserrat;text-transform:uppercase;">
-          Travel Template </div>
+          </div>
 
 
         <!-- LAYER NR. 5 -->
-        <a href="https://wrapbootstrap.com/theme/star-travel-tour-booking-theme-admin-WB05T4R0J" target="_blank" class="tp-caption rev-btn " id="slide-33-layer-11" data-x="['left','left','left','left']"
-          data-hoffset="['0','100','50','70']" data-y="['middle','middle','middle','middle']"
-          data-voffset="['120','120','100','30']" data-width="132" data-height="none" data-whitespace="wrap"
-          data-type="button" data-responsive_offset="on" data-responsive="on"
-          data-frames='[{"delay":1450,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"+3540","speed":300,"frame":"999","to":"y:-50px;opacity:0;","ease":"Power3.easeInOut"}]'
-          data-textAlign="['center','center','center','center']" data-paddingtop="[14,14,14,14]"
-          data-paddingright="[0,0,0,0]" data-paddingbottom="[14,14,14,14]" data-paddingleft="[0,0,0,0]"
-          style="z-index: 9; min-width: 132px; max-width: 132px; white-space: nowrap; font-size: 14px; line-height: 17px; font-weight: 500; color: #ffffff; letter-spacing: 0;font-family:Montserrat;text-transform:uppercase;background-color:rgb(255,137,30);border-radius:3px 3px 3px 3px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">
-          Buy Now </a>
+        
       </li>
+      
+      
+      
+      
+      
       <!-- SLIDE  -->
       <li data-index="rs-54" data-transition="slideleft" data-slotamount="default" data-hideafterloop="0"
         data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default"
@@ -81,7 +78,7 @@
           data-frames='[{"delay":10,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
           data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
           data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-          style="z-index: 5;background-color:rgba(0,0,0,0.15);"> </div>
+          style="z-index: 5;"> </div>
 
 
 
@@ -94,21 +91,16 @@
           data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
           data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
           style="z-index: 7; white-space: nowrap; font-size: 65px; line-height: 70px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:montserrat;text-transform:uppercase;">
-          Travel Template </div>
+          </div>
 
 
 
         <!-- LAYER NR. 10 -->
-        <a href="https://wrapbootstrap.com/theme/star-travel-tour-booking-theme-admin-WB05T4R0J" target="_blank" class="tp-caption rev-btn " id="slide-54-layer-11" data-x="['center','center','center','center']"
-          data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']"
-          data-voffset="['120','120','100','30']" data-width="132" data-height="none" data-whitespace="wrap"
-          data-type="button" data-responsive_offset="on" data-responsive="on"
-          data-frames='[{"delay":1450,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"+3530","speed":300,"frame":"999","to":"y:-50px;opacity:0;","ease":"Power3.easeInOut"}]'
-          data-textAlign="['center','center','center','center']" data-paddingtop="[14,14,14,14]"
-          data-paddingright="[0,0,0,0]" data-paddingbottom="[14,14,14,14]" data-paddingleft="[0,0,0,0]"
-          style="z-index: 9; min-width: 132px; max-width: 132px; white-space: nowrap; font-size: 14px; line-height: 17px; font-weight: 500; color: #ffffff; letter-spacing: 0;font-family:Montserrat;text-transform:uppercase;background-color:rgb(255,137,30);border-radius:3px 3px 3px 3px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">
-          Buy Now </a>
+       
       </li>
+      
+      
+      
       <!-- SLIDE  -->
       <li data-index="rs-56" data-transition="slideleft" data-slotamount="default" data-hideafterloop="0"
         data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default"
@@ -128,7 +120,7 @@
           data-frames='[{"delay":10,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
           data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
           data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-          style="z-index: 5;background-color:rgba(0,0,0,0.15);"> </div>
+          style="z-index: 5;"> </div>
 
 
         <!-- LAYER NR. 13 -->
@@ -140,20 +132,18 @@
           data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
           data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
           style="z-index: 7; white-space: nowrap; font-size: 65px; line-height: 70px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:montserrat;text-transform:uppercase;">
-          Bootstrap Theme </div>
+          </div>
 
 
         <!-- LAYER NR. 15 -->
-        <a href="https://wrapbootstrap.com/theme/star-travel-tour-booking-theme-admin-WB05T4R0J" target="_blank" class="tp-caption rev-btn " id="slide-56-layer-11" data-x="['left','left','left','left']"
-          data-hoffset="['0','100','50','70']" data-y="['middle','middle','middle','middle']"
-          data-voffset="['120','120','100','30']" data-width="132" data-height="none" data-whitespace="wrap"
-          data-type="button" data-responsive_offset="on" data-responsive="on"
-          data-frames='[{"delay":1450,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"y:-50px;opacity:0;","ease":"Power3.easeInOut"}]'
-          data-textAlign="['center','center','center','center']" data-paddingtop="[14,14,14,14]"
-          data-paddingright="[0,0,0,0]" data-paddingbottom="[14,14,14,14]" data-paddingleft="[0,0,0,0]"
-          style="z-index: 9; min-width: 132px; max-width: 132px; white-space: nowrap; font-size: 14px; line-height: 17px; font-weight: 500; color: #ffffff; letter-spacing: 0;font-family:Montserrat;text-transform:uppercase;background-color:rgb(255,137,30);border-radius:3px 3px 3px 3px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">
-          Buy Now </a>
+        
       </li>
+      
+      
+      
+      
+      
+      
       <!-- SLIDE  -->
       <li data-index="rs-57" data-transition="slideleft" data-slotamount="default" data-hideafterloop="0"
         data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default"
@@ -173,7 +163,7 @@
           data-frames='[{"delay":10,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
           data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
           data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-          style="z-index: 5;background-color:rgba(0,0,0,0.15);"> </div>
+          style="z-index: 5;"> </div>
 
  
         <!-- LAYER NR. 18 -->
@@ -185,19 +175,11 @@
           data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
           data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
           style="z-index: 7; white-space: nowrap; font-size: 65px; line-height: 70px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:montserrat;text-transform:uppercase;">
-          24/7 Quick Support </div>
+          </div>
 
 
         <!-- LAYER NR. 20 -->
-        <a href="https://wrapbootstrap.com/theme/star-travel-tour-booking-theme-admin-WB05T4R0J" target="_blank" class="tp-caption rev-btn" id="slide-57-layer-11" data-x="['center','center','center','center']"
-          data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']"
-          data-voffset="['120','120','100','30']" data-width="132" data-height="none" data-whitespace="wrap"
-          data-type="button" data-responsive_offset="on" data-responsive="on"
-          data-frames='[{"delay":1450,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"+3250","speed":300,"frame":"999","to":"y:-50px;opacity:0;","ease":"Power3.easeInOut"}]'
-          data-textAlign="['center','center','center','center']" data-paddingtop="[14,14,14,14]"
-          data-paddingright="[0,0,0,0]" data-paddingbottom="[14,14,14,14]" data-paddingleft="[0,0,0,0]"
-          style="z-index: 9; min-width: 132px; max-width: 132px; white-space: nowrap; font-size: 14px; line-height: 17px; font-weight: 500; color: #ffffff; letter-spacing: 0;font-family:Montserrat;text-transform:uppercase;background-color:rgb(255,137,30);border-radius:3px 3px 3px 3px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">
-          Buy Now </a>
+        
       </li>
     </ul>
     <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
@@ -231,14 +213,42 @@
     <div class="swiper-container">
 
         <div class="swiper-wrapper">
-            <div class="swiper-slide">Slide 1</div>
-            <div class="swiper-slide">Slide 2</div>
-            <div class="swiper-slide">Slide 3</div>
-            <div class="swiper-slide">Slide 4</div>
-			<div class="swiper-slide">Slide 5</div>
-            <div class="swiper-slide">Slide 6</div>
-            <div class="swiper-slide">Slide 7</div>
-            <div class="swiper-slide">Slide 8</div>
+            <div class="swiper-slide main_best_text">
+            	<img src="${pageContext.request.contextPath}/assets/img/main_best_img01.jpg" class="slide_new_img_01">
+            	<p class="p1">제주도 1박 2일</p>
+            	<p class="p2">#베스트 #호핑투어 #시내관광</p>
+            	<p class="p3">JEJU</p>
+            </div>
+            <div class="swiper-slide main_best_text">
+            	<img src="${pageContext.request.contextPath}/assets/img/main_best_img02.jpg" class="slide_new_img_01">
+            	<p class="p1">서울 3일</p>
+            	<p class="p2">#자유일정 #호핑투어 #시내관광</p>
+            	<p class="p3">SEOUL</p>
+            </div>
+            <div class="swiper-slide main_best_text">
+				<img src="${pageContext.request.contextPath}/assets/img/main_best_img03.jpg" class="slide_new_img_01">
+				<p class="p1">제주도 2박3일</p>
+            	<p class="p2">#등산 #단풍 #관광</p>
+            	<p class="p3">JEJU</p>
+            </div>
+            <div class="swiper-slide main_best_text">
+            	<img src="${pageContext.request.contextPath}/assets/img/main_best_img04.jpg" class="slide_new_img_01">
+            	<p class="p1">영주 1박 2일</p>
+            	<p class="p2">#사찰 #시내관광 #힐링</p>
+            	<p class="p3">YEONGJU</p>
+            </div>
+			<div class="swiper-slide main_best_text">
+				<img src="${pageContext.request.contextPath}/assets/img/main_best_img05.jpg" class="slide_new_img_01">
+				<p class="p1">부산 5일</p>
+            	<p class="p2">#베스트 #호핑투어 #시내관광</p>
+            	<p class="p3">BUSAN</p>
+            </div>
+            <div class="swiper-slide main_best_text">
+            	<img src="${pageContext.request.contextPath}/assets/img/main_best_img06.jpg" class="slide_new_img_01">
+            	<p class="p1">경주 3일</p>
+            	<p class="p2">#온천 #베스트 #시내관광</p>
+            	<p class="p3">GYEONGJU</p>
+            </div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
@@ -302,14 +312,14 @@
       <div class="col-md-6 col-lg-4">
         <div class="card card-hover mb-5 mb-lg-0">
           <a href="mo_package_animal.jsp" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-01.jpg" src="assets/img/home/deal/deal-01.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-01.png" src="assets/img/home/deal/deal-01.png" alt="Card image cap">
             
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-              <div class="badge bg-primary badge-rounded-circle">  
+              <!-- <div class="badge bg-primary badge-rounded-circle">  
                 <span class="d-block">
                   50%<br>off
                 </span>
-              </div>
+              </div> -->
 
               <ul class="list-unstyled d-flex mt-auto text-warning">
                 <li>
@@ -339,17 +349,17 @@
 
           <div class="card-body">
             <h5>
-              <a href="mo_package_animal.html" class="card-title text-uppercase">Suspendisse Blandit</a>
+              <a href="mo_package_animal.html" class="card-title text-uppercase">강아지와 함께하는 1박2일</a>
             </h5>		    
             <p class="mb-5">Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus et pharetra egestas.</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary">$299</h3>
+                <h3 class="text-primary" style="font-weight:700; font-size:21px;">300,000원</h3>
               </div>
 
               <div>
-                <a href="booking-step-1.html" class="btn btn-sm btn-outline-secondary text-uppercase">Book Now</a>
+                <a href="booking-step-1.html" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
             </div>
           </div>
@@ -362,11 +372,11 @@
             <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-02.jpg" src="assets/img/home/deal/deal-02.jpg" alt="Card image cap">
 
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-              <div class="badge bg-primary badge-rounded-circle">
+             <!--  <div class="badge bg-primary badge-rounded-circle">
                 <span class="d-block">
                   Free<br>gift
                 </span>
-              </div>
+              </div> -->
 
               <ul class="list-unstyled d-flex mt-auto text-warning">
                 <li>
@@ -396,17 +406,17 @@
 
           <div class="card-body">
             <h5 class="">
-              <a href="mo_package_animal.html" class="card-title text-uppercase">Suspendisse Eros Erat</a>
+              <a href="mo_package_animal.html" class="card-title text-uppercase">강원도 힐링 여행</a>
             </h5>
             <p class="mb-5">Proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna sagittis.</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary">$499</h3>
+                <h3 class="text-primary" style="font-weight:700; font-size:21px;">400,000원</h3>
               </div>
 
               <div>
-                <a href="jascript:void(0)"  data-bs-toggle="modal" data-bs-target="#inquiry" class="btn btn-sm btn-outline-secondary text-uppercase">Inquiry</a>
+                <a href="jascript:void(0)"  data-bs-toggle="modal" data-bs-target="#inquiry" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
             </div>
           </div>
@@ -416,14 +426,14 @@
       <div class="col-md-6 col-lg-4">
         <div class="card card-hover">
           <a href="mo_package_animal.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-03.jpg" src="assets/img/home/deal/deal-03.jpg" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-03.png" src="assets/img/home/deal/deal-03.png" alt="Card image cap">
 
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-              <div class="badge bg-primary badge-rounded-circle">
+              <!-- <div class="badge bg-primary badge-rounded-circle">
                 <span class="d-block">
                   25%<br>off
                 </span>
-              </div>
+              </div> -->
 
               <ul class="list-unstyled d-flex mt-auto text-warning">
                 <li>
@@ -453,17 +463,17 @@
 
           <div class="card-body">
             <h5>
-              <a href="mo_package_animal.html" class="card-title text-uppercase">Quisque Placerat Nunc</a>
+              <a href="mo_package_animal.html" class="card-title text-uppercase">제주도 여행 3박4일</a>
             </h5>
             <p class="mb-5">Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat. Suspendisse non feugiat mi.</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary">$299</h3>
+                <h3 class="text-primary" style="font-weight:700; font-size:21px;">430,000원</h3>
               </div>
 
               <div>
-                <a href="booking-step-1.html" class="btn btn-sm btn-outline-secondary text-uppercase">Book Now</a>
+                <a href="booking-step-1.html" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
             </div>
           </div>
@@ -472,7 +482,7 @@
     </div>
 
     <div class="text-center mt-7">
-      <a href="mo_package.html" class="btn btn-sm btn-outline-secondary text-uppercase noto">더 많은 상품 보기</a>
+      <a href="${pageContext.request.contextPath}/package/" class="btn btn-sm btn-outline-secondary text-uppercase noto">더 많은 상품 보기</a>
     </div>		
   </div>
 </section>
@@ -526,7 +536,7 @@
 		</div><!-- /con1 -->
 
 		<div class="text-center mt-7">
-			<a href="mo_review.html" class="btn btn-sm btn-outline-secondary text-uppercase noto">더 많은 후기 보기</a>
+			<a href="${pageContext.request.contextPath}/review/list" class="btn btn-sm btn-outline-secondary text-uppercase noto">더 많은 후기 보기</a>
 		</div>
 
 	</div><!-- /review_content -->

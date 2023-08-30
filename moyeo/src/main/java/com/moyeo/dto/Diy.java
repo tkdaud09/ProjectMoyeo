@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Diy {
-        private Integer diyIdx;
+        private int diyIdx;
         private String userinfoId;
         private String diyStartdate;
         private String diyEnddate;

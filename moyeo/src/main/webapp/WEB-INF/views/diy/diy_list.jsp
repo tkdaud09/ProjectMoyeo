@@ -18,7 +18,7 @@
 ———	PAGE TITLE
 ===================================== -->
 <section class="page-title">
-  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(assets/img/pages/page-title-bg7.jpg);">
+  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg7.jpg);">
     <div class="container">
       <div class="row align-items-center justify-content-center" style="height: 200px;">
         <div class="col-lg-6">
@@ -46,10 +46,11 @@
         <div class="container">
         <div class="row">
         
+        
           <c:choose>
           		<c:when test="${empty(diyList) }">
     				<tr align="center">
-						<td colspan="5">글정보가 없습니다.</td>
+						<td colspan="5">작성된 글이 없습니다.</td>
 					</tr>	
     			</c:when>
     			
@@ -57,14 +58,14 @@
           	  <c:forEach var="diyList" items="${diyList}">
                 <div class="col-md-6 col-lg-4">
                     <div class="card card-transparent mb-7">
-                        <a href="" class="position-relative">
-                            <img class="card-img-top rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/blog-01.jpg" src="${pageContext.request.contextPath}/assets/img/blog/blog-01.jpg" alt="thumbnail">
-                            <!-- <div class="card-img-overlay card-hover-overlay rounded"></div> -->
+                        <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="position-relative">
+                        <!-- <img class="card-img-top rounded lazyestload" src="<c:url value='/assets/img/upload/${diyList.diyThumbnail}' />" alt="diyThumbnail"> -->
+                        <img class="card-img-top rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" alt="image"> 
                         </a>
 
                         <div class="card-body py-6">
                             <h3 class="mb-4">
-                               <a class="text-capitalize text-dark hover-text-primary">${diyList.diyTitle}</a>
+                               <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="text-capitalize text-dark hover-text-primary">${diyList.diyTitle}</a>
                             </h3>
 
                             <div class="meta-post-sm mb-4">
@@ -104,8 +105,10 @@
                         </div>
 
                         <div class="card-footer px-5">
-                            <a href="${pageContext.request.contextPath}/diy/diy_detail" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+                            <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
                         </div>
+                        
+                        
                    	 </div>
              	   </div>
          	   	  </c:forEach>
@@ -113,9 +116,12 @@
         	   </c:choose>
         	 </div>
    		   </div>
+   		   
    		   <div class="text-center text-md-start text-lg-end">
             <a href="${pageContext.request.contextPath}/diy/diy_add" class="btn btn-primary text-uppercase">작성하기</a>
            </div>
+           
+			           
   	   	</div>
 	 </div>
 

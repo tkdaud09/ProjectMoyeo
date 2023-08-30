@@ -39,14 +39,6 @@ public class indexController {
 	
 	
 
-	
-	
-	/*
-	@RequestMapping(value = "/diy", method = RequestMethod.GET)
-	public String DiyList(Model model) {
-		return "diy/mo_diy";
-	}
-	*/
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String EventList(Model model) {
 		return "event/mo_event";

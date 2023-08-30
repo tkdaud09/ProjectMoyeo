@@ -9,39 +9,34 @@
 </insert>
     
     <!-- 2. 장바구니 목록 -->
-<select id="cartList" parameterType="java.lang.String" resultType="com.moyeo.dto.CartDTO">
+<select id="cartList" parameterType="com.moyeo.dto.CartDTO">
     SELECT
-        c.cart_idx,
-        c.userinfo_id,
-        c.pack_idx,
-        p.pack_name, 
-        p.pack_startdate,
-        p.pack_enddate,
-        p.pack_adultcount,
-        p.pack_childcount,
-        p.pack_totalprice
+        c.cart_idx as cartIdx,
+        c.userinfo_id as userinfoId,
+        c.pack_idx as packIdx,
+        p.pack_title as packTitle,  
+        c.pack_adultcount as packAdultcount,
+        c.pack_childcount as packChildcount,
+        (c.pack_adultcount * p.pack_adultprice + c.pack_childcount * p.pack_childprice) as money
     FROM
-        cart c
-    JOIN
-        pack p ON c.pack_idx = p.pack_idx
-    WHERE
-        c.userinfo_id = #{userinfoId}
+        cart c, pack p, userinfo u
+  WHERE u.id = c.userinfo_id
+    AND p.pack_idx = c.pack_idx
+   	AND c.userinfo_id = #{userinfoId}
+	ORDER BY c.cart_idx
 </select>
-    <!-- 3. 장바구니 인원수 및 일정 수정 -->
+    <!-- 3. 장바구니 인원수 수정 -->
 <update id="updateCart" parameterType="com.moyeo.dto.CartDTO">
-    UPDATE cart c
-    JOIN pack p ON c.pack_idx = p.pack_idx
-    SET c.pack_adultcount = #{packAdultcount},
-        c.pack_childcount = #{packChildcount},
-        c.pack_totalprice = (p.pack_adultprice * #{packAdultcount}) + (p.pack_childprice * #{packChildcount}),
-        p.pack_startdate = #{newStartDate},
-        p.pack_enddate = #{newEndDate}
-    WHERE c.cart_idx = #{cartIdx}
+    UPDATE cart
+    SET pack_adultcount = #{packAdultcount},
+        pack_childcount = #{packChildcount}
+    WHERE userinfo_id= #{userinfoId}
+    AND pack_idx = #{packIdx} 
 </update>
 
    <!-- 4. 장바구니 전체금액 합계 -->
-<select id="totalCart" parameterType="java.lang.String" resultType="int">
-    SELECT SUM(p.pack_totalprice) AS totalSum
+<select id="sumMoney" resultType="int">
+    SELECT NVL(SUM(c.pack_adultcount * p.pack_adultprice + c.pack_childcount * p.pack_childprice), 0) as money
     FROM cart c
     JOIN pack p ON c.pack_idx = p.pack_idx
     WHERE c.userinfo_id = #{userinfoId}
@@ -53,17 +48,13 @@
         WHERE cart_idx = #{cartIdx}
     </delete>
     
-    
-    <select id="getAllCartItemsWithPackages" resultMap="cartWithPackage" parameterType="String">
-    SELECT c.cart_idx, c.userinfo_id, c.pack_idx, p.pack_name
-    FROM cart c
-    JOIN pack p ON c.pack_idx = p.pack_idx
-    WHERE c.userinfo_id = #{userinfoId}
+    <!-- 장바구니 추가 페이지에서 모든 패키지 목록을 가져오는 쿼리문 -->
+  <select id="getAllCartItemsWithPackages" parameterType="String" resultType="java.util.Map">
+    SELECT p.pack_idx as packIdx, p.pack_title AS packTitle
+    FROM pack p
+    WHERE p.pack_idx NOT IN (
+        SELECT c.pack_idx FROM cart c WHERE c.userinfo_id = #{userinfoId}
+    )
 </select>
 
-<resultMap id="cartWithPackage" type="com.moyeo.dto.CartDTO">
-    <result property="cartIdx" column="cart_idx"/>
-    <result property="userinfoId" column="userinfo_id"/>
-    <result property="packIdx" column="pack_idx"/>
-</resultMap>
 </mapper>

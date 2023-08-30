@@ -39,84 +39,155 @@
 
 
 <section class="cartList">
-    <table border="1">
-        <tr>
-            <th>상품명</th>
-            <th>성인 인원수</th>
-            <th>소인 인원수</th>
-            <th>총 가격</th>
-            <th>삭제</th>
-        </tr>
-        
-        <c:choose>
-            <c:when test="${empty map.cartList}">
-                <tr>
-                    <td colspan="6">장바구니가 비어있습니다.</td>
-                </tr>
-            </c:when>
-            <c:otherwise>
-                <c:forEach var="cartItem" items="${map.cartList}">
-                    <tr>
-                        <form action="<c:url value='/cart/update'/>" method="post">
-                            <td>${cartItem.pack_name}</td>
-                            <td>
-                                <input type="hidden" name="cartIdx" value="${cartItem.cart_idx}">
-                                <input class="quantity-input" type="number" name="packAdultCount" value="${cartItem.pack_adultcount}" min="0">
-                                <button type="button" class="quantity-btn plus-btn">+</button>
-                                <button type="button" class="quantity-btn minus-btn">-</button>
-                            </td>
-                            <td>
-                                <input class="quantity-input" type="number" name="packChildCount" value="${cartItem.pack_childcount}" min="0">
-                                <button type="button" class="quantity-btn plus-btn">+</button>
-                                <button type="button" class="quantity-btn minus-btn">-</button>
-                            </td>	
-                            <td>${cartItem.pack_totalprice}</td>
-                            <td>
-                                <button type="submit">수정</button>
-                            </td>
-                        </form>
-                        <td><a href="<c:url value='/cart/delete'/>?cartIdx=${cartItem.cart_idx}">삭제</a></td>
-                    </tr>
-                </c:forEach>
-            </c:otherwise>
-        </c:choose>
-        
-        <tr>
-            <td colspan="4">총 합계</td>
-            <td>${map.sumMoney}</td>
-            <td></td>
-        </tr>
-    </table>
+    <div class="container">
+        <div class="py-10">
+            <div class="cart_list">
+                
+                <div class="diy_form_title">
+                    장바구니
+                </div>
+                
+                <div class="cart_f">
+                    <form action="<c:url value='/cart/delete'/>" method="GET" id="deleteForm">
+                        <table>
+                            <colgroup>
+                                <col width="10%">
+                                <col width="15%">
+                                <col width="45%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="10%">
+                            </colgroup>
     
-    <a href="<c:url value='/cart/insert'/>">장바구니에 상품 추가</a>
+                            <tr class="th">
+                                <td class="t1"><label><input type="checkbox" id="selectAllCheckbox"> </label></td>
+                                <td class="t1"></td>
+                                <td class="t1">상품명</td>
+                                <td class="t1">성인</td>
+                                <td class="t1">소인</td>
+                                <td class="t1">합계금액</td>
+                            </tr>
+    
+                            <c:forEach var="cartItem" items="${map.list}" varStatus="i">
+                                <tr>
+                                    <td class="t2">
+                                        <input type="checkbox" class="cartCheckbox" name="cartIdx" value="${cartItem.cartIdx}">
+                                    </td>
+                                    <td class="t2 t_img"><a href="#">이미지</a></td>
+                                    <td class="t2">${cartItem.packTitle}</td>
+                                    <td class="t2">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-outline-secondary minus-btn">-</button>
+                                            <input type="number" class="form-control adult-count-input" value="${cartItem.packAdultcount}" min="0">
+                                            <button type="button" class="btn btn-outline-secondary plus-btn">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="t2">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-outline-secondary minus-btn">-</button>
+                                            <input type="number" class="form-control child-count-input" value="${cartItem.packChildcount}" min="0">
+                                            <button type="button" class="btn btn-outline-secondary plus-btn">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="t2">${cartItem.money}원</td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+    
+                        <div class="cart_totbar">
+                            <ul>
+                                <li class="tot1">총${map.count} 개의 상품</li>
+                                <li class="tot2">장바구니 총금액</li>
+                                <li class="tot3">${map.sumMoney}원</li>
+                            </ul>
+                        </div>
+    
+                        <div class="cart_btn">
+                            <button type="button" class="b1" id="deleteButton">선택상품 삭제</button>
+                            <button type="button" class="b1" id="updateButton">선택상품 수정</button>
+                            <button class="b1">선택상품 주문</button>
+                            <button class="b1">전체상품 주문</button>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- cart_list -->
+        </div><!-- py-10 -->
+    </div><!-- container -->
 </section>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $(".plus-btn").click(function() {
-            var inputField = $(this).siblings(".quantity-input");
-            var currentValue = parseInt(inputField.val());
-            inputField.val(currentValue + 1);
+    document.getElementById('selectAllCheckbox').addEventListener('change', function () {
+        var cartCheckboxes = document.getElementsByClassName('cartCheckbox');
+        for (var i = 0; i < cartCheckboxes.length; i++) {
+            cartCheckboxes[i].checked = this.checked;
+        }
+    });
+
+    document.getElementById('deleteButton').addEventListener('click', function () {
+        var selectedCartIdx = [];
+        var cartCheckboxes = document.getElementsByClassName('cartCheckbox');
+        for (var i = 0; i < cartCheckboxes.length; i++) {
+            if (cartCheckboxes[i].checked) {
+                selectedCartIdx.push(cartCheckboxes[i].value);
+            }
+        }
+        var hiddenCartIdxField = document.querySelector('.hiddenCartIdx');
+        hiddenCartIdxField.value = selectedCartIdx.join(',');
+        document.getElementById('deleteForm').submit();
+    });
+
+    document.querySelectorAll('.plus-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var inputField = this.parentElement.querySelector('.form-control');
+            inputField.value = parseInt(inputField.value) + 1;
+        });
+    });
+
+    document.querySelectorAll('.minus-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var inputField = this.parentElement.querySelector('.form-control');
+            if (parseInt(inputField.value) > 0) {
+                inputField.value = parseInt(inputField.value) - 1;
+            }
+        });
+    });
+
+    document.getElementById('updateButton').addEventListener('click', function () {
+        var selectedCartIdx = [];
+        var selectedAdultCounts = [];
+        var selectedChildCounts = [];
+        var adultCountInputs = document.querySelectorAll('.adult-count-input');
+        var childCountInputs = document.querySelectorAll('.child-count-input');
+
+        adultCountInputs.forEach(function (input) {
+            selectedCartIdx.push(input.getAttribute('data-cartidx'));
+            selectedAdultCounts.push(input.value);
         });
 
-        $(".minus-btn").click(function() {
-            var inputField = $(this).siblings(".quantity-input");
-            var currentValue = parseInt(inputField.val());
-            if (currentValue > 0) {
-                inputField.val(currentValue - 1);
-            }
+        childCountInputs.forEach(function (input) {
+            selectedChildCounts.push(input.value);
+        });
+
+        var formData = new FormData();
+        for (var i = 0; i < selectedCartIdx.length; i++) {
+            formData.append('packIdx', selectedCartIdx[i]);
+            formData.append('packAdultcount', selectedAdultCounts[i]);
+            formData.append('packChildcount', selectedChildCounts[i]);
+        }
+
+        fetch('<c:url value="/cart/update" />', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            window.location.href = '<c:url value="/cart/list" />';
         });
     });
 </script>
 
 
 
-
-
-  
-  
-  
 
 
 

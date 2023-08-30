@@ -63,7 +63,7 @@
 					    <p>내용</p>
 					    <textarea name="noticeContent" placeholder="내용"></textarea>
 					    
-					    <div class="review_form_btn">
+					    <div class="notice_form_btn">
 					        <a href="${pageContext.request.contextPath}/notice/list"><button class="btn1" id="cancelBtn" type="button">취소</button></a>
 					        <button class="btn2" id="enrollBtn" type="submit">등록 </button>
 					    </div>

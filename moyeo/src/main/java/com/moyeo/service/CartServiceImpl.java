@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,10 +29,8 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartDTO> cartList(String userinfoId) {
-        List<CartDTO> cartList = cartDAO.cartList(userinfoId);
+    	List<CartDTO> cartList = cartDAO.cartList(userinfoId);
         if (cartList == null) {
-            // Handle case where cartList is null or empty
-            // For example, you can return an empty list
             return Collections.emptyList();
         }
         return cartList;
@@ -43,19 +42,24 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public int totalCart(String userinfoId) {
-        Integer totalCart = cartDAO.totalCart(userinfoId);
-        return totalCart != null ? totalCart : 0; // Return 0 if totalCart is null
+    public int sumMoney(String userinfoId) {
+        if (userinfoId == null) {
+            // userId가 null인 경우에 대한 예외 처리 또는 반환값 설정
+            return 0; // 예시로 반환값을 0으로 설정
+        }
+        
+        Integer sumMoney = cartDAO.sumMoney(userinfoId);
+        return sumMoney != null ? sumMoney : 0; // Return 0 if totalCart is null
     }
 
     @Override
     public void deleteCart(int cartIdx) {
         cartDAO.deleteCart(cartIdx);
-        
     }
+
     @Override
-    public List<CartDTO> cartListWithPackages(String userinfoId) {
-        List<CartDTO> cartList = cartDAO.cartListWithPackages(userinfoId); // 추가
+    public List<Map<String, Object>> getAllCartItemsWithPackages(String userinfoId) {
+        List<Map<String, Object>> cartList = cartDAO.getAllCartItemsWithPackages(userinfoId);
         if (cartList == null) {
             // Handle case where cartList is null or empty
             // For example, you can return an empty list

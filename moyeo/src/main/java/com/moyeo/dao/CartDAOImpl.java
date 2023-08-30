@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,24 +30,23 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public int totalCart(String userinfoId) {
+    public int sumMoney(String userinfoId) {
         if (userinfoId == null) {
             // userId가 null인 경우에 대한 예외 처리 또는 반환값 설정
             return 0; // 예시로 반환값을 0으로 설정
         }
         
-        return sqlSession.selectOne("com.moyeo.mapper.CartMapper.totalCart", userinfoId);
+        Integer sumMoney = sqlSession.selectOne("com.moyeo.mapper.CartMapper.sumMoney", userinfoId);
+        return sumMoney != null ? sumMoney : 0;
     }
-
 
     @Override
     public void deleteCart(int cartIdx) {
         sqlSession.delete("com.moyeo.mapper.CartMapper.deleteCart", cartIdx);
-        
     }
+
     @Override
-    public List<CartDTO> cartListWithPackages(String userinfoId) {
+    public List<Map<String, Object>> getAllCartItemsWithPackages(String userinfoId) {
         return sqlSession.selectList("com.moyeo.mapper.CartMapper.getAllCartItemsWithPackages", userinfoId);
     }
 }
-

@@ -22,7 +22,7 @@
         <div class="col-lg-6">
           <div class="page-title-content">
             <div class="title-border">
-              <h2 class="text-uppercase text-white font-weight-bold">여행후기</h2>
+              <h2 class="text-uppercase text-white font-weight-bold">공지사항</h2>
             </div>
             <p class="text-white mb-0"></p>
           </div>
@@ -94,7 +94,7 @@
 								</td>
 
 								<td class="t2">${notice.userinfoId }</td>
-								<td class="t2">${notice.reviewRegdate }</td>
+								<td class="t2">${notice.noticeRegdate }</td>
 							</tr>
 							<tr>
 								<td class="t2">1</td>
@@ -109,7 +109,7 @@
 					<%-- 페이지 번호 출력 --%>
 					<c:choose >
 						<c:when test="${pager.startPage > pager.blockSize }">
-							<a href="<c:url value="/review/list"/>?pageNum=${pager.prevPage}"><!-- [이전] --></a>
+							<a href="<c:url value="/notice/list"/>?pageNum=${pager.prevPage}"><!-- [이전] --></a>
 						</c:when>
 						<c:otherwise>
 							<!-- [이전] -->
@@ -119,7 +119,7 @@
 					<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
 						<c:choose>
 							<c:when test="${pager.pageNum != i  }">
-								<a href="<c:url value="/review/list"/>?pageNum=${i}"><span class="p_num">${i }</span></a>
+								<a href="<c:url value="/notice/list"/>?pageNum=${i}"><span class="p_num">${i }</span></a>
 							</c:when>
 							<c:otherwise>
 								<span class="p_num">${i }</span>
@@ -129,7 +129,7 @@
 				
 					<c:choose >
 						<c:when test="${pager.endPage != pager.totalPage }">
-							<a href="<c:url value="/review/list"/>?pageNum=${pager.nextPage}"><span class="p_next"><!--[다음]  --></span></a>
+							<a href="<c:url value="/notice/list"/>?pageNum=${pager.nextPage}"><span class="p_next"><!--[다음]  --></span></a>
 						</c:when>
 						<c:otherwise>
 							<!--[다음]  -->
@@ -140,7 +140,7 @@
 
 
 				
-					<a href="${pageContext.request.contextPath}/review/write" class="btn_right">
+					<a href="${pageContext.request.contextPath}/notice/write" class="btn_right">
 						<button class="btn">글쓰기</button>
 					</a>
 				
@@ -158,7 +158,7 @@
 				
 
 
-			</div><!-- /review_content -->
+			</div><!-- /notice_content -->
 		</div>	<!-- /py-10 -->
     </div>	<!-- /container -->
 </section>
@@ -171,7 +171,7 @@
 	    // Cancel button
 	    $("#cancelBtn").click(function() {
 	        console.log("Cancel button clicked");
-	        location.href = "/moyeo/review/review_list";
+	        location.href = "/moyeo/notice/notice_list";
 	    });
 	
 	    // Enroll button

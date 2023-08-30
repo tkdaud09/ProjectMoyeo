@@ -18,6 +18,9 @@ public interface DiyMapper {
 	// 제목으로 글 검
 	List<Diy> selectDiyList(String diyTitle);
 	
+	// 글에 저장된 아이디를 출력해서 로그인한 사용자와 비교해 수정 권한을 준다.
+	Diy getUserinfoById(String userinfoId);
+	
 	// *** 내용으로 검색도 추가하기 
 	
 	// 전체 글 개수 

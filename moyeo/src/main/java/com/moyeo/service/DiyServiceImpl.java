@@ -71,6 +71,12 @@ public class DiyServiceImpl implements DiyService {
 		// TODO Auto-generated method stub
 		return diyDao.selectDiyListCount();
 	}
+
+	@Override
+	public Diy getUserinfoById(String userinfoId) {
+		// TODO Auto-generated method stub
+		return diyDao.getUserinfoById(userinfoId);
+	}
 	
 	
 	// 지도 추가하기

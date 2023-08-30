@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moyeo.mapper.NoticeMapper">
 	
-	<!-- 공지사항 등록 -->
+	<!-- 공지사항 등록
 	<insert id="insertNotice">
         <selectKey resultType="int" keyProperty="noticeIdx" order="BEFORE">
           SELECT notice_seq.nextval
@@ -14,11 +14,11 @@
             	, #{noticeContent}
             	, #{noticeRegdate}
             	, #{noticeStatus}
-            	)
-	</insert>
+            	)   	
+	</insert> -->
 	
 
-	<!-- 공지사항 업데이트 -->
+	<!-- 공지사항 업데이트
 	<update id="updateNotice">
         UDATE notice set
            notice_title = #{noticeTitle},
@@ -26,17 +26,50 @@
            notice_regdate = #{noticeRegdate},
            notice_status = #{noticeStatus}
            WHERE notice_idx = #{noticeIdx}
-	</update>
+	</update> -->
 	
 	
-	<!-- 공지사항 삭제 -->
-	<delete id="deleteNotice">
+	<!-- 공지사항 삭제   
+	<delete id="deleteNotice"> 
 	  DELETE FROM notice WHERE noticeIdx = #{notice_idx}
-	</delete>        
+	</delete>     -->
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 공지사항 제목으로 검색
+	<select id="selectNoticeByTitle" resultType="Notice">
+		SELECT 
+			notice_idx
+        	, notice_title
+        	, notice_content
+        	, notice_regdate
+        	, noticeStatus FROM notice 
+		WHERE notice_title=#{noticeTitle}
+	</select> -->
+	
+	<!-- 공지사항 내용으로 검색
+	<select id="selectNoticeByContent" resultType="Notice">
+		SELECT 
+			notice_idx
+        	, notice_title
+        	, notice_content
+        	, notice_regdate
+        	, noticeStatus FROM notice 
+		WHERE notice_content=#{noticeContent}
+	</select> -->
+	
+	
+	
+	
 	
 
 	
-	<!-- 공지사항 리스트 전체 검색 -->
+	<!-- 공지사항 리스트 전체 검색
 	<select id="selectNoticeList" resultType="Notice">
         SELECT 
         	notice_idx
@@ -50,42 +83,56 @@
             	or noticeContent 
             	like '%' || #{@param} || '%'
                 ORDER BY noticeStatus DESC, noticeRegdate
-	</select>
+	</select> -->
 	
-	
-	
-	<!-- 공지사항 게시글 카운트 -->
-	<select id="selectNoticeCount" resultType="int">
-		SELECT 
-			notice_idx
+	 
+	 <!--
+	 <select id="selectNotice" resultType="Notice" parameterType="int">
+	    SELECT 
+	       notice_idx
         	, notice_title
         	, notice_content
         	, notice_regdate
-        	, noticeStatus 
-			 FROM notice
-	</select>
+        	, noticeStatus FROM notice 
+	    WHERE notice_idx=#{noticeIdx}
+	    ORDER BY notice_idx desc
+	</select>  -->
+	 
+	 
+
+	
+	<!-- 공지사항 게시글 카운트
+	<select id="selectNoticeCount" resultType="int">
+		 SELECT COUNT(*) FROM notice 
+	</select> -->
+	
+
+	<!-- 공지사항 페이지 번호
+	 <select id="selectNoticeList" resultType="Notice">
+	    SELECT * FROM (
+	        SELECT
+	            ROWNUM rn,
+	            notice_idx,
+	            notice_title,
+	            notice_content,
+	            notice_regdate,
+	            noticeStatus
+	        FROM (
+	            SELECT
+	                notice_idx,
+	                notice_title,
+	                notice_content,
+	                notice_regdate,
+	                noticeStatus
+	            FROM notice
+	            ORDER BY notice_idx DESC
+	        ) notice
+	    ) WHERE rn BETWEEN #{startRow} AND #{endRow}
+	</select> -->
+		
 	
 	
-	<!-- 공지사항 페이지 번호 -->
-	<!--  <select id="selectNoticeList" resultType="Notice>
-		SELECT * FROM 
-			(SELECT 
-				rownum rn
-				, notice_idx
-	        	, notice_title
-	        	, notice_content
-	        	, notice_regdate
-	        	, noticeStatus
-				FROM (SELECT 
-					notice_idx
-		        	, notice_title
-		        	, notice_content
-		        	, notice_regdate
-		        	, noticeStatus
-					FROM notice ORDER BY notice_idx DESC) 
-			notice) 
-			WHERE rn between #{startRow} and #{endRow}
-	</select>-->
+	
 	
 	
 </mapper>

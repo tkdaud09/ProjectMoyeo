@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moyeo.mapper.DiyMapper">
-	<insert id="insertDiy" parameterType="com.moyeo.dto.Diy">
+	<insert id="insertDiy">
 		<selectKey resultType="int" keyProperty="diyIdx" order="BEFORE">
 			SELECT diy_seq.nextval 
-			FROM DUAL;
+			FROM DUAL
 		</selectKey>
         INSERT INTO diy (
         		diy_idx,
@@ -16,7 +16,6 @@
         		diy_price,
         		diy_map,
         		diy_regdate,
-        		love_idx,
         		diy_title,
         		diy_introduction,
         		diy_thumbnail,
@@ -32,14 +31,13 @@
         VALUES(
                 #{diyIdx},
                 #{userinfoId},
-                to_char(#{diyStartdate}, 'yyyy-mm-dd'),
-                to_char(#{diyEnddate}, 'yyyy-mm-dd'),
+                #{diyStartdate},
+                #{diyEnddate},
                 #{diyPeople},
                 #{diyLoc},
                 #{diyPrice}, 
                 #{diyMap},
                 SYSTIMESTAMP,
-                #{loveIdx},
                 #{diyTitle},
                 #{diyIntroduction},
                 #{diyThumbnail},
@@ -50,11 +48,11 @@
                 #{diyContent3Img},
                 #{diyContent3},
                 #{diyContent4Img},
-                #{diyContent4});
+                #{diyContent4})
     </insert>
 
 
-	<select id="selectDiy" resultType="com.moyeo.dto.Diy">
+	<select id="selectDiy" resultType="Diy">
         SELECT 
         		diy_idx,
         		userinfo_id,
@@ -64,12 +62,11 @@
         		diy_loc,
         		diy_price,
         		diy_map,
-        		diy_regdate,
-        		diy_modifydate,
+        		TO_CHAR(diy_regdate, 'yyyy-mm-dd'),
+        		TO_CHAR(diy_modifydate, 'yyyy-mm-dd'),
         		love_idx,
         		diy_title,
         		diy_introduction,
-        		diy_thumbnail,
         		diy_content1img,
         		diy_content1,
         		diy_content2img,
@@ -77,7 +74,7 @@
         		diy_content3img,
         		diy_content3,
         		diy_content4img,
-        		diy_content4)
+        		diy_content4
         FROM diy
         WHERE diy_idx=#{diyIdx}
 	</select>
@@ -85,6 +82,7 @@
 	
 	<select id="selectDiyList" resultType="com.moyeo.dto.Diy">
         SELECT 
+        		diy_idx,
         		diy_thumbnail,
         		diy_title,
         		diy_people,
@@ -94,7 +92,7 @@
         		love_idx,
         		diy_introduction
         FROM diy  
-        ORDER BY diy_regdate DESC
+        ORDER BY diy_idx DESC
     </select>
        
        

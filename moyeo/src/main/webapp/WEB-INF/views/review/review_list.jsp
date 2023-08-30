@@ -55,7 +55,7 @@
 					<div class="search-area">	
 						<div class="sel-search">
 							<select class="sel-base" id="schKeyword">
-								<option value="both">제목+내용</option>
+								<option value="both" >제목+내용</option>
 								<option value="sub">제목</option>
 								<option value="cont">내용</option>
 							</select>
@@ -103,8 +103,7 @@
 					        </tr>
 					    </c:forEach>
 					</table>
-
-
+					
 
 
 

@@ -60,6 +60,12 @@ public class DiyDAOImpl implements DiyDAO {
 		return sqlSession.getMapper(DiyMapper.class).selectDiyListCount();
 	}
 
+	@Override
+	public Diy getUserinfoById(String userinfoId) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(DiyMapper.class).getUserinfoById(userinfoId);
+	}
+
 
 	// *** 내용으로도 검색하는거 만들기
 	
