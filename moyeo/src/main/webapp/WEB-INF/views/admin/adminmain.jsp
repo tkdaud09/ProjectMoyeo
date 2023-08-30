@@ -51,18 +51,18 @@
 <div class="admin">
     <h1>관리자 페이지</h1>
     <ul>
-         <li><input type="button" value="패키지 등록"
-                    onclick="location.href='${pageContext.request.contextPath}/package/form';"></li>
+         <li><input type="button" value="회원 관리"
+                    onclick="location.href='${pageContext.request.contextPath}/admin/userlist';"></li>
          <li><input type="button" value="패키지 관리"
-                    onclick="location.href='#"></li>
-	     <li><input type="button" value="이벤트 등록"
-	                onclick="location.href='#"></li>
-	     <li><input type="button" value="DIY 관리"
-	                onclick="location.href='#"></li>
-         <li><input type="button" value="공지사항 관리"
-	                onclick="location.href='#"></li> 	
-	     <li><input type="button" value="1:1 문의 관리"
-	                onclick="location.href='#"></li> 	        
+                    onclick="location.href='${pageContext.request.contextPath}/admin/packagelist';"></li>
+        <li><input type="button" value="DIY 관리"
+                   onclick="location.href='#"></li>
+        <li><input type="button" value="공지사항 관리"
+                   onclick="location.href='#"></li>
+         <li><input type="button" value="1:1문의 관리"
+                   onclick="location.href='#"></li>    
+        <li><input type="button" value="결제 및 주문 관리"
+                   onclick="location.href='#"></li>            
     </ul>
 </div>
 </body>
