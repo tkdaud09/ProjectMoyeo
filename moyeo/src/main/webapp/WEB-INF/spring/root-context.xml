@@ -38,7 +38,7 @@
    </bean>
    
     <!--   mpper 등록하려면 추가해줘야함!! -->
-	<mybatis-spring:scan base-package="com.moyeo.mapper" />
+	<mybatis-spring:scan base-package="com.moyeo.mapper" /> 
 	
     <!-- navermail설정 -->
 

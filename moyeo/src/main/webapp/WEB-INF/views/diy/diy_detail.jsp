@@ -27,7 +27,7 @@
         <div class="col-lg-6">
           <div class="page-title-content">
             <div class="title-border">
-              <h2 class="text-uppercase text-white font-weight-bold">DIY 작성 페이지</h2>
+              <h2 class="text-uppercase text-white font-weight-bold">DIY</h2>
             </div>
             <p class="text-white mb-0"></p>
           </div>
@@ -53,7 +53,7 @@
           <a href="/moyeo/diy/diy_add" class="progress-wizard-dot">
             <div class="progress-wizard-content">
               <i class="fa fa-user" aria-hidden="true"></i>
-              <span class="d-block">1. DIY 글 작성 페이지</span>
+              <span class="d-block">1. DIY</span>
             </div>
           </a>
         </div>
@@ -66,23 +66,12 @@
           <a href="diy_list" class="progress-wizard-dot">
             <div class="progress-wizard-content">
               <i class="fas fa-dollar-sign" aria-hidden="true"></i>
-              <span class="d-block">2. Payment info</span>
+              <span class="d-block">2. 목록으로</span>
             </div>
           </a>
         </div>
       
-        <div class="col-4 progress-wizard-step incomplete">
-          <div class="progress">
-            <div class="progress-bar"></div>
-          </div>
-      
-          <a href="booking-step-3.html" class="progress-wizard-dot">
-            <div class="progress-wizard-content">
-              <i class="fa fa-check" aria-hidden="true"></i>
-              <span class="d-block">3. Confirmation</span>
-            </div>
-          </a>
-        </div>
+ 
         
        </div>
     
@@ -161,53 +150,53 @@
            <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyIntrodution">간단한 소개글</label>
-                <p class="form-control border-0 bg-smoke">${diyDetail.diyIntroduction }</p>
+                <p class="form-control border-0 bg-smoke" id="diyIntrodution">${diyDetail.diyIntroduction }</p>
               </div>
             </div>
            
 				<!-- day 1 사진 -->          
         	  <div class="col-md-6">
 	            <img class="card-img-top rounded lazyestload" id="diyContent1Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent1Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}"data-src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}" alt="Day 1 img">
-	            
+	            <div class="card-img-overlay card-hover-overlay rounded"></div>
 	        </div>
             
 		 	
           <div class="form-group mb-5" id="day1Block">
-            <label for="exampleFormControlTextarea1">DAY 1</label>
-            <textarea class="form-control border-0 bg-smoke" name="diyContent1" rows="7" readonly>${diyDetail.diyContent1 }</textarea>
+            <label for="diyContent1">DAY 1</label>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent1" rows="7" readonly>${diyDetail.diyContent1 }</textarea>
           </div>
 				
           	<div class="col-md-6">
           		<!-- day 2 사진 -->
 	            <img class="card-img-top rounded lazyestload" id="diyContent2Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent2Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent2Img}" alt="Day 2 img">
-	            
+	            <div class="card-img-overlay card-hover-overlay rounded"></div>
 	        </div>
             
            <div class="form-group mb-5">
-            <label for="exampleFormControlTextarea1">DAY 2</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7" readonly>${diyDetail.diyContent2 }</textarea>
+            <label for="diyContent2">DAY 2</label>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent2" rows="7" readonly>${diyDetail.diyContent2 }</textarea>
           </div>
           
          	 <div class="col-md-6">
          	 	<!-- day 3 사진 -->
 	            <img class="card-img-top rounded lazyestload" id="diyContent3Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent3Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent3Img}" alt="Day 3 img">
-	            
+	            <div class="card-img-overlay card-hover-overlay rounded"></div>
 	        </div>
             
          	  <div class="form-group mb-5">
-            <label for="exampleFormControlTextarea1">DAY 3</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7" readonly>${diyDetail.diyContent3 }</textarea>
+            <label for="diyContent3">DAY 3</label>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent3" rows="7" readonly>${diyDetail.diyContent3 }</textarea>
           </div>
           
              <div class="col-md-6">
              	<!-- day 4 사진 -->
 	            <img class="card-img-top rounded lazyestload" id="diyContent4Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
-	            
+	            <div class="card-img-overlay card-hover-overlay rounded"></div>
 	        </div>
           
 			<div class="form-group mb-5">
-            <label for="exampleFormControlTextarea1">DAY 4</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7" readonly>${diyDetail.diyContent4 }</textarea>
+            <label for="diyContent4">DAY 4</label>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent4" rows="7" readonly>${diyDetail.diyContent4 }</textarea>
           </div>
     
           
@@ -215,7 +204,7 @@
           <c:set var="userinfoId" scope="session"/> 
           <c:if test="${loginId eq diy.userinfoId}">
           <div class="text-center text-md-start text-lg-end">
-           <a href="diy/diy_modify/${diyDetail.diyIdx}" class="btn btn-primary text-uppercase">
+           <a href="${pageContext.request.contextPath}/diy/diy_modify/${diyDetail.diyIdx}" class="btn btn-primary text-uppercase">
             <button type="submit" class="btn btn-primary text-uppercase" id="editButton">
               수정하기
             </button>
@@ -223,7 +212,7 @@
            </div>
            
           <div class="text-center text-md-start text-lg-end">
-           <a href="diy/diy_delete" class="btn btn-primary text-uppercase">
+           <a href="${pageContext.request.contextPath}/diy/diy_delete" class="btn btn-primary text-uppercase">
             <button type="submit" class="btn btn-primary text-uppercase" id="deleteButton" onclick="deleteConfirm()">
               삭제하기
             </button>
@@ -233,7 +222,7 @@
           </c:if>
            
            <div class="text-center text-md-start text-lg-end">
-              <a href="diy/diy_list" class="btn btn-primary text-uppercase">목록으로</a>
+              <a href="${pageContext.request.contextPath}/diy/diy_list" class="btn btn-primary text-uppercase">목록으로</a>
            </div>
            
    	   </div>
