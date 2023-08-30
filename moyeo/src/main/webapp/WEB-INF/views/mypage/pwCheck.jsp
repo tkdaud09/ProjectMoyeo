@@ -39,7 +39,7 @@
 				</div>
 				<div class="pw_wrap">
 					<div class="pw_input_box">
-						<input class="pw_iput input_f" name="pw" placeholder="비밀번호를 입력하세요.">
+						<input type="password" class="pw_iput input_f" name="pw" placeholder="비밀번호를 입력하세요.">
 					</div>
 				</div>
 				
