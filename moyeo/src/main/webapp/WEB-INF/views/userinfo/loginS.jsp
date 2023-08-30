@@ -20,7 +20,7 @@
 
     <br>
  <input type="button" value="로그아웃"
-  onclick="location.href='/moyeo/user/logout';">
+  onclick="location.href='${pageContext.request.contextPath}/user/logout';">
   
    <input type="button" value="마지막 로그인"
   onclick="lastlogin();">
@@ -34,7 +34,7 @@
   
    function lastlogin() {
        // user.jsp로 이동
-       location.href = '/moyeo/user/user';
+       location.href = '${pageContext.request.contextPath}/user/user';
 }
    
    function gomypage(id) {
@@ -42,7 +42,7 @@
 	   var idValue = '<%= request.getParameter("id") %>';
 	   
        // main.jsp로 이동
-	   location.href = '/moyeo/user/mypage?id=' + idValue;
+	   location.href = '${pageContext.request.contextPath}/user/mypage?id=' + idValue;
 }
 
 </script>

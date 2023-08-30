@@ -73,7 +73,15 @@ a:hover {
         <td class="address">${userinfo.address}</td>
         <td class="phone">${userinfo.phone}</td>
         <td>${userinfo.logdate}</td>
-        <td>${userinfo.status}</td>
+        <td>
+    <c:choose>
+        <c:when test="${userinfo.status == 0}">일반</c:when>
+        <c:when test="${userinfo.status == 2}">휴면회원</c:when>
+        <c:when test="${userinfo.status == 3}">탈퇴회원</c:when>
+        <c:when test="${userinfo.status == 9}">관리자</c:when>
+        <c:otherwise>알 수 없음</c:otherwise>
+    </c:choose>
+</td>
     </tr>
 </c:forEach>
 </table>

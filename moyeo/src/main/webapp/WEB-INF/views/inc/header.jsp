@@ -544,7 +544,7 @@
                  
                     <!-- <i class="fa fa-user me-2"></i> -->
                     
-                      <a href="${pageContext.request.contextPath}/admin/main">관리자페이지</a>
+                      <a href="${pageContext.request.contextPath}/admin/">관리자페이지</a>
                     
                 </li>
       
@@ -654,7 +654,7 @@
                         <a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
                       </li>
                   <li class=" ">
-                        <a href="#">DIY 전체보기</a>
+                        <a href="${pageContext.request.contextPath}/diy/diy_list">DIY 전체보기</a>
                       </li>
                     </ul>
                   </li>
@@ -1138,7 +1138,7 @@
                         <a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
                       </li>
                   <li class=" ">
-                        <a href="#">DIY 전체보기</a>
+                        <a href="${pageContext.request.contextPath}/diy/diy_list">DIY 전체보기</a>
                       </li>
                     </ul>
                   </li>

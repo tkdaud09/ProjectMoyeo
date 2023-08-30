@@ -145,7 +145,7 @@ $(document).ready(function(){
         if(!check){
            return;
         }
-           $("#modifypw_form").attr("action", "/moyeo/user/modifypw");
+           $("#modifypw_form").attr("action", "${pageContext.request.contextPath}/user/modifypw");
            $("#modifypw_form").submit();
     });
 });

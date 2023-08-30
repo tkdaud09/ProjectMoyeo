@@ -261,7 +261,7 @@
                   genderCheck&&
                   yearCheck&&
                   phoneCheck){
-                 $("#join_form").attr("action", "/moyeo/user/join");
+                 $("#join_form").attr("action", "${pageContext.request.contextPath}/user/join");
                  $("#join_form").submit();
               }
               
@@ -279,7 +279,7 @@
 
    $.ajax({
        type: "post",
-       url: "/moyeo/user/memberIdChk",
+       url: "${pageContext.request.contextPath}/user/memberIdChk",
        data: data,
        success: function(result) {
            var idCheckMessage = $('.id_input_re_1');

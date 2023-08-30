@@ -96,11 +96,11 @@
         <ul>
             <li>
                 <input type="button" value="회원정보변경"
-                    onclick="location.href='/moyeo/user/pwCheck';">
+                    onclick="location.href='${pageContext.request.contextPath}/user/pwCheck';">
             </li>
             <li>
                 <input type="button" value="비밀번호변경"
-                    onclick="location.href='/moyeo/user/modifypw';">
+                    onclick="location.href='${pageContext.request.contextPath}/user/modifypw';">
             </li>
             <li>
                 <input type="button" value="찜한 내역"
@@ -114,7 +114,7 @@
 
             <li>
                 <input type="button" value="탈퇴하기"
-                    onclick="location.href='/moyeo/user/removePwCheck';">
+                    onclick="location.href='${pageContext.request.contextPath}/user/removePwCheck';">
             </li>
         </ul>
     </section>

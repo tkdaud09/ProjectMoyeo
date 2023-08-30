@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>${userinfo.name}의상세 정보</title>
+<title> ${userinfo.name} 의 상세정보</title>
 <style type="text/css">
 .userinfodetaillist {
    height: 700px;
@@ -89,7 +89,7 @@ a.return-link:hover {
 <body>
    <hr>
    <div class="userinfodetaillist">
-      <h1>${userinfo.name}의상세 정보</h1>
+      <h1>${userinfo.name}의  상세  정보</h1>
       <table>
          <tr>
             <th>아이디</th>
