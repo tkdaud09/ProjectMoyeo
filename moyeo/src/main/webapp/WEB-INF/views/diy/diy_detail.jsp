@@ -168,7 +168,7 @@
 				<!-- day 1 사진 -->          
         	  <div class="col-md-6">
 	            <img class="card-img-top rounded lazyestload" id="diyContent1Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent1Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}"data-src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}" alt="Day 1 img">
-	            <div class="card-img-overlay card-hover-overlay rounded"></div>
+	            
 	        </div>
             
 		 	
@@ -180,7 +180,7 @@
           	<div class="col-md-6">
           		<!-- day 2 사진 -->
 	            <img class="card-img-top rounded lazyestload" id="diyContent2Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent2Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent2Img}" alt="Day 2 img">
-	            <div class="card-img-overlay card-hover-overlay rounded"></div>
+	            
 	        </div>
             
            <div class="form-group mb-5">
@@ -191,7 +191,7 @@
          	 <div class="col-md-6">
          	 	<!-- day 3 사진 -->
 	            <img class="card-img-top rounded lazyestload" id="diyContent3Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent3Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent3Img}" alt="Day 3 img">
-	            <div class="card-img-overlay card-hover-overlay rounded"></div>
+	            
 	        </div>
             
          	  <div class="form-group mb-5">
@@ -202,7 +202,7 @@
              <div class="col-md-6">
              	<!-- day 4 사진 -->
 	            <img class="card-img-top rounded lazyestload" id="diyContent4Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
-	            <div class="card-img-overlay card-hover-overlay rounded"></div>
+	            
 	        </div>
           
 			<div class="form-group mb-5">
