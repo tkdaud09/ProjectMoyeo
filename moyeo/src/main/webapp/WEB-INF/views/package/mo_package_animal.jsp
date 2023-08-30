@@ -164,15 +164,15 @@
       <div class="col-md-7 col-lg-8">
         <div id="package-slider" class="owl-carousel owl-theme package-slider">
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packSlideImg1}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packSlideImg1}" alt="image">
           </div>
 
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packSlideImg2}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packSlideImg2}" alt="image">
           </div>
 
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packSlideImg3}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packSlideImg3}" alt="image">
           </div>
         </div>
 
@@ -180,13 +180,12 @@
 
       <div class="package_con">
          <div class="pack_img1">
-         <!-- <img src="${pageContext.request.contextPath}/assets/img/packages/pack_img_calendar.png">  -->
-         <!-- <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>"> -->
+
          
-         <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>" alt="">   
+         <img src="<c:url value='/assets/img/upload/${pack.packCalendarImg}'/>" alt="">   
          
          </div>
-         <div class="pack_text">여행 상세 내용이 들어갈 공간 </div>
+          <img src="<c:url value='/assets/img/upload/${pack.packContentImg1}'/>" alt=""> 
       </div>
 
         <div class="mb-7">
