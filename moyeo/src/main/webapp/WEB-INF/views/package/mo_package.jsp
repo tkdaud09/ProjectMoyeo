@@ -55,12 +55,13 @@
 
 	<div class="row grid">
 	
+	
 	<c:forEach items="${packList}" var="pack">
 	
       <div class="col-md-6 col-lg-4 mb-5 element-item  ${pack.packKind}">
         <div class="card card-hover">
           <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="Card image cap">
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
               <div class="badge bg-primary badge-rounded-circle">
                 <span class="d-block">
@@ -114,6 +115,8 @@
         </div>
       </div>
       </c:forEach>
+      
+      <%--
 
       <div class="col-md-6 col-lg-4 mb-5 element-item child">
         <div class="card card-hover">
@@ -568,6 +571,14 @@
           </div>
         </div>
       </div>
+      
+      
+      
+       --%>
+      
+      
+      
+      
     </div>	
 
 

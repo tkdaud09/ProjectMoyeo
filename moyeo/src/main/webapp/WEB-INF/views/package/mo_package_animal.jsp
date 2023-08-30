@@ -12,7 +12,7 @@
 
 
 <!-- ====================================
-———	PAGE TITLE
+———   PAGE TITLE
 ===================================== -->
 <!-- <section class="page-title">
   <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(assets/img/pages/page-title-bg13.jpg);">
@@ -32,11 +32,11 @@
 </section> -->
 
 <div class="pack_detail_title">
-	<p>${pack.packTitle} </p>
+   <p>${pack.packTitle} </p>
 </div>
 
 <!-- ====================================
-———	PACKAGES SECTION
+———   PACKAGES SECTION
 ===================================== -->
 <section class="py-10 pd">
   <div class="container">
@@ -47,16 +47,16 @@
             <h2 class="card-header text-uppercase text-center bg-smoke border-bottom">
               옵션선택
             </h2>
-			
-			
+         
+         
             <div class="card-body px-3 py-4">
               <div class="border-bottom mb-5">
                 <div class="form-group mb-5">
                   <div class="row">
                     <label for="inputTime" class="col-xl-5 col-form-label text-center text-xl-right px-2">여행 일정</label>
-					
-					<!-- 데이트피커 부분  -->
-					<!--  <div class="col-xl-7">
+               
+               <!-- 데이트피커 부분  -->
+               <!--  <div class="col-xl-7">
                       <div class="form-group form-group-icon form-group-icon-category-2 mb-0">
                         <i class="far fa-calendar-alt" aria-hidden="true"></i>
                         <input type="text" class="form-control daterange-picker-category-2" autocomplete="off" name="dateRange" value=""
@@ -64,12 +64,12 @@
                       </div>
                     </div>  -->
                     
-                    	  <div class="pack_date">
-                     		 <p>${pack.packStartDate}</p>
-                     		 <p>${pack.packEndDate}</p>
-                   		 </div>
+                         <div class="pack_date">
+                            <p>${pack.packStartDate}</p>
+                            <p>${pack.packEndDate}</p>
+                          </div>
    
-	                  
+                     
                   </div>
                 </div>
                 
@@ -136,7 +136,7 @@
 
               <div class="d-flex justify-content-between border-bottom mb-5 pb-5">
                 <span class="text-uppercase h4 mb-0">Total cost</span>
-           		<span class="font-weight-bold text-primary h3 mb-0" id="total-cost">0원</span>
+                 <span class="font-weight-bold text-primary h3 mb-0" id="total-cost">0원</span>
               
              
               </div>
@@ -146,11 +146,11 @@
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   예약하기 <span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
-				 <button type="button" onclick="location.href='booking-step-1.html';"
+             <button type="button" onclick="location.href='booking-step-1.html';"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   장바구니 <span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
-				 <button type="button" onclick="location.href='booking-step-1.html';"
+             <button type="button" onclick="location.href='booking-step-1.html';"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   하트수정<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
@@ -159,35 +159,35 @@
           </div>
         </form>
       </div>
-		
-	  <!-- 이미지 출력 -->
+      
+     <!-- 이미지 출력 -->
       <div class="col-md-7 col-lg-8">
         <div id="package-slider" class="owl-carousel owl-theme package-slider">
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="image">
           </div>
 
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="image">
           </div>
 
           <div class="item">
-            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreview}" alt="image">
+            <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="image">
           </div>
         </div>
 
-		
+      
 
-		<div class="package_con">
-			<div class="pack_img1">
-			<!-- <img src="${pageContext.request.contextPath}/assets/img/packages/pack_img_calendar.png">  -->
-			<!-- <img src="<c:url value='/assets/img/upload/${pack.packPreview}'/>"> -->
-			
-			<img src="<c:url value='/assets/img/upload/${pack.packCalendar}'/>" alt="">   
-			
-			</div>
-			<div class="pack_text">여행 상세 내용이 들어갈 공간 </div>
-		</div>
+      <div class="package_con">
+         <div class="pack_img1">
+         <!-- <img src="${pageContext.request.contextPath}/assets/img/packages/pack_img_calendar.png">  -->
+         <!-- <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>"> -->
+         
+         <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>" alt="">   
+         
+         </div>
+         <div class="pack_text">여행 상세 내용이 들어갈 공간 </div>
+      </div>
 
         <div class="mb-7">
           <h2 class="text-uppercase mb-6">Reviews</h2>
@@ -249,9 +249,9 @@
           </div>
         </div>
 
-		<!-- 
-		
-		    <form class="mb-9 mb-md-0">
+      <!-- 
+      
+          <form class="mb-9 mb-md-0">
           <h3 class="text-uppercase mb-6">Leave your review</h3>
 
           <p class="rating-view d-flex align-items-center">
@@ -270,19 +270,19 @@
             </button>
           </div>
         </form>
-		
-		 -->
+      
+       -->
         
       </div>
     </div>
   </div>
 </section>
 
-			
+         
 
 
 <!-- ====================================
-———	PACKAGES LIKE SECTION
+———   PACKAGES LIKE SECTION
 ===================================== -->
 <!-- <section class="pb-10">
   <div class="container">
@@ -483,37 +483,36 @@
 
 
   </div><!-- element wrapper ends -->
-	
+   
 
-		<!-- 가격 계산 -->
-		<script>
-		// 성인 가격 소인 가격 설정 
-	    const adultPrice = ${pack.packAdultPrice};
-	    const childPrice = ${pack.packChildPrice};
-	
-	    // 요소 선택
-	    const adultInput = document.querySelector('.quantity.adult');
-	    const childInput = document.querySelector('.quantity.child');
-	    const totalCostSpan = document.getElementById('total-cost');
+      <!-- 가격 계산 -->
+      <script>
+      // 성인 가격 소인 가격 설정 
+       const adultPrice = ${pack.packAdultPrice};
+       const childPrice = ${pack.packChildPrice};
+   
+       // 요소 선택
+       const adultInput = document.querySelector('.quantity.adult');
+       const childInput = document.querySelector('.quantity.child');
+       const totalCostSpan = document.getElementById('total-cost');
     
     
-	    $(document).ready(function () {
-	        $(".incr-btn.adult").click(function () {
-	          const adultTotalCost = adultInput.value * adultPrice;
-	          const childTotalCost = childInput.value * childPrice;
-	          const totalCost = adultTotalCost + childTotalCost;
-	          totalCostSpan.textContent = totalCost +"원" ;
-	        });
+       $(document).ready(function () {
+           $(".incr-btn.adult").click(function () {
+             const adultTotalCost = adultInput.value * adultPrice;
+             const childTotalCost = childInput.value * childPrice;
+             const totalCost = adultTotalCost + childTotalCost;
+             totalCostSpan.textContent = totalCost +"원" ;
+           });
 
-	        $(".incr-btn.child").click(function () {
-	          const adultTotalCost = adultInput.value * adultPrice;
-	          const childTotalCost = childInput.value * childPrice;
-	          const totalCost = adultTotalCost + childTotalCost;
-	          totalCostSpan.textContent = totalCost +"원";
-	        });
-	      });
+           $(".incr-btn.child").click(function () {
+             const adultTotalCost = adultInput.value * adultPrice;
+             const childTotalCost = childInput.value * childPrice;
+             const totalCost = adultTotalCost + childTotalCost;
+             totalCostSpan.textContent = totalCost +"원";
+           });
+         });
 
-	</script>
+   </script>
   </body>
 </html>
-

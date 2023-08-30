@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,6 +39,7 @@ public class PackageController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String packageMainGET(Model model) {
 		model.addAttribute("packList", packageService.getPackageList());
+		System.out.println();
 		return "package/mo_package";
 	}
 
@@ -60,42 +62,64 @@ public class PackageController {
 
 	// 패키지 등록
 	@RequestMapping(value = "/addPackage", method = RequestMethod.POST)
-	public String addPackagePOST(@ModelAttribute("pack") Pack pack,
-			@RequestParam("previewMultipartFile") MultipartFile previewMultipartFile,
-			@RequestParam("mainMultipartFile") MultipartFile mainMultipartFile,
-			@RequestParam("contentMultipartFile") MultipartFile contentMultipartFile,
-			@RequestParam("calendarMultipartFile") MultipartFile calendarMultipartFile, Model model,
-			HttpSession session) throws IllegalStateException, IOException {
-		if (previewMultipartFile.isEmpty() || mainMultipartFile.isEmpty() || contentMultipartFile.isEmpty()
-				|| calendarMultipartFile.isEmpty()) {
-			// 이미지 파일이 업로드되지 않은 경우 처리
-			model.addAttribute("message", "파일이 업로드되지 않았습니다.");
+	public String addPackagePOST(@ModelAttribute Pack pack,
+			@RequestParam("packPreviewImgFile") MultipartFile packPreviewImgFile,
+			@RequestParam("packSlideImg1File") MultipartFile packSlideImg1File,
+			@RequestParam("packSlideImg2File") MultipartFile packSlideImg2File,
+			@RequestParam("packSlideImg3File") MultipartFile packSlideImg3File,
+			@RequestParam("packContentImg1File") MultipartFile packContentImg1File,
+			@RequestParam("packContentImg2File") MultipartFile packContentImg2File,
+			@RequestParam("packContentImg3File") MultipartFile packContentImg3File,
+			@RequestParam("packCalendarImgFile") MultipartFile packCalendarImgFile,
+			Model model, HttpSession session) throws IllegalStateException, IOException {
+		
+		if(packPreviewImgFile.isEmpty() || packSlideImg1File.isEmpty() || packSlideImg2File.isEmpty() 
+				|| packSlideImg3File.isEmpty() || packContentImg1File.isEmpty() || packContentImg2File.isEmpty()
+				|| packContentImg2File.isEmpty() || packContentImg3File.isEmpty() || packCalendarImgFile.isEmpty()) {
+			//이미지 파일이 업로드되지 않은 경우 처리
+			model.addAttribute("message","파일이 업로드되지 않았습니다.");
 			return "redirect:/package/";
 		}
-
-		// 전달파일을 저장하기 위한 서버 디렉토리의시스템 경로 반환
-		String uploadDirectory = context.getServletContext().getRealPath("resources/assets/img/upload");
-
-		// 서버 디렉토리에 업로드 처리되며 저장된 파일의 이름을 반환하여 Command 객체의 필드값 변경
-		String uploadPreview = UUID.randomUUID().toString() + "-" + previewMultipartFile.getOriginalFilename();
-		pack.setPackPreview(uploadPreview);
-		String uploadMain = UUID.randomUUID().toString() + "-" + mainMultipartFile.getOriginalFilename();
-		pack.setPackMain(uploadMain);
-		String uploadContent = UUID.randomUUID().toString() + "-" + contentMultipartFile.getOriginalFilename();
-		pack.setPackContent(uploadContent);
-		String uploadCalendar = UUID.randomUUID().toString() + "-" + calendarMultipartFile.getOriginalFilename();
-		pack.setPackCalendar(uploadCalendar);
-
-		// 파일 업로드 처리 - 복붙해서 넣어주는 게 아니라 서버에 넣어줌
-		previewMultipartFile.transferTo(new File(uploadDirectory, uploadPreview));
-		mainMultipartFile.transferTo(new File(uploadDirectory, uploadMain));
-		contentMultipartFile.transferTo(new File(uploadDirectory, uploadContent));
-		calendarMultipartFile.transferTo(new File(uploadDirectory, uploadCalendar));
-
-		// 세션
-		// Userinfo userinfo = (Userinfo)session.getAttribute("userinfo");
-
-		// 테이블에 행 삽입
+		
+		//전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
+		String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
+		
+		//서버 디렉토리에 업로드 처리되며 저장된 파일의 이름을 반환하여 Command 객체의 필드값 변경
+		String uploadPreview = UUID.randomUUID().toString()+"-"+packPreviewImgFile.getOriginalFilename();
+		pack.setPackPreviewImg(uploadPreview);
+		
+		String uploadSlide1 = UUID.randomUUID().toString()+"-"+packSlideImg1File.getOriginalFilename();
+		pack.setPackSlideImg1(uploadSlide1);
+		
+		String uploadSlide2 = UUID.randomUUID().toString()+"-"+packSlideImg2File.getOriginalFilename();
+		pack.setPackSlideImg2(uploadSlide2);
+		
+		String uploadSlide3 = UUID.randomUUID().toString()+"-"+packSlideImg3File.getOriginalFilename();
+		pack.setPackSlideImg3(uploadSlide3);
+		
+		String uploadContent1 = UUID.randomUUID().toString()+"-"+packContentImg1File.getOriginalFilename();
+		pack.setPackContentImg1(uploadContent1);
+		
+		String uploadContent2 = UUID.randomUUID().toString()+"-"+packContentImg2File.getOriginalFilename();
+		pack.setPackContentImg2(uploadContent2);
+		
+		String uploadContent3 = UUID.randomUUID().toString()+"-"+packContentImg3File.getOriginalFilename();
+		pack.setPackContentImg3(uploadContent3);
+		
+		String uploadCalendar = UUID.randomUUID().toString()+"-"+packCalendarImgFile.getOriginalFilename();
+		pack.setPackCalendarImg(uploadCalendar);
+		
+		//파일 업로드 처리 - 복붙해서 넣어주는게 아니라 서버에 넣어줌
+		packPreviewImgFile.transferTo(new File(uploadDirectory,uploadPreview));
+		packSlideImg1File.transferTo(new File(uploadDirectory,uploadSlide1));
+		packSlideImg2File.transferTo(new File(uploadDirectory,uploadSlide2));
+		packSlideImg3File.transferTo(new File(uploadDirectory,uploadSlide3));
+		packContentImg1File.transferTo(new File(uploadDirectory,uploadContent1));
+		packContentImg2File.transferTo(new File(uploadDirectory,uploadContent2));
+		packContentImg3File.transferTo(new File(uploadDirectory,uploadContent3));
+		packCalendarImgFile.transferTo(new File(uploadDirectory,uploadCalendar));
+		
+		//테이블에 행 삽입
 		packageService.addPackage(pack);
 
 		return "redirect:/package/";

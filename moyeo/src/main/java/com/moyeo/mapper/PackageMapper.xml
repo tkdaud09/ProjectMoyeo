@@ -5,128 +5,142 @@
 	<!-- 관리자  -->
 	
 	<!-- 패키지 등록 -->
-	<insert id="insertPackage">
-		<selectKey resultType="int" keyProperty="packIdx" order="BEFORE">
-			SELECT pack_seq.nextval 
-			FROM DUAL
-		</selectKey>
-		INSERT INTO 
-		pack (
-			pack_idx
-			, pack_title
-			, pack_kind
-			, pack_preview
-			, pack_main
-			, pack_content
-			, pack_calendar
-			, pack_startdate
-			, pack_enddate
-			, pack_regdate
-			, pack_people
-			, pack_childcount
-			, pack_adultcount
-			, pack_adultprice
-			, pack_childprice
-			, pack_status
-		) 
-		VALUES (
-			#{packIdx}
-			, #{packTitle}
-			, #{packKind}
-			, #{packPreview}
-			, #{packMain}
-			, #{packContent}
-			, #{packCalendar}
-			, TO_DATE(#{packStartDate}, 'YYYY-MM-DD')
-       		, TO_DATE(#{packEndDate}, 'YYYY-MM-DD')   
-			, sysdate
-			, #{packPeople}
-			, #{packChildCount}
-			, #{packAdultCount}
-			, #{packAdultPrice}
-			, #{packChildPrice}
-			, #{packStatus}
-		)
-	</insert>
+   <insert id="insertPackage">
+      <selectKey resultType="int" keyProperty="packIdx" order="BEFORE">
+         SELECT pack_seq.nextval 
+         FROM DUAL
+      </selectKey>
+	      INSERT INTO 
+	      pack (
+	         pack_idx
+	         , pack_kind
+	         , pack_title
+	         , pack_startdate
+	         , pack_enddate
+	         , pack_regdate
+	         , pack_people
+	         , pack_childprice
+	         , pack_adultprice
+	         , pack_previewimg
+	         , pack_slideimg1
+	         , pack_slideimg2
+	         , pack_slideimg3
+	         , pack_contentimg1
+	         , pack_contentimg2
+	         , pack_contentimg3
+	         , pack_calendarimg
+	         , pack_status
+	      ) 
+	      VALUES (
+	         #{packIdx}
+	         , #{packKind}
+	         , #{packTitle}
+	         , TO_DATE(#{packStartDate}, 'YYYY-MM-DD')
+	         , TO_DATE(#{packEndDate}, 'YYYY-MM-DD')   
+	         , sysdate
+	         , #{packPeople}
+	         , #{packChildPrice}
+	         , #{packAdultPrice}
+	         , #{packPreviewImg}
+	         , #{packSlideImg1}
+	         , #{packSlideImg2}
+	         , #{packSlideImg3}
+	         , #{packContentImg1}
+	         , #{packContentImg2}
+	         , #{packContentImg3}
+	         , #{packCalendarImg}
+	         , #{packStatus}
+	      )
+   </insert> 
+	
 
 	<!-- 모든 접속자 -->  
 
-	<!-- 패키지 상품 정보 출력 (상세페이지) -->
-	<select id="selectPackInfo" resultType="Pack">
-		SELECT 
-			pack_idx
-			, pack_kind
-			, pack_title
-			, pack_preview
-			, pack_main
-			, pack_content
-			, pack_calendar
-			, TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
-         	, TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
-			, pack_regdate
-			, pack_people
-			, pack_childcount
-			, pack_adultcount
-			, pack_adultprice
-			, pack_childprice
-			, pack_totalprice
-			, pack_left
-			, pack_status 
-			, pack_heart
-		FROM pack
-		WHERE pack_idx=#{packIdx}
-	</select>
+	 <!-- 패키지 상품 정보 출력 (상세페이지) -->
+   <select id="selectPackInfo" resultType="Pack">
+      SELECT 
+         pack_idx
+         , pack_kind
+         , pack_title
+         , TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
+         , TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
+         , pack_regdate
+         , pack_people
+         , pack_childprice
+         , pack_adultprice
+         , pack_heart
+         , pack_previewimg
+         , pack_slideimg1
+         , pack_slideimg2
+         , pack_slideimg3
+         , pack_contentimg1
+         , pack_contentimg2
+         , pack_contentimg3
+         , pack_calendarimg
+         , pack_status
+      FROM pack
+      WHERE pack_idx=#{packIdx}
+   </select>
 
 
 	<!-- 패키지 변경 -->
-	<update id="updatePack">
-		UPDATE pack
-		<set>
-			<if test="pack_kind != null and pack_kind != ''">
-				pack_kind=#{packKind},
-			</if>
-			<if test="pack_title != null and pack_title != ''">
-				pack_title=#{packTitle},
-			</if>
-			<if test="pack_preview != null and pack_preview != ''">
-				pack_preview=#{packPreview},
-			</if>
-			<if test="pack_main != null and pack_main != ''">
-				pack_main=#{packMain},
-			</if>
-			<if test="pack_content != null and pack_content != ''">
-				pack_content=#{packContent},
-			</if>
-			<if test="pack_calendar != null and pack_calendar != ''">
-				pack_calendar=#{packCalendar},
-			</if>
-			<if test="pack_startdate != null and pack_startdate != ''">
-				pack_startdate=#{packStartdate},
-			</if>
-			<if test="pack_enddate != null and pack_enddate != ''">
-				pack_enddate=#{packEnddate},
-			</if>
-			<if test="pack_regdate != null and pack_regdate != ''">
-				pack_regdate=#{packRegdate},
-			</if>
-			<if test="pack_people != null and pack_people != ''">
-				pack_people=#{packPeople},
-			</if>
-			<if test="pack_childprice != null and pack_childprice != ''">
-				pack_childprice=#{packChildprice},
-			</if>
-			<if test="pack_adultprice != null and pack_adultprice != ''">
-				pack_adultprice=#{packAdultprice},
-			</if>
-			<if test="pack_totalprice != null and pack_totalprice != ''">
-				pack_totalprice=#{packTotalprice},
-			</if>
-			<if test="pack_status == 0 or pack_status == 1">
-				pack_status=#{packStatus}
-			</if>
-		</set>
-		WEHRE pack_idx=#{packIdx}
-	</update>
+   <update id="updatePack">
+      UPDATE pack
+      <set>
+         <if test="pack_kind != null and pack_kind != ''">
+            pack_kind=#{packKind},
+         </if>
+         <if test="pack_title != null and pack_title != ''">
+            pack_title=#{packTitle},
+         </if>
+         <if test="pack_startdate != null and pack_startdate != ''">
+            pack_startdate=#{packStartdate},
+         </if>
+         <if test="pack_enddate != null and pack_enddate != ''">
+            pack_enddate=#{packEnddate},
+         </if>
+         <if test="pack_regdate != null and pack_regdate != ''">
+            pack_regdate=#{packRegdate},
+         </if>
+         <if test="pack_people != null and pack_people != ''">
+            pack_people=#{packPeople},
+         </if>
+         <if test="pack_childprice != null and pack_childprice != ''">
+            pack_childprice=#{packChildprice},
+         </if>
+         <if test="pack_adultprice != null and pack_adultprice != ''">
+            pack_adultprice=#{packAdultprice},
+         </if>
+         <if test="pack_previewimg != null and  pack_previewimg != ''">
+             pack_previewimg=#{packPreviewImg},
+         </if>
+         <if test="pack_slideimg1 != null and pack_slideimg1 != ''">
+            pack_slideimg1=#{packSlideImg1},
+         </if>
+         <if test="pack_slideimg2  != null and pack_slideimg2  != ''">
+            pack_slideimg2=#{packSlideImg2},
+         </if>
+         <if test="pack_slideimg3 != null and pack_slideimg3 != ''">
+            pack_slideimg3=#{packSlideImg3},
+         </if>
+         <if test="pack_contentimg1 != null and pack_contentimg1 != ''">
+            pack_contentimg1=#{packContentImg1},
+         </if>
+         <if test="pack_contentimg2 != null and pack_contentimg2 != ''">
+            pack_contentimg2=#{packContentImg2},
+         </if>
+         <if test="pack_contentimg3 != null and pack_contentimg3 != ''">
+            pack_contentimg3=#{packContentImg3},
+         </if>
+         <if test="pack_calendarimg != null and pack_calendarimg != ''">
+            pack_calendarimg=#{packCalendarImg},
+         </if>
+         <if test="pack_status == 0 or pack_status == 1">
+            pack_status=#{packStatus}
+         </if>
+      </set>
+      WEHRE pack_idx=#{packIdx}
+   </update>
 	
 	<!-- 패키지 삭제 -->
 	<delete id="deletePack">
@@ -136,25 +150,25 @@
 	<!-- 패키지 제목으로 패키지 검색 -->
 	<select id="selectPackByName" resultType="Pack">
 		SELECT 
-			pack_idx
-			, pack_kind
-			, pack_title
-			, pack_preview
-			, pack_main
-			, pack_content
-			, pack_calendar
-			, pack_startdate
-			, pack_enddate
-			, pack_regdate
-			, pack_people
-			, pack_childcount
-			, pack_adultcount
-			, pack_adultprice
-			, pack_childprice
-			, pack_totalprice
-			, pack_left
-			, pack_status 
-			, pack_heart
+			 pack_idx
+	        , pack_kind
+	        , pack_title
+	        , TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
+	        , TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
+	        , pack_regdate
+	        , pack_people
+	        , pack_childprice
+	        , pack_adultprice
+	        , pack_heart
+	        , pack_previewimg
+	        , pack_slideimg1
+	        , pack_slideimg2
+	        , pack_slideimg3
+	        , pack_contentimg1
+	        , pack_contentimg2
+	        , pack_contentimg3
+	        , pack_calendarimg
+	        , pack_status
 		FROM pack 
 		WHERE pack_name LIKE '%' || #{keyword} || '%'
 	</select>
@@ -163,24 +177,24 @@
 	<select id="selectPackList" resultType="Pack">
 		SELECT 
 			pack_idx
-			, pack_kind
-			, pack_title
-			, pack_preview
-			, pack_main
-			, pack_content
-			, pack_calendar
-			, TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
-         	, TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
-			, pack_regdate
-			, pack_people
-			, pack_childcount
-			, pack_adultcount
-			, pack_adultprice
-			, pack_childprice
-			, pack_totalprice
-			, pack_left
-			, pack_status 
-			, pack_heart
+	        , pack_kind
+	        , pack_title
+	        , TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
+	        , TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
+	        , pack_regdate
+	        , pack_people
+	        , pack_childprice
+	        , pack_adultprice
+	        , pack_heart
+	        , pack_previewimg
+	        , pack_slideimg1
+	        , pack_slideimg2
+	        , pack_slideimg3
+	        , pack_contentimg1
+	        , pack_contentimg2
+	        , pack_contentimg3
+	        , pack_calendarimg
+	        , pack_status
 		FROM pack 
 		ORDER BY pack_idx
 	</select>

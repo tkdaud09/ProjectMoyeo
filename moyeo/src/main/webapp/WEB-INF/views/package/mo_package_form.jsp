@@ -175,7 +175,7 @@
                                 <label>패키지 종료일자</label>
                              </div>
                              <div class="form_section_content">
-                                <input type="date" name="packEndDate" id="fundingStart" 
+                                <input type="date" name="packEndDate" id="fundingEnd" 
                                 class="form-control festival-form-control">
                              </div>
                           </div>
@@ -238,7 +238,7 @@
                                    <label>패키지 미리보기 이미지</label>
                                 </div>
                                 <div class="form_section_content">
-                              <input type="file" id ="previewMultipartFile" name="previewMultipartFile" style="height: 25px;line-height: 15px;margin-left: 200px;">
+                              <input type="file" id ="packPreviewImgFile" name="packPreviewImgFile" style="height: 25px;line-height: 15px;margin-left: 200px;">
                               <div id="uploadResult">                  
                               </div>
                                 </div>
@@ -246,32 +246,76 @@
                              
                              <div class="form_section">
                                 <div class="form_section_title">
-                                   <label>패키지 메인 이미지</label>
+                                   <label>패키지 슬라이드 이미지1</label>
                                 </div>
                                 <div class="form_section_content">
-                              <input type="file" id ="mainMultipartFile" name="mainMultipartFile" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <input type="file" id ="packSlideImg1File" name="packSlideImg1File" style="height: 25px;line-height: 15px;margin-left: 200px">
                               <div id="uploadResult">                  
                               </div>
                                 </div>
-                             </div>         
+                             </div> 
+                             
+                              <div class="form_section">
+                                <div class="form_section_title">
+                                   <label>패키지 슬라이드 이미지2</label>
+                                </div>
+                                <div class="form_section_content">
+                              <input type="file" id ="packSlideImg2File" name="packSlideImg2File" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <div id="uploadResult">                  
+                              </div>
+                                </div>
+                             </div>   
                              
                              <div class="form_section">
                                 <div class="form_section_title">
-                                   <label>패키지 설명 이미지</label>
+                                   <label>패키지 슬라이드 이미지3</label>
                                 </div>
                                 <div class="form_section_content">
-                              <input type="file" id ="contentMultipartFile" name="contentMultipartFile" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <input type="file" id ="packSlideImg3File" name="packSlideImg3File" style="height: 25px;line-height: 15px;margin-left: 200px">
                               <div id="uploadResult">                  
                               </div>
                                 </div>
-                             </div>         
+                             </div> 
+
+                             <div class="form_section">
+                                <div class="form_section_title">
+                                   <label>패키지 설명 이미지1</label>
+                                </div>
+                                <div class="form_section_content">
+                              <input type="file" id ="packContentImg1File" name="packContentImg1File" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <div id="uploadResult">                  
+                              </div>
+                                </div>
+                             </div>     
+                             
+                             <div class="form_section">
+                                <div class="form_section_title">
+                                   <label>패키지 설명 이미지2</label>
+                                </div>
+                                <div class="form_section_content">
+                              <input type="file" id ="packContentImg2File" name="packContentImg2File" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <div id="uploadResult">                  
+                              </div>
+                                </div>
+                             </div>
+                             
+                             <div class="form_section">
+                                <div class="form_section_title">
+                                   <label>패키지 설명 이미지3</label>
+                                </div>
+                                <div class="form_section_content">
+                              <input type="file" id ="packContentImg3File" name="packContentImg3File" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <div id="uploadResult">                  
+                              </div>
+                                </div>
+                             </div>      
                              
                              <div class="form_section">
                                 <div class="form_section_title">
                                    <label>패키지 달력 이미지</label>
                                 </div>
                                 <div class="form_section_content">
-                              <input type="file" id ="calendarMultipartFile" name="calendarMultipartFile" style="height: 25px;line-height: 15px;margin-left: 200px">
+                              <input type="file" id ="packCalendarImgFile" name="packCalendarImgFile" style="height: 25px;line-height: 15px;margin-left: 200px">
                               <div id="uploadResult">                  
                               </div>
                                 </div>
