@@ -65,7 +65,7 @@
                 </li>
       
                <li class="me-6">
-                  <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
                     <div class="media-body">
                       고객센터
                     </div>
@@ -549,7 +549,7 @@
                 </li>
       
                <li class="me-6">
-                  <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
                     <div class="media-body">
                       고객센터
                     </div>
@@ -1033,7 +1033,7 @@
                 </li>
       
                <li class="me-6">
-                  <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
                     <div class="media-body">
                       고객센터
                     </div>

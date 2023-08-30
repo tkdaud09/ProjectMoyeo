@@ -27,7 +27,7 @@
 		
 		<form id="login_form" method="post">
 			<div class="logo_wrap title_f">
-				<span>회원 탈퇴 확인 페이지</span>
+				<span>회원 탈퇴 확인</span>
 			</div>
 			<div class="login_wrap"> 
 				<div class="id_wrap">

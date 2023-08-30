@@ -29,7 +29,7 @@
 		
 		<form id="login_form" method="post">
 			<div class="logo_wrap title_f">
-				<span>회원정보 변경 확인 페이지</span>
+				<span>회원정보 변경 확인</span>
 			</div>
 			<div class="login_wrap"> 
 				<div class="id_wrap">
