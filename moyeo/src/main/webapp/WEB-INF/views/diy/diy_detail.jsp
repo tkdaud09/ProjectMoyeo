@@ -130,7 +130,7 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyPeople">인원</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyPeople" name="diyPeople" value="${diyDetail.people }" readonly>
+                <input type="text" class="form-control border-0 bg-smoke" id="diyPeople" name="diyPeople" value="${diyDetail.diyPeople }" readonly>
               </div>
             </div>
     
