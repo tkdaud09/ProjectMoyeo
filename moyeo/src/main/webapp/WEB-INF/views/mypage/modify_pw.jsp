@@ -5,36 +5,9 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>비밀번호 변경</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css" >
+
 <style>
-body {
-   font-family: Arial, sans-serif;
-   background-color: #f4f4f4;
-   margin: 0;
-   padding: 0;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   min-height: 80vh;
-}
-
-.container {
-   background-color: #fff;
-   padding: 30px;
-   border-radius: 8px;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-   width: 400px;
-}
-
-.form-group {
-   margin-bottom: 15px;
-}
-
-label {
-   font-weight: bold;
-}
 
 input[type="password"] {
    width: 100%;
@@ -43,56 +16,7 @@ input[type="password"] {
    border-radius: 4px;
 }
 
-.btn {
-   background-color: #007bff;
-   color: #fff;
-   padding: 8px 16px;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
-}
 
-/* 비밀번호 확인 일치 유효성검사 */
-.pwck_input_re_1 {
-   color: blue;
-   display: none;
-}
-
-.pwck_input_re_2 {
-   color: red;
-   display: none;
-}
-
-/* 유효성 검사 문구 */
-.final_current_ck{
-   display: none;
-   color: red;
-}
-.final_pw_ck {
-   display: none;
-   color: red;
-}
-
-.final_pwck_ck {
-   display: none;
-   color: red;
-}
-
-.final_current_check{
-   display: none;
-   color: red;
-}
-
-/* 비밀번호 정규식 */
-.pw_input_re {
-   color: red;
-   display: none;
-}
-
-.pw_input_re2 {
-   color: blue;
-   display: none;
-}
 </style>
 
 <script>
@@ -174,8 +98,14 @@ $('.pw_input').on("input", function() {
 
 </head>
 <body>
-   <div class="container">
-      <h2>비밀번호 변경</h2>
+  <section class="">
+	  <div class="container">
+		<div class="py-10">
+		<div class="join_form_section">
+      
+      
+      
+      <h2 class="title_f">비밀번호 변경</h2>
       <form id="modifypw_form" action="modifypw" method="post">
          <input type="hidden" class="id_input" name="id" value="${userinfo.id }">
          <div class="form-group">
@@ -202,11 +132,19 @@ $('.pw_input').on("input", function() {
                class="pwck_input_re_1 error">비밀번호가 일치합니다.</span> <span
                class="pwck_input_re_2 error">비밀번호가 일치하지 않습니다.</span>
          </div>
-         <div class="form-group">
-            <button type="button" class="btn" id="update">변경</button>
-            <button type="button" class="btn" id="mypage">이전</button>
-         </div>
+         <div class="form-group fg_btn">
+           <button type="button" class="btn btn1" id="update">변경</button>
+           <button type="button" class="btn btn2" id="mypage">이전</button>
+        </div>
       </form>
+      
    </div>
+   </div>
+   </div>
+   </section>
+   
+   
+   
+   
 </body>
 </html>

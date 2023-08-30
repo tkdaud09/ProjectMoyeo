@@ -290,3 +290,35 @@ input.agree {
 
 
 
+/* 유효성 검사 문구 */
+.final_current_ck{
+   display: none;
+   color: red;
+}
+
+.final_current_check{
+   display: none;
+   color: red;
+}
+
+
+.fg_btn{
+	text-align:center;
+	margin-top:45px;
+}
+
+
+.form-group .btn1{
+	border:1px solid #fff0;
+	background:#000;
+	padding:10px 30px;
+	color:#fff;
+	margin-right:5px;
+}
+
+.form-group .btn2{
+	border:1px solid #fff0;
+	background:#eee;
+	padding:10px 30px;
+}
+
