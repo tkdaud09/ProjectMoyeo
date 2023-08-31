@@ -65,11 +65,11 @@
                 </li>
       
                <li class="me-6">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
-                    <div class="media-body">
-                      고객센터
-                    </div>
-                  </a>
+                 
+                    <!-- <i class="fa fa-user me-2"></i> -->
+                    
+                      <a href="${pageContext.request.contextPath}/admin/center">고객센터</a>
+                    
                 </li>
       
                 <li class="">
@@ -549,11 +549,11 @@
                 </li>
       
                <li class="me-6">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
-                    <div class="media-body">
-                      고객센터
-                    </div>
-                  </a>
+                 
+                    <!-- <i class="fa fa-user me-2"></i> -->
+                    
+                      <a href="${pageContext.request.contextPath}/admin/center">고객센터</a>
+                    
                 </li>
       
                 <li class="">
@@ -1033,11 +1033,11 @@
                 </li>
       
                <li class="me-6">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="media d-inline-flex align-items-center">
-                    <div class="media-body">
-                      고객센터
-                    </div>
-                  </a>
+                 
+                    <!-- <i class="fa fa-user me-2"></i> -->
+                    
+                      <a href="${pageContext.request.contextPath}/admin/center">고객센터</a>
+                    
                 </li>
       
                 <li class="">

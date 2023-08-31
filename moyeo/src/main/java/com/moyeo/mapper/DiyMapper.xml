@@ -31,8 +31,8 @@
         VALUES(
                 #{diyIdx},
                 #{userinfoId},
-                #{diyStartdate},
-                #{diyEnddate},
+                TO_DATE(#{diyStartdate}, 'yyyy-mm-mm')
+                TO_DATE(#{diyEnddate}, 'yyyy-mm-mm')
                 #{diyPeople},
                 #{diyLoc},
                 #{diyPrice}, 
@@ -99,13 +99,18 @@
 	<delete id="deleteDiy" parameterType="com.moyeo.dto.Diy">
         DELETE 
         FROM diy
-        WHERE userinfo_id=#{userinfoId} and diy_idx=#{diyIdx};
+        WHERE userinfo_id=#{userinfoId};
 	</delete>
 
 
 	<update id="updateDiy" parameterType="com.moyeo.dto.Diy">
         UPDATE diy
+        
         <set>
+        	<if test="diyIdx != null and diyIdx != ''">
+        		 diy_idx=#{diyIdx},
+        	</if>
+        	
         	<if test="diyStartdate != null and diyStartdate != ''">
         		 diy_startdate=#{diyStartDate},
         	</if>
@@ -130,7 +135,7 @@
         		 diy_map=#{diyMap},
         	</if>
         	
-			<if test="diyRegdate != null and diyRegdate != ''">
+			<if test="diyModifydate != null and diyModifydate != ''">
         		 diy_modifydate=SYSTIMESTAMP,
         	</if>
         	
@@ -138,29 +143,42 @@
         		 diy_title=#{diyTitle},
         	</if>
         	
-        	<if test="diyTitle != null and diyTitle != ''">
+        	<if test="diyIntroduction != null and diyIntroduction != ''">
         		 diy_introduction=#{diyIntroduction},
+        	</if>
+        	
+        	<if test="diyContent1img != null and diyContent1img != ''">
+        		 diy_content1img=#{diyContent1img},
         	</if>
         	
         	<if test="diyContent1 != null and diyContent1 != ''">
         		 diy_content1=#{diyContent1},
         	</if>
         	
+        	<if test="diyContent2img != null and diyContent2img != ''">
+        		 diy_content2img=#{diyContent2img},
+        	</if>
+        	
         	<if test="diyContent2 != null and diyContent2 != ''">
         		 diy_content2=#{diyContent2},
+        	</if>
+        	
+        	<if test="diyContent3img != null and diyContent3img != ''">
+        		 diy_content3img=#{diyContent3img},
         	</if>
         	
         	<if test="diyContent3 != null and diyContent3 != ''">
         		 diy_content3=#{diyContent3},
         	</if>
         	
+        	<if test="diyContent4img != null and diyContent4img != ''">
+        		 diy_content4img=#{diyContent4img},
+        	</if>
+        	
         	<if test="diyContent4 != null and diyContent4 != ''">
         		 diy_content4=#{diyContent4},
         	</if>
         	
-        	<if test="diyContent5 != null and diyContent5 != ''">
-        		 diy_content5=#{diyContent5}
-        	</if>
         </set>
 
         WHERE userinfo_id=#{userinfoId};
