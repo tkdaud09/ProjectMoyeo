@@ -74,8 +74,7 @@ $(document).ready(function(){
     });
 });
 
-/* 비밀번호 유효성 
-
+ //비밀번호 유효성 
 $('.pw_input').on("input", function() {
     var password = $(this).val(); // .pw_input에 입력되는 값
     var pwfailMessage = $('.pw_input_re'); // 비밀번호 유효성 관련 메시지 요소 선택
@@ -92,7 +91,7 @@ $('.pw_input').on("input", function() {
         
     }
 });
-*/
+
 
 </script>
 

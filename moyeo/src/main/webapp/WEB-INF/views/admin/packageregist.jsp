@@ -13,7 +13,7 @@
     .admin_content_wrap{
         max-width: 1200px;
         margin: 0 auto;
-        height: 1000px;
+        height: 1150px;
     }
     
     .admin_content_subject{
@@ -119,7 +119,7 @@
 ===================================== -->
       <section class="page-title">
          <div class="page-title-img bg-img bg-overlay-darken"
-            style="background-image: url(assets/img/pages/page-title-bg13.jpg);">
+            style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg13.jpg);">
             <div class="container">
                <div class="row align-items-center justify-content-center"
                   style="height: 200px;">

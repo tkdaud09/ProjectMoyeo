@@ -105,8 +105,8 @@
                         <div class="cart_btn">
                             <button type="button" class="b1" id="deleteButton">선택상품 삭제</button>
                             <button type="button" class="b1" id="updateButton">선택상품 수정</button>
-                            <button class="b1">선택상품 주문</button>
-                            <button class="b1">전체상품 주문</button>
+                            <button type="button" class="b1" id="selectButton">선택상품 주문</button>
+                            <button type="button" class="b1" id="allButton">전체상품 주문</button>
                         </div>
                     </form>
                 </div>
