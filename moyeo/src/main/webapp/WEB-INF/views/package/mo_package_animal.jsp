@@ -142,15 +142,15 @@
               </div>
 
               <div class="text-center px-4">
-                <button type="button" onclick="location.href='booking-step-1.html';"
+                <button type="button" onclick="#;"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   예약하기 <span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
-             <button type="button" onclick="location.href='booking-step-1.html';"
+             <button type="button" onclick="cart();"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   장바구니 <span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
-             <button type="button" onclick="location.href='booking-step-1.html';"
+             <button type="button" onclick="#;"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   하트수정<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
@@ -512,6 +512,10 @@
            });
          });
 
+       
+       function cart(){
+    	   location.href="${pageContext.request.contextPath}/cart/list";
+       }
    </script>
   </body>
 </html>

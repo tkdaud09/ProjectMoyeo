@@ -311,7 +311,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-4">
         <div class="card card-hover mb-5 mb-lg-0">
-          <a href="mo_package_animal.jsp" class="position-relative">
+          <a href="#" class="position-relative">
             <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-01.png" src="assets/img/home/deal/deal-01.png" alt="Card image cap">
             
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
@@ -349,7 +349,7 @@
 
           <div class="card-body">
             <h5>
-              <a href="mo_package_animal.html" class="card-title text-uppercase">강아지와 함께하는 1박2일</a>
+              <a href="#" class="card-title text-uppercase">강아지와 함께하는 1박2일</a>
             </h5>		    
             <p class="mb-5">Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus et pharetra egestas.</p>
             <div class="d-flex justify-content-between align-items-center">
@@ -359,7 +359,7 @@
               </div>
 
               <div>
-                <a href="booking-step-1.html" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
+                <a href="#" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
             </div>
           </div>
@@ -368,7 +368,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="card card-hover mb-5 mb-lg-0">
-          <a href="mo_package_animal.html" class="position-relative">
+          <a href="#" class="position-relative">
             <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-02.jpg" src="assets/img/home/deal/deal-02.jpg" alt="Card image cap">
 
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
@@ -406,7 +406,7 @@
 
           <div class="card-body">
             <h5 class="">
-              <a href="mo_package_animal.html" class="card-title text-uppercase">강원도 힐링 여행</a>
+              <a href="#" class="card-title text-uppercase">강원도 힐링 여행</a>
             </h5>
             <p class="mb-5">Proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna sagittis.</p>
             <div class="d-flex justify-content-between align-items-center">
@@ -414,10 +414,15 @@
                 <p class="mb-0 text-capitalize">Start from</p>
                 <h3 class="text-primary" style="font-weight:700; font-size:21px;">400,000원</h3>
               </div>
-
+              
               <div>
-                <a href="jascript:void(0)"  data-bs-toggle="modal" data-bs-target="#inquiry" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
+                <a href="#" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
+				<!-- 
+              <div>
+                <a href="#"  data-bs-toggle="modal" data-bs-target="#inquiry" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
+              </div>
+               -->
             </div>
           </div>
         </div>
@@ -425,7 +430,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="card card-hover">
-          <a href="mo_package_animal.html" class="position-relative">
+          <a href="#" class="position-relative">
             <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-03.png" src="assets/img/home/deal/deal-03.png" alt="Card image cap">
 
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
@@ -463,7 +468,7 @@
 
           <div class="card-body">
             <h5>
-              <a href="mo_package_animal.html" class="card-title text-uppercase">제주도 여행 3박4일</a>
+              <a href="#" class="card-title text-uppercase">제주도 여행 3박4일</a>
             </h5>
             <p class="mb-5">Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat. Suspendisse non feugiat mi.</p>
             <div class="d-flex justify-content-between align-items-center">
@@ -471,10 +476,16 @@
                 <p class="mb-0 text-capitalize">Start from</p>
                 <h3 class="text-primary" style="font-weight:700; font-size:21px;">430,000원</h3>
               </div>
-
+              
+               <div>
+                <a href="#" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
+              </div>
+              
+			<!-- 
               <div>
                 <a href="booking-step-1.html" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
+               -->
             </div>
           </div>
         </div>

@@ -140,7 +140,7 @@
 
 
 				
-					<a href="${pageContext.request.contextPath}/notice/write" class="btn_right">
+					<a href="#" class="btn_right">
 						<button class="btn">글쓰기</button>
 					</a>
 				
