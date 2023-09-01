@@ -207,21 +207,20 @@ public class DiyController {
 	
 	//=================================================================================
 	@GetMapping("/diy_modify/{diyIdx}")
-	public String diyUpdate(HttpSession session, Diy diy, Model model, int diyIdx, String userinfoId) {
+	public String diyUpdate(HttpSession session, Diy diy, Model model,@PathVariable("diyIdx") int diyIdx, String userinfoId) {
 		
 		Userinfo loginId = (Userinfo)session.getAttribute("userinfo");
 		model.addAttribute("loginId",loginId);
 		Diy diyId = diyService.getUserinfoById(userinfoId);
 		model.addAttribute("diy", diyId);
 		
-		Diy diyModify = diyService.selectDiy(diyIdx);
-		model.addAttribute("diyModify", diyModify);
+		model.addAttribute("diyModify", diyService.selectDiy(diyIdx));
 		
 		diyService.updateDiy(diy);
 		return "redirect:/diy/diy_detail";
 	}
 
-	@PostMapping("/diy_delete")
+	@GetMapping("/diy_delete")
 	public String diyDelete(HttpSession session, int diyIdx, Model model, String userinfoId) {
 		
 		Userinfo loginId = (Userinfo)session.getAttribute("userinfo");

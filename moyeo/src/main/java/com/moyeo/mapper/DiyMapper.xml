@@ -31,13 +31,13 @@
         VALUES(
                 #{diyIdx},
                 #{userinfoId},
-                TO_DATE(#{diyStartdate}, 'yyyy-mm-mm')
-                TO_DATE(#{diyEnddate}, 'yyyy-mm-mm')
+                TO_DATE(#{diyStartdate}, 'yyyy-mm-dd'),
+                TO_DATE(#{diyEnddate}, 'yyyy-mm-dd'),
                 #{diyPeople},
                 #{diyLoc},
                 #{diyPrice}, 
                 #{diyMap},
-                SYSTIMESTAMP,
+                SYSDATE,
                 #{diyTitle},
                 #{diyIntroduction},
                 #{diyThumbnail},
@@ -176,7 +176,7 @@
         	</if>
         	
         	<if test="diyContent4 != null and diyContent4 != ''">
-        		 diy_content4=#{diyContent4},
+        		 diy_content4=#{diyContent4}
         	</if>
         	
         </set>
