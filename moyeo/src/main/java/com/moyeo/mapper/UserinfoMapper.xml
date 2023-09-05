@@ -81,17 +81,22 @@
         WHERE email = #{email}
     </select>
    
-   
-   
    <!-- 휴면계정전환 -->
-   <update id="updateUserToRest">
-      UPDATE userinfo
-      <set>
-         <if test="MONTHS_BETWEEN(SYSDATE, logdate) > 12">
-            status=2
-         </if>
-      </set>
-      WHERE id=#{id}   
+   <update id="updateUserToRest" parameterType="java.lang.String">
+        UPDATE userinfo
+        <set>
+            <if test="MONTHS_BETWEEN(SYSDATE, logdate) > 6">
+                status = 2
+            </if>
+        </set>
+        WHERE id = #{id}
+   </update>
+
+   <!-- 탈퇴계정전환 -->
+   <update id="updateUserStatus" parameterType="com.moyeo.dto.Userinfo">
+        UPDATE userinfo
+        SET status = #{status}
+        WHERE id = #{id}
    </update>
    
    

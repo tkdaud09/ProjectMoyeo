@@ -52,6 +52,18 @@ public class UserinfoServiceImpl implements UserinfoService {
    public Userinfo findUserByEmail(String email) {
       return userinfoDAO.findUserByEmail(email);
    }
+   
+   /* 휴면회원 */
+   @Override
+   public void updateUserToRest(String id) {
+       userinfoDAO.updateUserToRest(id);
+   }
+   
+   /* 탈퇴회원 status 변경 */
+   @Override
+   public void updateUserStatus(Userinfo userinfo) {
+       userinfoDAO.updateUserStatus(userinfo);
+   }
 
    /* 마이페이지 */
 

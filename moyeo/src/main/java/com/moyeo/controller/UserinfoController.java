@@ -2,7 +2,6 @@ package com.moyeo.controller;
 
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -47,28 +46,22 @@ public class UserinfoController {
 
    // 회원가입
    @RequestMapping(value = "/join", method = RequestMethod.POST)
-   public String joinPOST(Userinfo userinfo) throws Exception {
+   public String joinPOST(@ModelAttribute Userinfo userinfo) throws Exception {
 
-      // 회원가입 서비스 실행
-      // userinfoservice.registerUser(userinfo);
+	    String rawPw = userinfo.getPw(); // 사용자가 입력한 원래의 비밀번호
+	    String encodePw = pwEncoder.encode(rawPw); // 비밀번호 인코딩
 
-      String rawPw = ""; // 인코딩 전 비밀번호
-      String encodePw = ""; // 인코딩 후 비밀번호
+	    userinfo.setPw(encodePw); // 인코딩된 비밀번호를 설정
 
-      rawPw = userinfo.getPw();
-      encodePw = pwEncoder.encode(rawPw); // 인코딩
-      userinfo.setPw(encodePw);
+	    userinfoservice.registerUser(userinfo); // 회원가입 서비스 호출
 
-      userinfoservice.registerUser(userinfo);// 회원가입 쿼리 실행
-
-      return "redirect:/"; // 메인 페이지
-
-   }
+	    return "redirect:/user/login"; // 로그인 페이지로 리다이렉트
+	}
 
    // 아이디 중복검사
    @RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
    @ResponseBody
-   public String memberIdChkPOST(String id) throws Exception {
+   public String memberIdChkPOST(@RequestParam String id) throws Exception {
 
       // logger.info("memberIdChk() 진입");
       int result = userinfoservice.idCheck(id);
@@ -85,7 +78,7 @@ public class UserinfoController {
    // 이메일 중복검사
    @RequestMapping(value = "/memberEmailChk", method = RequestMethod.POST)
    @ResponseBody
-   public String memberEmailChkPOST(String email) throws Exception {
+   public String memberEmailChkPOST(@RequestParam String email) throws Exception {
        int result = userinfoservice.emailCheck(email);
 
        if (result != 0) {
@@ -98,7 +91,7 @@ public class UserinfoController {
    // 이메일 인증
    @GetMapping("/mailCheck")
    @ResponseBody
-   public String mailCheck(String email) throws Exception {
+   public String mailCheck(@RequestParam String email) throws Exception {
       System.out.println("이메일 인증 요청이 들어옴!");
       System.out.println("이메일 인증 이메일 : " + email);
       return mailService.joinEmail(email);
@@ -113,52 +106,45 @@ public class UserinfoController {
    }
 
    // 로그인
-      @SuppressWarnings("unused")
-      @RequestMapping(value = "/login", method = RequestMethod.POST)
-      public String loginPOST(HttpServletRequest request, Userinfo userinfo, RedirectAttributes rttr) throws Exception {
-          HttpSession session = request.getSession();
-          String rawPw = "";
-          String encodePw = "";
+   @RequestMapping(value = "/login", method = RequestMethod.POST)
+   public String loginPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session) throws Exception {
+       Userinfo lto = userinfoservice.userLogin(userinfo);
 
-          Userinfo lto = userinfoservice.userLogin(userinfo);
+       if (lto != null) {
+           if (lto.getStatus() == 3) {
+               // 탈퇴 회원은 로그인 차단
+               rttr.addFlashAttribute("result", 0);
+               return "redirect:/user/login";
+           } else if (lto.getStatus() == 2) {
+               // 휴면 계정은 활성화 요구 페이지로 바로 이동
+               return "redirect:/user/dormantAccount";
+           }
 
-          if (lto != null) { // 일치하는 아이디 존재
+           String rawPw = userinfo.getPw();
+           String encodePw = lto.getPw();
 
-              if (lto.getBirth() != null) {
-                  String birth = lto.getBirth().substring(0, 10);
-                  lto.setBirth(birth);
-              }
+           if (pwEncoder.matches(rawPw, encodePw)) {
+               lto.setPw("");
+               session.setAttribute("userinfo", lto);
+               userinfoservice.updateUserLogindate(lto.getId());
+               return "redirect:/";
+           } else {
+               rttr.addFlashAttribute("result", 0);
+               return "redirect:/user/login";
+           }
+       } else {
+           rttr.addFlashAttribute("result", 0);
+           return "redirect:/user/login";
+       }
+   }
+   
+   // 로그아웃 후 메인 페이지로 이동
+   @RequestMapping(value = "/logout")
+   public String logout(HttpSession session) {
+	   session.invalidate();
 
-              rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
-              encodePw = lto.getPw(); // 데이터베이스에 저장한 인코딩된 비밀번호
-
-              if (true == pwEncoder.matches(rawPw, encodePw)) { // 비밀번호 일치여부 판단
-
-                  lto.setPw(""); // 인코딩된 비밀번호 정보 지움
-                  session.setAttribute("userinfo", lto); // session에 사용자의 정보 저장
-
-                  userinfoservice.updateUserLogindate(lto.getId()); // 마지막 로그인 날짜 업데이트
-
-                  return "redirect:/"; // 메인페이지 이동
-
-              } else {
-                  rttr.addFlashAttribute("result", 0);
-                  return "redirect:/user/login"; // 로그인 페이지 이동
-              }
-
-          } else { // 일치하는 아이디 미존재 (로그인 실패)
-              rttr.addFlashAttribute("result", 0);
-              return "redirect:/user/login"; // 로그인 페이지 이동
-          }
-      }
-
-      // 로그아웃 후 로그인 페이지로 이동
-      @RequestMapping(value = "/logout")
-      public String logout(HttpSession session) {
-         session.invalidate();
-
-         return "redirect:/user/login";
-      }
+	   return "redirect:/";
+   }
 
    /*
     * 메인페이지 이동
@@ -178,14 +164,14 @@ public class UserinfoController {
    // 아이디 찾기
    @RequestMapping(value = "/findId", method = RequestMethod.POST)
    public String findId(@RequestParam("email") String email, Model model) {
-      Userinfo userinfo = userinfoservice.findUserByEmail(email);
+       Userinfo userinfo = userinfoservice.findUserByEmail(email);
 
-      if (userinfo != null) {
-         model.addAttribute("foundId", userinfo.getId());
-      } else {
-         model.addAttribute("notFound", true);
-      }
-      return "/userinfo/findIdResult"; // ID 찾기 결과 페이지로 이동
+       if (userinfo != null && userinfo.getStatus() != 3) { // status 값이 3인 경우 검색하지 않음
+           model.addAttribute("foundId", userinfo.getId());
+       } else {
+           model.addAttribute("notFound", true);
+       }
+       return "/userinfo/findIdResult"; // ID 찾기 결과 페이지로 이동
    }
    
    /* 비밀번호 찾기 */
@@ -198,26 +184,21 @@ public class UserinfoController {
    
    //비밀번호 찾기
    @RequestMapping(value = "/findPw", method = RequestMethod.POST)
-   public String findPw(@RequestParam("email") String email, 
-                        @RequestParam("id") String enteredUserId,
-                        Model model,
-                        HttpServletRequest request) {
+   public String findPw(@RequestParam("email") String email, @RequestParam("id") String enteredUserId, Model model) {
        Userinfo userinfo = userinfoservice.findUserByEmail(email);
 
-       if (userinfo != null) {
+       if (userinfo != null && userinfo.getStatus() != 3) {
            // 아이디와 이메일이 일치하는지 검증
-           if (enteredUserId.equals(userinfo.getId())) { // 입력한 아이디와 찾은 사용자의 아이디가 일치하는지 확인
+           if (enteredUserId.equals(userinfo.getId())) {
                String newPassword = generateRandomPassword(); // 임시 비밀번호 생성
-               mailService.sendPwEmail(email, newPassword); // MailSendService 이용해 이메일 전송
+               mailService.sendPwEmail(email, newPassword); // 메일 전송 서비스 이용
 
-               String encryptedPassword = pwEncoder.encode(newPassword);
+               String encryptedPassword = pwEncoder.encode(newPassword); // 비밀번호 암호화
+               userinfoservice.updatePasswordByEmail(email, encryptedPassword); // 비밀번호 변경
 
-               // 비밀번호 변경
-               userinfoservice.updatePasswordByEmail(email, encryptedPassword);
-
-               // 아이디 찾기에서 찾았던 아이디를 가져와 모델에 저장
                model.addAttribute("foundUserinfoId", userinfo.getId());
                model.addAttribute("foundPw", newPassword);
+
                return "/userinfo/findPwResult"; // 비밀번호 찾기 결과 페이지로 이동
            } else {
                model.addAttribute("notFound", true);
@@ -243,7 +224,7 @@ public class UserinfoController {
         return newPassword.toString();
     }
     
-    //사용자 정보, 마지막 로그인 시간 가져오기
+   //사용자 정보, 마지막 로그인 시간 가져오기
    @RequestMapping(value = "/user", method = RequestMethod.GET)
    public String userGET(Model model, HttpSession session) {
       // 사용자 정보와 마지막 로그인 시간 가져오기
@@ -296,40 +277,29 @@ public class UserinfoController {
 
    // 회원정보 변경 확인 페이지 (비밀번호 확인) - POST
    @RequestMapping(value = "/pwCheck", method = RequestMethod.POST)
-   public String pwCheckPOST(HttpServletRequest request, Userinfo userinfo, RedirectAttributes rttr)
-         throws LoginAuthFailException {
-      HttpSession session = request.getSession();
-      String rawPw = "";
-      String encodePw = "";
+   public String pwCheckPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session) throws LoginAuthFailException {
 
-      Userinfo lto = userinfoservice.userLogin(userinfo);
+       Userinfo lto = userinfoservice.userLogin(userinfo);
 
-      String birth = lto.getBirth().substring(0, 10);
-      lto.setBirth(birth);
+       if (lto == null) {
+           throw new LoginAuthFailException("Authentication failed for user: " + userinfo.getId());
+       }
 
-      if (lto != null) {// 일치하는 아이디 존재
+       String birth = lto.getBirth().substring(0, 10);
+       lto.setBirth(birth);
 
-         rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
-         encodePw = lto.getPw(); // 데이터베이스에 저장한 인코딩된 비밀번호
+       String rawPw = userinfo.getPw();
+       String encodePw = lto.getPw();
 
-         if (true == pwEncoder.matches(rawPw, encodePw)) { // 비밀번호 일치여부 판단
-
-            lto.setPw(""); // 인코딩된 비밀번호 정보 지움
-            session.setAttribute("userinfo", lto); // session에 사용자의 정보 저장
-
-            userinfoservice.updateUserLogindate(lto.getId());// 마지막 로그인 날짜 업데이트
-
-            return "redirect:/user/modify"; // 수정페이지 이동
-
-         } else {
-            rttr.addFlashAttribute("result", 0);
-            return "redirect:/user/pwCheck"; // 비밀번호 확인 페이지 이동
-         }
-
-      } else { // 일치하는 아이디 미존재 (로그인 실패)
-         rttr.addFlashAttribute("result", 0);
-         return "redirect:/user/pwCheck"; // 비밀번호 확인 페이지 이동
-      }
+       if (pwEncoder.matches(rawPw, encodePw)) {
+           lto.setPw("");
+           session.setAttribute("userinfo", lto);
+           userinfoservice.updateUserLogindate(lto.getId());
+           return "redirect:/user/modify";
+       } else {
+           rttr.addFlashAttribute("result", 0);
+           return "redirect:/user/pwCheck";
+       }
    }
 
    //비밀번호 변경 - GET
@@ -340,84 +310,72 @@ public class UserinfoController {
 
    //비밀번호 변경 - POST
    @RequestMapping(value = "/modifypw", method = RequestMethod.POST)
-   public String modiftpwPOST(HttpSession session, Userinfo userinfo, @RequestParam String updatePw, Model model) throws Exception {
+   public String modiftpwPOST(HttpSession session, Userinfo userinfo, @RequestParam String updatePw, Model model) throws LoginAuthFailException, UserinfoNotFoundException {
 
-      String rawPw = "";
-      String encodePw = "";
+       Userinfo lto = userinfoservice.userLogin(userinfo);
 
-      //String newpw = request.getParameter("newpw");
+       if (lto == null) {
+           throw new UserinfoNotFoundException("User not found");
+       }
 
-      Userinfo lto = userinfoservice.userLogin(userinfo);
+       String rawPw = userinfo.getPw();
+       String encodePw = lto.getPw();
 
-      if (lto != null) {
+       if (!pwEncoder.matches(rawPw, encodePw)) {
+           throw new LoginAuthFailException("Incorrect password");
+       }
 
-         rawPw = userinfo.getPw(); 
-         encodePw = lto.getPw(); 
-
-         if (pwEncoder.matches(rawPw, encodePw)) {
-            lto.setPw(encodePw = pwEncoder.encode(updatePw));
-            userinfoservice.modifyPw(lto);
-            session.setAttribute("userinfo", lto);
-            return "redirect:/user/mypage"; 
-
-         } else {
-            model.addAttribute("result", 0);
-            return "mypage/modify_pw"; 
-         }
-
-      } else { 
-         model.addAttribute("result", 0);
-         return "mypage/modify_pw"; 
-      }
+       lto.setPw(pwEncoder.encode(updatePw));
+       userinfoservice.modifyPw(lto);
+       session.setAttribute("userinfo", lto);
+       return "redirect:/user/mypage";
    }
-
+   
    // 회원 탈퇴 확인 페이지 (비밀번호 확인) - GET
    @RequestMapping(value = "/removePwCheck", method = RequestMethod.GET)
    public String removeUserinfoGET() {
 
-      return "mypage/remove";
+	   return "mypage/remove";
    }
 
    // 회원 탈퇴 확인 페이지 (비밀번호 확인) - POST
    @RequestMapping(value = "/removePwCheck", method = RequestMethod.POST)
-   public String removeUserinfoPOST(HttpServletRequest request, Userinfo userinfo, RedirectAttributes rttr)
-         throws LoginAuthFailException {
-      HttpSession session = request.getSession();
-      String rawPw = "";
-      String encodePw = "";
+   public String removeUserinfoPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session) throws LoginAuthFailException {
 
-      Userinfo lto = userinfoservice.userLogin(userinfo);
+	   Userinfo lto = userinfoservice.userLogin(userinfo);
 
-      if (lto != null) {// 일치하는 아이디 존재
+	   if (lto != null) {
+		   String rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
+		   String encodePw = lto.getPw(); // 데이터베이스에 저장한 인코딩된 비밀번호
 
-         rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
-         encodePw = lto.getPw(); // 데이터베이스에 저장한 인코딩된 비밀번호
+		   if (pwEncoder.matches(rawPw, encodePw)) {
+			   lto.setPw("");
+			   session.setAttribute("userinfo", lto);
 
-         if (true == pwEncoder.matches(rawPw, encodePw)) { // 비밀번호 일치여부 판단
+			   userinfoservice.updateUserLogindate(lto.getId());
 
-            lto.setPw(""); // 인코딩된 비밀번호 정보 지움
-            session.setAttribute("userinfo", lto); // session에 사용자의 정보 저장
-
-            userinfoservice.updateUserLogindate(lto.getId());// 마지막 로그인 날짜 업데이트
-
-            return "redirect:/"; // 메인페이지 이동
-
-         } else {
-            rttr.addFlashAttribute("result", 0);
-            return "redirect:/user/remove"; // 비밀번호 확인 페이지 이동
-         }
-
-      } else { // 일치하는 아이디 미존재 (로그인 실패)
-         rttr.addFlashAttribute("result", 0);
-         return "redirect:/user/remove"; // 비밀번호 확인 페이지 이동
-      }
+			   return "redirect:/";
+		   } else {
+			   rttr.addFlashAttribute("result", 0);
+			   return "redirect:/user/remove";
+		   }
+	   } else {
+		   throw new LoginAuthFailException("Authentication failed for user: " + userinfo.getId());
+	   }
    }
 
-   // 회원정보 삭제
-   @RequestMapping("/remove")
+   //회원 탈퇴 시 status 값 변경
+   @RequestMapping(value = "/remove")
    public String remove(@RequestParam String id, HttpSession session) throws UserinfoNotFoundException {
-      userinfoservice.removeUserinfo(id);
+	   Userinfo userinfo = userinfoservice.getUserinfoById(id);
+	   if (userinfo != null) {
+		   userinfo.setStatus(3); // 탈퇴 회원으로 변경
+		   userinfoservice.updateUserStatus(userinfo); // status 업데이트
+		   session.invalidate(); // 로그아웃
 
-      return "redirect:/user/login";
+		   return "redirect:/user/login";
+	   } else {
+		   throw new UserinfoNotFoundException("회원정보를 찾을 수 없습니다.");
+	   }
    }
 }

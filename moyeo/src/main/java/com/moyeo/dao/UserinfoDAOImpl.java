@@ -48,13 +48,16 @@ public class UserinfoDAOImpl implements UserinfoDAO {
    }
 
    @Override
-   public int updateUserToRest(String id) {
-      // TODO Auto-generated method stub
-      return 0;
+   public void updateUserToRest(String id) {
+       sqlSession.update("userinfo.updateUserToRest", id);
+   }
+   
+   @Override
+   public void updateUserStatus(Userinfo userinfo) {
+       sqlSession.update("userinfo.updateUserStatus", userinfo);
    }
 
    /* 아이디 찾기 */
-
    @Override
    public Userinfo findUserByEmail(String email) {
       //return sqlSession.selectOne("userinfoMapper.findUserByEmail", email);

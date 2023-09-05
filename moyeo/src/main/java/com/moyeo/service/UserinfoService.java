@@ -17,6 +17,8 @@ public interface UserinfoService {
    /*로그인*/
    Userinfo userLogin(Userinfo userinfo) throws LoginAuthFailException;//로그인
    void updateUserLogindate(String id);//마지막 로그인 시간
+   void updateUserToRest(String id);//휴면회원 
+   void updateUserStatus(Userinfo userinfo);//탈퇴회원 status 변경
    
    /*아이디 찾기*/
    Userinfo findUserByEmail(String email);
@@ -30,7 +32,7 @@ public interface UserinfoService {
    
    /*관리자*/
    Userinfo getUserinfo(String id);//아이디로 전달값을 제공받아 회원정보 받음
-    List<Userinfo> getUserinfoList();//회원목록 출력
-    Userinfo getUserinfoByRegdate(String regdate);//regdate로 유저정보 가져오기
+   List<Userinfo> getUserinfoList();//회원목록 출력
+   Userinfo getUserinfoByRegdate(String regdate);//regdate로 유저정보 가져오기
 
 }

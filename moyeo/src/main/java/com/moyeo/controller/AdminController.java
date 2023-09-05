@@ -31,48 +31,55 @@ public class AdminController {
    @Autowired
    private PackageService packservice;
    
+   //ê´€ë¦¬ì ë©”ì¸ í˜ì´ì§€ ì´ë™
    @GetMapping(value = "/")
    public String adminmainGET() {
       return "admin/adminmain";
    }
    
+   //ê³ ê°ì„¼í„° í˜ì´ì§€ ì´ë™
    @GetMapping(value = "/center")
    public String centerGET() {
       return "admin/center";
    }
    
+   //ìœ ì € ë¦¬ìŠ¤íŠ¸
    @GetMapping(value = "/userlist")
     public String userList(Model model) {
         List<Userinfo> userinfoList = userinfoservice.getUserinfoList();
         model.addAttribute("userinfoList", userinfoList);
-        return "admin/userlist"; // admin/userlist.jsp¸¦ È£Ãâ
+        return "admin/userlist";
     }
    
+   //ìœ ì € ìƒì„¸ ì •ë³´
    @GetMapping(value = "/userinfo")
     public String getUserInfo(@RequestParam("id") String id, Model model) throws UserinfoNotFoundException {
-        Userinfo userinfo = userinfoservice.getUserinfoById(id); // userinfoservice´Â ¼­ºñ½º Å¬·¡½ºÀÇ ÀÎ½ºÅÏ½º, id·Î »ç¿ëÀÚ Á¤º¸¸¦ Á¶È¸
-        model.addAttribute("userinfo", userinfo); // ¸ğµ¨¿¡ µ¥ÀÌÅÍ¸¦ Ãß°¡
-        return "admin/userinfo"; // admin/userinfo.jsp¸¦ È£Ãâ
+        Userinfo userinfo = userinfoservice.getUserinfoById(id);
+        model.addAttribute("userinfo", userinfo);
+        return "admin/userinfo";
     }
    
-   //ÆĞÅ°Áö ¸ñ·Ï Ãâ·Â
+   //íŒ¨í‚¤ì§€ ë¦¬ìŠ¤íŠ¸
    @GetMapping(value = "/packagelist")
    public String packList(Model model) {
        List<Pack> packList = packservice.getPackageList();
        model.addAttribute("packList", packList);
-      return "admin/packagelist"; // admin Æú´õ ³»ÀÇ packagelist.jsp ÆÄÀÏ¸í
+      return "admin/packagelist";
    }
    
-   //ÆĞÅ°Áö µî·Ï ¹öÆ°
+   //íŒ¨í‚¤ì§€ ë“±ë¡
    @GetMapping(value = "/packageregist")
    public String packageregistGET(Model model) {
-      model.addAttribute("pack", new Pack()); // ºó Pack °´Ã¼¸¦ ¸ğµ¨¿¡ Ãß°¡ÇÏ¿© Æû¿¡ ¹ÙÀÎµù
-      return "admin/packageregist"; // admin Æú´õ ³»ÀÇ packageregist.jsp ÆÄÀÏ¸í
+      model.addAttribute("pack", new Pack());
+      return "admin/packageregist";
    }
    
+   //íŒ¨í‚¤ì§€ ë“±ë¡
    @PostMapping(value = "/packageregist")
    public String packageregistPOST(@ModelAttribute("pack") Pack pack) {
-      packservice.addPackage(pack); // ¼­ºñ½º¸¦ ÅëÇØ ÆĞÅ°Áö µî·Ï ¼öÇà
-      return "redirect:/admin/packagelist"; // ÆĞÅ°Áö µî·Ï ÈÄ ÆĞÅ°Áö ¸ñ·Ï ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+      packservice.addPackage(pack);
+      return "redirect:/admin/packagelist";
    }
+   
+   
 }

@@ -67,15 +67,15 @@ a:hover {
     <tr>
         <td class="id"><a href="${pageContext.request.contextPath}/admin/userinfo?id=${userinfo.id}">${userinfo.id}</a></td>
         <td class="name">${userinfo.name}</td>
-        <td>${userinfo.gender}</td>
+        <td class="gender">${userinfo.gender}</td>
         <td class="email">${userinfo.email}</td>
         <td class="birth">${userinfo.birth.substring(0, 10)}</td>
         <td class="address">${userinfo.address}</td>
         <td class="phone">${userinfo.phone}</td>
-        <td>${userinfo.logdate}</td>
+        <td class="logdate">${userinfo.logdate}</td>
         <td>
     <c:choose>
-        <c:when test="${userinfo.status == 0}">일반</c:when>
+        <c:when test="${userinfo.status == 0}">일반회원</c:when>
         <c:when test="${userinfo.status == 2}">휴면회원</c:when>
         <c:when test="${userinfo.status == 3}">탈퇴회원</c:when>
         <c:when test="${userinfo.status == 9}">관리자</c:when>

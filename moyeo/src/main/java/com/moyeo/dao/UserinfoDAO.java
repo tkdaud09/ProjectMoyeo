@@ -2,6 +2,8 @@ package com.moyeo.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.moyeo.dto.Userinfo;
 
 public interface UserinfoDAO {
@@ -10,11 +12,11 @@ public interface UserinfoDAO {
    int idCheck(String id);//아이디 중복검사
    int emailCheck(String email);//아이디 중복검사
 
-   
    //로그인
    Userinfo userinfoLogin(Userinfo userinfo);//로그인
    int updateLogdate(String id);//로그인 시간 변경
-   int updateUserToRest(String id);//휴면계정전환
+   void updateUserToRest(String id);//휴면계정전환
+   void updateUserStatus(Userinfo userinfo);//탈퇴회원 status 변경
 
    //아이디 찾기
    Userinfo findUserByEmail(String email);

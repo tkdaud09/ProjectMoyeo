@@ -24,13 +24,11 @@
             
             
             <label for="id" class="sp">
-            	<p class="s_tit">아이디</p>
-               <input type="text" class="id_input input_f" name="id" id="id" placeholder="아이디를 입력하세요." >
-               <span class="id_input_re_1">사용 가능한 아이디입니다.</span>
-                <span class="id_input_re_2">사용 불가(중복, 조건미달) 아이디입니다.</span>
-                <span class="final_id_ck">아이디를 입력해주세요.</span>
-                <span class="id_input_re">4~20자의 영문 대소문자 및 숫자만 입력가능합니다.</span>
-            </label>
+            <p class="s_tit">아이디</p>
+            <input type="text" class="id_input input_f" name="id" id="id" placeholder="아이디를 입력하세요.">
+            <!-- 아이디 에러 메시지 출력 -->
+            <span class="id_input_re">${#fields.hasErrors('id') ? #fields.errors('id')[0].defaultMessage : ''}</span>
+        </label>
             
             
             
@@ -552,15 +550,6 @@
              }        
              
          });
-      
    </script>
-    
-    
-    
-    
-    
-    
-    
-
  </body>
 </html>
