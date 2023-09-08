@@ -1,6 +1,6 @@
 package com.moyeo.dto;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull; 
 import javax.validation.constraints.Pattern;
 
 import lombok.Data;

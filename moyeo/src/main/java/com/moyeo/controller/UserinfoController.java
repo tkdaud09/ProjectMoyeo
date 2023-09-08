@@ -50,8 +50,8 @@ public class UserinfoController {
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPOST(@Valid @ModelAttribute("Userinfo") Userinfo userinfo, BindingResult bindingResult) throws Exception {
-	    if (bindingResult.hasErrors()) {
-	        // 유효성 검사에 실패한 경우의 코드
+		if(bindingResult.hasErrors()){//유효성 검사 실패
+			logger.info(bindingResult.getAllErrors().get(0).getDefaultMessage());
 	        return "userinfo/join"; // 유효성 검사 실패 시 다시 회원가입 페이지로
 	    }
 

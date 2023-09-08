@@ -38,6 +38,7 @@
 <body id="body" class="up-scroll">
   <div class="main-wrapper packages-grid">
 
+
 <!-- ====================================
 ———   PAGE TITLE
 ===================================== -->
@@ -58,18 +59,27 @@
   </div>
 </section>
 
+
 <!-- ====================================
 ———   DIY SECTION
 ===================================== -->
+
 
 <section class="">
   <div class="container">
          <div class="py-10">
          <div class="review_content">
+         
             <div class="diy_form_title">
                공지사항 작성
             </div>
+            
             <div class="write_form">
+            
+            
+            
+            
+            
             <form class="w_f" action="addNotice" method="post" id="enrollForm" enctype="multipart/form-data">            
                    <p>작성자</p>
                         <input class="text" type="text" name="userinfoId"
@@ -89,12 +99,25 @@
                        <button id="enrollBtn" class="btn enroll_btn">등 록</button>
                    </div>
                </form>
+
+   
+               
             </div>
+
          </div><!-- /diy_content -->
       </div>   <!-- /py-10 -->
     </div>   <!-- /container -->
+   
+    
+ 
+    
+   
+    
+    
 </section>
  </div>
+
+
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  
     <script>
@@ -114,5 +137,9 @@
            enrollForm.submit();
        });
    </script>
+  
+
+
+
   </body>
 </html>

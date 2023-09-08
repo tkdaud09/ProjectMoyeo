@@ -61,7 +61,7 @@
             
             				<!-- 주소 -->
 							<div class="sp">
-								<label for="roadAddress"><p class="s_tit">주소</p></label>
+								<label for="address"><p class="s_tit">주소</p></label>
 				                <input type="text" class="address_input input_f" id="postcode" placeholder="우편번호" readonly="readonly" >
 				                <input type="button" class="input_f" onclick="execDaumPostcode()" value="우편번호 찾기">
 				                <input type="text" class="input_f" id="roadAddress" placeholder="도로명주소" size="60" readonly="readonly" >
@@ -121,73 +121,308 @@
 		</div> 
 	</section>
 <script>
+/* 유효성 검사 통과유무 변수 */
+var idCheck = false;             // 아이디
+var idckCheck = false;           // 아이디 중복 검사
+var pwCheck = false;             // 비번
+var pwckCheck = false;           // 비번 확인
+var pwckcorCheck = false;        // 비번 확인 일치 확인
+var nameCheck = false;           // 이름
+var emailCheck = false;          // 이메일   
+var mailnumCheck = false;        // 이메일 인증번호 확인
+var genderCheck = false;         // 성별
+var yearCheck = false;           // 생년월일
+var phoneCheck = false;			 // 휴대전화 확인
+
+$(document).ready(function(){
+	$(".join_button").on("click", function(){
+        /* 입력값 변수 */
+        var id = $('.id_input').val();                // id 입력란
+        var pw = $('.pw_input').val();                // 비밀번호 입력란
+        var pwck = $('.pwck_input').val();            // 비밀번호 확인 입력란
+        var name = $('.name_input').val();            // 이름 입력란
+        var email = $('.email_input').val();          // 이메일 입력란
+        var phone = $('.phone_input').val();		  // 휴대전화 입력란	
+        var gender = $('.gender_input').val();		  // 성별 선택란	
+        var year = $('.year_input').val();			  // 생년월일 입력란
+        
+       /* 아이디 유효성검사 */
+       if(id == "" ){
+           $('.final_id_ck').css('display','block');
+           idCheck = false;
+       }else{
+           $('.final_id_ck').css('display', 'none');
+           idCheck = true;
+       }
+       
+        /* 비밀번호 유효성 검사 */
+        if(pw == ""){
+            $('.final_pw_ck').css('display','block');
+            pwCheck = false;
+        }else{
+            $('.final_pw_ck').css('display', 'none');
+            pwCheck = true;
+        }
+
+        /* 비밀번호 확인 유효성 검사 */
+        if(pwck == ""){
+            $('.final_pwck_ck').css('display','block');
+            pwckCheck = false;
+        }else{
+            $('.final_pwck_ck').css('display', 'none');
+            pwckCheck = true;
+        }
+
+        /* 이름 유효성 검사 */
+        if(name == ""){
+            $('.final_name_ck').css('display','block');
+            nameCheck = false;
+        }else{
+            $('.final_name_ck').css('display', 'none');
+            nameCheck = true;
+        }
+        
+        /* 이메일 유효성 검사 */
+        if(email == ""){
+            $('.final_email_ck').css('display','block');
+            emailCheck = false;
+        }else{
+            $('.final_email_ck').css('display', 'none');
+            emailCheck = true;
+        }
+        
+        /* 생년월일 유효성검사 */
+        if(year == ""){
+            $('.final_year_ck').css('display','block');
+            yearCheck = false;
+        }else{
+             $('.final_year_ck').css('display', 'none');
+             yearCheck = true;
+        }
+        
+        /* 휴대폰 번호 유효성검사 */
+        if(phone == ""){
+            $('.final_phone_ck').css('display','block');
+            phoneCheck = false;
+        }else{
+             $('.final_phone_ck').css('display', 'none');
+             phoneCheck = true;
+        }
+        
+        /* 성별 유효성검사 */
+        if (!$('input[name="gender"]:checked').length) {
+              $('.final_gender_ck').css('display', 'block');
+                 genderCheck = false;
+        } else {
+              $('.final_gender_ck').css('display', 'none');
+              genderCheck = true;
+        }
+       
+        /* 최종 유효성 검사 */
+        if(idCheck&&
+        	idckCheck&&
+            pwCheck&&
+            pwckCheck&&
+            pwckcorCheck&&
+            nameCheck&&
+            emailCheck&&
+            mailnumCheck&&
+            genderCheck&&
+            yearCheck&&
+            phoneCheck){
+            $("#join_form").attr("action", "${pageContext.request.contextPath}/user/join");
+            $("#join_form").submit();
+			}
+           return false;
+       });
+   });
+	
 	/* 아이디 중복검사 */
 	//아이디 중복검사 길이
 	$('.id_input').on("propertychange change keyup paste input", function() {
-			var id = $(this).val(); // .id_input에 입력되는 값
-			var data = { id: id }; // '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
-	
-		$.ajax({
-				type: "post",
-				url: "${pageContext.request.contextPath}/user/memberIdChk",
-				data: data,
-				
-			success: function(result) {
-				var idCheckMessage = $('.id_input_re_1');
-				var idLengthCheckMessage = $('.id_input_re_2');
-				           
-				if (result != 'fail') {
-					idCheckMessage.css("display", "block");
-					idCheck = true;
-					idckCheck = true;
-				} else {
-					idCheckMessage.css("display", "none");
-					idCheck = false;
-					idckCheck = false;
-	           }
-	       } // success 종료
-	   }); // ajax 종료
+		var id = $(this).val(); // .id_input에 입력되는 값
+		var data = { id: id }; // '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+
+	$.ajax({
+		type: "post",
+		url: "${pageContext.request.contextPath}/user/memberIdChk",
+		data: data,
+		success: function(result) {
+			var idCheckMessage = $('.id_input_re_1');
+			var idLengthCheckMessage = $('.id_input_re_2');
+
+			if (id.length < 4 && id.length > 20) {
+				idCheckMessage.css("display", "none");
+				idLengthCheckMessage.css("display", "block");
+				idCheck = false;
+				idckCheck = false;
+			} else {
+				idLengthCheckMessage.css("display", "none");
+				idCheck = true;
+				idckCheck = true;
+			}    
+           
+			if (result != 'fail' && id.length >= 4 && id.length <= 20) {
+				idCheckMessage.css("display", "block");
+				idCheck = true;
+				idckCheck = true;
+			} else {
+				idCheckMessage.css("display", "none");
+				idCheck = false;
+				idckCheck = false;
+			if (id.length >= 4 && id.length <= 20) {
+				idLengthCheckMessage.css("display", "block");
+			}
+			}
+			} // success 종료
+		}); // ajax 종료
 	}); // function 종료
 
-      
-		/* 이메일 */
-		// user_email blur event
-		$("#user_email").blur(email);
-		     
-		/* 인증번호 이메일 전송 */
-		$('#mail-Check-Btn').click(function() {
-			const email = $('#totalemail').val(); // 이메일 주소값 얻어오기!
-			const checkInput = $('.mail-check-input'); // 인증번호 입력하는곳 
-		   
-			$.ajax({
-				type: "GET",
-				url: "mailCheck?email=" + email,
-				success : function (data) {
-					console.log("data : " +  data);
-					checkInput.attr('disabled',false);
-					code = data;
-					alert('인증번호가 전송되었습니다.')
-				}      
-			});
-		});
+	/* 이름 유효성 */
+	$('.name_input').on("input", function() {
+		var name = $(this).val(); // .name_input에 입력되는 값
+        var nameCheckMessage = $('.name_input_re');
+        var regName = /^[가-힣]{2,4}$/;
+    
+        if (!regName.test(name)) {
+            nameCheckMessage.css("display", "block");
+            nameCheck = false;
+        } else {
+            nameCheckMessage.css("display", "none");
+            nameCheck = true;
+        }
+    });
 
-      // 인증번호 비교 
-      $('.mail-check-input').blur(function() {
-         const inputCode = $(this).val();
-         const $resultMsg = $('#mail-check-warn');
+	/* 비밀번호 유효성 */
+    $('.pw_input').on("input", function() {
+        var password = $(this).val(); // .pw_input에 입력되는 값
+        var pwfailMessage = $('.pw_input_re'); // 비밀번호 유효성 관련 메시지 요소 선택
+        var pwpassMessage = $('.pw_input_re2');
+        var regPw = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/; // 비밀번호 유효성을 검사하는 정규식
+        
+        if (!regPw.test(password)) {
+			pwfailMessage.css("display", "block"); // 비밀번호가 정규식과 맞지 않는 경우 메시지 표시
+            pwCheck = false; // 비밀번호 유효성을 나타내는 변수를 false로 설정
+        } else {
+			pwfailMessage.css("display", "none"); // 비밀번호가 정규식과 일치하는 경우 메시지 숨김
+			pwpassMessage.css("display", "block")
+            pwCheck = true; // 비밀번호 유효성을 나타내는 변수를 true로 설정
+        }
+	});	
+	
+    /* 비밀번호 확인 일치 유효성 검사 */
+	$('.pwck_input').on("propertychange change keyup paste input", function(){
+		var pw = $('.pw_input').val();
+        var pwck = $('.pwck_input').val();
+        
+        $('.final_pwck_ck').css('display', 'none');
+		if(pw == pwck){
+			$('.pwck_input_re_1').css('display','block');
+			$('.pwck_input_re_2').css('display','none');
+			pwckcorCheck = true;
+        }else{
+			$('.pwck_input_re_1').css('display','none');
+			$('.pwck_input_re_2').css('display','block');
+            pwckcorCheck = false;
+        }        
+    });	
+
+    /* 생년월일 유효성 */
+    $(document).ready(function() {
+        $(".year_input").on("input", function() {
+            var birthValue = $(this).val();
+            var birthCheckMessage = $(".year_input_re");
+
+            // 생년월일을 정규식으로 검사 (예: 2000-01-01)
+            var regBirth = /^(19[0-9]{2}|2000|20[0-2][0-9])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+
+            if (!regBirth.test(birthValue)) {
+                birthCheckMessage.css("display", "block");
+                yearCheck = false;
+            } else {
+                birthCheckMessage.css("display", "none");
+                yearCheck = true;
+            }
+        });
+    });	
+    
+    /* 휴대폰번호 유효성 */
+    $(document).ready(function() {
+        $('.phone_input').on("input", function() {
+            var phoneValue = $(this).val();
+            var phoneCheckMessage = $('.phone_input_re');
+            
+            var regPhone = /^01([0|1|6|7|8|9]?)-(\d{3,4})-(\d{4})$/;
+            
+            if (!regPhone.test(phoneValue)) {
+                phoneCheckMessage.css("display", "block");
+                phoneCheck = false;
+            } else {
+                phoneCheckMessage.css("display", "none");
+                phoneCheck = true;
+            }
+        });
+    });
+    
+    /* 이메일 유효성 */
+	$(document).ready(function() {
+	$('.email_input').on("input", function() {
+		var userPart = $(this).val();
+		var fullEmail = userPart;
+ 
+		var emailCheckMessage = $('.email_input_re');
+		var regMail = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
+ 
+		if (!regMail.test(fullEmail)) {
+			emailCheckMessage.css("display", "block");
+			emailCheck = false;
+			$('#mail-Check-Btn').attr('disabled', true);
+		} else { 
+			emailCheckMessage.css("display", "none");
+			emailCheck = true;
+			$('#mail-Check-Btn').attr('disabled', false);
+			}
+		});
+	});
+    
+	/* 이메일 */
+	// user_email blur event
+	$("#user_email").blur(email);
+		     
+	/* 인증번호 이메일 전송 */
+	$('#mail-Check-Btn').click(function() {
+		const email = $('#totalemail').val(); // 이메일 주소값 얻어오기!
+		const checkInput = $('.mail-check-input'); // 인증번호 입력하는곳 
+		   
+		$.ajax({
+			type: "GET",
+			url: "mailCheck?email=" + email,
+			success : function (data) {
+				console.log("data : " +  data);
+				checkInput.attr('disabled',false);
+				code = data;
+				alert('인증번호가 전송되었습니다.')
+			}      
+		});
+	});
+
+	// 인증번호 비교 
+	$('.mail-check-input').blur(function() {
+		const inputCode = $(this).val();
+		const $resultMsg = $('#mail-check-warn');
    		
-         if (inputCode == code) {
-            $resultMsg.html('인증번호가 일치합니다.');
-            $resultMsg.css('color', 'blue');
-            $('#mail-Check-Btn').attr('disabled', true);
-            $('#totalemail').attr('readonly', true);
-            mailnumCheck = true;     // 일치할 경우
-         } else {
-            $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
-            $resultMsg.css('color', 'red');
-            mailnumCheck = false;    // 일치하지 않을 경우
-         }
-      });
+	if (inputCode == code) {
+		$resultMsg.html('인증번호가 일치합니다.');
+		$resultMsg.css('color', 'blue');
+		$('#mail-Check-Btn').attr('disabled', true);
+		$('#totalemail').attr('readonly', true);
+		mailnumCheck = true;     // 일치할 경우
+	} else {
+		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+		$resultMsg.css('color', 'red');
+		mailnumCheck = false;    // 일치하지 않을 경우
+		}
+	});
 
 	// 이메일 주소 합성 및 설정 함수
 	function email() {
@@ -198,73 +433,74 @@
 			$("#totalemail").val(fullEmail);
 		}
 	};
-      
+	
+	/* 주소 합성 */
+	function address() {
+		const postnum = $("#postcode").val();
+		const roadname = $("#roadAddress").val();
+		const detailaddress = $("#detailAddress").val();
+	   
+		if (postnum != "" && roadname != "" && detailaddress != "") {
+			const fullAddress = "우편번호 " + postnum + ", 주소 " + roadname + " " + detailaddress;
+			$("#totaladdress").val(fullAddress);
+		}
+	};
+	
 	/*주소 API*/
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 	function execDaumPostcode() {
 		new daum.Postcode({
 			oncomplete: function(data) {
-	            // 도로명 주소 변수와 참고 항목 변수 초기화
-	            var roadAddr = data.roadAddress;
-	            var extraRoadAddr = '';
-	            
-	            // 법정동명 추가
-	            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                extraRoadAddr += data.bname;
-	            }
-	            
-	            // 건물명 추가
-	            if(data.buildingName !== '' && data.apartment === 'Y'){
-	                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	            }
-	            
-	            // 참고항목 문자열 만들기
-	            if(extraRoadAddr !== ''){
-	                extraRoadAddr = ' (' + extraRoadAddr + ')';
-	            }
-	
-	            // 우편번호와 도로명주소, 지번주소를 해당 필드에 저장
-	            var postcode = data.zonecode;
-	            document.getElementById('postcode').value = postcode;
-	            document.getElementById("roadAddress").value = roadAddr;
-	            document.getElementById("jibunAddress").value = data.jibunAddress;
-	
-	            // 영문주소 (옵션)
-	            document.getElementById("engAddress").value = data.addressEnglish;
-	            
-	            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-	            if(roadAddr !== ''){
-	                document.getElementById("extraAddress").value = extraRoadAddr;
-	            } else {
-	                document.getElementById("extraAddress").value = '';
-	            }
-	
-	            // 상세주소를 가져온다.
-	            var detailAddr = document.getElementById("detailAddress").value;
-	
-	            // 우편번호, 도로명주소, 상세주소를 하나의 문자열로 합친다.
-	            var totalAddr = postcode + ", " + roadAddr;
-	            if (detailAddr !== "") {
-	                totalAddr += ", " + detailAddr;
-	            }
-	
-	            // 합쳐진 주소를 hidden input에 저장
-	            document.getElementById("totaladdress").value = totalAddr;
-	            
-	            // 기타 로직 (주소 선택 안했을 경우 등)
-	            var guideTextBox = document.getElementById("guide");
-	            if(data.autoRoadAddress) {
-	                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-	                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-	                guideTextBox.style.display = 'block';
-	            } else if(data.autoJibunAddress) {
-	                var expJibunAddr = data.autoJibunAddress;
-	                guideTextBox.innerHTML = '(예상 지번주소 : ' + expJibunAddr + ')';
-	                guideTextBox.style.display = 'block';
-	            } else {
-	                guideTextBox.innerHTML = '';
-	                guideTextBox.style.display = 'none';
-	            }
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("roadAddress").value = roadAddr;
+                document.getElementById("jibunAddress").value = data.jibunAddress;
+         
+                document.getElementById("engAddress").value = data.addressEnglish;
+                       
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 x`주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+				}
 			}
 		}).open();
 	}
