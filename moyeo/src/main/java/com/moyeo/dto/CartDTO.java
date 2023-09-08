@@ -12,5 +12,5 @@ public class CartDTO {
 	private int packAdultprice;
 	private int packChildpirce;
 	private String packTitle;
-	private int money;
+	private int packTotalprice;
 } 

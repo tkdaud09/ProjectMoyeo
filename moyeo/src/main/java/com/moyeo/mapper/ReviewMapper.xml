@@ -11,7 +11,7 @@
 	    INSERT INTO review 
 	    VALUES(
 	        #{reviewIdx}
-	        , #{idReview}
+	        , #{userinfoId}
 	        , #{ordersIdx} 
 	        , #{reviewStar}
 	        , #{reviewTitle}
@@ -26,24 +26,22 @@
 	<!-- 후기 업데이트 -->
 	<update id="updateReview">
 		UPDATE review SET 
-			review_title=#{reviewTitle}
+			review_star=#{reviewStar} 
+			,review_title=#{reviewTitle}
 			, review_content=#{reviewContent} 
-			WHERE review_title=#{reviewTitle}
+			WHERE review_idx=#{reviewIdx}
 	</update>
+	
+	
 	
 	
 	<!-- 후기 삭제 -->
 	<delete id="deleteReview">
-  	  DELETE FROM review WHERE review_idx=#{reviewIdx}
+	    DELETE FROM review WHERE review_idx=#{reviewIdx}
 	</delete>
 
 
 
-
-
-	
-	
-	
 	
 	
 	
@@ -73,6 +71,9 @@
 		WHERE review_content=#{reviewContent}
 	</select>
 	
+
+
+
 	<!-- 후기 전체리스트검색 -->
 	<select id="selectReview" resultType="Review" parameterType="int">
 	    SELECT 

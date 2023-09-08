@@ -42,14 +42,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public int sumMoney(String userinfoId) {
+    public int sumTotal(String userinfoId) {
         if (userinfoId == null) {
             // userId가 null인 경우에 대한 예외 처리 또는 반환값 설정
             return 0; // 예시로 반환값을 0으로 설정
         }
         
-        Integer sumMoney = cartDAO.sumMoney(userinfoId);
-        return sumMoney != null ? sumMoney : 0; // Return 0 if totalCart is null
+        Integer sumTotal = cartDAO.sumTotal(userinfoId);
+        return sumTotal != null ? sumTotal : 0; // Return 0 if totalCart is null
     }
 
     @Override

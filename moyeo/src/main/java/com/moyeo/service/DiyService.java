@@ -28,7 +28,7 @@ public interface DiyService {
 	List<Diy> selectDiyList(String diyTitle);
 	
 	// 글에 저장된 아이디를 가져와 수정 권한을 줌
-	Diy getUserinfoById(String userinfoId);
+	Diy getUserinfoById(int diyIdx);
 	
 	// 전체 글 개수 
 	int selectDiyListCount();

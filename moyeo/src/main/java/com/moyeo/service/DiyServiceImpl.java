@@ -73,9 +73,9 @@ public class DiyServiceImpl implements DiyService {
 	}
 
 	@Override
-	public Diy getUserinfoById(String userinfoId) {
+	public Diy getUserinfoById(int diyIdx) {
 		// TODO Auto-generated method stub
-		return diyDao.getUserinfoById(userinfoId);
+		return diyDao.getUserinfoById(diyIdx);
 	}
 	
 	

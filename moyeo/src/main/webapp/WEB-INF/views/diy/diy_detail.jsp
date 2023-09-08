@@ -94,6 +94,12 @@
 	            </div>
 	          </div>
   
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="diyTitle">제목</label>
+                <input type="text" class="form-control border-0 bg-smoke" id="diyTitle" name="diyTitle" value="${diyDetail.diyTitle }" readonly>
+              </div>
+            </div>
      	   
      	   <!-- 작성버튼 없애기, 아이디가같으면 수정버튼 생성 -> modify로 이동, 다 수정할 수 없게 만들기              작성일, 수정일 보여지기 -->
               <div class="col-lg-6">
@@ -101,7 +107,7 @@
                 <div class="form-group form-group-icon form-group-icon-default">
                   <i class="far fa-calendar-alt" aria-hidden="true"></i>
                 </div>
-                  <input type="text" class="form-control border-0 bg-smoke" id="diyStartdate" name="dateRange" value="${diyDetail.diyStartdate }" readonly>
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyStartdate" value="${diyDetail.diyStartdate }" readonly>
                 </div>
                 
   	  
@@ -110,7 +116,7 @@
                 <label for="diyEnddate">도착일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
                   <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <input type="text" class="form-control border-0 bg-smoke" id="diyEnddate" name="dateRange" value="${diyDetail.diyEnddate }" readonly>
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyEnddate" value="${diyDetail.diyEnddate }" readonly>
                 </div>
               </div>
         
@@ -138,88 +144,76 @@
             </div>
     
           
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="diyTitle">제목</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyTitle" name="diyTitle" value="${diyDetail.diyTitle }" readonly>
-              </div>
-            </div>
            
            
            <!-- 다른것도 태그바꾸기 -->
-           <div class="col-lg-6">
+             <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyIntrodution">간단한 소개글</label>
-                <p class="form-control border-0 bg-smoke" id="diyIntrodution">${diyDetail.diyIntroduction }</p>
+                <textarea class="form-control border-0 bg-smoke" id="diyIntrodution" rows="5" readonly>${diyDetail.diyIntroduction }</textarea>
               </div>
-            </div>
+             </div>
            
-				<!-- day 1 사진 -->          
-        	  <div class="col-md-6">
-	            <img class="card-img-top rounded lazyestload" id="diyContent1Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent1Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}"data-src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}" alt="Day 1 img">
-	            <div class="card-img-overlay card-hover-overlay rounded"></div>
-	        </div>
-            
+				<!-- day 1 사진 -->
+			<div class="position-relative">	          
+	          <img class="card-img-top rounded lazyestload" id="diyContent1Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent1Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}" alt="Day 1 img">
+	          <div class="card-img-overlay card-hover-overlay rounded"></div>
+            </div>
 		 	
-          <div class="form-group mb-5" id="day1Block">
+          <div class="form-group mb-5">
             <label for="diyContent1">DAY 1</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent1" rows="7" readonly>${diyDetail.diyContent1 }</textarea>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent1" rows="10" readonly>${diyDetail.diyContent1 }</textarea>
           </div>
 				
-          	<div class="col-md-6">
           		<!-- day 2 사진 -->
+          	<div class="position-relative">
 	            <img class="card-img-top rounded lazyestload" id="diyContent2Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent2Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent2Img}" alt="Day 2 img">
 	            <div class="card-img-overlay card-hover-overlay rounded"></div>
 	        </div>
             
            <div class="form-group mb-5">
             <label for="diyContent2">DAY 2</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent2" rows="7" readonly>${diyDetail.diyContent2 }</textarea>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent2" rows="10" readonly>${diyDetail.diyContent2 }</textarea>
           </div>
           
-         	 <div class="col-md-6">
          	 	<!-- day 3 사진 -->
+         	 <div class="position-relative">
 	            <img class="card-img-top rounded lazyestload" id="diyContent3Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent3Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent3Img}" alt="Day 3 img">
 	            <div class="card-img-overlay card-hover-overlay rounded"></div>
 	        </div>
             
          	  <div class="form-group mb-5">
             <label for="diyContent3">DAY 3</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent3" rows="7" readonly>${diyDetail.diyContent3 }</textarea>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent3" rows="10" readonly>${diyDetail.diyContent3 }</textarea>
           </div>
           
-             <div class="col-md-6">
              	<!-- day 4 사진 -->
+             <div class="position-relative">
 	            <img class="card-img-top rounded lazyestload" id="diyContent4Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
 	            <div class="card-img-overlay card-hover-overlay rounded"></div>
 	        </div>
           
 			<div class="form-group mb-5">
             <label for="diyContent4">DAY 4</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent4" rows="7" readonly>${diyDetail.diyContent4 }</textarea>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent4" rows="10" readonly>${diyDetail.diyContent4 }</textarea>
           </div>
-    
           
           <!-- 로그인 정보가 일치하는 사람만 버튼 활성화 -->
           <c:set var="userinfoId" scope="session"/> 
           <c:if test="${loginId eq diy.userinfoId}">
-          <div class="text-center text-md-start text-lg-end">
-           <a href="${pageContext.request.contextPath}/diy/diy_modify/${diyDetail.diyIdx}" class="btn btn-primary text-uppercase">
-            <button type="submit" class="btn btn-primary text-uppercase" id="editButton">
+          <div class="mb-6">
+           <a href="${pageContext.request.contextPath}/diy/diy_modify/${diyDetail.diyIdx}" >
+            <button type="submit" class="btn btn-outline-primary mb-2" id="editButton">
               수정하기
             </button>
             </a>
-           </div>
            
-          <div class="text-center text-md-start text-lg-end">
-           <a href="${pageContext.request.contextPath}/diy/diy_delete" class="btn btn-primary text-uppercase">
-            <button type="submit" class="btn btn-primary text-uppercase" id="deleteButton" onclick="deleteConfirm()">
+            <button type="submit" class="btn btn-outline-primary mb-2" id="deleteButton" onclick="deleteConfirm()">
               삭제하기
             </button>
-            </a>
            </div>
-            
           </c:if>
+         
            
            <div class="text-center text-md-start text-lg-end">
               <a href="${pageContext.request.contextPath}/diy/diy_list" class="btn btn-primary text-uppercase">목록으로</a>
@@ -229,11 +223,9 @@
       </div>
     </div>
 </section>
-
     <!-- ====================================
     ——— FOOTER SECTION
     ===================================== -->
-    <jsp:include page="/WEB-INF/views/inc/footer.jsp"/>
   
     <!-- ====================================
     ——— MODAL SECTION
@@ -244,7 +236,7 @@
 	function deleteConfirm() {
 	    if (confirm("정말로 삭제하시겠습니까?")) {
 	    	
-	        window.location.href = "diy/diy_delete"; // Replace with actual delete URL
+	        window.location.href = "${pageContext.request.contextPath}/diy/diy_delete/${diyDetail.diyIdx}"; 
 	    } else {
 	        
 	    }

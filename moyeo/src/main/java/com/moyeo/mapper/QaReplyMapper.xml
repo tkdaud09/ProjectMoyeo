@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.QaReplyMapper">
+
+	<!-- 댓글 작성 -->
+	<insert id="insertQaReply">
+    <selectKey resultType="int" keyProperty="qaReplyIdx" order="BEFORE">
+        SELECT qa_reply_seq.nextval FROM DUAL
+    </selectKey>
+	    INSERT INTO qa_reply (
+	        qa_reply_idx,
+	        qa_idx,
+	        userinfo_id,
+	        qa_reply_content,
+	        qa_reply_regdate
+	    )
+	    VALUES (
+	        #{qaReplyIdx},
+	        #{qaIdx},
+	        #{userinfoId},
+	        #{qaReplyContent},
+	        sysdate
+	    )
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateQaReply">
+		UPDATE qa_reply
+		SET qa_reply_contet = #{qaReplyContent}
+			, qa_reply_regdate = sysdate
+		WHERE qa_reply_idx = #{qaReplyIdx}
+		AND qa_idx = #{qaIdx}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteQaReply">
+		DELETE FROM qa
+		WHERE qa_reply_idx = #{qaReplyIdx}
+		AND qa_idx = #{qaIdx}
+	</delete>
+	
+	<!-- 댓글 조회 -->
+	<select id="selectQaReplyList" parameterType="int" resultType="QaReply">
+		SELECT
+			qa_reply_idx
+			, qa_idx
+			, userinfo_id
+			, qa_reply_content
+			, TO_CHAR(qa_reply_regdate, 'yyyy-mm-dd') as qa_reply_regdate
+		FROM qa_reply
+		WHERE qa_idx=#{qaIdx}
+	</select>
+	
+
+</mapper>

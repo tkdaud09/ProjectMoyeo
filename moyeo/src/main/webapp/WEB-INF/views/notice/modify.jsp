@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+   pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -13,7 +13,7 @@
 
 
 <!-- ====================================
-———	PAGE TITLE
+———   PAGE TITLE
 ===================================== -->
 <section class="page-title">
   <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg6.jpg);">
@@ -34,59 +34,154 @@
 
 
 <!-- ====================================
-———	DIY SECTION
+———   DIY SECTION
 ===================================== -->
 
 <section class="">
-    <div class="container">
-        <div class="py-10">
-            <div class="review_content">
-                <div class="diy_form_title">
-                    공지사항 수정
-                </div>
-                <div class="write_form">
-                    <form class="w_f" action="modify" method="post" id="modifyForm">
-                        <p>작성자</p>
-                        <input class="text" type="text" name="id" value="${userinfo.id}" readonly>
-                        
-                        <p>별점선택</p>
-                        <input class="text" type="text" name="reviewStar" value="${review.reviewStar}">
-                        
-                        <p>패키지 상품</p>
-                        <select name="">
-                            <option>선택</option>
-                            <option>반려견과 함께하는 1박2일 투어 1</option>
-                            <option>반려견과 함께하는 1박2일 투어 2</option>
-                            <option>반려견과 함께하는 1박2일 투어 3</option>
-                            <option>반려견과 함께하는 1박2일 투어 4</option>
-                        </select>
-                        
-                        <p>제목</p>
-                        <input class="text" type="text" name="reviewTitle" value="${review.reviewTitle}">
-                        
-                        <p>내용</p>
-                        <textarea name="reviewContent">${review.reviewContent}</textarea>
-                        
-                        <div class="review_form_btn">
-                            <a href="${pageContext.request.contextPath}/review/list">
-                                <button class="btn1" id="cancelBtn" type="button">취소</button>
-                            </a>
-                            <button class="btn2" id="modifyBtn" type="submit">수정</button>
-                        </div>
-                    </form>
-                </div>
+  <div class="container">
+         <div class="py-10">
+         <div class="review_content border_con">
+            
+            <div class="diy_form_title">
+               공지사항
             </div>
-        </div>
-    </div>
-</section>
-        
-        
-        
-        
-    </div>
-    <script>
-        // Add your JavaScript code here
-    </script>
-</body>
+            
+            <div class="bord_search">
+               
+               <div class="search-area">   
+                  <div class="sel-search">
+                     <select class="sel-base" id="schKeyword">
+                        <option value="both">제목+내용</option>
+                        <option value="sub">제목</option>
+                        <option value="cont">내용</option>
+                     </select>
+                  </div>
+                  
+                  <div class="inp-search">
+                     <input  type="text" class="inp-base" id="schValue" placeholder="검색어를 입력하세요">
+                     <button class="btn-type-s search" id="btnSearch">검색</button>
+                  </div>
+               </div><!-- search-area -->
 
+            </div>
+            
+            
+            
+            
+            <div class="review_list border_list">
+
+                     <table>
+                        <colgroup>
+                           <col width="10%">
+                           <col width="65%">
+                           <col width="10%">
+                           <col width="15%">
+                        </colgroup>
+                        <tr>
+                           <td class="t1">번호</td>
+                           <td class="t1">제목</td>
+                           <td class="t1">작성자</td>
+                           <td class="t1">작성일</td>
+                           <td class="t1">조회수</td>
+                        </tr>
+
+                        
+                        <c:forEach var="notice" items="${noticeList }">
+                           <tr>
+                              <td class="t2">${notice.noticeIdx }</td>
+                              <td class="t2"><a href="${pageContext.request.contextPath}/notice/view/${notice.noticeIdx}" >${notice.noticeTitle}</a></td>
+
+                              <td class="t2">${notice.userinfoId }</td>
+                              <td class="t2">${notice.noticeRegDate }</td>
+                              <td class="t2">${notice.noticeViewcnt }</td>
+                           </tr>
+
+                        </c:forEach>
+
+                     </table>
+
+                     <div class="page_t">
+                        <%-- 페이지 번호 출력 --%>
+                        <c:choose>
+                           <c:when test="${pager.startPage > pager.blockSize }">
+                              <a
+                                 href="<c:url value="/notice/"/>?pageNum=${pager.prevPage}">
+                                 [이전]
+                              </a>
+                           </c:when>
+                           <c:otherwise>
+                               [이전]
+                           </c:otherwise>
+                        </c:choose>
+
+                        <c:forEach var="i" begin="${pager.startPage }"
+                           end="${pager.endPage }" step="1">
+                           <c:choose>
+                              <c:when test="${pager.pageNum != i  }">
+                                 <a href="<c:url value="/notice/"/>?pageNum=${i}"><span
+                                    class="p_num">${i }</span></a>
+                              </c:when>
+                              <c:otherwise>
+                                 <span class="p_num">${i }</span>
+                              </c:otherwise>
+                           </c:choose>
+                        </c:forEach>
+
+                        <c:choose>
+                           <c:when test="${pager.endPage != pager.totalPage }">
+                              <a
+                                 href="<c:url value="/notice/"/>?pageNum=${pager.nextPage}"><span
+                                 class="p_next">
+                                    [다음]
+                              </span></a>
+                           </c:when>
+                           <c:otherwise>
+                               [다음] 
+                           </c:otherwise>
+                        </c:choose>
+                     </div>
+
+
+
+
+                     <a href="${pageContext.request.contextPath}/notice/write"; class="btn_right">
+                  <button class="btn">글쓰기</button>
+               </a>
+            
+            
+            
+            
+            
+            
+            </div>
+            
+            
+            
+            
+            
+            
+
+
+         </div><!-- /notice_content -->
+      </div>   <!-- /py-10 -->
+    </div>   <!-- /container -->
+</section>
+
+
+ </div>
+    <script>
+       let enrollForm = $("#enrollForm");
+
+       // Enroll button
+       $("#enrollBtn").click(function(e) {
+           e.preventDefault();
+           console.log("Enroll button clicked");
+           enrollForm.submit();
+       });
+   </script>
+  
+
+
+
+  </body>
 </html>

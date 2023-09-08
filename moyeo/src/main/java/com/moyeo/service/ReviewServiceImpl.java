@@ -24,39 +24,38 @@ public class ReviewServiceImpl implements ReviewService {
     }
     
     
-	@Override
-	public void modifyReview(Review review) {
-		reviewDAO.updateReview(review);
-		
-	}
+    @Override
+    public void modifyReview(Review review) {
+        reviewDAO.updateReview(review);
+    }
 
-	@Override
-	public void removeReview(int reviewTitle) {
-	    Review existingReview = reviewDAO.selectReview(reviewTitle);
-	    if (existingReview == null) {
-	        throw new ReviewNotFoundException("리뷰를 찾을 수 없습니다");
-	    }
-	    reviewDAO.deleteReview(reviewTitle);
-	}
-	
+    @Override
+    public void removeReview(int reviewIdx) { 
+        /*Review existingReview = reviewDAO.selectReview(reviewTitle);
+        if (existingReview == null) {
+            throw new ReviewNotFoundException("리뷰를 찾을 수 없습니다");
+        }*/
+        reviewDAO.deleteReview(reviewIdx);
+    }
+    
 
-	@Override
-	public Review getReviewByTitle(String reviewTitle) {
-		return reviewDAO.selectReviewByTitle(reviewTitle);
-	}
+    @Override
+    public Review getReviewByTitle(String reviewTitle) {
+        return reviewDAO.selectReviewByTitle(reviewTitle);
+    }
 
-	@Override
-	public Review getReviewByContent(String reviewContent) {
-		return reviewDAO.selectReviewByContent(reviewContent);
-	}
+    @Override
+    public Review getReviewByContent(String reviewContent) {
+        return reviewDAO.selectReviewByContent(reviewContent);
+    }
 
-	@Override
-	public Review getReview(int reviewTitle) {
-		return reviewDAO.selectReview(reviewTitle);
-	}
-	
+    @Override
+    public Review getReview(int reviewIdx) { 
+        return reviewDAO.selectReview(reviewIdx); 
+    }
+    
 
-	@Override
+    @Override
     public Map<String, Object> getReviewList(int pageNum) {
         int totalBoard = reviewDAO.selectReviewCount();
 
@@ -75,11 +74,4 @@ public class ReviewServiceImpl implements ReviewService {
 
         return resultMap;
     }
-	
-	
-	
-
-
-    
-    
 }

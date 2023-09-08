@@ -1,5 +1,7 @@
 package com.moyeo.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 // import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -8,7 +10,9 @@ import lombok.Data;
 public class Diy {
         private int diyIdx;
         private String userinfoId;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private String diyStartdate;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private String diyEnddate;
         private int diyPeople;
         private String diyLoc;

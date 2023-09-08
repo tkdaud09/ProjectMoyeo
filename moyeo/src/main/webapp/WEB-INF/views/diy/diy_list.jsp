@@ -60,7 +60,7 @@
                     <div class="card card-transparent mb-7">
                         <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="position-relative">
                         <!-- <img class="card-img-top rounded lazyestload" src="<c:url value='/assets/img/upload/${diyList.diyThumbnail}' />" alt="diyThumbnail"> -->
-                        <img class="card-img-top rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" alt="image"> 
+                        <img class="card-img-top rounded lazyestload" width="250" height="300" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" alt="image"> 
                         </a>
 
                         <div class="card-body py-6">
@@ -94,7 +94,7 @@
 					
 					                <li class="meta-tag text-gray-color me-4 mb-1">
 					                  <i class="fa fa-envelope" aria-hidden="true"></i>
-					                  <span class="ms-1 text-capitalize">${diyList.loveIdx}</span>
+					                  <span class="ms-1 text-capitalize">0</span>
 					                </li>
                                     
                                     <!-- Other meta tags... -->
@@ -103,9 +103,13 @@
 
                             <p class="mb-0">${diyList.diyIntroduction}</p>
                         </div>
+						
 
                         <div class="card-footer px-5">
-                            <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+		               	  <a href="javascript:void(0)" class="btn btn-xs btn-outline-secondary">
+		                    <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveIdx}</i>
+		                  </a>
+                          <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
                         </div>
                         
                         
@@ -314,7 +318,7 @@
     </div>
 
       <!-- Javascript -->
-    
+   
     <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/menuzord/js/menuzord.js"></script>

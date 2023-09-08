@@ -42,7 +42,12 @@ public class DiyController {
 	}
 	// diy 자세히보기
 	@GetMapping("/diy_detail/{diyIdx}")
-	public String diyDetail(@PathVariable("diyIdx") int diyIdx, Model model) {
+	public String diyDetail(@PathVariable("diyIdx") int diyIdx, Model model, HttpSession session) {
+		
+		Userinfo loginId = (Userinfo)session.getAttribute("userinfo");
+		model.addAttribute("loginId",loginId);
+		Diy diyId = diyService.getUserinfoById(diyIdx);
+		model.addAttribute("diyId", diyId);
         
         //Diy diyDetail = diyService.selectDiy(diyIdx);
 		model.addAttribute("diyDetail", diyService.selectDiy(diyIdx));
@@ -59,8 +64,8 @@ public class DiyController {
 	// diy 리스트 페이지 요청
 	@GetMapping("/diy_list")
 	public String selectDiyList(Model model) throws DiyNotFoundException {
-		System.out.println(diyService.selectDiyList());
 		model.addAttribute("diyList", diyService.selectDiyList());
+		model.addAttribute("diyCount", diyService.selectDiyListCount());
 		return "diy/diy_list";
 	}
 	/*
@@ -206,31 +211,32 @@ public class DiyController {
 	}
 	
 	//=================================================================================
+	
+	
 	@GetMapping("/diy_modify/{diyIdx}")
-	public String diyUpdate(HttpSession session, Diy diy, Model model,@PathVariable("diyIdx") int diyIdx, String userinfoId) {
-		
-		Userinfo loginId = (Userinfo)session.getAttribute("userinfo");
-		model.addAttribute("loginId",loginId);
-		Diy diyId = diyService.getUserinfoById(userinfoId);
-		model.addAttribute("diy", diyId);
+	public String diyModify(Model model,@PathVariable("diyIdx") int diyIdx) {
 		
 		model.addAttribute("diyModify", diyService.selectDiy(diyIdx));
 		
+		return "/diy/diy_modify";
+	}
+	
+	@GetMapping("/diy_update")
+	public String diyUpdate(Diy diy) {
+		
 		diyService.updateDiy(diy);
-		return "redirect:/diy/diy_detail";
+		
+		return "redirect:/diy/diy_list";
 	}
 
-	@GetMapping("/diy_delete")
-	public String diyDelete(HttpSession session, int diyIdx, Model model, String userinfoId) {
-		
-		Userinfo loginId = (Userinfo)session.getAttribute("userinfo");
-		model.addAttribute("loginId",loginId);
-		Diy diyId = diyService.getUserinfoById(userinfoId);
-		model.addAttribute("userinfoId", diyId);
+	@GetMapping("/diy_delete/{diyIdx}")
+	public String diyDelete(@PathVariable("diyIdx") int diyIdx) {
 		
 		diyService.deleteDiy(diyIdx);
-		return "return:/diy/diy_list";
+		
+		return "redirect:/diy/diy_list";
 	}
+	
 	
 	//============================================
 

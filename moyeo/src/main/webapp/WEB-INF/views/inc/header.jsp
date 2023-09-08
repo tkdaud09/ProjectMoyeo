@@ -397,7 +397,7 @@
                     <ul class="dropdown drop-up">
                      
                         <li class="">
-                           <a href="${pageContext.request.contextPath}/notice">공지사항</a>
+                           <a href="${pageContext.request.contextPath}/notice/">공지사항</a>
                          </li>
                      
                       <!--  <li class=" ||
@@ -881,7 +881,7 @@
                     <ul class="dropdown drop-up">
                      
                         <li class="">
-                           <a href="${pageContext.request.contextPath}/notice">공지사항</a>
+                           <a href="${pageContext.request.contextPath}/notice/">공지사항</a>
                          </li>
                      
                       <!--  <li class=" ||
@@ -1365,7 +1365,7 @@
                     <ul class="dropdown drop-up">
                      
                         <li class="">
-                           <a href="${pageContext.request.contextPath}/notice">공지사항</a>
+                           <a href="${pageContext.request.contextPath}/notice/">공지사항</a>
                          </li>
                      
                       <!--  <li class=" ||

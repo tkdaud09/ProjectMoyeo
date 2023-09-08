@@ -22,7 +22,7 @@ REVIEW_REGDATE          DATE
 @Data
 public class Review {
 	private int reviewIdx;
-	private String idReview;
+	private String userinfoId;
 	private int ordersIdx;
 	private int reviewStar;
 	private String reviewTitle;

@@ -6,9 +6,9 @@ import java.util.Map;
 import com.moyeo.dto.Review;
 
 public interface ReviewDAO {
-	int insertReview(Review review);
+    int insertReview(Review review);
     int updateReview(Review review);
-    int deleteReview(int userinfoId);
+    int deleteReview(int reviewIdx); 
 
     Review selectReviewByTitle(String reviewTitle);
     Review selectReviewByContent(String reviewContent);
@@ -17,4 +17,3 @@ public interface ReviewDAO {
     int selectReviewCount();
     List<Review> selectReviewList(Map<String, Object> map);
 }
-

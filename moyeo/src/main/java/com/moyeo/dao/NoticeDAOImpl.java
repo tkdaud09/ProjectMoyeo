@@ -11,45 +11,90 @@ import com.moyeo.mapper.NoticeMapper;
 
 import lombok.RequiredArgsConstructor;
 
-/*
 @Repository
 @RequiredArgsConstructor
 public class NoticeDAOImpl implements NoticeDAO{
-	private final SqlSession sqlSession;
-		
-	@Override
-	public int insertNotice(Notice notice) {
-		return sqlSession.getMapper(NoticeMapper.class).insertNotice(notice);
-	}
+   private final SqlSession sqlSession;
 
-	@Override
-	public int updateNotice(Notice notice) {
-		return sqlSession.getMapper(NoticeMapper.class).updateNotice(notice);
-	}
+   //공지사항 등록
+   @Override
+   public int insertNotice(Notice notice) {
+      return sqlSession.getMapper(NoticeMapper.class).insertNotice(notice);
+   }
 
-	@Override
-	public int deleteNotice(int noticeIdx) {
-		return sqlSession.getMapper(NoticeMapper.class).deleteNotice(noticeIdx);
-	}
-	
-	@Override
+   /*공지사항 리스트 조회
+   @Override
+   public List<Notice> selectNoticeList() {
+      return sqlSession.getMapper(NoticeMapper.class).selectNoticeList();
+   }
+   */
+   
+   //공지사항 조회(상세 정보)
+   @Override
+   public Notice selectNoticeInfo(int noticeIdx) {
+      return sqlSession.getMapper(NoticeMapper.class).selectNoticeInfo(noticeIdx);
+   }
+   
+   //공지사항 수정
+   @Override
+   public int updateNotice(Notice notice) {
+      return sqlSession.getMapper(NoticeMapper.class).updateNotice(notice);
+   }
+   
+   //공지사항 삭제
+   @Override
+   public int deleteNotice(int noticeIdx) {
+      return sqlSession.getMapper(NoticeMapper.class).deleteNotice(noticeIdx);
+   }
+
+   //공지사항 조회수
+   @Override
+   public void viewcntNotice(int noticeIdx) {
+      sqlSession.getMapper(NoticeMapper.class).viewcntNotice(noticeIdx);
+   }
+
+   //전체 게시글 조회(페이징)
+   @Override
+   public int noticeCount() {
+      return sqlSession.getMapper(NoticeMapper.class).noticeCount();
+   }
+
+   //페이징된 게시글 리스트 조회
+   @Override
+   public List<Notice> selectNoticeList(Map<String, Object> map) {
+      return sqlSession.getMapper(NoticeMapper.class).selectNoticeList(map);
+   }
+   
+}
+   /*
+   @Override
+   public int updateNotice(Notice notice) {
+      return sqlSession.getMapper(NoticeMapper.class).updateNotice(notice);
+   }
+
+   @Override
+   public int deleteNotice(int noticeIdx) {
+      return sqlSession.getMapper(NoticeMapper.class).deleteNotice(noticeIdx);
+   }
+   
+   @Override
     public List<Notice> selectNoticeList(String param) {  
-		if (param == null) {	           
-		return sqlSession.getMapper(NoticeMapper.class).selectNoticeList(param);
-		        } else {
-		            return sqlSession.getMapper(NoticeMapper.class).selectNoticeList(param);
-		        }
-		    }
+      if (param == null) {              
+      return sqlSession.getMapper(NoticeMapper.class).selectNoticeList(param);
+              } else {
+                  return sqlSession.getMapper(NoticeMapper.class).selectNoticeList(param);
+              }
+          }
 
-	@Override
-	public int selectNoticeCount() {
-		return sqlSession.getMapper(NoticeMapper.class).selectNoticeCount();
-	}
+   @Override
+   public int selectNoticeCount() {
+      return sqlSession.getMapper(NoticeMapper.class).selectNoticeCount();
+   }
 
-	@Override
-	public List<Notice> selectNoticeList(Map<String, Object> map) {
-		return sqlSession.getMapper(NoticeMapper.class).selectNoticeList(map);
-	}
+   @Override
+   public List<Notice> selectNoticeList(Map<String, Object> map) {
+      return sqlSession.getMapper(NoticeMapper.class).selectNoticeList(map);
+   }
 }*/
 
-	
+   

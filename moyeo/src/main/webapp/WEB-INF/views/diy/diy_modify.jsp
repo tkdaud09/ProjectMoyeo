@@ -6,7 +6,6 @@
 <html lang="utf-8">
   
   <head>
-<jsp:include page="/WEB-INF/views/inc/head.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   </head>     
@@ -16,7 +15,6 @@
   <!-- ====================================
   ——— HEADER
   ===================================== -->
-<jsp:include page="/WEB-INF/views/inc/header.jsp"/>
   <div class="main-wrapper booking-step-1">
 
 
@@ -83,25 +81,25 @@
         <h3 class="text-capitalize mb-5">personal info</h3>
 
 
-        <form action="/moyeo/diy/diy_add" name="diy_add" id="diy_add" method="post" target="_blank">
+        <form action="diy_update" id="diy_update" method="get" enctype="multipart/form-data">
      	   <div class="row">
      	   
      	   
               <div class="col-lg-6">
-                <label for="exampleInputText">출발일</label>
+                <label for="diyStartdate">출발일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
                   <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <input type="text" class="form-control border-0 bg-smoke" name="dateRange" value="${diyStartdate }">
                 </div>
-               </div>
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyStartdate" name="dateRange" value="${diyModify.diyStartdate }">
+                </div>
                 
   	  
     
              <div class="col-lg-6">
-                <label for="exampleInputText">도착일</label>
+                <label for="diyEnddate">도착일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
                   <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <input type="text" class="form-control border-0 bg-smoke" name="dateRange" value="${diyEnddate }">
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyEnddate" name="dateRange" value="${diyModify.diyEnddate }">
                 </div>
               </div>
         
@@ -109,90 +107,96 @@
     
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">인원</label>
-                <input type="text" class="form-control border-0 bg-smoke" name="diyPeople" value="${diyEnddate }">
+                <label for="diyPeople">인원</label>
+                <input type="text" class="form-control border-0 bg-smoke" id="diyPeople" name="diyPeople" value="${diyModify.diyPeople }">
               </div>
             </div>
     
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">지역</label>
-                <input type="text" class="form-control border-0 bg-smoke" name="diyLoc" value="${diyLoc }">
+                <label for="diyLoc">지역</label>
+                <input type="text" class="form-control border-0 bg-smoke" id="diyLoc" name="diyLoc" value="${diyModify.diyLoc }">
               </div>
             </div>
     
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">비용</label>
-                <input type="text" class="form-control border-0 bg-smoke" name="diyPrice" value="${diyPrice }">
+                <label for="diyPrice">비용</label>
+                <input type="text" class="form-control border-0 bg-smoke" id="diyPrice" name="diyPrice" value="${diyModify.diyPrice }">
               </div>
             </div>
+            
+          <div class="form-group mb-5">
+    		<label for="diyThumbnailimage">썸네일 올리기</label>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyThumbnail" name="diyThumbnailFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyThumbnail}" alt="image">
+    		<div id="diyThumbnail"  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+		  </div>
     
+          
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">제목</label>
-                <input type="text" class="form-control border-0 bg-smoke" name="diyTitle" value="${diyTitle }">
+                <label for="diyTitle">제목</label>
+                <input type="text" class="form-control border-0 bg-smoke" id="diyTitle" name="diyTitle" value="${diyModify.diyTitle }">
               </div>
             </div>
            
+           
+           <!-- 다른것도 태그바꾸기 -->
            <div class="col-lg-6">
               <div class="form-group">
-                <label for="inputName">간단한 소개글</label>
-                <textarea class="form-control border-0 bg-smoke" rows="2" name="diyIntroduction">${diyIntroduction }</textarea>
+                <label for="diyIntrodution">간단한 소개글</label>
+                <p class="form-control border-0 bg-smoke" id="diyIntrodution">${diyModify.diyIntroduction }</p>
               </div>
             </div>
            
-    
+				<!-- day 1 사진 -->          
           <div class="form-group mb-5">
-    		<label for="photoUpload">썸네일 사진올리기</label>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="photoUpload">
+    		<label for="imgUpload">DAY 1 사진올리기</label>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent1Img" name="diyContent1ImgFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent1Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent1Img}" alt="Day 1 img">
+    		<div id="" style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
 		  </div>
+            
 		 	
           <div class="form-group mb-5" id="day1Block">
-            <label for="exampleFormControlTextarea1">DAY 1</label>
-            <textarea class="form-control border-0 bg-smoke" name="diyContent1" rows="7">${diyContent1 }</textarea>
+            <label for="diyContent1">DAY 1</label>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent1" rows="7">${diyModify.diyContent1 }</textarea>
           </div>
-          
+				
           <div class="form-group mb-5">
-    		<label for="photoUpload">DAY 1 사진올리기</label>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="photoUpload">
-		  </div>
-		  <button id="deleteDay1Block" onclick="deleteBlock()">Delete DAY 1 Block</button>
-            
-           <div class="form-group mb-5">
-            <label for="exampleFormControlTextarea1">DAY 2</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7"></textarea>
-          </div>
-          
-          <div class="form-group mb-5">
-    		<label for="photoUpload">DAY 2 사진올리기</label>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="photoUpload">
+    		<label for="imgUpload">DAY 2 사진올리기</label>
+    		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent2Img" name="diyContent2ImgFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent2Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent2Img}" alt="Day 2 img">
 		  </div>
             
            <div class="form-group mb-5">
-            <label for="exampleFormControlTextarea1">DAY 3</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7"></textarea>
+            <label for="diyContent2">DAY 2</label>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent2" rows="7">${diyModify.diyContent2 }</textarea>
           </div>
           
-          <div class="form-group mb-5">
-    		<label for="photoUpload">DAY 3 사진올리기</label>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="photoUpload">
+ 		  <div class="form-group mb-5">
+    		<label for="imgUpload">DAY 3 사진올리기</label>
+    		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent3Img" name="diyContent3ImgFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent3Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent3Img}" alt="Day 3 img">
 		  </div>
             
-			<div class="form-group mb-5">
-            <label for="exampleFormControlTextarea1">DAY 4</label>
-            <textarea class="form-control border-0 bg-smoke" rows="7"></textarea>
+          <div class="form-group mb-5">
+            <label for="diyContent3">DAY 3</label>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent3" rows="7">${diyModify.diyContent3 }</textarea>
           </div>
           
           <div class="form-group mb-5">
-    		<label for="photoUpload">DAY 4 사진올리기</label>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="photoUpload">
+    		<label for="imgUpload">DAY 4 사진올리기</label>
+    		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent4Img" name="diyContent4ImgFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
 		  </div>
+          
+		  <div class="form-group mb-5">
+            <label for="diyContent4">DAY 4</label>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent4" rows="7">${diyModify.diyContent4 }</textarea>
+          </div>
 		  
 		  
 		  <!--  추가 버튼 글 + 사진 스크립트 작성 -->
-			 <button id="addPhotoAndField" class="badge bg-secondary">추가</button>
-    
     
            <div class="text-center text-md-start text-lg-end">
             <button type="submit" class="btn btn-primary text-uppercase" id="enrollBtn">
@@ -346,15 +350,6 @@
     
 
     
-    <script>
-    let enrollForm = $("#diy_add");
-
-    /* 상품 등록 버튼 */
-    $("#enrollBtn").on("click", function(e){
-        e.preventDefault();
-        diy_modify.submit();
-    });
-	</script>
     
 	<script type="text/javascript">
 	

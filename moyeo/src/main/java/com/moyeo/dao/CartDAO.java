@@ -8,7 +8,7 @@ public interface CartDAO {
     void addCart(CartDTO cartDTO);
     List<CartDTO> cartList(String userinfoId);
     void updateCart(CartDTO cartDTO);
-    int sumMoney(String userinfoId);
+    int sumTotal(String userinfoId);
     void deleteCart(int cartIdx);
     List<Map<String, Object>> getAllCartItemsWithPackages(String userinfoId);
 }

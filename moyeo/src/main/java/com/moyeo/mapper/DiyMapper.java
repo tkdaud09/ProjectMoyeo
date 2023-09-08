@@ -12,14 +12,15 @@ public interface DiyMapper {
 	// DIY 작성 디테일 페이지
 	Diy selectDiy(int diyIdx);
 	
+	// 글에 저장된 아이디를 출력해서 로그인한 사용자와 비교해 수정 권한을 준다.
+	Diy getUserinfoById(int diyIdx);
+	
 	// 전체 글 검색
 	List<Diy> selectDiyList();
 	
 	// 제목으로 글 검
 	List<Diy> selectDiyList(String diyTitle);
 	
-	// 글에 저장된 아이디를 출력해서 로그인한 사용자와 비교해 수정 권한을 준다.
-	Diy getUserinfoById(String userinfoId);
 	
 	// *** 내용으로 검색도 추가하기 
 	

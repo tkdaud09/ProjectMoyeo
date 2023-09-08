@@ -42,7 +42,6 @@
   <div class="container">
     <div class="row">
       <div class="col-md-5 col-lg-4 order-2">
-        <form class="" action="index.html" method="GET">
           <div class="card border">
             <h2 class="card-header text-uppercase text-center bg-smoke border-bottom">
               옵션선택
@@ -96,42 +95,39 @@
                     </div>
                   </div>
                 </div> -->
+<form action="<c:url value='/cart/insert'/>" method="post">
+               <c:set var="packIdx" value="${pack.packIdx}" />
+<div class="form-group mb-5">
+    <div class="row align-items-center">
+        <label class="control-label col-xl-5 text-center text-xl-right">성인</label>
+        <div class="col-xl-5">
+            <div class="count-input mx-auto">
+                <a class="incr-btn adult" data-action="decrease" href="javascript:void(0)">–</a>
+                <input class="quantity adult" type="number" value="0" name="packAdultcount">
+                <a class="incr-btn adult" data-action="increase" href="javascript:void(0)">+</a>
+            </div>
+        </div>
+        <div class="col-xl-2">
+            <p class="text-center mt-3 mt-xl-0 mb-0">${pack.packAdultPrice}원</p>
+        </div>
+    </div>
+</div>
 
-                <div class="form-group mb-5">
-                  <div class="row align-items-center">
-                    <label class="control-label col-xl-5 text-center text-xl-right">성인</label>
-
-                    <div class="col-xl-5">
-                      <div class="count-input mx-auto">
-                        <a class="incr-btn adult" data-action="decrease" href="javascript:void(0)">–</a>
-                        <input class="quantity adult" type="number" value="0">
-                        <a class="incr-btn adult" data-action="increase" href="javascript:void(0)">+</a>
-                      </div>
-                    </div>
-
-                    <div class="col-xl-2">
-                      <p class="text-center mt-3 mt-xl-0 mb-0">${pack.packAdultPrice }원</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group mb-5">
-                  <div class="row align-items-center">
-                    <label class="control-label col-xl-5 text-center text-xl-right">소인</label>
-
-                    <div class="col-xl-5">
-                      <div class="count-input mx-auto">
-                        <a class="incr-btn child" data-action="decrease" href="javascript:void(0)">–</a>
-                        <input class="quantity child" type="number" value="0">
-                        <a class="incr-btn child" data-action="increase" href="javascript:void(0)">+</a>
-                      </div>
-                    </div>
-
-                    <div class="col-xl-2">
-                      <p class="text-center mt-3 mt-xl-0 mb-0">${pack.packChildPrice }원</p>
-                    </div>
-                  </div>
-                </div>
+<div class="form-group mb-5">
+    <div class="row align-items-center">
+        <label class="control-label col-xl-5 text-center text-xl-right">소인</label>
+        <div class="col-xl-5">
+            <div class="count-input mx-auto">
+                <a class="incr-btn child" data-action="decrease" href="javascript:void(0)">–</a>
+                <input class="quantity child" type="number" value="0" name="packChildcount">
+                <a class="incr-btn child" data-action="increase" href="javascript:void(0)">+</a>
+            </div>
+        </div>
+        <div class="col-xl-2">
+            <p class="text-center mt-3 mt-xl-0 mb-0">${pack.packChildPrice}원</p>
+        </div>
+    </div>
+</div>
               </div>
 
               <div class="d-flex justify-content-between border-bottom mb-5 pb-5">
@@ -142,15 +138,17 @@
               </div>
 
               <div class="text-center px-4">
-                <button type="button" onclick="#;"
+                <button type="button" onclick="location.href='booking-step-1.html';"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   예약하기 <span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
-             <button type="button" onclick="cart();"
-                  class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
-                  장바구니 <span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                </button>
-             <button type="button" onclick="#;"
+             <input type="hidden" name="packIdx" value="${packIdx}" />
+
+ <button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize" value="장바구니"onclick="showAlert()">
+ 장바구니<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+ </button>
+
+             <button type="button" onclick="location.href='booking-step-1.html';"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   하트수정<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
@@ -511,11 +509,17 @@
              totalCostSpan.textContent = totalCost +"원";
            });
          });
+     function showAlert() {
+       var successMessage = "${successMessage}";
+       var errorMessage = "${errorMessage}";
 
-       
-       function cart(){
-    	   location.href="${pageContext.request.contextPath}/cart/list";
+       if (successMessage) {
+           alert(successMessage);
+       } else if (errorMessage) {
+           alert(errorMessage);
        }
+    }
    </script>
+   
   </body>
 </html>

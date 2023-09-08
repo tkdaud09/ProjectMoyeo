@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -87,21 +86,21 @@
 					        <td class="t1">작성일</td>
 					    </tr>
 					    <c:forEach var="review" items="${reviewList}">
-					        <c:set var="today" value="<%= new java.util.Date() %>" />
-					        <c:set var="dateFormat" value="<%= new java.text.SimpleDateFormat(\"yyyy-MM-dd\") %>" />
-					        <c:set var="todayDate" value="${dateFormat.format(today)}" />
-					        <tr>
-					            <td class="t2">${review.reviewIdx}</td>
-					            <td class="t2">
-					                <a href="${pageContext.request.contextPath}/review/view/${review.reviewIdx}">
-					                    ${review.reviewTitle}
-					                </a>
-					            </td>
-					            <td class="t2">${userinfo.id}</td>
-					           <!--  <td class="t2 .write">${review.reviewRegdate}</td> -->
-					            <td class="t2">${todayDate}</td>
-					        </tr>
-					    </c:forEach>
+						    <c:set var="today" value="<%= new java.util.Date() %>" />
+						    <c:set var="dateFormat" value="<%= new java.text.SimpleDateFormat(\"yyyy-MM-dd\") %>" />
+						    <c:set var="todayDate" value="${dateFormat.format(today)}" />
+						    <tr>
+						        <td class="t2">${review.reviewIdx}</td>
+						        <td class="t2">
+						            <a href="${pageContext.request.contextPath}/review/view/${review.reviewIdx}">
+						                ${review.reviewTitle}
+						            </a>
+						        </td>
+						        <td class="t2">${review.userinfoId}</td> 
+						        <td class="t2">${todayDate}</td>
+						    </tr>
+						</c:forEach>
+
 					</table>
 					
 
@@ -145,7 +144,7 @@
 					<a href="${pageContext.request.contextPath}/review/write" class="btn_right">
 						<button class="btn">글쓰기</button>
 					</a>
-				
+				 
 				
 				
 				
@@ -171,30 +170,10 @@
 
  
     <script>
-	    let enrollForm = $("#enrollForm");
-	    
-	    // Cancel button
-	    $("#cancelBtn").click(function() {
-	        console.log("Cancel button clicked");
-	        location.href = "/moyeo/review/review_list";
-	    });
 	
-	    // Enroll button
-	    $("#enrollBtn").click(function(e) {
-	        e.preventDefault();
-	        console.log("Enroll button clicked");
-	        enrollForm.submit();
-   		 });
-	    
-
-	    
-	    
+	   /* // 현재 날짜 출력
 	    let today = new Date();  
-	    document.write(today.toLocaleDateString()); 
-	    
-	    
-	    
-	    
+	    document.write(today.toLocaleDateString()); */
 	</script>
   
 

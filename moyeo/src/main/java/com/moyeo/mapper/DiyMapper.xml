@@ -50,6 +50,13 @@
                 #{diyContent4Img},
                 #{diyContent4})
     </insert>
+    
+    <select id="getUserinfoById" resultType="Diy">
+    	SELECT
+    			userinfo_id
+    	FROM	diy
+    	WHERE	diy_idx=#{diyIdx}
+    </select>
 
 
 	<select id="selectDiy" resultType="Diy">
@@ -80,7 +87,7 @@
 	</select>
 	
 	
-	<select id="selectDiyList" resultType="com.moyeo.dto.Diy">
+	<select id="selectDiyList" resultType="Diy">
         SELECT 
         		diy_idx,
         		diy_thumbnail,
@@ -94,22 +101,24 @@
         FROM diy  
         ORDER BY diy_idx DESC
     </select>
+    
+   	<select id="selectDiyListCount" resultType="int">
+        SELECT count(*)
+        FROM diy  
+    </select>
        
        
-	<delete id="deleteDiy" parameterType="com.moyeo.dto.Diy">
+	<delete id="deleteDiy" parameterType="Diy">
         DELETE 
         FROM diy
-        WHERE userinfo_id=#{userinfoId};
+        WHERE diy_idx=#{diyIdx}
 	</delete>
 
 
-	<update id="updateDiy" parameterType="com.moyeo.dto.Diy">
+	<update id="updateDiy" parameterType="Diy">
         UPDATE diy
         
         <set>
-        	<if test="diyIdx != null and diyIdx != ''">
-        		 diy_idx=#{diyIdx},
-        	</if>
         	
         	<if test="diyStartdate != null and diyStartdate != ''">
         		 diy_startdate=#{diyStartDate},
@@ -147,32 +156,36 @@
         		 diy_introduction=#{diyIntroduction},
         	</if>
         	
-        	<if test="diyContent1img != null and diyContent1img != ''">
-        		 diy_content1img=#{diyContent1img},
+        	<if test="diyContent1Img != null and diyContent1Img != ''">
+        		 diy_thumbnail=#{diyThumbnail},
+        	</if>
+        	
+        	<if test="diyContent2Img != null and diyContent2Img != ''">
+        		 diy_content1img=#{diyContent1Img},
         	</if>
         	
         	<if test="diyContent1 != null and diyContent1 != ''">
         		 diy_content1=#{diyContent1},
         	</if>
         	
-        	<if test="diyContent2img != null and diyContent2img != ''">
-        		 diy_content2img=#{diyContent2img},
+        	<if test="diyContent2Img != null and diyContent2Img != ''">
+        		 diy_content2img=#{diyContent2Img},
         	</if>
         	
         	<if test="diyContent2 != null and diyContent2 != ''">
         		 diy_content2=#{diyContent2},
         	</if>
         	
-        	<if test="diyContent3img != null and diyContent3img != ''">
-        		 diy_content3img=#{diyContent3img},
+        	<if test="diyContent3Img != null and diyContent3Img != ''">
+        		 diy_content3img=#{diyContent3Img},
         	</if>
         	
         	<if test="diyContent3 != null and diyContent3 != ''">
         		 diy_content3=#{diyContent3},
         	</if>
         	
-        	<if test="diyContent4img != null and diyContent4img != ''">
-        		 diy_content4img=#{diyContent4img},
+        	<if test="diyContent4Img != null and diyContent4Img != ''">
+        		 diy_content4img=#{diyContent4Img},
         	</if>
         	
         	<if test="diyContent4 != null and diyContent4 != ''">
@@ -181,6 +194,6 @@
         	
         </set>
 
-        WHERE userinfo_id=#{userinfoId};
+        WHERE diy_idx=#{diyIdx}
 	</update>
 </mapper>

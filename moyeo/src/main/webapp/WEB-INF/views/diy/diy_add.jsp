@@ -4,13 +4,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="utf-8">
-  
-  <head>
+
+<head>
 <jsp:include page="/WEB-INF/views/inc/head.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  </head>    
+</head>    
    
+<style>
+input[type='date']::before {
+  content: attr(data-placeholder);
+  width: 100%;
+  color: gray;
+}
+
+input[type='date']:focus::before,
+input[type='date']:valid::before {
+  display: none;
+  
+}				
+</style>
+
 <body id="body" class="up-scroll">	
   <!-- ====================================
   ——— HEADER
@@ -18,7 +31,7 @@
 
 
 <!-- ====================================
-———	PAGE TITLE
+———	PAGE TITLEß
 ===================================== -->
 <section class="page-title">
   <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url( ${pageContext.request.contextPath}/assets/img/pages/page-title-bg7.jpg);">
@@ -81,22 +94,22 @@
       <div class="col-md-7 col-lg-8 order-1 order-md-0">
         <h3 class="text-capitalize mb-5">여행 정보!</h3>
 
-        <form action="diy_add" id="diy_add" method="post" enctype="multipart/form-data">
+        <form action="diy_add" id="scrollableContainer" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="userinfoId" value="${userinfo }">
         
      	   <div class="row">
-			
+     	   
               <div class="col-lg-6">
-                <label for="diyStartdatev">출발일</label>
+                <label for="diyStartdate">출발일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
-                  <input type="date" value="2000-09-22" class="form-control border-0 bg-smoke" name="diyStartdate" value="" placeholder="DD/MM/YYYY">
+                  <input type="date" class="form-control border-0 bg-smoke" id="diyStartdate" name="diyStartdate" data-placeholder="날짜 선택" required aria-required="true">
                 </div>
-                </div>
+              </div>
     
              <div class="col-lg-6">
                 <label for="diyEnddate">도착일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
-                  <input type="date" value="2000-09-22" class="form-control border-0 bg-smoke" name="diyEnddate" value="" placeholder="DD/MM/YYYY">
+                  <input type="date"  class="form-control border-0 bg-smoke" id="diyEnddate" name="diyEnddate"  data-placeholder="날짜 선택" required aria-required="true">
                 </div>
               </div>
         
@@ -105,7 +118,7 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyPeople">인원</label>
-                <input type="text" class="form-control border-0 bg-smoke" name="diyPeople" placeholder="ex) 3" >
+                <input type="text" class="form-control border-0 bg-smoke" id= "diyPeople"name="diyPeople" placeholder="ex) 3">
               </div>
             </div>
     
@@ -119,14 +132,14 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyPrice">비용</label>
-                <input type="text" class="form-control border-0 bg-smoke" name="diyPrice" placeholder="ex) 10">
+                <input type="text" class="form-control border-0 bg-smoke" id="diyPrice" name="diyPrice" placeholder="ex) 10">
               </div>
             </div>
     
           <div class="form-group mb-5">
     		<label for="diyThumbnailimage">썸네일 올리기</label>
     		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyThumbnail" name="diyThumbnailFile">
-    		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
+    		<div id="diyThumbnail"  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
 		  </div>
 		  
             <div class="col-lg-6">
@@ -182,29 +195,33 @@
     		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent4Img" name="diyContent4ImgFile">
 		  </div>
 		  
-			<div class="form-group mb-5">
+		  <div class="form-group mb-5">
             <label for="exampleFormControlTextarea1">DAY 4</label>
             <textarea class="form-control border-0 bg-smoke" rows="7" name="diyContent4" ></textarea>
           </div>
           
-           <div class="container mt-5">
-	        <div id="elementContainer" id="addButton" class="mt-3"></div>
+          <div id="elementContainer" class="mt-3">
+	    	 </div>
+		
+          <div class="container mt-5">
 	        <button type="button" id="addButton" class="btn btn-hover btn-outline-secondary text-uppercase">
 	            Add DAY
 	        </button>
+	        
+	        <button type="button" id="deleteButton" class="btn btn-hover btn-outline-secondary text-uppercase">
+	            Delete DAY
+	        </button>
 	      </div>
-
-    
+	      
+           
            <div class="text-center text-md-start text-lg-end">
             <button type="submit" id="enrollBtn" class="btn btn-primary text-uppercase" >
-              작성하기
-            </button>
+              작성하기</button>
            </div>
            
-         </div>
+		</div>
+	  </form>
            
-	  </form>	  
-	  
       </div>
     </div>
 </section>
@@ -219,150 +236,106 @@
     
     <!-- INQUIRY IN MODAL -->
     <script>
-    let diy_add = $("#diy_add");
+function validateForm() {
+    const startDateField = document.getElementById('diyPeople');
+    const startDateValue = startDateField.value.trim();
 
-   
-
-    /* 상품 등록 버튼 */
-    $("#enrollBtn").on("click", function(e){
-        e.preventDefault();
-        diy_add.submit();
-    });
-   </script>
-   
-   
-
-    <script >
-    const addButton = document.getElementById('addButton');
-    const elementContainer = document.getElementById('elementContainer');
-
-    // Counter for unique IDs
-    let counter = 5;
-
-    // Function to add new elements
-    function addNewDay() {
-    	 
-        const dayDiv = document.createElement('div');
-        dayDiv.classList.add('form-group', 'mb-5');
-
-        const dayLabel = document.createElement('label');
-        dayLabel.textContent = `DAY ${counter}`;
-
-        const textarea = document.createElement('textarea');
-        textarea.classList.add('form-control', 'border-0', 'bg-smoke');
-        textarea.rows = 7;
-
-        const uploadLabel = document.createElement('label');
-        uploadLabel.textContent = `Upload DAY ${counter} photo`;
-
-        const uploadInput = document.createElement('input');
-        uploadInput.type = 'file';
-        uploadInput.classList.add('btn', 'btn-xs', 'btn-outline-secondary', 'text-uppercase');
-
-        const deleteButton = document.createElement('button');
-        deleteButton.type = 'button';
-        deleteButton.classList.add('btn', 'btn-outline-secondary', 'text-uppercase');
-        deleteButton.textContent = 'Delete DAY';
-        deleteButton.addEventListener('click', () => {
-            elementContainer.removeChild(dayDiv);
-        });
-
-        dayDiv.appendChild(dayLabel);
-        dayDiv.appendChild(textarea);
-        dayDiv.appendChild(uploadLabel);
-        dayDiv.appendChild(uploadInput);
-        dayDiv.appendChild(deleteButton);
-
-        elementContainer.appendChild(dayDiv, dayLabel);
-
-    	 counter++;
-  
-        dayLabel.textContent = `DAY ${counter}`;
+    if (startDateValue === '') {
+        alert('Please select a start date for your DIY.');
+    } else {
+        document.getElementById('scrollableContainer').submit();
     }
+}
+</script>
 
-    // Add event listener to the "Add DAY" button
-    addButton.addEventListener('click', addNewDay);
-    </script>
+<script>
+document.querySelector('#scrollableContainer').addEventListener('submit', function(event) {
+    // Clear previous error messages
+    document.querySelector('#diyPeopleError').textContent = '';
+
+    // Perform validation for the 'diyStartdate' field (you should do this for other fields as well)
+    const diyStartdate = document.querySelector('#diyPeople').value;
+    if (diyStartdate === '') {
+        document.querySelector('#diyPeopleError').textContent = '출발일을 입력하세요.';
+        event.preventDefault(); // Prevent form submission
+    }
     
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('enrollForm');
-        form.addEventListener('submit', function(event) {
-            let hasEmptyFields = false;
-
-            const inputs = form.querySelectorAll('input[type="text"], textarea');
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    hasEmptyFields = true;
-                    input.classList.add('border-danger'); // Highlight the empty field
-                } else {
-                    input.classList.remove('border-danger');
-                }
-            });
-
-            if (hasEmptyFields) {
-                event.preventDefault();
-            }
-        });
-    });
-	</script>
-	
-	<script type="text/javascript">
-	
-	function submitCheck() {
-		let diy_add = $("#diy_add");
-
-		if(dateRange.value=="") {
-			alert("날짜를 입력해주세요.");
-			return;
-		}
-		
-		var noReg=/\d{2}/g;
-		if(!noReg.test(diyPeople.value)) {
-			alert("인원은 숫자로만 입력해주세요.");
-			diyPeople.focus();
-			return;
-		}
-		
-		if(diyLoc.value=="") {
-			alert("지역을 입력해 주세요.");
-			diyLoc.focus();
-			return;
-		}
-		
-		var noReg=/\d{9}/g;
-		if(diyPrice.value=="") {
-			alert("비용은 숫자로만 입력해주세요.");
-			diyPrice.focus();
-			return;
-		}
-		
-		if(diyTitle.value=="") {
-			alert("제목을 입력해 주세요.");
-			diyTitle.focus();
-			return;
-		}
-
-		if(diyIntroduction.value=="") {
-			alert("소개글을 입력해 주세요.");
-			diyIntroduction.focus();
-			return;
-		}
-		
-		if(diyContent1.value=="") {
-			alert("내용을 입력해 주세요.");
-			diyContent1.focus();
-			return;
-		}
-
-		 $("#enrollBtn").on("click", function(e){
-		        e.preventDefault();
-		        diy_add.submit();
-		    });
-	} 
-	</script>
-
+    // Perform similar checks for other fields
     
+    // Check if image uploads are valid (you may need to write custom logic for this)
+    if (!areImagesValid()) {
+        event.preventDefault(); // Prevent form submission
+    }
+});
+</script>
+ 
+<script >
+
+const addButton = document.getElementById('addButton');
+const deleteButton = document.getElementById('deleteButton');
+const elementContainer = document.getElementById('elementContainer');
+
+// Counter for unique IDs
+let counter = 5;
+let addDayCount = 0;
+
+
+// Function to add new elements
+function addDay() {
+ if (addDayCount >= 3) {
+     // Do nothing if the function has been called 10 times
+     return;
+   }
+	 
+    const dayDiv = document.createElement('div');
+    dayDiv.classList.add('form-group', 'mb-5');
+
+    const dayLabel = document.createElement('label');
+    dayLabel.textContent = "DAY "+counter+"   "+"("+(5+addDayCount)+"/7)";
+
+    const textarea = document.createElement('textarea');
+    textarea.classList.add('form-control', 'border-0', 'bg-smoke');
+    textarea.name = "diyContent"+counter;
+    textarea.rows = 7;
+
+    const uploadLabel = document.createElement('label');
+    uploadLabel.textContent = "DAY " +counter+ " 사진올리기     ("+(5+addDayCount)+"/7)";
+
+    const uploadInput = document.createElement('input');
+    uploadInput.type = 'file';
+    uploadInput.classList.add('btn', 'btn-xs', 'btn-outline-secondary', 'text-uppercase');
+    uploadInput.id = "diyContent"+counter+"Img";
+    uploadInput.name = "diyContent"+counter+"ImgFile";
+
+    dayDiv.appendChild(uploadLabel);
+    dayDiv.appendChild(uploadInput);
+    dayDiv.appendChild(dayLabel);
+    dayDiv.appendChild(textarea);
+    
+    elementContainer.appendChild(dayDiv, dayLabel);
+
+	counter++;
+	addDayCount++;
+	}
+
+addButton.addEventListener('click', addDay);
+
+function deleteDay() {
+ const elementContainer = document.getElementById('elementContainer');
+
+    if (elementContainer.children.length >= 1) {
+        elementContainer.removeChild(elementContainer.lastChild);
+        // Decrement the tag count
+        counter -= 1;
+        addDayCount = Math.max(0, addDayCount - 1);
+  	  }
+ 
+	}
+// Add event listener to the "Add DAY" button
+deleteButton.addEventListener('click', deleteDay);
+</script>	
+    
+   
     
     
 

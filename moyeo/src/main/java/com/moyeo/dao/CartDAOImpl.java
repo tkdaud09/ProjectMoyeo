@@ -30,14 +30,14 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public int sumMoney(String userinfoId) {
+    public int sumTotal(String userinfoId) {
         if (userinfoId == null) {
             // userId가 null인 경우에 대한 예외 처리 또는 반환값 설정
             return 0; // 예시로 반환값을 0으로 설정
         }
         
-        Integer sumMoney = sqlSession.selectOne("com.moyeo.mapper.CartMapper.sumMoney", userinfoId);
-        return sumMoney != null ? sumMoney : 0;
+        Integer sumTotal = sqlSession.selectOne("com.moyeo.mapper.CartMapper.sumTotal", userinfoId);
+        return sumTotal != null ? sumTotal : 0;
     }
 
     @Override

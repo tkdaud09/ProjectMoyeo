@@ -4,12 +4,12 @@
 	
     <!-- 1. 장바구니 추가 -->
     <insert id="addCart" parameterType="com.moyeo.dto.CartDTO">
-    INSERT INTO cart (cart_idx, userinfo_id, pack_idx)
-    VALUES (cart_seq.NEXTVAL, #{userinfoId}, #{packIdx})
+    INSERT INTO cart (cart_idx, userinfo_id, pack_idx, pack_adultcount, pack_childcount)
+    VALUES (cart_seq.NEXTVAL, #{userinfoId}, #{packIdx}, #{packAdultcount}, #{packChildcount} )
 </insert>
     
     <!-- 2. 장바구니 목록 -->
-<select id="cartList" parameterType="com.moyeo.dto.CartDTO">
+	<select id="cartList" parameterType="com.moyeo.dto.CartDTO">
     SELECT
         c.cart_idx as cartIdx,
         c.userinfo_id as userinfoId,
@@ -17,36 +17,35 @@
         p.pack_title as packTitle,  
         c.pack_adultcount as packAdultcount,
         c.pack_childcount as packChildcount,
-        (c.pack_adultcount * p.pack_adultprice + c.pack_childcount * p.pack_childprice) as money
+        (c.pack_adultcount * p.pack_adultprice + c.pack_childcount * p.pack_childprice) as packTotalprice
     FROM
         cart c, pack p, userinfo u
   WHERE u.id = c.userinfo_id
     AND p.pack_idx = c.pack_idx
    	AND c.userinfo_id = #{userinfoId}
 	ORDER BY c.cart_idx
-</select>
+	</select>
     <!-- 3. 장바구니 인원수 수정 -->
-<update id="updateCart" parameterType="com.moyeo.dto.CartDTO">
+	<update id="updateCart">
     UPDATE cart
     SET pack_adultcount = #{packAdultcount},
         pack_childcount = #{packChildcount}
     WHERE userinfo_id= #{userinfoId}
-    AND pack_idx = #{packIdx} 
-</update>
+    AND cart_idx = #{cartIdx} 
+	</update>
 
    <!-- 4. 장바구니 전체금액 합계 -->
-<select id="sumMoney" resultType="int">
-    SELECT NVL(SUM(c.pack_adultcount * p.pack_adultprice + c.pack_childcount * p.pack_childprice), 0) as money
+	<select id="sumTotal" resultType="int">
+    SELECT NVL(SUM(c.pack_adultcount * p.pack_adultprice + c.pack_childcount * p.pack_childprice), 0) as packTotalprice
     FROM cart c
     JOIN pack p ON c.pack_idx = p.pack_idx
     WHERE c.userinfo_id = #{userinfoId}
-</select>
+	</select>
 
-    <!-- 5. 장바구니 삭제 -->
-    <delete id="deleteCart" parameterType="int">
-        DELETE FROM cart
-        WHERE cart_idx = #{cartIdx}
-    </delete>
+    <!-- 5. 장바구니 삭제 -->	
+	<delete parameterType="int" id="deleteCart">
+	DELETE FROM cart WHERE cart_idx = #{cartIdx}
+	</delete>
     
     <!-- 장바구니 추가 페이지에서 모든 패키지 목록을 가져오는 쿼리문 -->
   <select id="getAllCartItemsWithPackages" parameterType="String" resultType="java.util.Map">
@@ -55,6 +54,6 @@
     WHERE p.pack_idx NOT IN (
         SELECT c.pack_idx FROM cart c WHERE c.userinfo_id = #{userinfoId}
     )
-</select>
+	</select>
 
-</mapper>
+	</mapper>

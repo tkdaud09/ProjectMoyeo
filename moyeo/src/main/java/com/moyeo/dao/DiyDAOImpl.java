@@ -61,9 +61,9 @@ public class DiyDAOImpl implements DiyDAO {
 	}
 
 	@Override
-	public Diy getUserinfoById(String userinfoId) {
+	public Diy getUserinfoById(int diyIdx) {
 		// TODO Auto-generated method stub
-		return sqlSession.getMapper(DiyMapper.class).getUserinfoById(userinfoId);
+		return sqlSession.getMapper(DiyMapper.class).getUserinfoById(diyIdx);
 	}
 
 

@@ -9,7 +9,7 @@ public interface CartMapper {
     void addCart(CartDTO cart);
     List<CartDTO> cartList(String userinfoId);
     void updateCart(CartDTO cart);
-    int sumMoney(String userinfoId);
+    int sumTotal(String userinfoId);
     void deleteCart(int cartIdx);
     List<Map<String, Object>> getAllCartItemsWithPackages(String userinfoId);
 }

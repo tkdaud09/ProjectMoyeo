@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.QaMapper">
+	
+	<!-- 회원 -->
+	
+	<!-- 1:1 문의 등록 -->
+	<insert id="insertQa">
+		<selectKey resultType="int" keyProperty="qaIdx"
+			order="BEFORE">
+			SELECT qa_seq.nextval
+			FROM DUAL
+		</selectKey>
+			INSERT INTO 
+			qa (
+				qa_idx
+				, userinfo_id
+				, qa_option
+				, qa_title
+				, qa_content
+				, qa_img1
+				, qa_img2
+				, qa_img3
+				, qa_regdate
+			)
+			
+			VALUES (
+				#{qaIdx}
+				, #{userinfoId}
+				, #{qaOption}
+				, #{qaTitle}
+				, #{qaContent}
+				, #{qaImg1}
+				, #{qaImg2}
+				, #{qaImg3}
+				, sysdate
+			)
+	</insert>
+	
+	<!-- 1:1 문의 수정 -->
+	<update id="updateQa">
+		UPDATE qa
+		<set>
+			<if test="qaOption != null and qaOption != ''">
+				qa_option = #{qaOption},
+			</if>
+			<if test="qaTitle != null and qaTitle != ''">
+				qa_title = #{qaTitle},
+			</if>
+			<if test="qaContent != null and qaContent != ''">
+				qa_content = #{qaContent},
+			</if>
+			<if test="qaImg1 != null and qaImg1 != ''">
+				qa_img1 = #{qaImg1},
+			</if>
+			<if test="qaImg2 != null and qaImg2 != ''">
+				qa_img2 = #{qaImg2},
+			</if>
+			<if test="qaImg3 != null and qaImg3 != ''">
+				qa_img3 = #{qaImg3},
+			</if>
+			qa_modifydate = sysdate
+		</set>
+		WHERE qa_idx=#{qaIdx}
+	</update>
+	
+	
+	<!-- 1:1 문의 삭제 -->
+	<delete id="deleteQa">
+		DELETE 
+		FROM qa 
+		WHERE qa_idx=#{qaIdx}
+	</delete>
+	
+
+	<!-- 검색  -->
+	
+	<!-- 1:1문의 상세 페이지 출력 -->
+	<select id="selectQaInfo" resultType="Qa">
+		SELECT
+			qa_idx
+			, userinfo_id
+			, qa_option
+			, qa_title
+			, qa_content
+			, qa_img1
+			, qa_img2
+			, qa_img3
+			, TO_CHAR(qa_regdate, 'yyyy-mm-dd') as qa_regdate
+			, qa_modifydate
+		FROM qa
+		WHERE qa_idx=#{qaIdx}
+	</select>
+	
+	
+	<!-- 여기서부터 바뀜 -->
+	
+	<!-- 전체 레코드 수 검색 -->
+	<select id="selectQaCount" resultType="int">
+		SELECT count(*)
+		FROM qa
+	</select>
+	
+	<!-- 1:1문의 전체 목록 검색 -->
+	<select id="selectQaList" resultType="Qa">
+		SELECT
+			qa_idx
+			, userinfo_id
+			, qa_option
+			, qa_title
+			, qa_content
+			, qa_img1
+			, qa_img2
+			, qa_img3
+			, TO_CHAR(qa_regdate, 'yyyy-mm-dd') as qa_regdate
+		FROM (
+			SELECT rownum rn,
+					qa_idx
+					, userinfo_id
+					, qa_option
+					, qa_title
+					, qa_content
+					, qa_img1
+					, qa_img2
+					, qa_img3
+					, qa_regdate
+			FROM (
+				SELECT 
+					qa_idx
+					, userinfo_id
+					, qa_option
+					, qa_title
+					, qa_content
+					, qa_img1
+					, qa_img2
+					, qa_img3
+					, qa_regdate
+				FROM qa
+				<if test="searchKeyword != null and searchType == 'title'">
+                WHERE qa_title LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            <if test="searchKeyword != null and searchType == 'content'">
+	                WHERE qa_content LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            <if test="searchKeyword != null and searchType == 'writer'">
+	                WHERE userinfo_id LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+				ORDER BY qa_idx DESC
+			) qa 
+		)	
+		WHERE rn BETWEEN #{startRow} AND #{endRow}
+	</select>
+</mapper>
