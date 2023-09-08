@@ -58,7 +58,7 @@ tr:hover {
 <hr>
 <h1><strong>전체 패키지 목록</strong></h1>
 <!-- 패키지 등록 버튼 -->
-<a href="/moyeo/admin/packageregist" class="add-button">패키지 등록</a>
+<a href="${pageContext.request.contextPath}/admin/packageForm" class="add-button">패키지 등록</a>
 <table>
     <tr>
         <th>패키지 번호</th>

@@ -53,7 +53,7 @@ public class Userinfo {
 	message = "생년월일을 형식에 맞게 입력해주세요.")
 	private String birth;
 	
-	@NotNull(message = "우편번호는 필수 입력 값입니다.")
+	@NotNull(message = "우편번호 찾기를 선택해주세요.")
 	private String address;
 	
 	@NotNull(message = "휴대폰번호를 입력해주세요.")

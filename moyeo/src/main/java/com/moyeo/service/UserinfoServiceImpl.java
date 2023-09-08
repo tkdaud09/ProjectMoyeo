@@ -2,6 +2,7 @@ package com.moyeo.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.moyeo.dao.UserinfoDAO;
@@ -14,13 +15,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserinfoServiceImpl implements UserinfoService {
    private final UserinfoDAO userinfoDAO;
+   private final BCryptPasswordEncoder pwEncoder;
 
    /* 회원가입 */
 
    // 회원가입
    @Override
    public void registerUser(Userinfo userinfo) {
-      userinfoDAO.insertUserinfo(userinfo);
+	   String rawPw = userinfo.getPw(); // 사용자가 입력한 원래의 비밀번호
+	   String encodePw = pwEncoder.encode(rawPw); // 비밀번호 인코딩
+	   userinfo.setPw(encodePw); // 인코딩된 비밀번호를 설정
+
+	   userinfoDAO.insertUserinfo(userinfo);
    }
 
    // 아이디 중복 검사

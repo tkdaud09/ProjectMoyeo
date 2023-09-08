@@ -51,14 +51,13 @@ public class PackageController {
 
 		return "package/mo_package_animal";
 	}
-
+	
+	/* 관리자 */
 	// 패키지 등록 페이지 이동
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
 	public String addPackageGET() {
 		return "package/mo_package_form";
 	}
-
-	/* 관리자 */
 
 	// 패키지 등록
 	@RequestMapping(value = "/addPackage", method = RequestMethod.POST)
