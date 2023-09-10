@@ -39,7 +39,7 @@ public class Userinfo {
    
    @NotNull(message = "이름을 입력해주세요.")
    @Pattern(regexp = "^[가-힣]{2,4}$",
-   message = "2~4 글자의 한글만 가능합니다.")
+   message = "2~4 글자의 한글만 가능합니다.") 
    private String name;
     
    @NotNull(message = "성별을 선택해주세요.")
