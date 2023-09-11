@@ -1,8 +1,7 @@
 package com.moyeo.dao;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.moyeo.dto.Userinfo;
 
@@ -10,7 +9,7 @@ public interface UserinfoDAO {
    //회원가입
    int insertUserinfo(Userinfo userinfo);//회원정보삽입(회원가입)
    int idCheck(String id);//아이디 중복검사
-   int emailCheck(String email);//아이디 중복검사
+   int emailCheck(String email);//이메일 중복검사
 
    //로그인
    Userinfo userinfoLogin(Userinfo userinfo);//로그인
@@ -28,7 +27,8 @@ public interface UserinfoDAO {
    int updatePw(Userinfo userinfo); //비밀번호 변경
    
    //관리자
+   int selectUserinfoCount();
    Userinfo selectUserinfo(String id);//조건에 따른 유저 정보 검색
-   List<Userinfo> selectUserinfoList();//전체 유저 정보 검색
+   List<Userinfo> selectUserinfoList(Map<String, Object> map);//전체 유저 정보 검색
    Userinfo selectUserinfobyRegdate(String regdate);//가입일에 따른 유저 정보 검색
 }

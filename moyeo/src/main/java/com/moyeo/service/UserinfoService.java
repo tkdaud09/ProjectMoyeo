@@ -1,6 +1,6 @@
 package com.moyeo.service;
 
-import java.util.List;
+import java.util.Map;
 
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.ExistsUserinfoException;
@@ -31,8 +31,8 @@ public interface UserinfoService {
    void updatePasswordByEmail(String email, String encryptedPassword);//이메일로 아이디 찾기
    
    /*관리자*/
-   Userinfo getUserinfo(String id);//아이디로 전달값을 제공받아 회원정보 받음
-   List<Userinfo> getUserinfoList();//회원목록 출력
+   Userinfo getUserinfo(String id) throws UserinfoNotFoundException;//아이디로 전달값을 제공받아 회원정보 받음
+   Map<String, Object> getUserinfoList(int pageNum, int pageSize, String selectKeyword);//회원목록 출력
    Userinfo getUserinfoByRegdate(String regdate);//regdate로 유저정보 가져오기
 
 }

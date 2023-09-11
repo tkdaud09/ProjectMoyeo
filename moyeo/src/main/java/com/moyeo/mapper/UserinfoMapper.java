@@ -1,6 +1,7 @@
 package com.moyeo.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.moyeo.dto.Userinfo;
 
@@ -26,7 +27,8 @@ public interface UserinfoMapper {
    int updatePw(Userinfo userinfo); //비밀번호 변경
    
    /*관리자*/
+   int selectUserinfoCount();
    Userinfo selectUserinfo(String id);//조건에 따른 유저 정보 검색
-   List<Userinfo> selectUserinfoList();//전체 유저 정보 검색
+   List<Userinfo> selectUserinfoList(Map<String, Object> map);//전체 유저 정보 검색
    Userinfo selectUserinfobyRegdate(String regdate);//가입일에 따른 유저 정보 검색
 }

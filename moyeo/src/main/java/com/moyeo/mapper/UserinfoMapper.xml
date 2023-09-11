@@ -190,6 +190,12 @@
          </if>
       </sql>
       
+	<delete id="deleteUserinfo">
+		DELETE
+		FROM Userinfo
+		WHERE ID = #{id}
+	</delete>
+      
       <select id="selectUserinfo" resultType="Userinfo">
       SELECT 
          id
@@ -208,6 +214,9 @@
        <include refid="search" />
    </select>
    
+	<select id="selectUserinfoCount">
+		SELECT COUNT(*) FROM Userinfo
+	</select>
    
    <!-- 가입일에 따른 유저 정보 검색 -->
    <!--  
@@ -222,7 +231,7 @@
 
    
    <!-- 전체 유저 정보 검색 -->
-   <select id="selectUserinfoList" resultType="Userinfo">
+   <select id="selectUserinfoOrderById" resultType="Userinfo">
       SELECT 
          id
          , pw
@@ -238,6 +247,46 @@
       FROM userinfo 
       ORDER BY id
    </select>
+   
+   <select id="selectUserinfoList" resultType="Userinfo">
+		SELECT * FROM (
+		SELECT ROWNUM RN, BOARD.* FROM (
+			SELECT 
+				id
+				, pw
+				, name
+				, gender 
+				, email
+				, birth
+				, address
+				, phone
+				, regdate
+				, logdate
+				, status 
+				FROM userinfo 
+       		 WHERE
+        <choose>
+            <when test="selectKeyword != null and selectKeyword != ''">
+                (id LIKE '%' || #{selectKeyword} || '%' OR
+                 pw LIKE '%' || #{selectKeyword} || '%' OR
+                 name LIKE '%' || #{selectKeyword} || '%' OR
+                 gender LIKE '%' || #{selectKeyword} || '%' OR
+                 email LIKE '%' || #{selectKeyword} || '%' OR
+                 birth LIKE '%' || #{selectKeyword} || '%' OR
+                 address LIKE '%' || #{selectKeyword} || '%' OR
+                 phone LIKE '%' || #{selectKeyword} || '%' OR
+                 regdate LIKE '%' || #{selectKeyword} || '%' OR
+                 logdate LIKE '%' || #{selectKeyword} || '%' OR
+                 status LIKE '%' || #{selectKeyword} || '%')
+            </when>
+            <otherwise>
+                1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+            </otherwise>
+        </choose>
+        		ORDER BY id DESC
+    		) BOARD
+		) WHERE RN BETWEEN #{startRow} and #{endRow}
+	</select>
    
    
    

@@ -1,6 +1,7 @@
 package com.moyeo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -81,33 +82,38 @@ public class UserinfoDAOImpl implements UserinfoDAO {
    // 아이디로 유저 검색
    @Override
    public Userinfo selectUserinfoById(String id) {
-      return sqlSession.getMapper(UserinfoMapper.class).selectUserinfoById(id);
+	   return sqlSession.getMapper(UserinfoMapper.class).selectUserinfoById(id);
    }
 
    // 비밀번호 변경
    @Override
    public int updatePw(Userinfo userinfo) {
-      return sqlSession.getMapper(UserinfoMapper.class).updatePw(userinfo);
+	   return sqlSession.getMapper(UserinfoMapper.class).updatePw(userinfo);
    }
 
    /* 관리자 */
-   
+
+   @Override
+   public int selectUserinfoCount() {
+	   return sqlSession.getMapper(UserinfoMapper.class).selectUserinfoCount();
+   }
+
    // 아이디로 유저 검색
    @Override
    public Userinfo selectUserinfo(String id) {
-      return sqlSession.getMapper(UserinfoMapper.class).selectUserinfoById(id);
+	   return sqlSession.getMapper(UserinfoMapper.class).selectUserinfoById(id);
    }
-   
+
    // 전체 유저 검색
    @Override
-   public List<Userinfo> selectUserinfoList() {
-      return sqlSession.getMapper(UserinfoMapper.class).selectUserinfoList();
+   public List<Userinfo> selectUserinfoList(Map<String, Object> map) {
+	   return sqlSession.getMapper(UserinfoMapper.class).selectUserinfoList(map);
    }
-   
+
    // 마지막 로그인 시간 표시
    @Override
    public Userinfo selectUserinfobyRegdate(String regdate) {
-      return sqlSession.getMapper(UserinfoMapper.class).selectUserinfobyRegdate(regdate);
+	   return sqlSession.getMapper(UserinfoMapper.class).selectUserinfobyRegdate(regdate);
    }
 
 }
