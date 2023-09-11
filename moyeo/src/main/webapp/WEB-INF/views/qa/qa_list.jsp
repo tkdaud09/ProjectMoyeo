@@ -97,15 +97,17 @@
 					<table>
 					    <colgroup>
 					        <col width="10%">
-					        <col width="65%">
+					        <col width="60%">
 					        <col width="10%">
-					        <col width="15%">
+					        <col width="10%">
+					        <col width="10%">
 					    </colgroup>
 					    <tr>
 					        <td class="t1">번호</td>
 					        <td class="t1">제목</td>
 					        <td class="t1">작성자</td>
 					        <td class="t1">작성일</td>
+					        <td class="t1">답변상태</td>
 					    </tr>
 					    <c:forEach var="qa" items="${qaList}">
 					        <tr>
@@ -117,11 +119,20 @@
 					            </td>
 					            <td class="t2">${qa.userinfoId}</td>
 					            <td class="t2">${qa.qaRegdate}</td>
+					            <td class="t2">
+								    <c:choose>
+								        <c:when test="${qa.qaReplyStatus == 1}">
+								        <span style="color: blue;">답변완료</span>
+								        </c:when>
+								        <c:otherwise>
+								            답변대기
+								        </c:otherwise>
+								    </c:choose>	
+								</td>
 					        </tr>
 					    </c:forEach>
 					</table>
 					
-
 
 
 				<div class="page_t">	
@@ -162,7 +173,6 @@
 						<button class="btn">글쓰기</button>
 					</a>
 				
-	
 				</div>
 				
 
@@ -174,7 +184,6 @@
 
 
  </div>
-
 
  
     <script>
@@ -206,28 +215,22 @@
     
 	    let enrollForm = $("#enrollForm");
 	    
-	    // Cancel button
+	    // 취소 버튼
 	    $("#cancelBtn").click(function() {
 	        console.log("Cancel button clicked");
 	        location.href = "/moyeo/qa/review_list";
 	    });
 	
-	    // Enroll button
+	    // 등록 버튼
 	    $("#enrollBtn").click(function(e) {
 	        e.preventDefault();
 	        console.log("Enroll button clicked");
 	        enrollForm.submit();
    		 });
 	    
-
-	    //let today = new Date();  
-	    //document.write(today.toLocaleDateString()); 
-	    
    
 	</script>
   
-
-
 
   </body>
 </html>

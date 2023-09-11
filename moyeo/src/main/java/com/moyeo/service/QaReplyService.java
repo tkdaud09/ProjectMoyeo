@@ -9,5 +9,8 @@ public interface QaReplyService {
 	void modifyQaReply(QaReply qaReply);
 	void removeQaReply(QaReply qaReply);
 	
-	List<QaReply> getQaReplyList(int qaIdx);
+	List<QaReply> getQaReplyList(int qaIdx);//전체 댓글 조회
+	QaReply getQaReply(QaReply qaReply);//단일 댓글 조회
+	
+	int getQaReplyCount(int qaIdx);//댓글 갯수 조회
 }

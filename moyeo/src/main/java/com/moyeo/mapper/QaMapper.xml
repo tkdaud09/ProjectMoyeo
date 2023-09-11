@@ -113,6 +113,7 @@
 			, qa_img2
 			, qa_img3
 			, TO_CHAR(qa_regdate, 'yyyy-mm-dd') as qa_regdate
+			, qa_reply_status
 		FROM (
 			SELECT rownum rn,
 					qa_idx
@@ -124,6 +125,7 @@
 					, qa_img2
 					, qa_img3
 					, qa_regdate
+					, qa_reply_status
 			FROM (
 				SELECT 
 					qa_idx
@@ -135,6 +137,7 @@
 					, qa_img2
 					, qa_img3
 					, qa_regdate
+					, qa_reply_status
 				FROM qa
 				<if test="searchKeyword != null and searchType == 'title'">
                 WHERE qa_title LIKE '%' || #{searchKeyword} || '%'
@@ -150,4 +153,17 @@
 		)	
 		WHERE rn BETWEEN #{startRow} AND #{endRow}
 	</select>
+	
+	<!-- 답변 상태 관련 -->
+	<update id="updateQaReplyStatusToOne" parameterType="int">
+	    UPDATE qa
+	    SET qa_reply_status = 1
+	    WHERE qa_idx = #{qaIdx}
+	</update>
+	
+	<update id="updateQaReplyStatusToZero" parameterType="int">
+	    UPDATE qa
+	    SET qa_reply_status = 0
+	    WHERE qa_idx = #{qaIdx}
+	</update>
 </mapper>

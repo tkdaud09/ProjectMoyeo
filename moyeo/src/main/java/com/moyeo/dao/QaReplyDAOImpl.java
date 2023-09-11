@@ -36,9 +36,13 @@ public class QaReplyDAOImpl implements QaReplyDAO {
 		return sqlSession.getMapper(QaReplyMapper.class).selectQaReplyList(qaIdx);
 	}
 
-	
+	@Override
+	public QaReply selectQaReply(QaReply qaReply) {
+		return sqlSession.getMapper(QaReplyMapper.class).selectQaReply(qaReply);
+	}
 
-	
-	
-
+	@Override
+	public int selecQaReplyCount(int qaIdx) {
+		return sqlSession.getMapper(QaReplyMapper.class).selecQaReplyCount(qaIdx);
+	}
 }

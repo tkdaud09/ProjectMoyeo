@@ -14,7 +14,8 @@ QA_IMG1                 VARCHAR2(500)
 QA_IMG2                 VARCHAR2(500)  
 QA_IMG3                 VARCHAR2(500)  
 QA_REGDATE              DATE           
-QA_MODIFYDATE           DATE                                      
+QA_MODIFYDATE           DATE   
+QA_REPLY_STATUS 		NUMBER                                   
 * */
 
 @Data
@@ -29,4 +30,5 @@ public class Qa {
 	private String qaImg3;
 	private String qaRegdate;//질문 날짜
 	private String qaModifyDate;//수정 날짜
+	private int qaReplyStatus;//답변 상태
 }

@@ -65,17 +65,14 @@
 					<c:forEach items="${reply}" var="reply">
 						<li>
 							<div>
-							
 								<p>${reply.userinfoId} / ${reply.qaReplyRegdate}</p>
-								<p>${reply.qaReplyContent }</p>
-								
-								<p>
-									<a href="">수정</a> / <a href="">삭제</a>
-								</p>
-											
-								<hr />
-							</div>
-							
+					            <p id="qaReplyContent_${reply.qaReplyIdx}">${reply.qaReplyContent}</p>
+					            <p>
+					                <a href="${pageContext.request.contextPath}/reply/modify?qaIdx=${reply.qaIdx}&qaReplyIdx=${reply.qaReplyIdx}">수정</a> /
+					                <a href="javascript:;" class="deleteLink" data-qa-idx="${reply.qaIdx}" id="${reply.qaReplyIdx}">삭제</a>
+					            </p>
+					            <hr />
+						 	</div>
 						</li>	
 					</c:forEach>
 					
@@ -108,13 +105,12 @@
 
 	<script>
 	
-	// 댓글 추가 (AJAX)
-	
-	
+	/* 댓글 추가 */
 	$("#addReplyForm").submit(function(event) {
 	    event.preventDefault();
 	    
 	    var formData = $(this).serialize();
+	   
 	    
 	    $.ajax({
 	        type: "POST",
@@ -129,13 +125,47 @@
 	            $("#qaReplyContent").val("");
 	            
 	            // 댓글 등록 폼 숨기기
-	            $("#addReplyForm").hide();
+	           // $("#addReplyForm").hide();
 	        }
 	    });
 	});
 	
+
+	
+	</script>
 	
 	
+	<script>
+		/*삭제*/
+	
+		$(document).on("click", ".deleteLink", function(event) {
+		    event.preventDefault();
+
+		    var qaReplyIdx = $(this).attr("id");
+		    var qaIdx = $(this).data("qa-idx");
+	
+		    // 댓글 삭제 요청을 보내는 JSON 데이터 생성
+		    var requestData = {
+		        qaReplyIdx: qaReplyIdx,
+		        qaIdx: qaIdx 
+		    };
+	
+		    // AJAX를 사용하여 댓글 삭제 요청 보내기
+		    $.ajax({
+		        type: "POST",
+		        url: "${pageContext.request.contextPath}/reply/delete",
+		        contentType: "application/json",
+		        data: JSON.stringify(requestData),
+		        success: function(response) {
+		            // 성공적으로 삭제되면 해당 댓글을 화면에서 제거
+		            $("#qaReplyContent_" + qaReplyIdx).parent().remove();
+		        },
+		        error: function(xhr, status, error) {
+		            // 삭제에 실패한 경우 에러 처리
+		            console.error("댓글 삭제 실패: " + error);
+		        }
+		    });
+		});
 	</script>
 
 </body>

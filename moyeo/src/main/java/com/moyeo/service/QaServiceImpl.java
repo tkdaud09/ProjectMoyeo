@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.moyeo.dao.QaDAO;
+import com.moyeo.dao.QaReplyDAO;
 import com.moyeo.dto.Qa;
 import com.moyeo.util.Pager;
 
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class QaServiceImpl implements QaService {
 	
 	private final QaDAO qaDAO;
+	
 	
 	/* 회원 */
 	
@@ -71,7 +74,19 @@ public class QaServiceImpl implements QaService {
 	}
 
 	
-	
+	/*답변관련*/
+	@Override
+	public void modifyReplyStatusToOne(int qaIdx) {
+		qaDAO.updateQaReplyStatusToOne(qaIdx);
+		
+	}
+
+	@Override
+	public void modifyReplyStatusToZero(int qaIdx) {
+		qaDAO.updateQaReplyStatusToZero(qaIdx);
+		
+	}
+
 
 	
 	//1:1 문의 전체 리스트 검색

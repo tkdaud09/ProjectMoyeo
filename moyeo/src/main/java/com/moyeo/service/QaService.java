@@ -18,4 +18,8 @@ public interface QaService {
 	
 	/*관리자*/
 	//void addQaAnswer(Qa qa);//1:1 문의 답변 등록
+	
+	/*답변관련*/
+	void modifyReplyStatusToOne(int qaIdx);
+	void modifyReplyStatusToZero(int qaIdx);
 }

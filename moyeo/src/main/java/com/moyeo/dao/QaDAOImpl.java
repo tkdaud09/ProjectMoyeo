@@ -61,6 +61,24 @@ public class QaDAOImpl implements QaDAO {
 		return sqlSession.getMapper(QaMapper.class).selectQaList(map);
 	}
 	
+	
+	/*답변 관련*/
+	@Override
+	public int updateQaReplyStatusToOne(int qaIdx) {
+		return sqlSession.getMapper(QaMapper.class).updateQaReplyStatusToOne(qaIdx);
+	}
+	
+	@Override
+	public int updateQaReplyStatusToZero(int qaIdx) {
+		return sqlSession.getMapper(QaMapper.class).updateQaReplyStatusToZero(qaIdx);
+	}
+	
+	
+	
+	
+	
+	
+	
 	//전체 리스트 검색
 	/*
 	@Override

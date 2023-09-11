@@ -21,4 +21,8 @@ public interface QaMapper {
 	
  	/* 관리자 */
 	//int insertQaAnswer(Qa Qa);//1:1 문의 답변 등록 
+	
+	/*답변관련*/
+	int updateQaReplyStatusToOne(int qaIdx);
+	int updateQaReplyStatusToZero(int qaIdx);
 }

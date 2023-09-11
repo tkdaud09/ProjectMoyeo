@@ -69,7 +69,8 @@ public class QaController {
 							@RequestParam(required = false) String searchKeyword,
 		                    @RequestParam(required = false) String searchType,
 							Model model ) {
-		 Map<String, Object> resultMap = qaService.getQaList(pageNum, pageSize, searchKeyword, searchType);
+		Map<String, Object> resultMap = qaService.getQaList(pageNum, pageSize, searchKeyword, searchType);
+		
 		model.addAttribute("qaList", resultMap.get("qaList"));
 		model.addAttribute("pager", resultMap.get("pager"));
 		return "qa/qa_list";
