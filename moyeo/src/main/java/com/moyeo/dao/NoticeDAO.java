@@ -26,15 +26,9 @@ public interface NoticeDAO {
    void viewcntNotice(int noticeIdx);
    
    //전체 게시글 조회(페이징)
-   int noticeCount();
+   int selectNoticeCount(String keyword, String type);
    
    //페이징된 게시글 리스트 조회
    List<Notice> selectNoticeList(Map<String, Object>map);
-   
-   /*
-    int updateNotice(Notice notice);
-    int deleteNotice(int noticeIdx);
-    List<Notice> selectNotice(String param);
-    int selectNoticeCount();
-    List<Notice> selectNoticeList(Map<String,Object>map);*/
+
 }

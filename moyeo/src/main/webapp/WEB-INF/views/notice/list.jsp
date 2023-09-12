@@ -2,10 +2,12 @@
    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
   
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>     
 
 <body id="body" class="up-scroll">
@@ -50,16 +52,16 @@
                
                <div class="search-area">   
                   <div class="sel-search">
-                     <select class="sel-base" id="schKeyword">
-                        <option value="both">제목+내용</option>
-                        <option value="sub">제목</option>
-                        <option value="cont">내용</option>
+                     <select class="sel-base" id="schKeyword" name="type">
+                        <!-- <option value="TC">제목+내용</option> -->
+                        <option value="T">제목</option>
+                        <option value="C">내용</option>
                      </select>
                   </div>
                   
                   <div class="inp-search">
                      <input  type="text" class="inp-base" id="schValue" placeholder="검색어를 입력하세요">
-                     <button class="btn-type-s search" id="btnSearch">검색</button>
+                     <button class="btn-type-s search" id="btnSearch" name="keyword">검색</button>
                   </div>
                </div><!-- search-area -->
 
@@ -144,7 +146,7 @@
 
 
 
-                     <a href="${pageContext.request.contextPath}/notice/write"; class="btn_right">
+                     <a href="${pageContext.request.contextPath}/notice/write" class="btn_right">
                   <button class="btn">글쓰기</button>
                </a>
             
@@ -161,7 +163,8 @@
 
 
  </div>
-    <script>
+   <script>
+   /*
        let enrollForm = $("#enrollForm");
 
        // Enroll button
@@ -170,10 +173,25 @@
            console.log("Enroll button clicked");
            enrollForm.submit();
        });
+    */
+   
+      /*검색기능*/
+      //var contextPath = "${pageContext.request.contextPath}";
+      var currentPageNum = ${pager.pageNum};
+      
+      document.getElementById("btnSearch").addEventListener("click", function () {
+            var searchKeyword = document.getElementById("schValue").value; // 검색어 추출
+            var searchType = document.getElementById("schKeyword").value; // 검색 유형 추출
+		
+		    alert("currentPageNum = "+currentPageNum);
+            // 검색 결과 페이지로 이동 (서버로 검색어와 유형 전달)
+            window.location.href = "${pageContext.request.contextPath}/notice/?pageNum=" + currentPageNum  + "&keyword=" + searchKeyword + "&type=" + searchType;
+        });
+
    </script>
-  
 
 
 
-  </body>
+
+</body>
 </html>

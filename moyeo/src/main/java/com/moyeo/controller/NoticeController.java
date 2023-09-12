@@ -40,16 +40,21 @@ public class NoticeController {
     private final NoticeService noticeService; //공지사항 관련 service
 
    //공지사항 리스트 페이지로 이동
-   @RequestMapping(value="/", method = RequestMethod.GET)
-   public String noticeList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
-      Map<String, Object> map=noticeService.selectNoticeList(pageNum);
+  @RequestMapping(value="/", method = RequestMethod.GET)
+   public String noticeList(@RequestParam(defaultValue = "1") int pageNum,
+		   					@RequestParam(required = false) String keyword, 
+		   					@RequestParam(required = false) String type, 
+		   							Model model) {
+	  System.out.println("pageNum = "+pageNum);
+      Map<String, Object> map=noticeService.selectNoticeList(pageNum, keyword, type);
       
       model.addAttribute("pager",map.get("pager"));
       model.addAttribute("noticeList",map.get("noticeList"));
 
       return "notice/list";  
-   }
-   
+   } 
+
+  
    //공지사항 조회 - 상세 정보 + 조회수
    @RequestMapping(value="/view/{noticeIdx}", method = RequestMethod.GET)
    public String noticeViewGet(@PathVariable("noticeIdx") int noticeIdx, Model model) {

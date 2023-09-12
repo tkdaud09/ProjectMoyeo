@@ -44,11 +44,6 @@ public class indexController {
 		return "event/mo_event";
 	}
 	
-	@RequestMapping(value = "/notice", method = RequestMethod.GET)
-	public String noticeList(Model model) {
-		return "notice/list";
-	}
-	
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public String cartList(Model model) {
 		return "cart/mo_cart";
