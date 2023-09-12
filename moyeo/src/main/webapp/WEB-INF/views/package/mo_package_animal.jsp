@@ -269,7 +269,8 @@
         </form>
       
        -->
-        
+       <button type="button" id="removeBtn">삭제</button>
+       
       </div>
     </div>
   </div>
@@ -519,6 +520,15 @@
            alert(errorMessage);
        }
     }
+   </script>
+   
+   <!-- 패키지 삭제 -->
+   <script>
+   $("#removeBtn").click(function() {
+		if(confirm("게시글을 삭제 하시겠습니까?")) {
+			$("#linkForm").attr("action", "<c:url value="/admin/removePackage"/>").submit();
+		}
+	});
    </script>
    
   </body>

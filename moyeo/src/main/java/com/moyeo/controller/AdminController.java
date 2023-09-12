@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,6 +80,7 @@ public class AdminController {
    }
    
    /* 패키지 */
+   
    //패키지 리스트
    @GetMapping(value = "/packagelist")
    public String packList(Model model) {
@@ -156,5 +159,112 @@ public class AdminController {
 
       return "redirect:/package/";
    }
+   
+   /* 패키지 수정 */
+   
+   @GetMapping(value = "/packageModify/{packIdx}")
+   public String packageModifyGET(@PathVariable("packIdx") int packIdx, Model model) {
+	   
+	   Pack pack = packageService.selectPackInfo(packIdx);
+	   model.addAttribute("pack", pack);
+	   
+	   return "package/package_modify";
+   }
+   
+   @PostMapping(value ="/packageModify/{packIdx}")
+   public String packageModifyPOST(@PathVariable("packIdx") int packIdx,
+		   						   @ModelAttribute Pack pack,
+								   @RequestParam("packPreviewImgFile") MultipartFile packPreviewImgFile,
+							       @RequestParam("packSlideImg1File") MultipartFile packSlideImg1File,
+							       @RequestParam("packSlideImg2File") MultipartFile packSlideImg2File,
+							       @RequestParam("packSlideImg3File") MultipartFile packSlideImg3File,
+							       @RequestParam("packContentImg1File") MultipartFile packContentImg1File,
+							       @RequestParam("packContentImg2File") MultipartFile packContentImg2File,
+							       @RequestParam("packContentImg3File") MultipartFile packContentImg3File,
+							       @RequestParam("packCalendarImgFile") MultipartFile packCalendarImgFile,
+							       Model model, HttpSession session) throws IllegalStateException, IOException {
+	   
+	   String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
+	   
+	   //기존 이미지 경로 가져오기
+	   Pack originalPack = packageService.selectPackInfo(packIdx);
+	   String originalPreviewImg = originalPack.getPackPreviewImg();
+	   String originalSlideImg1 = originalPack.getPackSlideImg1();
+	   String originalSlideImg2 = originalPack.getPackSlideImg2();
+	   String originalSlideImg3 = originalPack.getPackSlideImg3();
+	   String originalContentImg1 = originalPack.getPackContentImg1();
+	   String originalContentImg2 = originalPack.getPackContentImg2();
+	   String originalContentImg3 = originalPack.getPackContentImg3();
+	   String originalCalendarImg = originalPack.getPackCalendarImg();
+	   
+	   if(!packPreviewImgFile.isEmpty()) {
+		   pack.setPackPreviewImg(UUID.randomUUID().toString() + "-" + packPreviewImgFile.getOriginalFilename());
+		   packPreviewImgFile.transferTo(new File(uploadDirectory, pack.getPackPreviewImg()));
+	   } else {
+		   pack.setPackPreviewImg(originalPreviewImg);//기존 경로 유지
+	   }
+	   
+	   if(!packSlideImg1File.isEmpty()) {
+		   pack.setPackSlideImg1(UUID.randomUUID().toString() + "-" + packSlideImg1File.getOriginalFilename());
+		   packSlideImg1File.transferTo(new File(uploadDirectory, pack.getPackSlideImg1()));
+	   } else {
+		   pack.setPackSlideImg1(originalSlideImg1);
+	   }
+	   
+	   if(!packSlideImg2File.isEmpty()) {
+		   pack.setPackSlideImg2(UUID.randomUUID().toString() + "-" + packSlideImg2File.getOriginalFilename());
+		   packSlideImg2File.transferTo(new File(uploadDirectory, pack.getPackSlideImg2()));
+	   } else {
+		   pack.setPackSlideImg2(originalSlideImg2);
+	   }
+	   
+	   if(!packSlideImg3File.isEmpty()) {
+		   pack.setPackSlideImg3(UUID.randomUUID().toString() + "-" + packSlideImg3File.getOriginalFilename());
+		   packSlideImg3File.transferTo(new File(uploadDirectory, pack.getPackSlideImg3()));
+	   } else {
+		   pack.setPackSlideImg3(originalSlideImg3);
+	   }
+	   
+	   if(!packContentImg1File.isEmpty()) {
+		   pack.setPackContentImg1(UUID.randomUUID().toString() + "-" + packContentImg1File.getOriginalFilename());
+		   packContentImg1File.transferTo(new File(uploadDirectory, pack.getPackContentImg1()));
+	   } else {
+		   pack.setPackContentImg1(originalContentImg1);
+	   }
+	   
+	   if(!packContentImg2File.isEmpty()) {
+		   pack.setPackContentImg2(UUID.randomUUID().toString() + "-" + packContentImg2File.getOriginalFilename());
+		   packContentImg2File.transferTo(new File(uploadDirectory, pack.getPackContentImg2()));
+	   } else {
+		   pack.setPackContentImg2(originalContentImg2);
+	   }
+	   
+	   if(!packContentImg3File.isEmpty()) {
+		   pack.setPackContentImg3(UUID.randomUUID().toString() + "-" + packContentImg3File.getOriginalFilename());
+		   packContentImg3File.transferTo(new File(uploadDirectory, pack.getPackContentImg3()));
+	   } else {
+		   pack.setPackContentImg3(originalContentImg3);
+	   }
+	   
+	   if(!packCalendarImgFile.isEmpty()) {
+		   pack.setPackCalendarImg(UUID.randomUUID().toString() + "-" + packCalendarImgFile.getOriginalFilename());
+		   packCalendarImgFile.transferTo(new File(uploadDirectory, pack.getPackCalendarImg()));
+	   } else {
+		   pack.setPackCalendarImg(originalCalendarImg);
+	   }
+	   
+	   //업데이트
+	   packageService.updatePackage(pack);
+	   
+	   return "redirect:/package/detail/{packIdx}";
+   }
+   
+   /* 패키지 삭제 */
+   @RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(@RequestParam int packIdx) {
+		
+		return "redirect:/package";
+	}
+   
 
 }

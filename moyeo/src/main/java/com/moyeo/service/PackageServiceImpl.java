@@ -23,12 +23,6 @@ public class PackageServiceImpl implements PackageService {
 		packageDAO.insertPackage(pack);
 	}
 
-	//패키지 상품 정보 (상세페이지)
-	@Override
-	public Pack selectPackInfo(int packIdx) {
-		return packageDAO.selectPackInfo(packIdx);
-	}
-
 	//패키지 수정
 	@Override
 	public int updatePackage(Pack pack) {
@@ -41,5 +35,11 @@ public class PackageServiceImpl implements PackageService {
 	@Override
 	public List<Pack> getPackageList() {
 		return packageDAO.selectPackList();
+	}
+	
+	//패키지 상품 정보 (상세페이지)
+	@Override
+	public Pack selectPackInfo(int packIdx) {
+		return packageDAO.selectPackInfo(packIdx);
 	}
 }

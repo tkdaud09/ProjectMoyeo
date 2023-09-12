@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.PackageHeartMapper">
+
+	<insert id="insertPackageHeart">
+      <selectKey resultType="int" keyProperty="packHeartIdx" order="BEFORE">
+         SELECT pack_seq.nextval 
+         FROM DUAL
+      </selectKey>
+	      INSERT INTO 
+	      pack (
+	         pack_heart_idx
+	         , userinfo_id
+	         , pack_idx
+	      ) 
+	      VALUES (
+	        #{packHeartIdx}
+	        , #{userinfoId}
+	        , #{packIdx}
+	      )
+   	</insert> 
+   	
+   	<select id="selectPackageHeartById" resultType="PackHeart">
+      SELECT 
+      		pack_heart_idx
+	        , userinfo_id
+	        , pack_idx
+      FROM pack_heart
+      WHERE userinfo_id=#{userinfoId}
+   </select>
+   
+   <delete id="deletePackageHeart">
+		DELETE FROM pack_heart 
+		WHERE pack_heart_idx=#{packHeartIdx}
+	</delete>
+   
+   
+</mapper>

@@ -87,59 +87,59 @@
    <update id="updatePack">
       UPDATE pack
       <set>
-         <if test="pack_kind != null and pack_kind != ''">
+         <if test="packKind != null and packKind != ''">
             pack_kind=#{packKind},
          </if>
-         <if test="pack_title != null and pack_title != ''">
+         <if test="packTitle != null and packTitle != ''">
             pack_title=#{packTitle},
          </if>
-         <if test="pack_startdate != null and pack_startdate != ''">
-            pack_startdate=#{packStartdate},
+         <if test="packStartDate != null and packStartDate != ''">
+            pack_startdate = TO_DATE(#{packStartDate}, 'YYYY-MM-DD'),
          </if>
-         <if test="pack_enddate != null and pack_enddate != ''">
-            pack_enddate=#{packEnddate},
+         <if test="packEndDate != null and packEndDate != ''">
+            pack_enddate = TO_DATE(#{packEndDate}, 'YYYY-MM-DD'),
          </if>
-         <if test="pack_regdate != null and pack_regdate != ''">
-            pack_regdate=#{packRegdate},
+         <if test="packRegDate != null and packRegDate != ''">
+            pack_regdate=#{packRegDate},
          </if>
-         <if test="pack_people != null and pack_people != ''">
+         <if test="packPeople != null and packPeople != ''">
             pack_people=#{packPeople},
          </if>
-         <if test="pack_childprice != null and pack_childprice != ''">
-            pack_childprice=#{packChildprice},
+         <if test="packChildPrice != null and packChildPrice != ''">
+            pack_childprice=#{packChildPrice},
          </if>
-         <if test="pack_adultprice != null and pack_adultprice != ''">
-            pack_adultprice=#{packAdultprice},
+         <if test="packAdultPrice != null and packAdultPrice != ''">
+            pack_adultprice=#{packAdultPrice},
          </if>
-         <if test="pack_previewimg != null and  pack_previewimg != ''">
+         <if test="packPreviewImg != null and  packPreviewImg != ''">
              pack_previewimg=#{packPreviewImg},
          </if>
-         <if test="pack_slideimg1 != null and pack_slideimg1 != ''">
+         <if test="packSlideImg1 != null and packSlideImg1 != ''">
             pack_slideimg1=#{packSlideImg1},
          </if>
-         <if test="pack_slideimg2  != null and pack_slideimg2  != ''">
+         <if test="packSlideImg2  != null and packSlideImg2  != ''">
             pack_slideimg2=#{packSlideImg2},
          </if>
-         <if test="pack_slideimg3 != null and pack_slideimg3 != ''">
+         <if test="packSlideImg3 != null and packSlideImg3 != ''">
             pack_slideimg3=#{packSlideImg3},
          </if>
-         <if test="pack_contentimg1 != null and pack_contentimg1 != ''">
+         <if test="packContentImg1 != null and packContentImg1 != ''">
             pack_contentimg1=#{packContentImg1},
          </if>
-         <if test="pack_contentimg2 != null and pack_contentimg2 != ''">
+         <if test="packContentImg2 != null and packContentImg2 != ''">
             pack_contentimg2=#{packContentImg2},
          </if>
-         <if test="pack_contentimg3 != null and pack_contentimg3 != ''">
+         <if test="packContentImg3 != null and packContentImg3 != ''">
             pack_contentimg3=#{packContentImg3},
          </if>
-         <if test="pack_calendarimg != null and pack_calendarimg != ''">
+         <if test="packCalendarImg != null and packCalendarImg != ''">
             pack_calendarimg=#{packCalendarImg},
          </if>
-         <if test="pack_status == 0 or pack_status == 1">
+         <if test="packStatus == 0 or packStatus == 1">
             pack_status=#{packStatus}
          </if>
       </set>
-      WEHRE pack_idx=#{packIdx}
+      WHERE pack_idx=#{packIdx}
    </update>
 	
 	<!-- 패키지 삭제 -->
