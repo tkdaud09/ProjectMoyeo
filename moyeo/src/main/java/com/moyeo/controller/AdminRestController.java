@@ -27,7 +27,7 @@ public class AdminRestController {
 	
 	
 	/*
-	@GetMapping("/account_details")
+	@GetMapping("/userinfo_details")
 	public Map<String, Object> getMyAccounts(@RequestParam String id, @RequestParam int questionPageNum,
 			@RequestParam int donationPageNum, @RequestParam int wishPageNum) {
 		Map<String, Object> myWish;

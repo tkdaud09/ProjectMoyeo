@@ -138,13 +138,13 @@ public class UserinfoServiceImpl implements UserinfoService {
 		pageMap.put("endRow", pager.getEndRow());
 		pageMap.put("selectKeyword", selectKeyword);
 
-		List<Userinfo> accountList = userinfoDAO.selectUserinfoList(pageMap);
+		List<Userinfo> userinfoList = userinfoDAO.selectUserinfoList(pageMap);
 
-		Map<String, Object> accountMap = new HashMap<String, Object>();
-		accountMap.put("accountList", accountList);
-		accountMap.put("pager", pager);
+		Map<String, Object> userinfoMap = new HashMap<String, Object>();
+		userinfoMap.put("userinfoList", userinfoList);
+		userinfoMap.put("pager", pager);
 
-		return accountMap;
+		return userinfoMap;
 	}
 	
 	//Regdate로 유저 검색

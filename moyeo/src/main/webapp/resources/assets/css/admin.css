@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+/* 사이드바 */
+.bg-dark {
+	background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+	color: white;
+	max-width: 210px;
+}
+
+.bg-dark p {
+	margin: 0;
+	padding: 20px;
+	transition: background 0.3s ease;
+} 
+
+.bg-dark a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+    width: 100%;
+    height: 100%;
+}
+
+.bg-dark i {
+	margin-right: 20px;
+	font-size: 20px;
+}
+
+.bg-dark p:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+#userinfoInfoTable {
+    font-size: 13px;
+}
+.address-cell {
+	padding-right: 50px;
+}
+
+/* Select Box */
+#pageSizeSelect {
+    float: right; /* 오른쪽 위에 위치 */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: 10px;
+    width: auto;
+    background: none; /* 배경 제거 */
+    box-shadow: none; /* 그림자 제거 */
+}
+
+/* 버튼 스타일 */
+#viewSelect {
+    float: left; /* 왼쪽 위에 위치 */
+    background: none; /* 배경 제거 */
+    box-shadow: none; /* 그림자 제거 */
+}
+
+#viewSelect .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#viewSelect .btn:hover {
+    background-color: #0056b3;
+}
+
+/* 페이지 번호 */
+#pageNumDiv {
+    text-align: center; /* 정중앙에 위치 */
+    margin-top: 10px;
+    background: none; /* 배경 제거 */
+    box-shadow: none; /* 그림자 제거 */
+}
+
+/* 검색 창 */
+#searchDiv {
+    margin-top: 20px;
+    background: none; /* 배경 제거 */
+    box-shadow: none; /* 그림자 제거 */
+}
+
+#searchDiv input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+#searchDiv input:focus {
+    border: 1px solid #007bff;
+}
+
+
