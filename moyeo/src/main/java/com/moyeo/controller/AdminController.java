@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class AdminController { 
 
    private final WebApplicationContext context;
    private final UserinfoService userinfoservice;
