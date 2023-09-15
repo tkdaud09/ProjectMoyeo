@@ -28,22 +28,6 @@
       )
    </insert>
    
-   
-   <!-- 공지사항 리스트 조회 
-   <select id="selectNoticeList" resultType="Notice">
-      SELECT
-         notice_idx
-         , userinfo_id
-         , notice_title
-         , notice_content
-         , notice_img
-         , TO_CHAR(notice_regdate,'yyyy-mm-dd') as notice_regdate
-         , notice_status
-         , notice_viewcnt
-      FROM notice
-   </select>
-   -->
-   
    <!-- 공지사항 정보 출력 (상세페이지) -->
    <select id="selectNoticeInfo" resultType="Notice">
       SELECT
@@ -72,36 +56,13 @@
       </if>
       WHERE notice_idx = #{noticeIdx}
    </update>
-
-      <!-- 전체 게시글 조회(페이징) -->
-   <select id="noticeCount" resultType="int">
-      SELECT COUNT(*) 
-      FROM notice
-   </select>
-
-   <!-- 페이징된 게시글 리스트 조회 -->
-   <select id="selectNoticeList" resultType="Notice">
-      SELECT 
-         notice_idx
-         , userinfo_id
-         , notice_title
-         , notice_content
-         , notice_img
-         , TO_CHAR(notice_regdate,'yyyy-mm-dd') as notice_regdate
-         , notice_status
-         , notice_viewcnt
-      FROM (SELECT rownum as rn, notice.* 
-         FROM (SELECT * FROM notice ORDER BY notice_idx DESC) notice) 
-      WHERE rn BETWEEN #{startRow} and #{endRow}
-   </select>
-
+   
    <!-- 공지사항 삭제 -->
    <delete id="deleteNotice">
    DELETE FROM notice
    WHERE notice_idx = #{noticeIdx}
    </delete>
-
-
+   
    <!-- 공지사항 조회수 -->
    <update id="viewcntNotice">
       UPDATE notice
@@ -109,148 +70,38 @@
       WHERE notice_idx = #{noticeIdx}
    </update>
 
-   <!-- 전체 게시글 조회(페이징)+검색 
-   <select id="noticeCount" resultType="int">
-    SELECT COUNT(*) 
-    FROM notice
-    WHERE 1=1
-    <if test="keyword != null">
-        AND notice_title LIKE '%' || #{keyword} || '%'
-    </if>
-   </select>
--->
-   <!-- 페이징된 게시글 리스트 조회 + 검색 
-   <select id="selectNoticeList" resultType="Notice">
-       SELECT 
-           notice_idx
-           , userinfo_id
-           , notice_title
-           , notice_content
-           , notice_img
-           , TO_CHAR(notice_regdate,'yyyy-mm-dd') as notice_regdate
-           , notice_status
-           , notice_viewcnt
-       FROM (
-           SELECT rownum as rn, notice.* 
-           FROM (
-               SELECT * FROM notice 
-               <if test="keyword != null">
-                   WHERE notice_title LIKE '%' || #{keyword} || '%'
-               </if>
-               ORDER BY notice_idx DESC
-             ) notice
-       ) 
-       WHERE rn BETWEEN #{startRow} and #{endRow}
-   </select>
-   -->
-   <!-- 검색 조건문 
-   <sql id="criteria">
-      <trim prefix="AND (" suffix=")" prefixOverrides="OR">
-         <foreach collection="typeArr" item="type">
-            <trim prefix="OR">
-               <choose>
-                  <when test="type == 'T'.toString()">
-                     title like '%'||#{keyword}||'%'
-                  </when>
-                  <when test="type == 'C'.toString()">
-                     content like '%'||#{keyword}||'%'
-                  </when>
-                  <when test="type == 'TC'.toString()">
-                     writer like '%'||#{keyword}||'%'
-                  </when>
-               </choose>
-            </trim>
-         </foreach>
-      </trim>
-   </sql>
-   -->
-
-   <!-- 공지사항 제목으로 검색
-   <select id="selectNoticeByTitle" resultType="Notice">
-      SELECT 
-         notice_idx
-           , notice_title
-           , notice_content
-           , notice_regdate
-           , noticeStatus FROM notice 
-      WHERE notice_title=#{noticeTitle}
-   </select> -->
-   
-   <!-- 공지사항 내용으로 검색
-   <select id="selectNoticeByContent" resultType="Notice">
-      SELECT 
-         notice_idx
-           , notice_title
-           , notice_content
-           , notice_regdate
-           , noticeStatus FROM notice 
-      WHERE notice_content=#{noticeContent}
-   </select> -->
-   
-   
-   
-   
-   
-
-   
-   <!-- 공지사항 리스트 전체 검색
-   <select id="selectNoticeList" resultType="Notice">
-        SELECT 
-           notice_idx
-           , notice_title
-           , notice_content
-           , notice_regdate
-           , noticeStatus 
-           FROM notice 
-            WHERE noticeTitle 
-               like '%' || #{@param} || '%'
-               or noticeContent 
-               like '%' || #{@param} || '%'
-                ORDER BY noticeStatus DESC, noticeRegdate
-   </select> -->
-   
-    
-    <!--
-    <select id="selectNotice" resultType="Notice" parameterType="int">
-       SELECT 
-          notice_idx
-           , notice_title
-           , notice_content
-           , notice_regdate
-           , noticeStatus FROM notice 
-       WHERE notice_idx=#{noticeIdx}
-       ORDER BY notice_idx desc
-   </select>  -->
-    
-    
-
-   
-   <!-- 공지사항 게시글 카운트
+      <!-- 전체 게시글 조회(페이징) -->
    <select id="selectNoticeCount" resultType="int">
-       SELECT COUNT(*) FROM notice 
-   </select> -->
-   
+      SELECT COUNT(*) 
+      FROM notice
+   </select>
 
-   <!-- 공지사항 페이지 번호
-    <select id="selectNoticeList" resultType="Notice">
-       SELECT * FROM (
-           SELECT
-               ROWNUM rn,
-               notice_idx,
-               notice_title,
-               notice_content,
-               notice_regdate,
-               noticeStatus
-           FROM (
-               SELECT
-                   notice_idx,
-                   notice_title,
-                   notice_content,
-                   notice_regdate,
-                   noticeStatus
-               FROM notice
-               ORDER BY notice_idx DESC
-           ) notice
-       ) WHERE rn BETWEEN #{startRow} AND #{endRow}
-   </select> -->
+   <!-- 페이징된 게시글 리스트 조회 -->
+   <select id="selectNoticeList" resultType="Notice">
+      SELECT
+	      notice_idx
+	      , userinfo_id
+	      , notice_title
+	      , notice_content
+	      , notice_img
+	      , TO_CHAR(notice_regdate,'yyyy-mm-dd') as notice_regdate
+	      , notice_status
+	      , notice_viewcnt
+      FROM (
+      SELECT rownum as rn, notice.*
+      FROM (
+      SELECT * FROM notice
+      <if test='keyword != null and type == "T"'>
+      WHERE notice_title LIKE '%' || #{keyword} || '%'
+      </if>
+      <if test='keyword != null and type == "C"'>
+      WHERE notice_content LIKE '%' || #{keyword} || '%'   
+      </if>   
+      ORDER BY notice_idx DESC
+      ) notice
+      )
+      WHERE rn BETWEEN #{startRow} and #{endRow}
+   </select>
+
+
 </mapper>

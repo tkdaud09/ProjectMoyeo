@@ -7,14 +7,10 @@ import com.moyeo.dto.Notice;
 
 public interface NoticeDAO {
    //공지사항 등록
-   int insertNotice(Notice notice);    
-   
-   /*공지사항 전제 리스트 조회
-   List<Notice> selectNoticeList(); 
-   */
+   int insertNotice(Notice notice); 
    
    //공지사항 조회(상세 정보)
-   Notice selectNoticeInfo(int noticeIdx); 
+   Notice selectNoticeInfo(int noticeIdx);
    
    //공지사항 수정
    int updateNotice(Notice notice);
@@ -26,15 +22,9 @@ public interface NoticeDAO {
    void viewcntNotice(int noticeIdx);
    
    //전체 게시글 조회(페이징)
-   int noticeCount();
+   int selectNoticeCount(String keyword, String type);
    
    //페이징된 게시글 리스트 조회
-   List<Notice> selectNoticeList(Map<String, Object>map);
-   
-   /*
-    int updateNotice(Notice notice);
-    int deleteNotice(int noticeIdx);
-    List<Notice> selectNotice(String param);
-    int selectNoticeCount();
-    List<Notice> selectNoticeList(Map<String,Object>map);*/
+   List<Notice> selectNoticeList(Map<String, Object> map);
+
 }
