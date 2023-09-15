@@ -43,12 +43,13 @@
 			<div class="review_content border_con">
 				<div class="diy_form_title">여행 후기</div>
 				<div class="bord_search">
+					
 					<form action="<c:url value="/review/list"/>" method="post" class="search-area">
 						<div class="sel-search">
 							<select class="sel-base" name="column" >
-								<option value="userinfoId">작성자</option>
-								<option value="reviewTitle">제목</option>
-								<option value="reviewContent">내용</option>
+								<option value="userinfo_id">작성자</option>
+								<option value="review_title">제목</option>
+								<option value="review_content">내용</option>
 							</select>
 						</div>
 						
@@ -57,6 +58,10 @@
 							<button class="btn-type-s search" type="submit">검색</button>
 						</div>
 					</form>	
+							
+					
+					
+					
 				</div><!-- //bord_search -->
 				<div class="review_list border_list">	
 					<table>
@@ -79,7 +84,7 @@
 						<c:choose>
 							<c:when test="${empty result.reviewList}">
 								<tr>
-									<td colspan="4">게시글이 없습니다.</td>
+									<td colspan="5">게시글이 없습니다.</td>
 								</tr>	
 							</c:when>		
 	

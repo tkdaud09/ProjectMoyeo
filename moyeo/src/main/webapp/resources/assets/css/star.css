@@ -3131,7 +3131,7 @@ textarea.form-control-lg {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  background-color: transparent;
+  background-color: /*transparent*/;
   border: 1px solid transparent;
   padding: 0.6rem 1.8125rem;
   font-size: 0.875rem;
@@ -16559,7 +16559,7 @@ a.hover-text-gray-color:hover, a.hover-text-gray-color:focus {
 }
 
 
-/******************************************ìŠ¬ë¼ì´ë“œ**/
+/******************************************½½¶óÀÌµå**/
 /* Revolution Slider */
 /*#rev_slider_12_1 .metis.tparrows {
   background: rgba(255, 255, 255, 0.15);
@@ -21799,7 +21799,7 @@ img.lazyestload {
 }
 
 
-/*-í‘¸í„°m--------------------------------------------------*/
+/*-ÇªÅÍm--------------------------------------------------*/
 #footer{
 	width:100%; 
 	height:auto; 
@@ -21846,7 +21846,7 @@ img.lazyestload {
 }
 
 
-/*--ë©”ì¸ íŒ¨í‚¤ì§€--------------------------------------------------*/
+/*--¸ŞÀÎ ÆĞÅ°Áö--------------------------------------------------*/
 .swiper-container {
 	width: 100%;
 	height: 400px;
@@ -21931,7 +21931,7 @@ img.lazyestload {
 	background:#fff;
 }
 
-/*--ë©”ì¸ ë¦¬ë·°--*/
+/*--¸ŞÀÎ ¸®ºä--*/
 #main_review {
 	width:100%;
 	padding:70px 0;
@@ -21952,6 +21952,12 @@ img.lazyestload {
 	width:100%;
 	height:200px;
 	margin-bottom:20px;
+}
+#main_review .review_img img{
+	width:100%;
+	height:200px;
+	object-fit:cover;
+	border-radius:7px;
 }
 #main_review ul{
 	width:100%;
@@ -21982,7 +21988,7 @@ img.lazyestload {
 
 
 
-/*--íŒ¨í‚¤ì§€ ìƒì„¸í˜ì´ì§€--------------------------------------------------*/
+/*--ÆĞÅ°Áö »ó¼¼ÆäÀÌÁö--------------------------------------------------*/
 .pd{
 	margin-top:-50px;
 }
@@ -22015,7 +22021,7 @@ img.lazyestload {
 
 
 
-/*--div ì´ë²¤íŠ¸--------------------------------------------------*/
+/*--div ÀÌº¥Æ®--------------------------------------------------*/
 .div_con1{
 	width:100%;
 	height:auto;
@@ -22175,7 +22181,7 @@ img.lazyestload {
 	transition:all 0.3s ease-out;
 }
 
-/*--div ì´ë²¤íŠ¸ ì‘ì„± í¼--------------------------------------------------*/
+/*--div ÀÌº¥Æ® ÀÛ¼º Æû--------------------------------------------------*/
 .diy_content {
 	/*width:1200px;
 	background:#eee;*/
@@ -22227,7 +22233,7 @@ img.lazyestload {
 
 
 
-/*--diy í¼ ë‹¤ì‹œ--*/
+/*--diy Æû ´Ù½Ã--*/
 .price_01{width:90%; margin:0 auto; text-align:center;}
 .price_01 .t1{font-size:23px; font-size:500; color:#3a94d0; line-height:30px; padding:0px 0px 10px 0;}
 .price_01 .t2{font-size:15px; line-height:23px; margin-bottom:30px; }
@@ -22325,7 +22331,7 @@ select::-ms-expand {display:none}
 
 
 
-/*-ì²´í¬ë°•ìŠ¤-*/
+/*-Ã¼Å©¹Ú½º-*/
 
 .control-group {
   /*display: inline-block;*/
@@ -22410,7 +22416,7 @@ select::-ms-expand {display:none}
 
 
 
-/*-ì²¨ë¶€íŒŒì¼-*/
+/*-Ã·ºÎÆÄÀÏ-*/
 
 .filebox div{width:100%; margin-bottom:5px;}
 
@@ -22477,7 +22483,7 @@ td .textarea { padding:10px; width:100%;}
 .price_02 .inline-email input:focus{border-color:#333;}
 
 
-/*-ë‹¬ë ¥-*/
+/*-´Ş·Â-*/
 label {
   display: block;
 }
@@ -22535,7 +22541,7 @@ label {
 /*----------------------------------------------------------------------------*/
 @media (min-width: 1200px) {
 
-	/*--í‘¸í„°p--*/
+	/*--ÇªÅÍp--*/
 	#footer .footer_In{
 		width:1200px; 
 		max-width:1170px;
@@ -22581,7 +22587,7 @@ label {
 		font-size:15px;
 	}
 
-	/*--ë©”ì¸ íŒ¨í‚¤ì§€--------------------------------------------------*/
+	/*--¸ŞÀÎ ÆĞÅ°Áö--------------------------------------------------*/
 	#main_pack {
 		width:100%;
 		padding:90px 0 ;
@@ -22594,13 +22600,13 @@ label {
 		background:#fff;
 	}
 	
-	/*--ë©”ì¸ ë¦¬ë·°--------------------------------------------------*/
+	/*--¸ŞÀÎ ¸®ºä--------------------------------------------------*/
 	#main_review{
 		width:100%;
 		padding:80px 0 ;
 	}
 	#main_review .con1{
-		width:32%;
+		width:31%;
 		float:left;
 		margin: 0 auto;
 		padding-bottom:60px;
@@ -22638,7 +22644,7 @@ label {
 		margin-left:8px;
 	}
 
-	/*--íŒ¨í‚¤ì§€ ìƒì„¸í˜ì´ì§€--------------------------------------------------*/
+	/*--ÆĞÅ°Áö »ó¼¼ÆäÀÌÁö--------------------------------------------------*/
 	.pd{
 		margin-top:-50px;
 	}
@@ -22667,7 +22673,7 @@ label {
 */
 
 
-	/*--div ì´ë²¤íŠ¸--------------------------------------------------*/
+	/*--div ÀÌº¥Æ®--------------------------------------------------*/
 	.div_con1{
 		width:100%;
 		height:auto;
@@ -22831,7 +22837,7 @@ label {
 	
 
 
-	/*--diy ì…ë ¥í¼--------------------------------------------------*/
+	/*--diy ÀÔ·ÂÆû--------------------------------------------------*/
 	.map_spot:after{
 		content:""; 
 		display:block; 
@@ -22874,7 +22880,7 @@ label {
 	
 
 
-	/*--diy í¼ ë‹¤ì‹œ--*/
+	/*--diy Æû ´Ù½Ã--*/
 	.price_01{width:1100px; margin:0 auto; text-align:center;}
 	.price_01 .t1{font-size:23px; font-size:500; color:#3a94d0; line-height:30px; padding:0px 0px 10px 0;}
 	.price_01 .t2{font-size:15px; line-height:23px; margin-bottom:30px; }
@@ -22969,7 +22975,7 @@ label {
 
 
 
-	/*-ì²´í¬ë°•ìŠ¤-*/
+	/*-Ã¼Å©¹Ú½º-*/
 
 	.control-group {
 	  /*display: inline-block;*/
@@ -23054,7 +23060,7 @@ label {
 
 
 
-	/*-ì²¨ë¶€íŒŒì¼-*/
+	/*-Ã·ºÎÆÄÀÏ-*/
 
 	.filebox div{width:42%; margin-bottom:5px; display:inline-block;}
 
@@ -23128,7 +23134,7 @@ label {
 	.price_02 .inline-email{width:75%; display:inline-block;}
 
 
-	/*-ë‹¬ë ¥-*/
+	/*-´Ş·Â-*/
 	label {
 	  display: block;
 	}
@@ -23273,7 +23279,7 @@ label {
 	
 	
 	
-	/*---ë¦¬ë·°ê²Œì‹œíŒ ê²€ìƒ‰-*/
+	/*---¸®ºä°Ô½ÃÆÇ °Ë»ö-*/
 	
 	/* search */
 	.search-area{
@@ -23344,7 +23350,7 @@ label {
 	
 	
 	/***************************************/
-	/*--ê²Œì‹œíŒ ìƒì„¸
+	/*--°Ô½ÃÆÇ »ó¼¼
 	.view .tit{
 		font-size: 30px;
 	    font-weight: 700;
@@ -23405,7 +23411,7 @@ label {
 	
 	
 	
-	/*--ê²Œì‹œíŒ ìƒì„¸--*/
+	/*--°Ô½ÃÆÇ »ó¼¼--*/
 	.view .tit{
 		font-size: 30px;
 	    font-weight: 700;
@@ -23534,7 +23540,7 @@ label {
 
 	
 	
-	/**ì¥ë°”êµ¬ë‹ˆ*****/
+	/**Àå¹Ù±¸´Ï*****/
 	.cart_f {
 		width:100%;
 		margin:80px 0;
@@ -23619,7 +23625,15 @@ label {
 		color:#000;
 	}
 	
-	
-	
+	.pack_review{
+		width:100px;
+		height:100px;
+		background:#eee;
+	}
+	.pack_review img{
+		width:100px;
+		height:100px;
+		object-fit:cover;
+	}
 
 }/*--1200-------------------------------------------------------*/

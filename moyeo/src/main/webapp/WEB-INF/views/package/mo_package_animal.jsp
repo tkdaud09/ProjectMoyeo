@@ -199,16 +199,15 @@
          </div>
           <img src="<c:url value='/assets/img/upload/${pack.packContentImg1}'/>" alt=""> 
       </div>
-
+      
+      
+      
+	<!-- -----------------------------------후기----------------------- -->
         <div class="mb-7">
-          <h2 class="text-uppercase mb-6">Reviews</h2>
-          <p class="mb-6">Pulla consuat sed libero eu feugiat. Praesent vel hendrerit erat. Phasellus gravida efficitur
-            lectus, placerat semper
-            est tristique nec. Proin magna enim</p>
 
           <div class="d-flex align-items-center mb-6">
             <h3 class="text-uppercase mb-0">
-              <span class="me-2">Reviews (3)</span>
+              <span class="me-2"  style="font-weight:600; font-size:25px;">Review</span>
 
               <span class="text-warning">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -220,19 +219,23 @@
             </h3>
           </div>
 
+	<c:forEach var="review" items="${latestReviews}">
           <div class="media mb-6">
-            <a class="me-6" href="">
-              <img class="rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/comments-02.jpg" src="${pageContext.request.contextPath}/assets/img/blog/comments-02.jpg" alt="Generic placeholder image">
+            <a class="me-6 pack_review" href=""> <!-- 사진 -->
+              <img class="rounded" src="<c:url value='/assets/img/upload/${review.reviewImg}'/>" alt="">
             </a>
 
-            <div class="media-body">
-              <h5>Samanta Doe</h5>
-              <span class="star add-rating-default pb-1"></span>
-              <p class="mb-0">Pellen tesque vitae ultrices magna. Cras vul putate commodo justo. Fusce vitae justo
-                efficitur, condi mentum ante.</p>
+            <div class="media-body"> <!-- 제목, 내용, 이름날짜 -->
+              <h5 style="font-weight:600;">${review.reviewTitle}</h5>
+              <p class="mb-0" style="color:#000;">${review.reviewContent}</p>
+              <p class="mb-0">${review.userinfoId} / ${review.reviewRegdate}</p>
             </div>
           </div>
+	</c:forEach>
 
+
+
+<!-- 
           <div class="media mb-6">
             <a class="me-6" href="">
               <img class="rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/comments-01.jpg" src="${pageContext.request.contextPath}/assets/img/blog/comments-01.jpg" alt="Generic placeholder image">
@@ -246,7 +249,9 @@
                 aliqua.</p>
             </div>
           </div>
-
+ -->
+ 
+ <!-- 
           <div class="media">
             <a class="me-6" href="">
               <img class="rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/comments-03.jpg" src="${pageContext.request.contextPath}/assets/img/blog/comments-03.jpg" alt="Generic placeholder image">
@@ -257,8 +262,13 @@
               <p class="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                 laudan totam rem ape riam</p>
             </div>
-          </div>
+          </div> 
+-->
         </div>
+
+<!-- ------------------------------//후기끝----------------------- -->
+
+
 
       <!-- 
       

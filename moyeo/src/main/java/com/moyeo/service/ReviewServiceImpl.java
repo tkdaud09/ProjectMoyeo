@@ -15,11 +15,10 @@ import com.moyeo.util.Pager;
 @Service
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
-	 private final ReviewDAO reviewDAO;
-	 /*private final UserinfoDAO userinfoDAO;*/
-
+	private final ReviewDAO reviewDAO;
+	/*private final UserinfoDAO userinfoDAO;*/
 	 
-	 
+	//등록
 	@Transactional(rollbackFor = IllegalArgumentException.class) 
 	@Override
 	public void addReview(Review review) {
@@ -29,8 +28,7 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDAO.insertReview(review);
 	}
 	
-	
-	
+	//수정
 	@Transactional(rollbackFor = IllegalArgumentException.class) 
 	@Override
 	public void modifyReview(Review review) {
@@ -44,7 +42,7 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDAO.updateReview(review);
 	}
 
-	
+	//삭제
 	@Transactional(rollbackFor = IllegalArgumentException.class) 
 	@Override
 	public void removeReview(int reviewIdx) {
@@ -54,12 +52,12 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDAO.deleteReview(reviewIdx);
 	}
 
-	
+	//조회수
 	@Override
-   public void viewcntReview(int reviewIdx) {
-      reviewDAO.viewcntReview(reviewIdx);
-      
-   }
+	public void viewcntReview(int reviewIdx) {
+		reviewDAO.viewcntReview(reviewIdx);
+
+	}
 	
 	
 	@Override
@@ -73,9 +71,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	}
 	
-	
-	
-
+	//리스트 조회 + 페이징
 	@Override
 	public Map<String, Object> getReviewList(Map<String, Object> map) {
 		int pageNum=1;
@@ -99,12 +95,18 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 
-
+	//ReviewDAO를 통해 모든 패키지 제목을 가져옴
 	@Override
     public List<String> getAllPackageTitles() {
         // ReviewDAO를 통해 모든 패키지 제목을 가져옴
         return reviewDAO.getAllPackageTitles();
     }
+	
+	//후기
+	@Override
+	public List<Review> getLatestReviews(int count) {
+		return reviewDAO.selectLatestReviews(count);
+	}
 
     //userinfo-details
 	@Override

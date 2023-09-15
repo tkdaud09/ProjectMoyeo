@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.moyeo.dto.Pack;
+import com.moyeo.dto.Review;
 
 public interface PackageService {
 	
@@ -31,6 +32,11 @@ public interface PackageService {
 	//패키지 삭제
 	void deletePackage(int packIdx);
 	
+	/* 리뷰 */
+	//최신 리뷰를 가져오는 메서드
+	List<Review> getLatestReviews(int count);
+	
+	/* 관리자 */
 	//관리자가 패키지 검색 시 사용
 	Map<String, Object> getPackageList(int pageNum, int pageSize, String selectKeyword);
 	

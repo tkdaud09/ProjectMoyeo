@@ -102,6 +102,17 @@
 	<select id="getAllPackageTitles" resultType="String">
 	    SELECT PACK_TITLE FROM pack
 	</select>
+	
+	<!-- 최신 리뷰 가져오기-->
+	<select id="selectLatestReviews" resultType="Review">
+	SELECT *
+		FROM (
+		    SELECT *
+		    FROM review
+		    ORDER BY review_regdate DESC
+		)
+		WHERE ROWNUM &lt;= #{count}
+	</select>
 
 
 	

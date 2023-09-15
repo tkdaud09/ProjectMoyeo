@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="utf-8">
   
@@ -9,7 +11,7 @@
   <div class="main-wrapper packages-grid">
 
 <!-- ====================================
-———	BANNER SECTION
+———   BANNER SECTION
 ===================================== -->
 <div id="rev_slider_12_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="star-test"
   data-source="gallery"
@@ -193,61 +195,61 @@
 
 
 <!-- ====================================
-———	패키지 상품 슬라이더
+———   패키지 상품 슬라이더
 ===================================== -->
 
 
 <!-- Swiper -->
 <div id="main_pack">
-	<div class="main_pack_title">
-		<div class="text-center section-title">
-		  <h2 class="text-uppercase font-weight-bold position-relative">
-			<span class="bg-wh">
-			  BEST 여행지
-			</span>
-		  </h2>
-		  <p class="text-capitalize text-center noto">모여에서 가장 사랑받는 월간 BEST 여행지 입니다.</p>
-	  </div>
-	</div>
+   <div class="main_pack_title">
+      <div class="text-center section-title">
+        <h2 class="text-uppercase font-weight-bold position-relative">
+         <span class="bg-wh">
+           BEST 여행지
+         </span>
+        </h2>
+        <p class="text-capitalize text-center noto">모여에서 가장 사랑받는 월간 BEST 여행지 입니다.</p>
+     </div>
+   </div>
 
     <div class="swiper-container">
 
         <div class="swiper-wrapper">
             <div class="swiper-slide main_best_text">
-            	<img src="${pageContext.request.contextPath}/assets/img/main_best_img01.jpg" class="slide_new_img_01">
-            	<p class="p1">제주도 1박 2일</p>
-            	<p class="p2">#베스트 #호핑투어 #시내관광</p>
-            	<p class="p3">JEJU</p>
+               <img src="${pageContext.request.contextPath}/assets/img/main_best_img01.jpg" class="slide_new_img_01">
+               <p class="p1">제주도 1박 2일</p>
+               <p class="p2">#베스트 #호핑투어 #시내관광</p>
+               <p class="p3">JEJU</p>
             </div>
             <div class="swiper-slide main_best_text">
-            	<img src="${pageContext.request.contextPath}/assets/img/main_best_img02.jpg" class="slide_new_img_01">
-            	<p class="p1">서울 3일</p>
-            	<p class="p2">#자유일정 #호핑투어 #시내관광</p>
-            	<p class="p3">SEOUL</p>
+               <img src="${pageContext.request.contextPath}/assets/img/main_best_img02.jpg" class="slide_new_img_01">
+               <p class="p1">서울 3일</p>
+               <p class="p2">#자유일정 #호핑투어 #시내관광</p>
+               <p class="p3">SEOUL</p>
             </div>
             <div class="swiper-slide main_best_text">
-				<img src="${pageContext.request.contextPath}/assets/img/main_best_img03.jpg" class="slide_new_img_01">
-				<p class="p1">제주도 2박3일</p>
-            	<p class="p2">#등산 #단풍 #관광</p>
-            	<p class="p3">JEJU</p>
+            <img src="${pageContext.request.contextPath}/assets/img/main_best_img03.jpg" class="slide_new_img_01">
+            <p class="p1">제주도 2박3일</p>
+               <p class="p2">#등산 #단풍 #관광</p>
+               <p class="p3">JEJU</p>
             </div>
             <div class="swiper-slide main_best_text">
-            	<img src="${pageContext.request.contextPath}/assets/img/main_best_img04.jpg" class="slide_new_img_01">
-            	<p class="p1">영주 1박 2일</p>
-            	<p class="p2">#사찰 #시내관광 #힐링</p>
-            	<p class="p3">YEONGJU</p>
+               <img src="${pageContext.request.contextPath}/assets/img/main_best_img04.jpg" class="slide_new_img_01">
+               <p class="p1">영주 1박 2일</p>
+               <p class="p2">#사찰 #시내관광 #힐링</p>
+               <p class="p3">YEONGJU</p>
             </div>
-			<div class="swiper-slide main_best_text">
-				<img src="${pageContext.request.contextPath}/assets/img/main_best_img05.jpg" class="slide_new_img_01">
-				<p class="p1">부산 5일</p>
-            	<p class="p2">#베스트 #호핑투어 #시내관광</p>
-            	<p class="p3">BUSAN</p>
+         <div class="swiper-slide main_best_text">
+            <img src="${pageContext.request.contextPath}/assets/img/main_best_img05.jpg" class="slide_new_img_01">
+            <p class="p1">부산 5일</p>
+               <p class="p2">#베스트 #호핑투어 #시내관광</p>
+               <p class="p3">BUSAN</p>
             </div>
             <div class="swiper-slide main_best_text">
-            	<img src="${pageContext.request.contextPath}/assets/img/main_best_img06.jpg" class="slide_new_img_01">
-            	<p class="p1">경주 3일</p>
-            	<p class="p2">#온천 #베스트 #시내관광</p>
-            	<p class="p3">GYEONGJU</p>
+               <img src="${pageContext.request.contextPath}/assets/img/main_best_img06.jpg" class="slide_new_img_01">
+               <p class="p1">경주 3일</p>
+               <p class="p2">#온천 #베스트 #시내관광</p>
+               <p class="p3">GYEONGJU</p>
             </div>
         </div>
         <!-- Add Pagination -->
@@ -269,24 +271,24 @@
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         slidesPerView:4,
-		initialSlide: 1,
+      initialSlide: 1,
         paginationClickable: true,
         spaceBetween: 20,
         freeMode: true,
-		nextButton: '.swiper-button-next',
+      nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-		autoplay: 2500,
+      autoplay: 2500,
         autoplayDisableOnInteraction: false,
-		loop:true,
+      loop:true,
         loopedSlides: 5,
 
-		breakpoints : { // 반응형 설정이 가능 width값으로 조정
-			  768 : {
-				slidesPerView : 2,
-			  },
-			},
-		
-		
+      breakpoints : { // 반응형 설정이 가능 width값으로 조정
+           768 : {
+            slidesPerView : 2,
+           },
+         },
+      
+      
     });
     </script>
 
@@ -295,7 +297,7 @@
 
 
 <!-- ====================================
-———	TOP DEALS SECTION  마감임박 상품
+———   TOP DEALS SECTION  마감임박 상품
 ===================================== -->
 <section class="bg-smoke py-8 py-lg-9">
   <div class="container">
@@ -350,7 +352,7 @@
           <div class="card-body">
             <h5>
               <a href="#" class="card-title text-uppercase">강아지와 함께하는 1박2일</a>
-            </h5>		    
+            </h5>          
             <p class="mb-5">Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus et pharetra egestas.</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
@@ -418,7 +420,7 @@
               <div>
                 <a href="#" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
-				<!-- 
+            <!-- 
               <div>
                 <a href="#"  data-bs-toggle="modal" data-bs-target="#inquiry" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
@@ -481,7 +483,7 @@
                 <a href="#" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
               
-			<!-- 
+         <!-- 
               <div>
                 <a href="booking-step-1.html" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
               </div>
@@ -494,7 +496,7 @@
 
     <div class="text-center mt-7">
       <a href="${pageContext.request.contextPath}/package/" class="btn btn-sm btn-outline-secondary text-uppercase noto">더 많은 상품 보기</a>
-    </div>		
+    </div>      
   </div>
 </section>
 
@@ -503,56 +505,40 @@
 
 
 <!-- ====================================
-———	여행 후기
+———   여행 후기
 ===================================== -->
 <div id="main_review">
-	<div class="main_pack_title">
-		<div class="text-center section-title">
-		  <h2 class="text-uppercase font-weight-bold position-relative">
-			<span class="bg-wh">
-			  여행 후기
-			</span>
-		  </h2>
-		  <p class="text-capitalize text-center noto">모여에서 가장 사랑받는 월간 BEST 여행지 입니다.</p>
-	  </div>
-	</div>
-	
+   <div class="main_pack_title">
+      <div class="text-center section-title">
+        <h2 class="text-uppercase font-weight-bold position-relative">
+         <span class="bg-wh">
+           여행 후기
+         </span>
+        </h2>
+        <p class="text-capitalize text-center noto">모여에서 가장 사랑받는 월간 BEST 여행지 입니다.</p>
+     </div>
+   </div>
+   
 
-	<div class="review_content af">
-		<div class="con1 sp">
-			<div class="review_img"></div>
-			<ul>
-				<li class="t1">[제주도] 제주도 후기 제목이 들어갈 공간입니다.</li>
-				<li class="t2">제주도 여행 후기가 들어갈 텍스트 공간입니다. 여행 후기 텍스트가 들어갈 공간입니다.여행 후기 텍스트가 들어갈 공간입니다. 여행 후기 텍스트가 들어갈 공간입니다.</li>
-				<li class="t3">김*아 <span>2023-08-15</span></li>
-			</ul>
-		</div><!-- /con1 -->
+   <div class="review_content af">
+        
+        <c:forEach var="review" items="${latestReviews}">
+            <div class="con1 sp">
+                <div class="review_img"><img src="<c:url value='/assets/img/upload/${review.reviewImg}'/>" alt=""></div>
+                <ul>
+                    <li class="t1">${review.reviewTitle}</li>
+                    <li class="t2">${review.reviewContent}</li>
+                    <li class="t3">${review.userinfoId} <span><fmt:formatDate value="${review.reviewRegdate}" pattern="yyyy-MM-dd" /></span></li>
+                </ul>
+            </div>
+        </c:forEach>
 
-		<div class="con1 sp">
-			<div class="review_img"></div>
-			<ul>
-				<li class="t1">[제주도] 제주도 후기 제목이 들어갈 공간입니다.</li>
-				<li class="t2">제주도 여행 후기가 들어갈 텍스트 공간입니다. 여행 후기 텍스트가 들어갈 공간입니다.여행 후기 텍스트가 들어갈 공간입니다. 여행 후기 텍스트가 들어갈 공간입니다.</li>
-				<li class="t3">김*아 <span>2023-08-15</span></li>
-			</ul>
-		</div><!-- /con1 -->
-
-		<div class="con1">
-			<div class="review_img"></div>
-			<ul>
-				<li class="t1">[제주도] 제주도 후기 제목이 들어갈 공간입니다.</li>
-				<li class="t2">제주도 여행 후기가 들어갈 텍스트 공간입니다. 여행 후기 텍스트가 들어갈 공간입니다.여행 후기 텍스트가 들어갈 공간입니다. 여행 후기 텍스트가 들어갈 공간입니다.</li>
-				<li class="t3">김*아 <span>2023-08-15</span></li>
-			</ul>
-		</div><!-- /con1 -->
-
-		<div class="text-center mt-7">
-			<a href="${pageContext.request.contextPath}/review/list" class="btn btn-sm btn-outline-secondary text-uppercase noto">더 많은 후기 보기</a>
-		</div>
-
-	</div><!-- /review_content -->
-	
-		
+        <div class="text-center mt-7">
+            <a href="${pageContext.request.contextPath}/review/list" class="btn btn-sm btn-outline-secondary text-uppercase noto">더 많은 후기 보기</a>
+        </div>
+    </div>
+   
+      
 
 </div><!-- /main_review -->
 
@@ -563,4 +549,3 @@
 
   </body>
 </html>
-

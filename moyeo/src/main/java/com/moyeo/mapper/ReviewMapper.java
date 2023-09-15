@@ -17,6 +17,8 @@ public interface ReviewMapper {
     
     List<String> getAllPackageTitles(); // 모든 패키지 제목을 가져오는 메서드
     
+    List<Review> selectLatestReviews(int count); //메인에 최신리뷰 3개
+    
     //userinfo-details
     int selectMyReviewCount(String userinfoId);
     List<Review> selectMyReviewList(Map<String, Object> map);

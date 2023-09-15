@@ -7,8 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.moyeo.dto.Pack;
+import com.moyeo.dto.Review;
 import com.moyeo.mapper.PackageMapper;
-
+import com.moyeo.mapper.ReviewMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -72,8 +73,14 @@ public class PackageDAOImpl implements PackageDAO {
 		return sqlSession.getMapper(PackageMapper.class).packageCount();
 	}
 	
-	/* 관리자 */
+	/* 리뷰 */
+	//최신 리뷰를 가져오는 메서드
+	@Override
+	public List<Review> selectLatestReviews(int count) {
+		return sqlSession.getMapper(ReviewMapper.class).selectLatestReviews(count);
+	}
 	
+	/* 관리자 */
 	//패키지 검색
 	@Override
 	public List<Pack> selectPackageList(Map<String, Object> map) {

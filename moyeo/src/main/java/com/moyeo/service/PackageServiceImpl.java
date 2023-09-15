@@ -7,7 +7,9 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.moyeo.dao.PackageDAO;
+import com.moyeo.dao.ReviewDAO;
 import com.moyeo.dto.Pack;
+import com.moyeo.dto.Review;
 import com.moyeo.util.Pager;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PackageServiceImpl implements PackageService {
 	private final PackageDAO packageDAO;
+	private final ReviewDAO reviewDAO;
 	
 	//패키지 상품 정보
 	@Override
@@ -65,6 +68,14 @@ public class PackageServiceImpl implements PackageService {
 		packageDAO.deletePackage(packIdx);
 	}
 	
+	/* 리뷰 */
+	//최신 리뷰를 가져오는 메서드
+	@Override
+	public List<Review> getLatestReviews(int count) {
+		return reviewDAO.selectLatestReviews(count);
+	}
+	
+	/* 관리자 */
 	//관리자가 패키지 검색 시 사용
 	public Map<String, Object> getPackageList(int pageNum, int pageSize, String selectKeyword) {
 		int totalBoard = packageDAO.selectPackageCount(selectKeyword);

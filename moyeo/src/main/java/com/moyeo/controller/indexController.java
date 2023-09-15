@@ -1,9 +1,7 @@
 package com.moyeo.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping; 
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.moyeo.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +12,6 @@ import org.springframework.ui.Model;
 @RequestMapping(value = "/")
 @RequiredArgsConstructor
 public class indexController {
-	private final ReviewService reviewService;
 	
 	/*@RequestMapping(value = "/package", method = RequestMethod.GET)
 	public String PackageList(Model model) {

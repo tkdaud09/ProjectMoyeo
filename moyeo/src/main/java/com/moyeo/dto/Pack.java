@@ -1,8 +1,6 @@
 package com.moyeo.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data; 
 
 /*
 이름              널?       유형            

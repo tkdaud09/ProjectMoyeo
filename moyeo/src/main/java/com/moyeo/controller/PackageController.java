@@ -2,6 +2,7 @@ package com.moyeo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.moyeo.dto.Pack;
 import com.moyeo.dto.PackHeart;
+import com.moyeo.dto.Review;
 import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.PackageService;
+import com.moyeo.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,6 +38,7 @@ public class PackageController {
 	private final WebApplicationContext context;
 	private final PackageService packageService; // 패키지 등록 관련 service
 	private final PackageHeartService packageHeartService;
+	private final ReviewService reviewService;
 	
 	//패키지 리스트 페이지 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -66,7 +70,10 @@ public class PackageController {
 		//로그인 유저가 찜 했는지 확인
 		PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoId);
 		boolean isHeartAdded = packHeart != null;
-
+		// 최신 리뷰 3개
+        List<Review> latestReviews = reviewService.getLatestReviews(3);
+        
+        model.addAttribute("latestReviews", latestReviews);
 		model.addAttribute("isHeartAdded", isHeartAdded);
 
 		return "package/mo_package_animal";

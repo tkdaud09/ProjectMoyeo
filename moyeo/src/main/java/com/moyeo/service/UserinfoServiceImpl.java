@@ -1,6 +1,6 @@
 package com.moyeo.service;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.moyeo.dao.UserinfoDAO;
 import com.moyeo.dto.Userinfo;
-import com.moyeo.exception.LoginAuthFailException;
 import com.moyeo.exception.UserinfoNotFoundException;
 import com.moyeo.util.Pager;
 

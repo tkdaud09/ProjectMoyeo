@@ -82,7 +82,7 @@
 	                      <textarea rows="5" cols="60" name="reviewContent" id="reviewContent" placeholder="내용" required></textarea>
 	                      
 	                      <p>파일</p>
-                   		  <input type="file" name="reviewImgFile" id="reviewImgFile">
+                   		  <input type="file" name="reviewImgFile" id="reviewImgFile" required>
 	
 	
 						<div class="review_form_btn">

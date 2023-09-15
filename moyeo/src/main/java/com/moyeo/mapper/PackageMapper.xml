@@ -214,11 +214,22 @@
 	<select id="packageCount" resultType="int">
 		SELECT COUNT(*) 
 		FROM pack
-	</select>	
+	</select>
+	
+	<!-- 리뷰 -->
+	<!-- 최신 리뷰 가져오기-->
+	<select id="selectLatestReviews" resultType="Review">
+	SELECT *
+		FROM (
+		    SELECT *
+		    FROM review
+		    ORDER BY review_regdate DESC
+		)
+		WHERE ROWNUM &lt;= #{count}
+	</select>
 	
 	
 	<!-- 관리자 -->
-	
 	<!-- 패키지 검색 -->
 	<select id="selectPackageList" resultType="Pack">
 		SELECT * FROM (

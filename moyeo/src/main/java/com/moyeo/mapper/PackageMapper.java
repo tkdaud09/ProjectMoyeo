@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.moyeo.dto.Pack;
+import com.moyeo.dto.Review;
 
 public interface PackageMapper {
 	
@@ -34,8 +35,11 @@ public interface PackageMapper {
 	//전체 패키지 조회(페이징)
 	int packageCount();
 	
-	/* 관리자 */
+	/* 리뷰 */
+	//최신 리뷰를 가져오는 메서드
+	List<Review> selectLatestReviews(int count);
 	
+	/* 관리자 */
 	//관리자가 패키지 검색 시 사용
 	List<Pack> selectPackageList(Map<String, Object> map);
 	

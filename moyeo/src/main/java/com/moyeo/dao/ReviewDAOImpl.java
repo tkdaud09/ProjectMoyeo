@@ -51,11 +51,15 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.getMapper(ReviewMapper.class).selectReviewList(map);
 	}
 
-	
 	@Override
     public List<String> getAllPackageTitles() {
         //매퍼를 통해 모든 패키지 제목을 가져옴
         return sqlSession.getMapper(ReviewMapper.class).getAllPackageTitles();
+    }
+	
+	@Override //매퍼를 통해 최신리뷰 가져온거
+    public List<Review> selectLatestReviews(int count) {
+        return sqlSession.getMapper(ReviewMapper.class).selectLatestReviews(count);
     }
     
 	

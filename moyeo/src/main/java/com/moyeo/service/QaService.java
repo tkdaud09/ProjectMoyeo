@@ -1,9 +1,8 @@
 package com.moyeo.service;
 
-import java.util.Map;
+import java.util.Map; 
 
 import com.moyeo.dto.Qa;
-import com.moyeo.util.Pager;
 
 public interface QaService {
 	/*회원*/

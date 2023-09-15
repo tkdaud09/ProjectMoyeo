@@ -1,14 +1,12 @@
 package com.moyeo.service;
-
-import java.util.HashMap;
+ 
+import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.moyeo.dao.QaDAO;
-import com.moyeo.dao.QaReplyDAO;
 import com.moyeo.dto.Qa;
 import com.moyeo.util.Pager;
 

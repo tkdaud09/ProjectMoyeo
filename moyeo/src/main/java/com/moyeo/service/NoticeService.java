@@ -1,10 +1,7 @@
 package com.moyeo.service;
 
-import java.util.List;
 import java.util.Map;
-
 import com.moyeo.dto.Notice;
-import com.moyeo.mapper.NoticeMapper;
 
 public interface NoticeService {
    //공지사항 등록
