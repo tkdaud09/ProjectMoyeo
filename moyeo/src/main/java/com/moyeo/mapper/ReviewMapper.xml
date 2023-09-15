@@ -65,7 +65,9 @@
 			, review_title
 			, review_img
 			, review_content
-			, review_regdate FROM review 
+			, review_regdate
+			, review_viewcnt
+		FROM review 
 		WHERE review_idx=#{reviewIdx}
 	</select>
 	
@@ -89,7 +91,8 @@
 	        , review_title
 	        , review_img
 	        , review_content
-	        , review_regdate from review
+	        , review_regdate
+	        , review_viewcnt from review
 
 		<if test="keyword != null and keyword != ''">
 			<bind name="word" value="'%'+keyword+'%'"/>

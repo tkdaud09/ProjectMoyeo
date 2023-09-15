@@ -1,12 +1,10 @@
 package com.moyeo.controller;
 
-import java.io.File;
+import java.io.File; 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/review")
 @RequiredArgsConstructor
 public class ReviewController {
+	
 	private final WebApplicationContext context; //파일 업로드
 	private final ReviewService reviewService; //후기 관련 서비스
 
@@ -42,7 +41,8 @@ public class ReviewController {
 		model.addAttribute("packageTitles", packageTitles);
 		return "review/write";
 	}
-
+	
+	/*
 	// 리뷰 작성 처리(POST 요청)
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(@ModelAttribute Review review, @RequestParam("reviewImgFile") MultipartFile reviewImgFile, HttpServletRequest request) {
@@ -69,6 +69,7 @@ public class ReviewController {
 		reviewService.addReview(review);
 		return "redirect:/review/list";
 	}
+	*/
 
 	/*
 	// 리뷰 상세 보기 페이지로 이동 + 조회수
@@ -84,7 +85,8 @@ public class ReviewController {
 	    return "review/view";
 	}
 	 */
-
+	
+	/*
 	// 리뷰 상세 보기 페이지로 이동 + 조회수
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(@RequestParam Map<String, Object> map, Model model) {
@@ -97,11 +99,22 @@ public class ReviewController {
 		Review review = reviewService.getselectReviewByIdx(reviewIdx);
 		model.addAttribute("review", review);
 
-		/*  // 선택한 패키지 제목
+		// 선택한 패키지 제목
 	    String packTitle = review.getPackTitle();
-	    model.addAttribute("packTitle", packTitle);*/
+	    model.addAttribute("packTitle", packTitle);
 
 		model.addAttribute("search", map);
+
+		return "review/view";
+	}
+	*/
+	
+	// 리뷰 상세 보기 페이지로 이동 + 조회수
+	@RequestMapping("/view/{reviewIdx}")
+	public String view(@PathVariable("reviewIdx")int reviewIdx, Model model) {		   
+		reviewService.viewcntReview(reviewIdx);
+
+		model.addAttribute("review", reviewService.getselectReviewByIdx(reviewIdx));
 
 		return "review/view";
 	}

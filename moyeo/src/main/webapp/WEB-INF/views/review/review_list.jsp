@@ -92,8 +92,7 @@
 								<c:forEach var="review" items="${result.reviewList}">
 									<tr>
 										<td class="t2">${review.reviewIdx}</td>
-										<td class="t2"><a href="<c:url value="/review/view"/>?reviewIdx=${review.reviewIdx}&pageNum=${search.pageNum}&column=${search.column}&keyword=${search.keyword}">${review.reviewTitle}</a></td>
-										<td class="t2">${review.userinfoId}</td>
+										<td class="t2"><a href="${pageContext.request.contextPath}/review/view/${review.reviewIdx}" >${review.reviewTitle}</a></td>										<td class="t2">${review.userinfoId}</td>
 										<td class="t2"><fmt:formatDate var="formattedDate" value="${review.reviewRegdate}" pattern="yyyy-MM-dd" />${formattedDate}</td>
 										<td class="t2">${review.reviewViewcnt}</td>
 									</tr>
