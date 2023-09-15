@@ -7,20 +7,23 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.moyeo.dto.Pack;
-import com.moyeo.dto.Userinfo;
+import com.moyeo.dto.PackHeart;
+import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.PackageService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +37,9 @@ public class PackageController {
 
 	@Autowired
 	private PackageService packageService; // 패키지 등록 관련 service
+	
+	@Autowired
+	private PackageHeartService packageHeartService;
 
 	// 패키지 리스트 페이지 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -46,9 +52,23 @@ public class PackageController {
 	// 패키지 상세 페이지 이동 - 패키지 상세 정보 select
 	@RequestMapping(value = "/detail/{packIdx}", method = RequestMethod.GET) // Spring에서 사용자가 전송한 식별자 값을 변수로 인식하기 위해 템플릿
 	// 변수{packIdx}작성
-	public String packageDetailGET(@PathVariable("packIdx") int packIdx, Model model) {
+	public String packageDetailGET(@PathVariable("packIdx") int packIdx, 
+								   Model model,
+								   HttpSession session) {
+		
+		String userinfoId = (String) session.getAttribute("userinfoId");
+		
 		model.addAttribute("pack", packageService.selectPackInfo(packIdx));
-
+		
+		//추가한거
+		model.addAttribute("packHeartList", packageHeartService.getPackHeartIdxByPackIdx(packIdx));
+		
+		//로그인 유저가 찜 했는지 확인
+		PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoId);
+        boolean isHeartAdded = packHeart != null;
+        
+        model.addAttribute("isHeartAdded", isHeartAdded);
+		
 		return "package/mo_package_animal";
 	}
 	
@@ -134,5 +154,58 @@ public class PackageController {
 
 		return "redirect:/package/";
 	}
-
+	
+	
+	/*패키지 찜 기능 구현*/
+	
+	//찜 목록에 추가
+	@PostMapping("/addToPackageHeartList")
+	public ResponseEntity<String> addPackageHeart(@RequestParam int packIdx, 
+												  @RequestParam String userinfoId) {
+		
+		try {
+			PackHeart packHeart = new PackHeart();
+			packHeart.setPackIdx(packIdx);
+			packHeart.setUserinfoId(userinfoId);
+			packageHeartService.addPackageHeart(packHeart);
+			return ResponseEntity.ok("찜 목록에 추가 되었습니다.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찜 목록 추가에 실패했습니다.");
+		}
+	}
+	
+	//찜 목록에서 제거
+	/*
+	@PostMapping("/removeFromPackageHeartList")
+	public ResponseEntity<String> removePackageHeart(@RequestParam String userinfoId,
+													 @RequestParam(name = "packHeartIdx") int packHeartIdx) {
+		try {
+			PackHeart packHeart = new PackHeart();
+			packHeart.setUserinfoId(userinfoId);
+			packHeart.setPackHeartIdx(packHeartIdx);
+			packageHeartService.removePackageHeart(packHeart);
+			return ResponseEntity.ok("찜 목록에서 삭제되었습니다.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찜 삭제에 실패했습니다.");
+		}
+	}
+	*/
+	
+	//찜 목록에서 제거
+	@PostMapping("/removeFromPackageHeartList")
+	public ResponseEntity<String> removePackageHeart(@RequestParam String userinfoId,
+	                                                @RequestParam(name = "packHeartIdx") String packHeartIdxStr) {
+	    try {
+	        int packHeartIdx = Integer.parseInt(packHeartIdxStr); // 문자열을 정수로 변환
+	        PackHeart packHeart = new PackHeart();
+	        packHeart.setUserinfoId(userinfoId);
+	        packHeart.setPackHeartIdx(packHeartIdx);
+	        packageHeartService.removePackageHeart(packHeart);
+	        return ResponseEntity.ok("찜 목록에서 삭제되었습니다.");
+	    } catch (NumberFormatException e) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 요청입니다. packHeartIdx를 정수로 변환할 수 없습니다.");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찜 삭제에 실패했습니다.");
+	    }
+	}
 }

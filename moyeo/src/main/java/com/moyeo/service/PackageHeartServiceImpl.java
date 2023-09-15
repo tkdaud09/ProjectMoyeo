@@ -1,5 +1,7 @@
 package com.moyeo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.moyeo.dao.PackageHeartDAO;
@@ -23,9 +25,17 @@ public class PackageHeartServiceImpl implements PackageHeartService {
 	}
 
 	@Override
-	public PackHeart getPackageHeartById(String userinfoId) {
+	public List<PackHeart> getPackageHeartListById(String userinfoId) {
 		return packageHeartDAO.selectPackageHeartById(userinfoId);
 	}
 
-	
+	@Override
+	public PackHeart getPackIdxWithId(int packIdx, String userinfoId) {
+		return packageHeartDAO.selectPackIdxWithId(packIdx, userinfoId);
+	}
+
+	@Override
+	public PackHeart getPackHeartIdxByPackIdx(int packIdx) {
+		return packageHeartDAO.selectPackHeartIdxByPackIdx(packIdx);
+	}
 }

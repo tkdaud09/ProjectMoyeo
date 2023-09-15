@@ -113,7 +113,11 @@ public class UserinfoController {
    // 로그인
    @RequestMapping(value = "/login", method = RequestMethod.POST)
    public String loginPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session) throws Exception {
-      Userinfo lto = userinfoservice.userLogin(userinfo);
+	   
+	   //추가!
+	   session.setAttribute("userinfoId", userinfo.getId());
+	   
+	   Userinfo lto = userinfoservice.userLogin(userinfo);
 
       if (lto != null) {
          if (lto.getStatus() == 3) {

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moyeo.mapper.PackageHeartMapper">
-
+	
+	<!-- 찜하기(삽입) -->
 	<insert id="insertPackageHeart">
       <selectKey resultType="int" keyProperty="packHeartIdx" order="BEFORE">
-         SELECT pack_seq.nextval 
+         SELECT pack_heart_seq.nextval 
          FROM DUAL
       </selectKey>
 	      INSERT INTO 
-	      pack (
+	      pack_heart (
 	         pack_heart_idx
 	         , userinfo_id
 	         , pack_idx
@@ -20,6 +21,14 @@
 	      )
    	</insert> 
    	
+   <!-- 찜 삭제 -->
+   <delete id="deletePackageHeart">
+		DELETE FROM pack_heart 
+		WHERE pack_heart_idx=#{packHeartIdx}
+		AND userinfo_id=#{userinfoId}
+	</delete>
+	
+	<!-- 찜 목록 확인 -->
    	<select id="selectPackageHeartById" resultType="PackHeart">
       SELECT 
       		pack_heart_idx
@@ -29,10 +38,32 @@
       WHERE userinfo_id=#{userinfoId}
    </select>
    
-   <delete id="deletePackageHeart">
-		DELETE FROM pack_heart 
-		WHERE pack_heart_idx=#{packHeartIdx}
+    <!-- 이미 찜한 게시물인지 조회 -->
+   	<select id="selectPackIdxWithId" resultType="PackHeart">
+      SELECT 
+      		pack_heart_idx
+	        , userinfo_id
+	        , pack_idx
+      FROM pack_heart
+      WHERE pack_idx=#{packIdx}
+      AND userinfo_id=#{userinfoId}
+   </select>
+   
+   <!-- 추가했음 --> 
+   <!-- 패키지 번호로 검색 -->
+   <select id="selectPackHeartIdxByPackIdx" resultType="PackHeart">
+   		SELECT 
+   			pack_heart_idx
+   			, userinfo_id
+	        , pack_idx
+   		FROM pack_heart 
+   		WHERE pack_idx=#{packIdx}
+   </select>
+   
+   <!-- 추가해야함 -->
+   <!-- 게시물 삭제시 전체 삭제 -->
+   <delete id="deleteAllByPackIdx">
+		DELETE FROM pack_heart
+		WHERE pack_idx = #{packIdx}
 	</delete>
-   
-   
 </mapper>

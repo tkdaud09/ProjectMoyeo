@@ -142,21 +142,35 @@
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   예약하기 <span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </button>
-             <input type="hidden" name="packIdx" value="${packIdx}" />
+           		  <input type="hidden" name="packIdx" value="${packIdx}" />
 
- <button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize" value="장바구니"onclick="showAlert()">
- 장바구니<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
- </button>
-
-             <button type="button" onclick="location.href='booking-step-1.html';"
+				<button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize" value="장바구니"onclick="showAlert()">
+					장바구니<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+				</button>
+								
+				<%--<button type="button" onclick="location.href='booking-step-1.html';"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
                   하트수정<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                </button>
+                </button> --%>
+				
+
+				
+				<!-- 찜 기능 -->
+				<button type="button" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize" id="packageHeartBtn">
+				    <img id="heartImage" src="${pageContext.request.contextPath}/assets/img/package_heart.png" alt="하트 이미지" style="width: 50px; height: 50px;">
+				    <span class="ms-4"></span>
+				</button>
+				<input type="hidden" name="userinfoId" value="${userinfo.id}">
+				<input type="hidden" name="packHeartIdx" value="${packHeartList.packHeartIdx}" id="packHeartIdx">
+				
+             	
               </div>
             </div>
           </div>
         </form>
       </div>
+    
+ 
       
      <!-- 이미지 출력 -->
       <div class="col-md-7 col-lg-8">
@@ -520,15 +534,97 @@
            alert(errorMessage);
        }
     }
-   </script>
-   
-   <!-- 패키지 삭제 -->
-   <script>
+     
+     
+   /*패키지삭제*/
    $("#removeBtn").click(function() {
 		if(confirm("게시글을 삭제 하시겠습니까?")) {
 			$("#linkForm").attr("action", "<c:url value="/admin/removePackage"/>").submit();
 		}
 	});
+   
+   
+    /* 찜 기능 구현 */
+	
+	// 클릭한 하트의 상태를 나타내는 변수
+	var isHeartAdded = ${isHeartAdded}; 	
+	
+	// 하트 이미지 클릭 시
+	document.getElementById('packageHeartBtn').addEventListener('click',function (){
+	    isHeartAdded = !isHeartAdded; // 상태 토글
+
+	    // 이미지 변경
+	    var heartImage = document.getElementById('heartImage');
+	    if (isHeartAdded) {
+	        heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart_red.png";
+	        addToWishlist(); // 찜 목록에 추가
+	    } else {
+	        heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart.png";
+	        removeFromWishlist(); // 찜 목록에서 삭제
+	    }
+	});
+
+	// 찜 목록에 추가하는 함수
+	function addToWishlist() {
+	    var packIdx = ${pack.packIdx};
+	    var userinfoId = "${userinfo.id}";
+
+	    $.ajax({
+	        url: "${pageContext.request.contextPath}/package/addToPackageHeartList",
+	        method: "POST",
+	        data: {
+	            packIdx: packIdx,
+	            userinfoId: userinfoId
+	        },
+	        success: function (response) {
+	        	isHeartAdded = true; // 찜이 추가되었으므로 상태를 true로 변경
+	            console.log("찜 목록에 추가되었습니다.");
+	        },
+	        error: function () {
+	            console.error("찜 목록 추가에 실패했습니다.");
+	        }
+	    });
+	}
+
+	// 찜 목록에서 삭제하는 함수
+	function removeFromWishlist() {
+	    //var packHeartIdx = ${packHeartList.packHeartIdx};
+	    var packHeartIdx = document.getElementById("packHeartIdx").value
+	    var userinfoId = "${userinfo.id}";
+
+	    $.ajax({
+	        url: "${pageContext.request.contextPath}/package/removeFromPackageHeartList", 
+	        method: "POST",
+	        data: {
+	        	packHeartIdx: packHeartIdx,
+	            userinfoId: userinfoId
+	        },
+	        success: function (response) {
+	            console.log("찜 목록에서 삭제되었습니다.");
+	            isHeartAdded = false; // 찜이 삭제되었으므로 상태를 false로 변경
+	            updateHeartImage(); // 하트 이미지 업데이트
+	        },
+	        error: function () {
+	            console.error("찜 삭제에 실패했습니다.");
+	        }
+	    });
+	}
+	
+	// 하트 이미지 업데이트 함수
+	function updateHeartImage() {
+	    var heartImage = document.getElementById('heartImage');
+	    if (isHeartAdded) {
+	        heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart_red.png";
+	    } else {
+	        heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart.png";
+	    }
+	}
+
+	// 페이지 로드 시 초기 하트 이미지 설정
+	$(document).ready(function () {
+	    updateHeartImage();
+	});
+   
    </script>
    
   </body>

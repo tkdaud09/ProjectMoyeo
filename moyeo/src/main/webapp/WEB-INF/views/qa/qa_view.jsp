@@ -50,6 +50,11 @@
 				        <p class="t1">수정일: ${qa.qaModifyDate}</p>
 				    </div><hr>
 					<div class="view_con">${qa.qaContent}</div>
+					<%-- 이미지 출력 --%>
+					<%--<img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${qa.qaImg1}" src="${pageContext.request.contextPath}/assets/img/upload/${qa.qaImg1}" alt="image">
+					<img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${qa.qaImg2}" src="${pageContext.request.contextPath}/assets/img/upload/${qa.qaImg2}" alt="image">
+					<img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${qa.qaImg3}" src="${pageContext.request.contextPath}/assets/img/upload/${qa.qaImg3}" alt="image"> --%>
+					
 					
 					
 					<div class="border_btn">
