@@ -24,4 +24,8 @@ public interface QaDAO {
 	/*답변관련*/
 	int updateQaReplyStatusToOne(int qaIdx);
 	int updateQaReplyStatusToZero(int qaIdx);
+	
+	//userinfo-details
+	int selectMyQaCount(String accountId);
+	List<Qa> selectMyQaList(Map<String, Object> map);
 }

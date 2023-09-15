@@ -110,41 +110,40 @@ public class UserinfoController {
       return "userinfo/login";
    }
 
-   // 로그인
+   //로그인
    @RequestMapping(value = "/login", method = RequestMethod.POST)
    public String loginPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session) throws Exception {
-	   
-	   //추가!
+
 	   session.setAttribute("userinfoId", userinfo.getId());
-	   
+
 	   Userinfo lto = userinfoservice.userLogin(userinfo);
 
-      if (lto != null) {
-         if (lto.getStatus() == 3) {
-            // 탈퇴 회원은 로그인 차단
-            rttr.addFlashAttribute("result", 0);
-            return "redirect:/user/login";
-         } else if (lto.getStatus() == 2) {
-            // 휴면 계정은 활성화 요구 페이지로 바로 이동
-            return "redirect:/user/dormantAccount";
-         }
+	   if (lto != null) {
+		   if (lto.getStatus() == 3) {
+			   // 탈퇴 회원은 로그인 차단
+			   rttr.addFlashAttribute("result", 0);
+			   return "redirect:/user/login";
+		   } else if (lto.getStatus() == 2) {
+			   // 휴면 계정은 활성화 요구 페이지로 바로 이동
+			   return "redirect:/user/dormantAccount";
+		   }
 
-         String rawPw = userinfo.getPw();
-         String encodePw = lto.getPw();
+		   String rawPw = userinfo.getPw();
+		   String encodePw = lto.getPw();
 
-         if (pwEncoder.matches(rawPw, encodePw)) {
-            lto.setPw("");
-            session.setAttribute("userinfo", lto);
-            userinfoservice.updateUserLogindate(lto.getId());
-            return "redirect:/";
-         } else {
-            rttr.addFlashAttribute("result", 0);
-            return "redirect:/user/login";
-         }
-      } else {
-         rttr.addFlashAttribute("result", 0);
-         return "redirect:/user/login";
-      }
+		   if (pwEncoder.matches(rawPw, encodePw)) {
+			   lto.setPw("");
+			   session.setAttribute("userinfo", lto);
+			   userinfoservice.updateUserLogindate(lto.getId());
+			   return "redirect:/";
+		   } else {
+			   rttr.addFlashAttribute("result", 0);
+			   return "redirect:/user/login";
+		   }
+	   } else {
+		   rttr.addFlashAttribute("result", 0);
+		   return "redirect:/user/login";
+	   }
    }
 
    // 로그아웃 후 메인 페이지로 이동

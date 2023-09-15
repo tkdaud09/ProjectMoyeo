@@ -195,6 +195,18 @@
             <textarea class="form-control border-0 bg-smoke" id="diyContent4" rows="7">${diyModify.diyContent4 }</textarea>
           </div>
 		  
+		  <div id="elementContainer" class="mt-3">
+	    	 </div>
+		
+          <div class="container mt-5">
+	        <button type="button" id="addButton" class="btn btn-hover btn-outline-secondary text-uppercase">
+	            Add DAY
+	        </button>
+	        
+	        <button type="button" id="deleteButton" class="btn btn-hover btn-outline-secondary text-uppercase">
+	            Delete DAY
+	        </button>
+	      </div>
 		  
 		  <!--  추가 버튼 글 + 사진 스크립트 작성 -->
     
@@ -210,144 +222,73 @@
       </div>
     </div>
 </section>
-
-    <!-- ====================================
-    ——— FOOTER SECTION
-    ===================================== -->
-    <jsp:include page="/WEB-INF/views/inc/footer.jsp"/>
-  
-    <!-- ====================================
-    ——— MODAL SECTION
-    ===================================== -->
-    <!-- Signup Modal -->
-    <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-label="signupModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header rounded">
-            <h3 class="modal-title text-uppercase font-weight-bold">Create your account</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <div class="modal-body">
-            <form class="" action="index.html" method="get">
-              <div class="mb-3">
-                <input type="text" class="form-control bg-smoke" required="" placeholder="Full Name">
-              </div>
-
-              <div class="mb-3">
-                <input type="email" class="form-control bg-smoke" required="" placeholder="Email">
-              </div>
     
-              <div class="mb-3">
-                <input type="password" class="form-control bg-smoke" required="" placeholder="Password">
-              </div>
     
-              <div class="mb-3 form-check mb-0">
-                <input type="checkbox" class="form-check-input" id="exampleCheck4">
-                <label class="form-check-label text-gray-color mb-3" for="exampleCheck4">
-                  I agree to the terms of use and privacy.
-                </label>
-              </div>
-
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Login</button>
-              </div>
-
-              <div class="text-uppercase text-center py-3">Or</div>
-
-              <div class="d-grid">
-                <button type="submit" class="btn btn-facebook btn-block text-uppercase text-white">Login with facebook</button>
-              </div>
-            </form>
-          </div>
-    
-          <div class="modal-footer justify-content-center">
-            <p class="mb-1">Don’t have an Account? <a href="javascript:void(0)">Sign up</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-label="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header rounded">
-            <h3 class="modal-title text-uppercase font-weight-bold">Log in to your account</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <div class="modal-body">
-            <form class="" action="index.html" method="get">
-              <div class="mb-3">
-                <input type="email" class="form-control bg-smoke" required="" placeholder="Email">
-              </div>
-
-              <div class="mb-3">
-                <input type="password" class="form-control bg-smoke" required="" placeholder="Password">
-              </div>
-
-              <div class="mb-3 form-check mb-0">
-                <input type="checkbox" class="form-check-input" id="exampleCheck5">
-                <label class="form-check-label text-gray-color mb-3" for="exampleCheck5">
-                  Remember me
-                </label>
-                <a class="pull-right" href="javascript:void(0)">Fogot Password?</a>
-             </div>
-
-             <div class="d-grid">
-              <button type="submit" class="btn btn-primary text-uppercase">Login</button>
-             </div>
-
-              <div class="text-uppercase text-center py-3">Or</div>
-
-              <div class="d-grid">
-                <button type="submit" class="btn btn-facebook text-uppercase text-white">Login with facebook</button>
-               </div>
-            </form>
-          </div>
-
-          <div class="modal-footer justify-content-center">
-            <p class="mb-1">Don’t have an Account? <a href="javascript:void(0)">Sign up</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- INQUIRY IN MODAL -->
-    <div class="modal fade" id="inquiry" tabindex="-1" role="dialog" aria-label="inquiryModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header rounded">
-            <h3 class="modal-title text-uppercase font-weight-bold">Inquiry about tour</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <div class="modal-body pb-3">
-            <form class="" action="index.html" method="get">
-              <div class="mb-3">
-                <input type="text" class="form-control bg-smoke" required="" placeholder="Your Name">
-              </div>
-
-              <div class="mb-3">
-                <input type="email" class="form-control bg-smoke" required="" placeholder="Your Email">
-              </div>
-    
-              <div class="mb-3">
-                <input type="number" class="form-control bg-smoke" required="" placeholder="Phone Number">
-              </div>
-
-              <div class="mb-3">
-                <textarea class="form-control bg-smoke" rows="6" placeholder="Message"></textarea>
-              </div>
-    
-              <button type="submit" class="btn btn-primary text-uppercase">Submit</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    
+	<script >
+	
+	const addButton = document.getElementById('addButton');
+	const deleteButton = document.getElementById('deleteButton');
+	const elementContainer = document.getElementById('elementContainer');
+	
+	// Counter for unique IDs
+	let counter = 5;
+	let addDayCount = 0;
+	
+	
+	// Function to add new elements
+	function addDay() {
+	 if (addDayCount >= 3) {
+	     // Do nothing if the function has been called 10 times
+	     return;
+	   }
+		 
+	    const dayDiv = document.createElement('div');
+	    dayDiv.classList.add('form-group', 'mb-5');
+	
+	    const dayLabel = document.createElement('label');
+	    dayLabel.textContent = "DAY "+counter+"   "+"("+(5+addDayCount)+"/7)";
+	
+	    const textarea = document.createElement('textarea');
+	    textarea.classList.add('form-control', 'border-0', 'bg-smoke');
+	    textarea.name = "diyContent"+counter;
+	    textarea.rows = 7;
+	
+	    const uploadLabel = document.createElement('label');
+	    uploadLabel.textContent = "DAY " +counter+ " 사진올리기     ("+(5+addDayCount)+"/7)";
+	
+	    const uploadInput = document.createElement('input');
+	    uploadInput.type = 'file';
+	    uploadInput.classList.add('btn', 'btn-xs', 'btn-outline-secondary', 'text-uppercase');
+	    uploadInput.id = "diyContent"+counter+"Img";
+	    uploadInput.name = "diyContent"+counter+"ImgFile";
+	
+	    dayDiv.appendChild(uploadLabel);
+	    dayDiv.appendChild(uploadInput);
+	    dayDiv.appendChild(dayLabel);
+	    dayDiv.appendChild(textarea);
+	    
+	    elementContainer.appendChild(dayDiv, dayLabel);
+	
+		counter++;
+		addDayCount++;
+		}
+	
+	addButton.addEventListener('click', addDay);
+	
+	function deleteDay() {
+	 const elementContainer = document.getElementById('elementContainer');
+	
+	    if (elementContainer.children.length >= 1) {
+	        elementContainer.removeChild(elementContainer.lastChild);
+	        // Decrement the tag count
+	        counter -= 1;
+	        addDayCount = Math.max(0, addDayCount - 1);
+	  	  }
+	 
+		}
+	// Add event listener to the "Add DAY" button
+	deleteButton.addEventListener('click', deleteDay);
+	</script>
 
     
     

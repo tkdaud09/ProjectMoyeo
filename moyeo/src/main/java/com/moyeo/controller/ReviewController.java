@@ -1,11 +1,19 @@
 package com.moyeo.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.HtmlUtils;
 
 import com.moyeo.dto.Review;
 import com.moyeo.service.ReviewService;
@@ -16,58 +24,169 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/review")
 @RequiredArgsConstructor
 public class ReviewController {
-    private final ReviewService reviewService;
-
-    // 글 목록 페이지를 보여주는 요청 처리 메서드
-    @GetMapping("/list")
-    public String reviewList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
-        Map<String, Object> resultMap = reviewService.getReviewList(pageNum);
-        model.addAttribute("reviewList", resultMap.get("reviewList"));
-        model.addAttribute("pager", resultMap.get("pager"));
-        return "review/review_list"; // 글 목록 페이지로 이동
+	
+	private final WebApplicationContext context; //파일 업로드
+    private final ReviewService reviewService; //후기 관련 서비스
+    
+    // 리뷰 목록 조회 페이지로 이동
+    @RequestMapping("/list")
+	public String list(@RequestParam Map<String, Object> map, Model model) {
+		 model.addAttribute("result", reviewService.getReviewList(map));
+		 model.addAttribute("search", map);
+		 return "review/review_list";
+	}
+    
+ 
+	// 리뷰 작성 페이지로 이동(GET 요청)
+    @RequestMapping(value = "/write", method = RequestMethod.GET)
+    public String write(Model model) {
+        List<String> packageTitles = reviewService.getAllPackageTitles(); //패키지 타이틀
+        model.addAttribute("packageTitles", packageTitles);
+        return "review/write";
     }
 
-    // 글 작성 화면으로 이동
-    @GetMapping("/write")
-    public String showWriteForm(Model model) {
-        return "review/write"; // 글 작성 화면으로 이동
-    }
+    
+	// 리뷰 작성 처리(POST 요청)
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String write(@ModelAttribute Review review, @RequestParam("reviewImgFile") MultipartFile reviewImgFile, HttpServletRequest request) {
+	    review.setReviewTitle(HtmlUtils.htmlEscape(review.getReviewTitle()));
+	    review.setReviewContent(HtmlUtils.htmlEscape(review.getReviewContent()));
+	    
+	    // 전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
+	    String uploadDirectory = request.getServletContext().getRealPath("/resources/assets/img/upload");
+	
+	    // 서버 디렉토리에 업로드 처리되며 저장된 파일의 이름을 반환하여 Command 객체의 필드값 변경
+	    String uploadReview = UUID.randomUUID().toString() + "-" + reviewImgFile.getOriginalFilename();
+	    review.setReviewImg(uploadReview);
+	
+	    try {
+	        // 파일 업로드 처리
+	        reviewImgFile.transferTo(new File(uploadDirectory, uploadReview));
+	    } catch (IOException e) {
+	        // 파일 업로드 중 오류 처리
+	        e.printStackTrace();
+	        // 오류 처리 로직 추가
+	        return "errorPage"; // 오류 페이지로 리다이렉트
+	    }
+	
+	    reviewService.addReview(review);
+	    return "redirect:/review/list";
+	}
+	
+	
+	/* // 리뷰 작성 처리(POST 요청)
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String write(@ModelAttribute Review review) {
+		@RequestParam("reviewImgFile") MultipartFile reviewImgFile,
+		review.setReviewTitle(HtmlUtils.htmlEscape(review.getReviewTitle()));
+		review.setReviewContent(HtmlUtils.htmlEscape(review.getReviewContent()));
+		
+	    //전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
+        String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
 
-    // 글 작성 처리
-    @PostMapping("/add")
-    public String addReview(@ModelAttribute Review review) {
-        reviewService.addReview(review);
-        return "redirect:/review/list"; // 작성한 글 목록 페이지로 이동
-    }
+        //서버 디렉토리에 업로드 처리되며 저장된 파일의 이름을 반환하여 Command 객체의 필드값 변경
+        String uploadReview = UUID.randomUUID().toString()+"-"+reviewImgFile.getOriginalFilename();
+        review.setReviewImg(uploadReview);
 
-    // 글 상세 조회 페이지를 보여주는 요청 처리 메서드
-    @GetMapping("/view/{reviewIdx}")
-    public String reviewView(@PathVariable int reviewIdx, Model model) {
-        Review review = reviewService.getReview(reviewIdx);
-        model.addAttribute("review", review);
-        return "review/view"; // 글 상세 조회 페이지로 이동
-    }
+        //파일 업로드 처리 - 복붙해서 넣어주는게 아니라 서버에 넣어줌
+        reviewImgFile.transferTo(new File(uploadDirectory,uploadReview));
 
-    // 리뷰 수정 페이지 표시
-    @GetMapping("/modify/{reviewIdx}")
-    public String showModifyForm(@PathVariable int reviewIdx, Model model) {
-        Review review = reviewService.getReview(reviewIdx);
-        model.addAttribute("review", review);
-        return "review/modify"; // 리뷰 수정 페이지로 이동
-    }
+		reviewService.addReview(review);
+		return "redirect:/review/list";
+	}
+	*/
+	
+	
+	/*
+	// 리뷰 상세 보기 페이지로 이동 + 조회수
+	@RequestMapping("/view")
+	public String view(@RequestParam Map<String, Object> map, Model model) {
+	    int reviewIdx = Integer.parseInt((String) map.get("reviewIdx"));
 
-    // 리뷰 수정 처리
-    @PostMapping("/modify")
-    public String modifyReview(@ModelAttribute Review review) {
-        reviewService.modifyReview(review);
-        return "redirect:/review/view/" + review.getReviewIdx(); // 수정된 리뷰 페이지로 이동
-    }
+	    reviewService.viewcntReview(reviewIdx);
 
+	    model.addAttribute("review", reviewService.getselectReviewByIdx(reviewIdx));
+	    model.addAttribute("search", map);
 
-    // 글 삭제 처리
-    @DeleteMapping("/delete/{reviewIdx}")
-    public String removeReview(@PathVariable int reviewIdx) {
-        reviewService.removeReview(reviewIdx);
-        return "redirect:/review/list";
-    }
+	    return "review/view";
+	}
+    */
+	
+	
+	// 리뷰 상세 보기 페이지로 이동 + 조회수
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public String view(@RequestParam Map<String, Object> map, Model model) {
+	    int reviewIdx = Integer.parseInt((String) map.get("reviewIdx"));
+
+	    // 조회수 증가 메서드를 호출하여 리뷰 조회수를 증가시킵니다.
+	    reviewService.viewcntReview(reviewIdx);
+
+	    // 리뷰 정보를 가져옵니다.
+	    Review review = reviewService.getselectReviewByIdx(reviewIdx);
+	    model.addAttribute("review", review);
+
+	  /*  // 선택한 패키지 제목을 가져옵니다.
+	    String packTitle = review.getPackTitle();
+	    model.addAttribute("packTitle", packTitle);*/
+
+	    model.addAttribute("search", map);
+
+	    return "review/view";
+	}
+
+	 
+	// 리뷰 수정 페이지로 이동(GET 요청)
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public String modify(@RequestParam Map<String, Object> map, Model model) {
+		int reviewIdx=Integer.parseInt((String)map.get("reviewIdx"));
+		model.addAttribute("review", reviewService.getselectReviewByIdx(reviewIdx));
+		model.addAttribute("search", map);
+		return "review/modify";
+	}
+
+	
+	// 리뷰 수정 처리(POST 요청)
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(@ModelAttribute Review review, @RequestParam("reviewImgFile") MultipartFile reviewImgFile,
+	                    @RequestParam Map<String, Object> map) { 
+
+	    review.setReviewTitle(HtmlUtils.htmlEscape(review.getReviewTitle()));
+	    review.setReviewContent(HtmlUtils.htmlEscape(review.getReviewContent()));
+	    
+	    // 이미지 파일이 업로드되었는지 확인
+	    if (!reviewImgFile.isEmpty()) {
+	        // 파일이 업로드된 경우
+	        String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
+	        String uploadNotice = UUID.randomUUID().toString() + "-" + reviewImgFile.getOriginalFilename();
+	        review.setReviewImg(uploadNotice);
+	        try {
+	            reviewImgFile.transferTo(new File(uploadDirectory, uploadNotice));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            // 파일 업로드 중 오류 처리
+	            return "errorPage"; // 오류 페이지로 리다이렉트
+	        }
+	    } else {
+	        // 파일이 업로드되지 않은 경우, 기존 이미지 경로를 유지
+	        review.setReviewImg(reviewService.getselectReviewByIdx(review.getReviewIdx()).getReviewImg());
+	    }
+
+	    reviewService.modifyReview(review);
+
+	    String pageNum = (String) map.get("pageNum");
+	    String column = (String) map.get("column");
+	    String keyword = (String) map.get("keyword");
+	    return "redirect:/review/view?reviewIdx=" + review.getReviewIdx() + "&pageNum=" + pageNum
+	            + "&column=" + column + "&keyword=" + keyword;
+	}
+	
+	
+	// 리뷰 삭제 처리(GET 요청)
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(@RequestParam int idx, @RequestParam String writer) {
+		reviewService.removeReview(idx);
+		return "redirect:/review/list";
+	}
+
+    
 }

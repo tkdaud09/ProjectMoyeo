@@ -1,9 +1,12 @@
 package com.moyeo.controller;
 
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +18,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moyeo.dto.Diy;
+import com.moyeo.dto.DiyLove;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.DiyNotFoundException;
+import com.moyeo.service.DiyLoveService;
 import com.moyeo.service.DiyService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +40,8 @@ public class DiyController {
 	private final WebApplicationContext context;
 	@Autowired
 	private final DiyService diyService;
+	@Autowired
+	private final DiyLoveService diyLoveService;
 	
 	// diy 페이지 요청
 	@GetMapping("/diy")
@@ -42,14 +50,18 @@ public class DiyController {
 	}
 	// diy 자세히보기
 	@GetMapping("/diy_detail/{diyIdx}")
-	public String diyDetail(@PathVariable("diyIdx") int diyIdx, Model model, HttpSession session) {
+	@ResponseBody
+	@Nullable
+	public String diyDetail(@PathVariable("diyIdx") int diyIdx,DiyLove diyLove, Model model, HttpSession session) {
 		
-		Userinfo loginId = (Userinfo)session.getAttribute("userinfo");
-		model.addAttribute("loginId",loginId);
+		Userinfo userinfo = (Userinfo)session.getAttribute("userinfo");
+		diyLove.setUserinfoId(userinfo.getId());
+		// model.addAttribute("loginId",loginId);
+		model.addAttribute("loveStatus",diyLoveService.loveStatus());
+		
 		Diy diyId = diyService.getUserinfoById(diyIdx);
 		model.addAttribute("diyId", diyId);
         
-        //Diy diyDetail = diyService.selectDiy(diyIdx);
 		model.addAttribute("diyDetail", diyService.selectDiy(diyIdx));
 		return "diy/diy_detail";
 	}
@@ -63,20 +75,14 @@ public class DiyController {
 	
 	// diy 리스트 페이지 요청
 	@GetMapping("/diy_list")
-	public String selectDiyList(Model model) throws DiyNotFoundException {
-		model.addAttribute("diyList", diyService.selectDiyList());
-		model.addAttribute("diyCount", diyService.selectDiyListCount());
+	public String selectDiyList(@RequestParam(defaultValue = "1", value = "pager",required = false) int pageNum, Model model) throws DiyNotFoundException {
+		Map<String, Object> resultMap = diyService.selectDiyList(pageNum);
+		model.addAttribute("diyList", resultMap.get("diyList"));
+		model.addAttribute("pager", resultMap.get("pager"));
+		// model.addAttribute("diyCount", diyService.selectDiyListCount());
 		return "diy/diy_list";
 	}
-	/*
-	// 목록으로 이동
-	@PostMapping("/diy_list")
-	public String diyList(Model model) {
-		// return "diy/diy_form";
-		
-		return "diy/diy_list";
-	}
-	*/
+	
 	//================================================================
 	/*  add 
 	@PostMapping("/diy_add")
@@ -99,66 +105,10 @@ public class DiyController {
 		imgIdxList.add(imgIdx);
 		
 		}
-		
-		//========================================================================
-		Userinfo userinfo=(Userinfo)session.getAttribute("userinfo");
-		diy.setUserinfoId(userinfo.getId());
-		diyService.insertDiy(diy);
-	
-		return "redirect:/diy//diy_detail";
 	}
 	*/
-	//=================================================================================
-	
-	/*@PostMapping("/diy_add")
-	public String diyAdd (@ModelAttribute("diy") Diy diy, HttpSession session, Model model,
-			@RequestParam("diyThumbnail") MultipartFile diyThumbnail,
-	         @RequestParam("diyContent1Img") MultipartFile diyContent1Img, 
-	         @RequestParam("diyContent2Img") MultipartFile diyContent2Img,
-	         @RequestParam("diyContent3Img") MultipartFile diyContent3Img,
-	         @RequestParam("diyContent4Img") MultipartFile diyContent4Img) throws Exception {
-		if (diyThumbnail.isEmpty() || diyContent4Img.isEmpty() || diyContent2Img.isEmpty()
-				|| diyContent3Img.isEmpty() || diyContent4Img.isEmpty()) {
-			// 이미지 파일이 업로드되지 않은 경우 처리
-			model.addAttribute("message", "파일이 업로드되지 않았습니다.");
-			return "redirect:/diy_add/";
-		}
-		
-	      //전달파일을 저장하기 위한 서버 디렉토리의시스템 경로 반환
-	      String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
-	      
-	      //서버 디렉토리에 업로드 처리되며 저장된 파일의 이름을 반환하여 Command 객체의 필드값 변경
-	      String uploadDiyThumbnail=UUID.randomUUID().toString()+"-"+diyThumbnail.getOriginalFilename();
-	      diy.setDiyThumbnail(uploadDiyThumbnail);
-	      
-	      String uploadDiyContent1Img=UUID.randomUUID().toString()+"-"+diyContent1Img.getOriginalFilename();
-	      diy.setDiyContent1Img(uploadDiyContent1Img);
-	      
-	      String uploadDiyContent2Img=UUID.randomUUID().toString()+"-"+diyContent2Img.getOriginalFilename();
-	      diy.setDiyContent2Img(uploadDiyContent2Img);
-	      
-	      String uploadDiyContent3Img=UUID.randomUUID().toString()+"-"+diyContent3Img.getOriginalFilename();
-	      diy.setDiyContent3Img(uploadDiyContent3Img);
-	      
-	      String uploadDiyContent4Img=UUID.randomUUID().toString()+"-"+diyContent4Img.getOriginalFilename();
-	      diy.setDiyContent4Img(uploadDiyContent4Img);
-	      
-	      //파일 업로드 처리 - 복붙해서 넣어주는 게 아니라 서버에 넣어줌
-	      diyThumbnail.transferTo(new File(uploadDirectory,uploadDiyThumbnail));
-	      diyContent1Img.transferTo(new File(uploadDirectory,uploadDiyContent1Img));
-	      diyContent2Img.transferTo(new File(uploadDirectory,uploadDiyContent2Img));
-	      diyContent3Img.transferTo(new File(uploadDirectory,uploadDiyContent3Img));
-	      diyContent4Img.transferTo(new File(uploadDirectory,uploadDiyContent4Img));
-		
-		//========================================================================
-	    Userinfo userinfo=(Userinfo)session.getAttribute("userinfo");
-		diy.setUserinfoId(userinfo.getId());
-		
-		diyService.insertDiy(diy);
-	
-		return "redirect:/diy/diy_list";
-	}*/
-	
+
+	@Nullable
 	@PostMapping("/diy_add")
 	public String diyAdd(@ModelAttribute Diy diy, 
 	   @RequestParam("diyThumbnailFile") MultipartFile diyThumbnailFile,
@@ -167,12 +117,6 @@ public class DiyController {
 	   @RequestParam("diyContent3ImgFile") MultipartFile diyContent3ImgFile,
 	   @RequestParam("diyContent4ImgFile") MultipartFile diyContent4ImgFile,
 	   Model model, HttpSession session) throws IllegalStateException, IOException { 
-
-	   if(diyThumbnailFile.isEmpty() || diyContent1ImgFile.isEmpty() || diyContent2ImgFile.isEmpty() || diyContent3ImgFile.isEmpty() || diyContent4ImgFile.isEmpty()){
-	      //이미지 파일이 업로드되지 않은 경우 처리
-	      model.addAttribute("message","파일이 업로드되지 않았습니다.");
-	      return "redirect:/diy_add/";
-	   }
 
 	   //전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
 	   String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
@@ -236,59 +180,26 @@ public class DiyController {
 		
 		return "redirect:/diy/diy_list";
 	}
-	
-	
-	//============================================
-
-	
-	/*
-	// 파일 업로드 구현
-	@PostMapping("/uploadFile")
-	public String uploadFile(@RequestParam String uploaderName, 
-			@RequestParam List<MultipartFile> uploadList, Model model) throws IOException{
+	//===============================================================================
+	// 좋아요 체크 
+	@RequestMapping(value = "/loveCheck.do")
+	public String diyLove(@ModelAttribute DiyLove diyLove, @ModelAttribute Diy diy, HttpSession session) {
 		
+//		Userinfo userinfo=(Userinfo)session.getAttribute("userinfo");
+//		diyLove.setUserinfoId(userinfo.getId());
+		
+		diyLoveService.insertDiyLove(diyLove);
+		diyService.loveCheck(diy);
+		return "diy/diy_list";
 	}
-		// 사진..?
-	*/
+	// 좋아요 취소 
+	@RequestMapping(value = "/loveCancel.do")
+	public String loveCancel(@ModelAttribute DiyLove diyLove, @ModelAttribute Diy diy) {
+		
+		diyLoveService.deleteDiyLove(diyLove);
+		diyService.loveCancel(diy);
+		
+		return "diy/diy_list";
+	}
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,11 +2,11 @@ package com.moyeo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.moyeo.dto.Pack;
 import com.moyeo.dto.PackHeart;
@@ -34,18 +33,19 @@ import lombok.RequiredArgsConstructor;
 public class PackageController {
 
 	private final WebApplicationContext context;
-
-	@Autowired
-	private PackageService packageService; // 패키지 등록 관련 service
+	private final PackageService packageService; // 패키지 등록 관련 service
+	private final PackageHeartService packageHeartService;
 	
-	@Autowired
-	private PackageHeartService packageHeartService;
-
-	// 패키지 리스트 페이지 이동
+	//패키지 리스트 페이지 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String packageMainGET(Model model) {
-		model.addAttribute("packList", packageService.getPackageList());
-		System.out.println();
+	public String packageMainGET(@RequestParam(defaultValue = "1") int pageNum,
+		   		@RequestParam(required = false) String keyword, 
+		   		Model model) {
+		Map<String, Object> map=packageService.getPackageListUser(pageNum, keyword);
+		
+		model.addAttribute("pager", map.get("pager"));
+		model.addAttribute("packList", map.get("packList"));
+		
 		return "package/mo_package";
 	}
 
@@ -53,22 +53,22 @@ public class PackageController {
 	@RequestMapping(value = "/detail/{packIdx}", method = RequestMethod.GET) // Spring에서 사용자가 전송한 식별자 값을 변수로 인식하기 위해 템플릿
 	// 변수{packIdx}작성
 	public String packageDetailGET(@PathVariable("packIdx") int packIdx, 
-								   Model model,
-								   HttpSession session) {
-		
+			Model model,
+			HttpSession session) {
+
 		String userinfoId = (String) session.getAttribute("userinfoId");
-		
-		model.addAttribute("pack", packageService.selectPackInfo(packIdx));
-		
+
+		model.addAttribute("pack", packageService.getPackageInfo(packIdx));
+
 		//추가한거
 		model.addAttribute("packHeartList", packageHeartService.getPackHeartIdxByPackIdx(packIdx));
-		
+
 		//로그인 유저가 찜 했는지 확인
 		PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoId);
-        boolean isHeartAdded = packHeart != null;
-        
-        model.addAttribute("isHeartAdded", isHeartAdded);
-		
+		boolean isHeartAdded = packHeart != null;
+
+		model.addAttribute("isHeartAdded", isHeartAdded);
+
 		return "package/mo_package_animal";
 	}
 	
@@ -144,25 +144,13 @@ public class PackageController {
 		return "redirect:/package/";
 	}
 
-
-	/* 패키지 상품 정보 수정 */
-	@RequestMapping(value = "/packinfoModify", method = RequestMethod.POST)
-	public String packinfoModify(Pack pack, RedirectAttributes rttr) {
-		int result = packageService.updatePackage(pack);
-
-		rttr.addFlashAttribute("modify_result", result);
-
-		return "redirect:/package/";
-	}
-	
-	
 	/*패키지 찜 기능 구현*/
-	
+
 	//찜 목록에 추가
 	@PostMapping("/addToPackageHeartList")
 	public ResponseEntity<String> addPackageHeart(@RequestParam int packIdx, 
-												  @RequestParam String userinfoId) {
-		
+			@RequestParam String userinfoId) {
+
 		try {
 			PackHeart packHeart = new PackHeart();
 			packHeart.setPackIdx(packIdx);
@@ -174,38 +162,23 @@ public class PackageController {
 		}
 	}
 	
+	
 	//찜 목록에서 제거
-	/*
 	@PostMapping("/removeFromPackageHeartList")
 	public ResponseEntity<String> removePackageHeart(@RequestParam String userinfoId,
-													 @RequestParam(name = "packHeartIdx") int packHeartIdx) {
+			@RequestParam(name = "packHeartIdx") String packHeartIdxStr) {
 		try {
+			int packHeartIdx = Integer.parseInt(packHeartIdxStr); // 문자열을 정수로 변환
 			PackHeart packHeart = new PackHeart();
 			packHeart.setUserinfoId(userinfoId);
 			packHeart.setPackHeartIdx(packHeartIdx);
 			packageHeartService.removePackageHeart(packHeart);
 			return ResponseEntity.ok("찜 목록에서 삭제되었습니다.");
+		} catch (NumberFormatException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 요청입니다. packHeartIdx를 정수로 변환할 수 없습니다.");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찜 삭제에 실패했습니다.");
 		}
 	}
-	*/
 	
-	//찜 목록에서 제거
-	@PostMapping("/removeFromPackageHeartList")
-	public ResponseEntity<String> removePackageHeart(@RequestParam String userinfoId,
-	                                                @RequestParam(name = "packHeartIdx") String packHeartIdxStr) {
-	    try {
-	        int packHeartIdx = Integer.parseInt(packHeartIdxStr); // 문자열을 정수로 변환
-	        PackHeart packHeart = new PackHeart();
-	        packHeart.setUserinfoId(userinfoId);
-	        packHeart.setPackHeartIdx(packHeartIdx);
-	        packageHeartService.removePackageHeart(packHeart);
-	        return ResponseEntity.ok("찜 목록에서 삭제되었습니다.");
-	    } catch (NumberFormatException e) {
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 요청입니다. packHeartIdx를 정수로 변환할 수 없습니다.");
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찜 삭제에 실패했습니다.");
-	    }
-	}
 }

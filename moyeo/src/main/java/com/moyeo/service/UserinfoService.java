@@ -34,5 +34,6 @@ public interface UserinfoService {
    Userinfo getUserinfo(String id) throws UserinfoNotFoundException;//아이디로 전달값을 제공받아 회원정보 받음
    Map<String, Object> getUserinfoList(int pageNum, int pageSize, String selectKeyword);//회원목록 출력
    Userinfo getUserinfoByRegdate(String regdate);//regdate로 유저정보 가져오기
+   void removeUserinfo1(String id) throws UserinfoNotFoundException;
 
 }

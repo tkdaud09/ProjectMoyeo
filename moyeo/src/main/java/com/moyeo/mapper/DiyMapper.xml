@@ -7,48 +7,48 @@
 			FROM DUAL
 		</selectKey>
         INSERT INTO diy (
-        		diy_idx,
-        		userinfo_id,
-        		diy_startdate,
-        		diy_enddate,
-        		diy_people,
-        		diy_loc,
-        		diy_price,
-        		diy_map,
-        		diy_regdate,
-        		diy_title,
-        		diy_introduction,
-        		diy_thumbnail,
-        		diy_content1img,
-        		diy_content1,
-        		diy_content2img,
-        		diy_content2,
-        		diy_content3img,
-        		diy_content3,
-        		diy_content4img,
-        		diy_content4)
+        		diy_idx
+        		,userinfo_id
+        		,diy_startdate
+        		,diy_enddate
+        		,diy_people
+        		,diy_loc
+        		,diy_price
+        		,diy_map
+        		,diy_regdate
+        		,diy_title
+        		,diy_introduction
+        		,diy_thumbnail
+        		,diy_content1img
+        		,diy_content1
+        		,diy_content2img
+        		,diy_content2
+        		,diy_content3img
+        		,diy_content3
+        		,diy_content4img
+        		,diy_content4)
         
         VALUES(
-                #{diyIdx},
-                #{userinfoId},
-                TO_DATE(#{diyStartdate}, 'yyyy-mm-dd'),
-                TO_DATE(#{diyEnddate}, 'yyyy-mm-dd'),
-                #{diyPeople},
-                #{diyLoc},
-                #{diyPrice}, 
-                #{diyMap},
-                SYSDATE,
-                #{diyTitle},
-                #{diyIntroduction},
-                #{diyThumbnail},
-                #{diyContent1Img},
-                #{diyContent1},
-                #{diyContent2Img},
-                #{diyContent2},
-                #{diyContent3Img},
-                #{diyContent3},
-                #{diyContent4Img},
-                #{diyContent4})
+                #{diyIdx}
+                ,#{userinfoId}
+                ,TO_DATE(#{diyStartdate}, 'yyyy-mm-dd')
+                ,TO_DATE(#{diyEnddate}, 'yyyy-mm-dd')
+                ,#{diyPeople}
+                ,#{diyLoc}
+                ,#{diyPrice}
+                ,#{diyMap}
+                ,SYSDATE
+                ,#{diyTitle}
+                ,#{diyIntroduction}
+                ,#{diyThumbnail}
+                ,#{diyContent1Img}
+                ,#{diyContent1}
+                ,#{diyContent2Img}
+                ,#{diyContent2}
+                ,#{diyContent3Img}
+                ,#{diyContent3}
+                ,#{diyContent4Img}
+                ,#{diyContent4})
     </insert>
     
     <select id="getUserinfoById" resultType="Diy">
@@ -61,27 +61,27 @@
 
 	<select id="selectDiy" resultType="Diy">
         SELECT 
-        		diy_idx,
-        		userinfo_id,
-        		diy_startdate,
-        		diy_enddate,
-        		diy_people,
-        		diy_loc,
-        		diy_price,
-        		diy_map,
-        		TO_CHAR(diy_regdate, 'yyyy-mm-dd'),
-        		TO_CHAR(diy_modifydate, 'yyyy-mm-dd'),
-        		love_idx,
-        		diy_title,
-        		diy_introduction,
-        		diy_content1img,
-        		diy_content1,
-        		diy_content2img,
-        		diy_content2,
-        		diy_content3img,
-        		diy_content3,
-        		diy_content4img,
-        		diy_content4
+        		diy_idx
+        		,userinfo_id
+        		,diy_startdate
+        		,diy_enddate
+        		,diy_people
+        		,diy_loc
+        		,diy_price
+        		,diy_map
+        		,TO_CHAR(diy_regdate, 'yyyy-mm-dd')
+        		,TO_CHAR(diy_modifydate, 'yyyy-mm-dd')
+        		,love_count
+        		,diy_title
+        		,diy_introduction
+        		,diy_content1img
+        		,diy_content1
+        		,diy_content2img
+        		,diy_content2
+        		,diy_content3img
+        		,diy_content3
+        		,diy_content4img
+        		,diy_content4
         FROM diy
         WHERE diy_idx=#{diyIdx}
 	</select>
@@ -89,18 +89,50 @@
 	
 	<select id="selectDiyList" resultType="Diy">
         SELECT 
-        		diy_idx,
-        		diy_thumbnail,
-        		diy_title,
-        		diy_people,
-        		diy_startdate,
-        		diy_loc,
-        		diy_regdate,
-        		love_idx,
-        		diy_introduction
-        FROM diy  
-        ORDER BY diy_idx DESC
+        		diy_idx
+				,diy_thumbnail
+				,diy_title
+				,diy_people
+				,diy_startdate
+				,diy_loc
+				,diy_regdate
+				,love_count
+				,diy_introduction
+        FROM 
+        		(SELECT 
+        				ROWNUM rn
+        		 		,diy_idx
+        				,diy_thumbnail
+        				,diy_title
+        				,diy_people
+        				,diy_startdate
+        				,diy_loc
+        				,diy_regdate
+        				,love_count
+        				,diy_introduction
+        		FROM 
+						(SELECT
+								diy_idx
+        						,diy_thumbnail
+        						,diy_title
+        						,diy_people
+        						,diy_startdate
+        						,diy_loc
+        						,diy_regdate
+        						,love_count
+        						,diy_introduction
+					 	FROM diy 
+					 	ORDER BY love_count DESC
+					 	) diy
+					 )
+				 
+        WHERE rn BETWEEN #{startRow} and #{endRow}  
     </select>
+        <!-- 여기에로그인아이디를 출력해주고 글마다...?
+        로그인한 사람의 세션을 좋아요 누를떄 insert 해주고 글 번호도 같
+        여기에 상태로 출력해줘야할거같은데 글번호가 같고, 로그인한사람의 상태를 반환해줘야할거같음 diy=diy userinfoid=로그인아이 -->
+    
+    <!-- 목록 출력할때 같이 love 테이블의 love idx, love status 로그인한 사람 의 diylove 상태  -->
     
    	<select id="selectDiyListCount" resultType="int">
         SELECT count(*)
@@ -121,79 +153,128 @@
         <set>
         	
         	<if test="diyStartdate != null and diyStartdate != ''">
-        		 diy_startdate=#{diyStartDate},
+        		 diy_startdate=#{diyStartDate}
         	</if>
         	
         	<if test="diyEnddate != null and diyEnddate != ''">
-        		 diy_enddate=#{diyEndDate},
+        		 ,diy_enddate=#{diyEndDate}
         	</if>
         	
         	<if test="diyPeople != null and diyPeople != ''">
-        		 diy_people=#{diyPeople},
+        		 ,diy_people=#{diyPeople}
         	</if>
         	
         	<if test="diyLoc != null and diyLoc != ''">
-        		 diy_loc=#{diyLoc},
+        		 ,diy_loc=#{diyLoc}
         	</if>
         	
         	<if test="diyPrice != null and diyPrice != ''">
-        		 diy_price=#{diyPrice},
+        		 ,diy_price=#{diyPrice}
         	</if>
         	
         	<if test="diyMap != null and diyMap != ''">
-        		 diy_map=#{diyMap},
+        		 ,diy_map=#{diyMap}
         	</if>
         	
 			<if test="diyModifydate != null and diyModifydate != ''">
-        		 diy_modifydate=SYSTIMESTAMP,
+        		 ,diy_modifydate=SYSTIMESTAMP
         	</if>
         	
         	<if test="diyTitle != null and diyTitle != ''">
-        		 diy_title=#{diyTitle},
+        		 ,diy_title=#{diyTitle}
         	</if>
         	
         	<if test="diyIntroduction != null and diyIntroduction != ''">
-        		 diy_introduction=#{diyIntroduction},
+        		 ,diy_introduction=#{diyIntroduction}
         	</if>
         	
         	<if test="diyContent1Img != null and diyContent1Img != ''">
-        		 diy_thumbnail=#{diyThumbnail},
+        		 ,diy_thumbnail=#{diyThumbnail}
         	</if>
         	
         	<if test="diyContent2Img != null and diyContent2Img != ''">
-        		 diy_content1img=#{diyContent1Img},
+        		 ,diy_content1img=#{diyContent1Img}
         	</if>
         	
         	<if test="diyContent1 != null and diyContent1 != ''">
-        		 diy_content1=#{diyContent1},
+        		 ,diy_content1=#{diyContent1}
         	</if>
         	
         	<if test="diyContent2Img != null and diyContent2Img != ''">
-        		 diy_content2img=#{diyContent2Img},
+        		 ,diy_content2img=#{diyContent2Img}
         	</if>
         	
         	<if test="diyContent2 != null and diyContent2 != ''">
-        		 diy_content2=#{diyContent2},
+        		 ,diy_content2=#{diyContent2}
         	</if>
         	
         	<if test="diyContent3Img != null and diyContent3Img != ''">
-        		 diy_content3img=#{diyContent3Img},
+        		 ,diy_content3img=#{diyContent3Img}
         	</if>
         	
         	<if test="diyContent3 != null and diyContent3 != ''">
-        		 diy_content3=#{diyContent3},
+        		 ,diy_content3=#{diyContent3}
         	</if>
         	
         	<if test="diyContent4Img != null and diyContent4Img != ''">
-        		 diy_content4img=#{diyContent4Img},
+        		 ,diy_content4img=#{diyContent4Img}
         	</if>
         	
         	<if test="diyContent4 != null and diyContent4 != ''">
-        		 diy_content4=#{diyContent4}
+        		 ,diy_content4=#{diyContent4}
         	</if>
         	
         </set>
 
         WHERE diy_idx=#{diyIdx}
 	</update>
+  
+  
+	  <update id="loveCheck" parameterType="Diy">
+		    UPDATE diy
+		    SET love_count = love_count +1 
+		    WHERE diy_idx=#{diyIdx}
+	  </update>
+	  
+	  <update id="loveCancel" parameterType="Diy">
+		    UPDATE diy
+		    SET love_count = love_count -1
+		    WHERE diy_idx=#{diyIdx}
+	  </update>
+	
+	
+	<!-- userinfo-details -->
+	<select id="selectMyDiyCount" resultType="int">
+		SELECT
+			COUNT(*) AS diy_count
+		FROM qa
+		WHERE userinfo_id = #{userinfoId}
+	</select>
+	
+	<!-- Diy 목록 조회 -->
+    <select id="selectMyDiyList" resultType="Diy">
+        SELECT * FROM (
+          SELECT ROWNUM RN, BOARD.* FROM (
+          	SELECT
+				diy_idx
+				,userinfo_id
+        		,diy_startdate
+        		,diy_enddate
+        		,diy_people
+        		,diy_loc
+        		,diy_price
+        		,diy_map
+        		,TO_CHAR(diy_regdate, 'yyyy-mm-dd') as diy_regdate
+        		,TO_CHAR(diy_modifydate, 'yyyy-mm-dd') as diy_modifydate
+        		,love_count
+        		,diy_title
+        		,diy_introduction
+            FROM diy 
+            WHERE userinfo_id = #{userinfoId}
+            ORDER BY diy_idx DESC
+          ) BOARD
+      ) WHERE RN BETWEEN #{startRow} and #{endRow}<!-- 페이징 처리 -->
+    </select>
+	
+	
 </mapper>

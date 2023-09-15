@@ -22,4 +22,7 @@ public interface QaService {
 	/*답변관련*/
 	void modifyReplyStatusToOne(int qaIdx);
 	void modifyReplyStatusToZero(int qaIdx);
+	
+	//userinfo-details
+	Map<String, Object> getMyQaList(int pageNum, String userinfoId);
 }

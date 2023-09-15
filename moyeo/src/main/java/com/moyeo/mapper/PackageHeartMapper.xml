@@ -66,4 +66,30 @@
 		DELETE FROM pack_heart
 		WHERE pack_idx = #{packIdx}
 	</delete>
+
+   
+   
+   <!-- userinfo-details -->
+	<select id="selectMyPackageHeartCount" resultType="int">
+		SELECT
+			COUNT(*) AS pack_heart_count
+		FROM pack_heart
+		WHERE userinfo_id = #{userinfoId}
+	</select>
+	
+	<!-- WISH 목록 조회 -->
+    <select id="selectMyPackageHeartList" resultType="PackHeart">
+        SELECT * FROM (
+          SELECT ROWNUM RN, BOARD.* FROM (
+			SELECT
+				pack_heart_idx
+			        , userinfo_id
+			        , pack_idx
+			FROM pack_heart 
+            WHERE userinfo_id = #{userinfoId}
+            ORDER BY pack_heart_idx DESC
+          ) BOARD
+      ) WHERE RN BETWEEN #{startRow} and #{endRow}<!-- 페이징 처리 -->
+    </select>
+   
 </mapper>

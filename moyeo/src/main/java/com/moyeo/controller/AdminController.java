@@ -1,9 +1,11 @@
 package com.moyeo.controller;
 
 
-import java.io.File; 
+import java.io.File;  
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/admin")
-public class AdminController { 
+public class AdminController {
 
    private final WebApplicationContext context;
    private final UserinfoService userinfoservice;
@@ -61,6 +64,13 @@ public class AdminController {
       return "admin/center";
    }
    
+   //회원 디테일 페이지
+   @RequestMapping(value = "/userinfo-detail", method = RequestMethod.GET)
+   public String getUserinfoDetail(@RequestParam String id, Model model, HttpSession session) throws UserinfoNotFoundException {
+      model.addAttribute("userinfo", userinfoservice.getUserinfo(id));
+      return "admin/detail/userinfo-detail";
+   }
+   
    /*
    //유저 리스트
    @GetMapping(value = "/userlist")
@@ -80,15 +90,6 @@ public class AdminController {
    }
    
    /* 패키지 */
-   
-   //패키지 리스트
-   @GetMapping(value = "/packagelist")
-   public String packList(Model model) {
-      List<Pack> packList = packageService.getPackageList();
-      model.addAttribute("packList", packList);
-      return "admin/packagelist";
-   }
-
    // 패키지 등록 페이지 이동
    @RequestMapping(value = "/packageForm", method = RequestMethod.GET)
    public String addPackageGET() {
@@ -160,12 +161,12 @@ public class AdminController {
       return "redirect:/package/";
    }
    
-   /* 패키지 수정 */
    
+   /* 패키지 수정 */
    @GetMapping(value = "/packageModify/{packIdx}")
    public String packageModifyGET(@PathVariable("packIdx") int packIdx, Model model) {
 	   
-	   Pack pack = packageService.selectPackInfo(packIdx);
+	   Pack pack = packageService.getPackageInfo(packIdx);
 	   model.addAttribute("pack", pack);
 	   
 	   return "package/package_modify";
@@ -187,7 +188,7 @@ public class AdminController {
 	   String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
 	   
 	   //기존 이미지 경로 가져오기
-	   Pack originalPack = packageService.selectPackInfo(packIdx);
+	   Pack originalPack = packageService.getPackageInfo(packIdx);
 	   String originalPreviewImg = originalPack.getPackPreviewImg();
 	   String originalSlideImg1 = originalPack.getPackSlideImg1();
 	   String originalSlideImg2 = originalPack.getPackSlideImg2();
@@ -254,17 +255,47 @@ public class AdminController {
 	   }
 	   
 	   //업데이트
-	   packageService.updatePackage(pack);
+	   packageService.modifyPackage(pack);
 	   
 	   return "redirect:/package/detail/{packIdx}";
    }
    
    /* 패키지 삭제 */
-   @RequestMapping(value = "/remove", method = RequestMethod.GET)
-	public String remove(@RequestParam int packIdx) {
-		
-		return "redirect:/package";
+   @RequestMapping(value = "/delete/{packIdx}", method = RequestMethod.GET)
+	public String remove(@PathVariable int packIdx) {
+		packageService.deletePackage(packIdx);
+		return "admin/packagelist";
 	}
    
+   /* 패키지 상태 변경 */
+   @RequestMapping(value = "/state/{packIdx}", method = RequestMethod.POST)
+   @ResponseBody
+   public Map<String, Object> changePackageStatus(@PathVariable("packIdx") int packIdx, @RequestParam("state") int state) {
+       Map<String, Object> response = new HashMap<>(); // 응답을 위한 맵 객체 생성
+         
+       try {
+           // 서버에서 현재 패키지 상태를 가져옴
+           int currentStatus = packageService.getPackageStatus(packIdx); // 패키지 상태 조회
+           System.out.println("currentStatus = " + currentStatus); // 현재 패키지 상태를 출력
+         
+           // 현재 상태와 요청된 상태가 다를 경우에만 업데이트 수행
+           if (currentStatus != state) { // 현재 상태와 요청된 상태 비교
+               System.out.println("state = " + state); // 요청된 새로운 패키지 상태를 출력
+               
+               Pack pack = new Pack();
+               pack.setPackIdx(packIdx); // 패키지 인덱스 설정
+               pack.setPackStatus(state); // 패키지 상태 설정
+               packageService.modifyPackageStatus(pack); // 패키지 상태 업데이트 서비스 호출
+           }
+           
+           response.put("success", true); // 성공 여부를 응답 맵에 추가
+           response.put("message", "성공"); // 성공 메시지를 응답 맵에 추가
+       } catch (Exception e) { // 예외 처리
+           response.put("success", false); // 실패 여부를 응답 맵에 추가
+           response.put("message", "실패"); // 실패 메시지를 응답 맵에 추가
+       }
+       
+       return response; // 응답 맵 반환
+   }
 
 }

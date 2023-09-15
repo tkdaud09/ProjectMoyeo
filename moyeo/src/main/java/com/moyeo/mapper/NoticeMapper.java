@@ -27,10 +27,25 @@ public interface NoticeMapper {
    int viewcntNotice(int noticeIdx);
    
    //전체 게시글 조회(페이징)
-   int selectNoticeCount();
+   int noticeCount();
    
    //페이징된 게시글 리스트 조회
    List<Notice> selectNoticeList(Map<String, Object> map);
+   //List<Notice> selectNoticeList(@Param("startRow") int startRow, @Param("endRow") int endRow);
 
+   
+   /* 
+    int updateNotice(Notice notice);
+    int deleteNotice(int noticeIdx);*/
+    
+    /*List<Notice> selectNoticeList(String param);*/
+   
+   /* Notice selectNoticeByTitle(String noticeTitle);
+    Notice selectNoticeByContent(String noticeContent);
+    Notice selectNotice(int noticeIdx);*/
+    
+    
+   /* int selectNoticeCount();
+    List<Notice> selectNoticeList(Map<String,Object>map);*/
 
 }

@@ -1,6 +1,7 @@
 package com.moyeo.dao;
 
-import java.util.List;
+import java.util.List; 
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class PackageHeartDAOImpl implements PackageHeartDAO {
+	
 	private final SqlSession sqlSession;
 	
 	@Override
@@ -40,4 +42,15 @@ public class PackageHeartDAOImpl implements PackageHeartDAO {
 	public PackHeart selectPackHeartIdxByPackIdx(int packIdx) {
 		return sqlSession.getMapper(PackageHeartMapper.class).selectPackHeartIdxByPackIdx(packIdx);
 	}		
+
+	@Override
+	public int selectMyPackageHeartCount(String userinfoId) {
+		return sqlSession.getMapper(PackageHeartMapper.class).selectMyPackageHeartCount(userinfoId);
+	}
+
+	@Override
+	public List<PackHeart> selectMyPackageHeartList(Map<String, Object> map) {
+		return sqlSession.getMapper(PackageHeartMapper.class).selectMyPackageHeartList(map);
+	}
+		
 }

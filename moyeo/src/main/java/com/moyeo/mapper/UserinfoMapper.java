@@ -31,4 +31,5 @@ public interface UserinfoMapper {
    Userinfo selectUserinfo(String id);//조건에 따른 유저 정보 검색
    List<Userinfo> selectUserinfoList(Map<String, Object> map);//전체 유저 정보 검색
    Userinfo selectUserinfobyRegdate(String regdate);//가입일에 따른 유저 정보 검색
+   int deleteUserinfo1(String id);
 }

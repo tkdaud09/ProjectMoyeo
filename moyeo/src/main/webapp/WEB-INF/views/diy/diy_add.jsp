@@ -61,31 +61,7 @@ input[type='date']:valid::before {
       
         
       
-        <div class="col-4 progress-wizard-step incomplete">
-          <div class="progress">
-            <div class="progress-bar"></div>
-          </div>
-      
-          <a href="diy_add" class="progress-wizard-dot">
-            <div class="progress-wizard-content">
-              <i class="fas fa-dollar-sign" aria-hidden="true"></i>
-              <span class="d-block">DIY 작성</span>
-            </div>
-          </a>
-        </div>
-      
-        <div class="col-4 progress-wizard-step incomplete">
-          <div class="progress">
-            <div class="progress-bar"></div>
-          </div>
-      
-          <a href="diy_list" class="progress-wizard-dot">
-            <div class="progress-wizard-content">
-              <i class="fa fa-check" aria-hidden="true"></i>
-              <span class="d-block">목록으로</span>
-            </div>
-          </a>
-        </div>
+       
         
        </div>
     
@@ -215,7 +191,11 @@ input[type='date']:valid::before {
 	      
            
            <div class="text-center text-md-start text-lg-end">
-            <button type="submit" id="enrollBtn" class="btn btn-primary text-uppercase" >
+             <a href="diy_list">
+              <button type="button" class="btn btn-primary text-uppercase" >
+              목록으로</button>
+             </a>
+              <button type="submit" id="enrollBtn" class="btn btn-primary text-uppercase" >
               작성하기</button>
            </div>
            

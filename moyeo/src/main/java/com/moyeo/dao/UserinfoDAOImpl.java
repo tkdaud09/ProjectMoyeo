@@ -116,4 +116,9 @@ public class UserinfoDAOImpl implements UserinfoDAO {
 	   return sqlSession.getMapper(UserinfoMapper.class).selectUserinfobyRegdate(regdate);
    }
 
+	@Override
+	public int deleteUserinfo1(String id) {
+		return sqlSession.getMapper(UserinfoMapper.class).deleteUserinfo1(id);
+}
+
 }

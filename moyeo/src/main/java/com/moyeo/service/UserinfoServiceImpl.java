@@ -153,4 +153,12 @@ public class UserinfoServiceImpl implements UserinfoService {
 		return userinfoDAO.selectUserinfobyRegdate(regdate);
 	}
 
+	@Override
+	public void removeUserinfo1(String id) throws UserinfoNotFoundException {
+		if (userinfoDAO.selectUserinfo(id) == null) {
+			throw new UserinfoNotFoundException("아이디의 회원 정보가 존재하지 않습니다.");
+		}
+			userinfoDAO.deleteUserinfo1(id);
+		}
+		
 }

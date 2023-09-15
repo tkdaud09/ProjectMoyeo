@@ -287,6 +287,10 @@
     		) BOARD
 		) WHERE RN BETWEEN #{startRow} and #{endRow}
 	</select>
+	
+	<update id="deleteUserinfo1">
+		UPDATE Userinfo SET STATUS = 3 WHERE id = #{id}
+	</update>
    
    
    

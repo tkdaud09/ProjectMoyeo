@@ -17,12 +17,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class QaServiceImpl implements QaService {
-	
 	private final QaDAO qaDAO;
 	
-	
 	/* 회원 */
-	
 	//1:1 문의 등록
 	@Override
 	public void addQa(Qa qa) {
@@ -41,15 +38,12 @@ public class QaServiceImpl implements QaService {
 		qaDAO.deleteQa(qaIdx);
 	}
 
-	
 	/* 검색 */
-	
 	//1:1 문의 상세 페이지
 	@Override
 	public Qa getQaInfo(int qaIdx) {
 		return qaDAO.selectQaInfo(qaIdx);
 	}
-	
 	
 	//1:1 문의 전체 리스트 검색
 	@Override
@@ -73,7 +67,6 @@ public class QaServiceImpl implements QaService {
 		return resultMap;
 	}
 
-	
 	/*답변관련*/
 	@Override
 	public void modifyReplyStatusToOne(int qaIdx) {
@@ -87,22 +80,24 @@ public class QaServiceImpl implements QaService {
 		
 	}
 
-
-	
-	//1:1 문의 전체 리스트 검색
-	/*
 	@Override
-	public List<Qa> getQaList() {
-		return qaDAO.selectQaList();
+	public Map<String, Object> getMyQaList(int pageNum, String userinfoId) {
+		int totalBoard = qaDAO.selectMyQaCount(userinfoId);
+		int blockSize = 5;
+		int pageSize = 10;
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("startRow", pager.getStartRow());
+		pageMap.put("endRow", pager.getEndRow());
+		pageMap.put("userinfoId", userinfoId);
+		
+		List<Qa> qaList = qaDAO.selectMyQaList(pageMap);
+		
+		Map<String, Object> qaMap = new HashMap<String, Object>();
+		qaMap.put("qaList", qaList);
+		qaMap.put("pager", pager);
+		
+		return qaMap;
 	}
-	*/
-
-	
-	/* 관리자 */
-	
-	//1:1 문의 답변 등록
-//	@Override
-//	public void addQaAnswer(Qa qa) {
-//		qaDAO.insertQaAnswer(qa);
-//	}
 }

@@ -14,45 +14,59 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class ReviewDAOImpl implements ReviewDAO {
-    private final SqlSession sqlSession;
+	private final SqlSession sqlSession;
+	
+	@Override
+	public int insertReview(Review review) {
+		return sqlSession.getMapper(ReviewMapper.class).insertReview(review);
+	}
 
-    @Override
-    public int insertReview(Review review) {
-        return sqlSession.getMapper(ReviewMapper.class).insertReview(review);
-    }
+	@Override
+	public int updateReview(Review review) {
+		return sqlSession.getMapper(ReviewMapper.class).updateReview(review);
+	}
 
-    @Override
-    public int updateReview(Review review) {
-        return sqlSession.getMapper(ReviewMapper.class).updateReview(review);
-    }
+	@Override
+	public int deleteReview(int reviewIdx) {
+		return sqlSession.getMapper(ReviewMapper.class).deleteReview(reviewIdx);
+	}
+	
+	@Override //후기 조회수
+	public void viewcntReview(int reviewIdx) {
+	    sqlSession.getMapper(ReviewMapper.class).viewcntReview(reviewIdx);
+	}
 
-    @Override
-    public int deleteReview(int reviewIdx) {
-        return sqlSession.getMapper(ReviewMapper.class).deleteReview(reviewIdx);
-    }
+	@Override
+	public Review selectReviewByIdx(int reviewIdx) {
+		 return sqlSession.getMapper(ReviewMapper.class).selectReviewByIdx(reviewIdx);
+	}
 
-    @Override
-    public Review selectReviewByTitle(String reviewTitle) {
-        return sqlSession.getMapper(ReviewMapper.class).selectReviewByTitle(reviewTitle);
-    }
+	@Override
+	public int selectReviewCount(Map<String, Object> map) {
+		 return sqlSession.getMapper(ReviewMapper.class).selectReviewCount(map);
+	}
 
-    @Override
-    public Review selectReviewByContent(String reviewContent) {
-        return sqlSession.getMapper(ReviewMapper.class).selectReviewByContent(reviewContent);
-    }
+	@Override
+	public List<Review> selectReviewList(Map<String, Object> map) {
+		return sqlSession.getMapper(ReviewMapper.class).selectReviewList(map);
+	}
 
-    @Override
-    public Review selectReview(int reviewIdx) {
-        return sqlSession.getMapper(ReviewMapper.class).selectReview(reviewIdx);
+	
+	@Override
+    public List<String> getAllPackageTitles() {
+        //매퍼를 통해 모든 패키지 제목을 가져옴
+        return sqlSession.getMapper(ReviewMapper.class).getAllPackageTitles();
     }
+    
+	
+    //userinfo-details
+	@Override
+	public int selectMyReviewCount(String userinfoId) {
+		return sqlSession.getMapper(ReviewMapper.class).selectMyReviewCount(userinfoId);
+	}
 
-    @Override
-    public int selectReviewCount() {
-        return sqlSession.getMapper(ReviewMapper.class).selectReviewCount();
-    }
-
-    @Override
-    public List<Review> selectReviewList(Map<String, Object> map) {
-        return sqlSession.getMapper(ReviewMapper.class).selectReviewList(map);
-    }
+	@Override
+	public List<Review> selectMyReviewList(Map<String, Object> map) {
+		return sqlSession.getMapper(ReviewMapper.class).selectMyReviewList(map);
+	}
 }

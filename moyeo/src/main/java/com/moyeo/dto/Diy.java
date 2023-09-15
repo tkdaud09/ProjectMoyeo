@@ -20,7 +20,7 @@ public class Diy {
         private String diyMap;
         private String diyRegdate;
         private String diyModifydate;
-        private long loveIdx; //- love는 long
+        private long loveCount; //- love는 long
         private String diyTitle;
         private String diyIntroduction;
         private String diyThumbnail;

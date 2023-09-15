@@ -1,12 +1,15 @@
 package com.moyeo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.moyeo.dto.Diy;
 
 public interface DiyDAO {
 	int insertDiy(Diy diy);
 	int updateDiy(Diy diy);
+	int loveCheck(Diy diy);
+	int loveCancel(Diy diy);
 	
 	int deleteDiy(int diyIdx);
 	
@@ -14,10 +17,10 @@ public interface DiyDAO {
 	Diy selectDiy(int diyIdx);
 	
 	// 전체 글 검색
-	List<Diy> selectDiyList();
-	
-	// 제목으로 글 검
-	List<Diy> selectDiyList(String diyTitle);
+	List<Diy> selectDiyList(Map<String, Object>map);
+
+	// 키워드로 글 검색 
+	List<Diy> selectDiyListByTitle(String diyTitle);
 	
 	// *** 내용으로 검색도 추가하기
 	
@@ -28,11 +31,10 @@ public interface DiyDAO {
 	int selectDiyListCount();
 	
 	// *** 맵 추가하기
-	
-	// String userinfo, Userinfo userinfo
-	
-	// String id => 아이디 컬럼 하나만 가져와서 다른 테이블 아이디 where로 사용할수있게하고
-	// 				User user로 다 가져오면모든걸 쓸수있음..?
 
 	// List<Diy> selectDiyList(Map<String, Object> map);
+	
+	//userinfo-details
+	int selectMyDiyCount(String accountId);
+	List<Diy> selectMyDiyList(Map<String, Object> map);
 }

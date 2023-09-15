@@ -12,7 +12,11 @@
 
 <style>
 
-
+.btn-type-s.total {
+    background-color: white;
+    color: black;
+    border: none; 
+}
 
 </style>
 
@@ -32,7 +36,7 @@
 
 <!-- ====================================
 
-———	PAGE TITLE
+———   PAGE TITLE
 
 ===================================== -->
 
@@ -74,7 +78,7 @@
 
 <!-- ====================================
 
-———	TOUR PACKAGES SECTION
+———   TOUR PACKAGES SECTION
 
 ===================================== -->
 
@@ -88,6 +92,32 @@
 
    
 
+<div class="bord_search">
+               
+               <div class="search-area">   
+               <!-- 
+                  <div class="sel-search">
+                     <select class="sel-base" id="schKeyword" name="type">
+                        <option value="TC">제목+내용</option>
+                        <option value="T">제목</option>
+                        <option value="C">내용</option>
+                     </select>
+                  </div>
+                 -->
+                 <div class="total-list">
+                    
+                 </div>
+                  <div class="inp-search">
+                     <button class="btn-type-s total" id="total">
+                       전체보기
+                    </button>
+                     <input  type="text" class="inp-base" id="schValue" placeholder="패키지 이름을 입력하세요">
+                     <button class="btn-type-s search" id="btnSearch" name="keyword">검색</button>
+                  </div>
+               </div><!-- search-area -->
+
+            </div>
+
 
 
     <div id="filters" class="button-group">
@@ -100,27 +130,24 @@
 
       <button class="button" data-filter=".H">배려와 함께</button>
 
-	  <button class="button" data-filter=".P">동물과 함께</button>
+     <button class="button" data-filter=".P">동물과 함께</button>
 
-	  <button class="button" data-filter=".C">연인과 함께</button>
+     <button class="button" data-filter=".C">연인과 함께</button>
 
-	  <button class="button" data-filter=".F">친구과 함께</button>
+     <button class="button" data-filter=".F">친구과 함께</button>
 
     </div>
+    
 
+   <div class="row grid">
 
+   
 
+   
 
+   <c:forEach items="${packList}" var="pack">
 
-	<div class="row grid">
-
-	
-
-	
-
-	<c:forEach items="${packList}" var="pack">
-
-	
+   
 
       <div class="col-md-6 col-lg-4 mb-5 element-item  ${pack.packKind}">
 
@@ -134,9 +161,9 @@
 
              
 
-			<%--
+         <%--
 
-			<div class="badge bg-primary badge-rounded-circle">
+         <div class="badge bg-primary badge-rounded-circle">
 
                 <span class="d-block">
 
@@ -146,9 +173,9 @@
 
               </div>
 
-			 --%>
+          --%>
 
-			
+         
 
         
 
@@ -1196,10 +1223,49 @@
 
       
 
-    </div>	
+    </div>   
 
 
+            <div class="page_t">
+                        <%-- 페이지 번호 출력 --%>
+                        <c:choose>
+                           <c:when test="${pager.startPage > pager.blockSize }">
+                              <a
+                                 href="<c:url value="/package/"/>?pageNum=${pager.prevPage}">
+                                 [이전]
+                              </a>
+                           </c:when>
+                           <c:otherwise>
+                               [이전]
+                           </c:otherwise>
+                        </c:choose>
 
+                        <c:forEach var="i" begin="${pager.startPage }"
+                           end="${pager.endPage }" step="1">
+                           <c:choose>
+                              <c:when test="${pager.pageNum != i  }">
+                                 <a href="<c:url value="/package/"/>?pageNum=${i}"><span
+                                    class="p_num">${i }</span></a>
+                              </c:when>
+                              <c:otherwise>
+                                 <span class="p_num">${i }</span>
+                              </c:otherwise>
+                           </c:choose>
+                        </c:forEach>
+
+                        <c:choose>
+                           <c:when test="${pager.endPage != pager.totalPage }">
+                              <a
+                                 href="<c:url value="/package/"/>?pageNum=${pager.nextPage}"><span
+                                 class="p_next">
+                                    [다음]
+                              </span></a>
+                           </c:when>
+                           <c:otherwise>
+                               [다음] 
+                           </c:otherwise>
+                        </c:choose>
+                     </div>
 
 
 
@@ -1217,13 +1283,23 @@
 <!-- element wrapper ends -->
 
 
+<script>
+    var currentPageNum = ${pager.pageNum};
+
+    document.getElementById("btnSearch").addEventListener("click", function () {
+        var searchKeyword = document.getElementById("schValue").value; // 검색어 추출
+      
+        alert("currentPageNum = " + currentPageNum);
+        // 검색 결과 페이지로 이동 (서버로 검색어와 유형 전달)
+        window.location.href = "${pageContext.request.contextPath}/package/?pageNum=" + currentPageNum + "&keyword=" + searchKeyword;
+    });
+
+    document.getElementById("total").addEventListener("click", function () {
+        window.location.href = "${pageContext.request.contextPath}/package/";
+    });
+</script>
 
   
-
-
-
-
-
 
 
   </body>

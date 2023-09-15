@@ -328,6 +328,8 @@
                    			   <input type="hidden" name="packIdx" value="${pack.packIdx}">
                    			
                                <button id="cancelBtn" class="btn">취 소</button>
+                               <button id="deleteBtn" class="btn delete_btn">삭제하기</button>
+                               <button id="stateBtn" class="btn state_btn">상태변경</button>
                              <button id="modifyBtn" class="btn modify_btn">수정하기</button>
                           </div> 
                          </form>
@@ -604,6 +606,85 @@
         e.preventDefault();
         modifyForm.submit();
     });
+    
+    /* 삭제 버튼 클릭 시 */
+    $("#deleteBtn").on("click", function(e) {
+        e.preventDefault();
+
+        if (confirm("정말로 패키지를 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/admin/delete/" + ${pack.packIdx},
+                type: "GET",
+                success: function(data) {
+                    window.location.href = "${pageContext.request.contextPath}/admin/packagelist";
+                },
+                error: function() {
+                    alert("패키지 삭제에 실패했습니다.");
+                }
+            });
+        } else {
+        }
+    });
+    
+    
+
+    /* 상태 변경 버튼 클릭 시 */
+    /*
+    var currentState = ${pack.packStatus}; 
+    alert("currentState=" + currentState);
+
+    $("#stateBtn").on("click", function (e) {
+        e.preventDefault();
+        if (confirm("패키지 상태를 변경하시겠습니까?")) {
+            currentState = 1 - currentState;
+
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/admin/state/${pack.packIdx}",
+                data: { state: currentState },
+                success: function (response) {
+                    if (response.success) {
+                        alert("상태 변경 성공");
+                    } else {
+                        alert("상태 변경 실패");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("패키지 상태 변경에 실패했습니다.");
+                }
+            });
+        }
+    });
+    */
+    
+    var currentState = ${pack.packStatus}; 
+    var packIdx = ${pack.packIdx};
+    
+    alert("currentState=" + currentState);
+
+    $("#stateBtn").on("click", function (e) {
+        e.preventDefault();
+        if (confirm("패키지 상태를 변경하시겠습니까?")) {
+            currentState = 1 - currentState;
+
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/admin/state/" + packIdx,
+                data: { state: currentState },
+                success: function (response) {
+                    if (response.success) {
+                        alert("상태 변경 성공");
+                    } else {
+                        alert("상태 변경 실패");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("패키지 상태 변경에 실패했습니다.");
+                }
+            });
+        }
+    });
+
    </script>
 
 </body>

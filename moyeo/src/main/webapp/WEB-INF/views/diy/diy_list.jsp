@@ -4,7 +4,25 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="UTF-8">
-  
+
+  <style>
+        .far fa-heart{
+            color: red;
+        }
+        
+        .comment {
+        white-space: normal;
+        width: 300px;
+        overflow: hidden;
+        line-height: 1.2;
+        height: 3.6em;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+         -webkit-line-clamp : 3;
+         -webkit-box-orient: vertical;
+    	}
+    </style>
+    
    <head>
 <jsp:include page="/WEB-INF/views/inc/head.jsp"/>
 
@@ -42,97 +60,269 @@
 <section class="py-9 py-md-10">
   <div class="container">
     <div class="row">
-    <!-- ============================================================================== -->
-        <div class="container">
-        <div class="row">
-        
+    
+      <div class="col-lg-4 col-xl-3 offset-lg-8 offset-xl-9">
+        <div class="">
+          <div class="row">
+            <div class="col-md-6 col-lg-12">
+              <div class="bg-smoke border border-light-gray rounded p-3 mb-4">
+                  <select class="select-option" name="searchType">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+			        <option value="loc" >지역</option>
+			      </select>
+                  
+                  <div class="input-group input-group-sm">
+                    <input type="text" name= "keyWord" class="form-control form-control-sm border-0" placeholder="">
+                      <button class="input-group-text border-0 btn bg-primary" type="submit" name="btnSearch" id="btnSearch">
+                        <i class="fa fa-search text-white" aria-hidden="true"></i>
+                      </button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+         
+      <div class="container">
+       <div class="row">
+       
+       
+         <!-- <div class="col-md-6 col-lg-12">
+			<div class="bg-smoke border border-light-gray rounded p-3 mb-4">	
+				<div class="search_area">
+					<select class="select-option" id="schKeyword">
+						<option value="both" >제목+내용</option>
+						<option value="title">제목</option>
+						<option value="contents">내용</option>
+					</select>
+				</div>
+				
+				<div class="inp-search">
+					<input  type="text" class="form-control form-control-sm border-0" id="schValue" placeholder="검색어를 입력하세요">
+					<button class="input-group-text border-0 btn bg-primary" id="btnSearch">검색</button>
+				</div>
+			</div>
+	     </div> -->
         
           <c:choose>
-          		<c:when test="${empty(diyList) }">
-    				<tr align="center">
-						<td colspan="5">작성된 글이 없습니다.</td>
-					</tr>	
-    			</c:when>
+       	    <c:when test="${empty(diyList) }">
+ 		      <tr align="center">
+			    <td colspan="5">작성된 글이 없습니다.</td>
+		      </tr>	
+ 			</c:when>
     			
-    		<c:otherwise>
+    	    <c:otherwise>
           	  <c:forEach var="diyList" items="${diyList}">
                 <div class="col-md-6 col-lg-4">
-                    <div class="card card-transparent mb-7">
-                        <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="position-relative">
-                        <!-- <img class="card-img-top rounded lazyestload" src="<c:url value='/assets/img/upload/${diyList.diyThumbnail}' />" alt="diyThumbnail"> -->
-                        <img class="card-img-top rounded lazyestload" width="250" height="300" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" alt="image"> 
-                        </a>
+                  <div class="card card-transparent mb-7">
+                    
+                    <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="position-relative">
+                      <!-- <img class="card-img-top rounded lazyestload" src="<c:url value='/assets/img/upload/${diyList.diyThumbnail}' />" alt="diyThumbnail"> -->
+                      <img class="card-img-top rounded lazyestload" width="250" height="300" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyThumbnail}" alt="image"> 
+                    </a>
 
-                        <div class="card-body py-6">
-                            <h3 class="mb-4">
-                               <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="text-capitalize text-dark hover-text-primary">${diyList.diyTitle}</a>
-                            </h3>
+                      <div class="card-body py-6">
+                        <h3 class="mb-4">
+                          <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="text-capitalize text-dark hover-text-primary">${diyList.diyTitle}</a>
+                        </h3>
+                            
+        					
 
-                            <div class="meta-post-sm mb-4">
-                                <ul class="list-unstyled d-flex flex-wrap mb-0">
-                                    <li class="meta-tag me-4 mb-1">
-                                        <i class="fa fa-user text-gray-color" aria-hidden="true"></i>
-                                        <a class="text-gray-color hover-text-primary">
-                                            <span class="ms-1 text-capitalize">${diyList.diyPeople}</span>
-                                        </a>
-                                    </li>
+                        <div class="meta-post-sm mb-4">
+                          <ul class="list-unstyled d-flex flex-wrap mb-0">
+                            <li class="meta-tag me-4 mb-1">
+                              <i class="fa fa-user text-gray-color" aria-hidden="true"></i>
+                                <a class="text-gray-color hover-text-primary">
+                                  <span class="ms-1 text-capitalize">${diyList.diyPeople}</span>
+                                </a>
+                            </li>
+                                  
+                            <li class="meta-tag text-gray-color me-4 mb-1">
+			                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+			                  <span class="ms-1 text-capitalize">${diyList.diyStartdate}</span>
+			                </li>
+			
+			                <li class="meta-tag text-gray-color me-4 mb-1">
+			                  <i class="fa fa fa-tags" aria-hidden="true"></i>
+			                  <span class="ms-1 text-capitalize">${diyList.diyLoc}</span>
+			                </li>
+			                
+			                <li class="meta-tag text-gray-color me-4 mb-1">
+			                  <i class="fa fa-envelope" aria-hidden="true"></i>
+			                  <span class="ms-1 text-capitalize">${diyList.diyRegdate}</span>
+			                </li>
+			                
+			
+			                <li class="meta-tag text-gray-color me-4 mb-1">
+			                  <i class="fa fa-envelope" aria-hidden="true"></i>
+			                  <span class="ms-1 text-capitalize">0</span>
+			                </li>
                                     
-                                    <li class="meta-tag text-gray-color me-4 mb-1">
-					                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-					                  <span class="ms-1 text-capitalize">${diyList.diyStartdate}</span>
-					                </li>
-					
-					                <li class="meta-tag text-gray-color me-4 mb-1">
-					                  <i class="fa fa fa-tags" aria-hidden="true"></i>
-					                  <span class="ms-1 text-capitalize">${diyList.diyLoc}</span>
-					                </li>
-					                
-					                <li class="meta-tag text-gray-color me-4 mb-1">
-					                  <i class="fa fa-envelope" aria-hidden="true"></i>
-					                  <span class="ms-1 text-capitalize">${diyList.diyRegdate}</span>
-					                </li>
-					
-					                <li class="meta-tag text-gray-color me-4 mb-1">
-					                  <i class="fa fa-envelope" aria-hidden="true"></i>
-					                  <span class="ms-1 text-capitalize">0</span>
-					                </li>
-                                    
-                                    <!-- Other meta tags... -->
-                                </ul>
-                            </div>
-
-                            <p class="mb-0">${diyList.diyIntroduction}</p>
+                          </ul>
                         </div>
-						
 
-                        <div class="card-footer px-5">
-		               	  <a href="javascript:void(0)" class="btn btn-xs btn-outline-secondary">
-		                    <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveIdx}</i>
-		                  </a>
-                          <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
-                        </div>
-                        
-                        
-                   	 </div>
-             	   </div>
-         	   	  </c:forEach>
-         	 	 </c:otherwise>
-        	   </c:choose>
-        	 </div>
-   		   </div>
-   		   
-   		   <div class="text-center text-md-start text-lg-end">
-            <a href="${pageContext.request.contextPath}/diy/diy_add" class="btn btn-primary text-uppercase">작성하기</a>
-           </div>
-           
+                            <p class="comment">${diyList.diyIntroduction}</p>
+                      </div>
+                      
+                     	   <%-- <div class="card-footer px-5">
+			                 <a href="javascript:" class="btn btn-xs btn-outline-secondary" onclick="Login()">
+			                   <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
+			                 </a>
+	                         <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+	                       </div> --%>
+                       
+	                  <%--  <!-- 좋아요 버튼 기능 구현 -->      
+	                   <c:choose>
+					     <!-- 로그인 상태일때 하트 클릭 이벤트 처리 -->
+					     <c:when test="${sessionScope.userinfo ne null}">
+					       <c:choose>
+					       <!-- 좋아요 체크 아닐떄 -->
+					     	 <c:when test="${empty loveStatus.loveStatus}">
+					    	   <div class="card-footer px-5">
+			               	     <a href="javascript: loveCheck_func();" class="btn btn-xs btn-outline-secondary" id="btn_love">
+			                       <i id="heartIcon" class="fas fa-heart" aria-hidden="false" > ${diyList.loveCount}
+			               	         <input type="hidden" name="userinfoId" value="${userinfo }">
+	        					     <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
+			                       </i>
+			                     </a>
+	                             <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+	                           </div>
+					     	 </c:when>
+					    	
+					    	 <!-- 좋아요 상태일때 -->
+					    	 <c:otherwise>
+					    	   <div class="card-footer px-5">
+			               	     <a href="javascript: loveCancle_func();" class="btn btn-xs btn-outline-secondary">
+			                       <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}
+			               	         <input type="hidden" name="userinfoId" value="${userinfo }">
+	        				         <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
+			                       </i>
+			                     </a>
+	                             <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+	                           </div>
+					    	 </c:otherwise>
+						   </c:choose>	
+			             </c:when>
+			            
+			             <!-- 비로그인 상태일때 -->
+			             <c:otherwise>
+			               <div class="card-footer px-5">
+			                 <a href="javascript:" class="btn btn-xs btn-outline-secondary" onclick="Login()">
+			                   <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
+			                 </a>
+	                         <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+	                       </div>
+			             </c:otherwise>
+			           </c:choose>
+			            --%>
 			           
-  	   	</div>
-	 </div>
+	  <c:choose>
+   	    <c:when test="${sessionScope.userinfo ne null}">
+   	      <div class="card-footer px-5">
+	     <a href="javascript: loveCheck_func();" class="btn btn-xs btn-outline-secondary" id="btn_love">
+	       <i id="heartIcon" class="fas fa-heart" aria-hidden="false" > ${diyList.loveCount}
+	         <input type="hidden" name="userinfoId" value="${userinfo }">
+	<input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
+	       </i>
+	     </a>
+	           <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+	         </div>
+   	    </c:when>
+   	  
+   	    <c:otherwise>
+   	      <div class="card-footer px-5">
+   	     <a href="javascript: loveCancle_func();" class="btn btn-xs btn-outline-secondary">
+           <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}
+   	         <input type="hidden" name="userinfoId" value="${userinfo }">
+       <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
+           </i>
+         </a>
+               <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
+             </div>
+   	    </c:otherwise>
+   	  </c:choose>
+			           
+			           
+                      
+                  </div>
+                </div>
+         	  </c:forEach>
+            </c:otherwise>
+          </c:choose>
+        </div>
+   	  </div>
+   	  
+   	  <c:choose>
+   	    <c:when test="${sessionScope.userinfo ne null}">
+   	      <div class="text-center text-md-start text-lg-end">
+            <a href="${pageContext.request.contextPath}/diy/diy_add" class="btn btn-primary text-uppercase">작성하기</a>
+          </div>
+   	    </c:when>
+   	  
+   	    <c:otherwise>
+   	      <div class="text-center text-md-start text-lg-end">
+            <a class="btn btn-primary text-uppercase" onclick="Login()">작성하기</a>
+          </div>  
+   	    </c:otherwise>
+   	  </c:choose>
+   		   
+           
+    </div>
+  </div>
 
   <!-- ====================================
 ———	PAGINATION
 ===================================== -->
-<section class="pt-5 pt-md-7">
+  <div class="page_t">
+  <%-- 페이지 번호 출력 --%>
+    <c:choose>
+      <c:when test="${pager.startPage > pager.blockSize }"> 
+        <a href="<c:url value="/diy/diy_list"/>?pageNum=${pager.prevPage}">
+         [이전]
+        </a>
+    </c:when>
+    
+    <c:otherwise>
+      [이전]
+    </c:otherwise>
+    
+    </c:choose>
+   	  <c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
+	    <c:choose>
+	      <c:when test="${pager.pageNum != i  }">
+	        <a href="<c:url value="/diy/diy_list"/>?pageNum=${i}"><span class="p_num">${i }</span></a>
+	      </c:when>
+	    
+	      <c:otherwise>
+	        <span class="p_num">${i }</span>
+	      </c:otherwise>
+	    </c:choose>
+	  </c:forEach>
+	
+	  <c:choose>
+	    <c:when test="${pager.endPage != pager.totalPage }">
+	    <a href="<c:url value="/diy/diy_list"/>?pageNum=${pager.nextPage}">
+	      <span class="p_next">
+	        [다음]
+	      </span>
+	    </a>
+	    </c:when>
+	    <c:otherwise>
+	     [다음]
+	    </c:otherwise>
+	  </c:choose>
+  </div>
+</section>
+
+<!-- <section class="pt-5 pt-md-7">
   <div class="container">
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center align-items-center">
@@ -172,18 +362,12 @@
   </div>
 </section>
 
-</section>
-
-
-
-  </div><!-- element wrapper ends -->
+</section> -->
 
 
   <!-- ====================================
     ——— FOOTER SECTION
     ===================================== -->
-    <jsp:include page="/WEB-INF/views/inc/footer.jsp"/>
-   
   
     <!-- ====================================
     ——— MODAL SECTION
@@ -318,6 +502,112 @@
     </div>
 
       <!-- Javascript -->
+    <script>
+	function Login() {
+		 if (confirm("로그인 후 이용 가능합니다. 로그인하시겠습니까?")) {
+		    	
+		        window.location.href = "${pageContext.request.contextPath}/user/login"; 
+		    } else {
+		        
+		    }
+	}
+	</script>
+	   
+	<script>
+
+    var i = 0;
+    $('far fa-heart').on('click',function(){
+        if(i==0){
+            $(this).removeClass('fas fa-heart');
+            $(this).addClass('far fa-heart');
+            i++;
+        }else if(i==1){
+            $(this).removeClass('far fa-heart');
+            $(this).addClass('fas fa-heart');
+            i--;
+        }
+        
+    });
+
+	</script>   
+	      
+	      
+	      
+	      
+      
+      <!-- <script>
+      var userinfoId = ${userinfoId};
+      var diyIdx = ${diyIdx};
+       
+      var btn_love = document.getElementById("btn_love");
+      btn_love.onclick = function(){ loveCheck(); }
+       
+      // 게시글 하트를 처음으로 눌렀을때 
+       function loveCancle_func(){ 
+           $.ajax({
+                  url : "/loveCancel.do",       
+                  type : "GET",  
+                  dataType : "json",   
+                  data : "userinfoId="+userinfoId+"&diyIdx="+diyIdx,
+                  
+                  error : function(){
+                      Rnd.alert("통신 에러","error","확인",function(){});
+                  },
+                  
+                  success : function(jdata) {
+                      if(jdata.resultCode == -1){
+                          Rnd.alert("좋아요 오류","error","확인",function(){});
+                      }
+                      else{
+                          if(jdata.likecheck == 1){
+                              $("#btn_like").attr("src","/home/img/ico_like_after.png");
+                              $("#likecnt").empty();
+                              $("#likecnt").append(jdata.likecnt);
+                          }
+                          else if (jdata.likecheck == 0){
+                              $("#btn_like").attr("src","/home/img/ico_like_before.png");
+                              $("#likecnt").empty();
+                              $("#likecnt").append(jdata.likecnt);
+                              
+                          }
+                      }
+                  }
+              });
+       }
+      
+       function loveCheck_func(){ 
+           $.ajax({
+                  url : "/loveCheck.do",       
+                  type : "GET",  
+                  dataType : "json",   
+                  data : "userinfoId="+userinfoId+"&diyIdx="+diyIdx,
+                  
+                  error : function(){
+                      Rnd.alert("통신 에러","error","확인",function(){});
+                  },
+                  
+                  success : function(jdata) {
+                      if(jdata.resultCode == -1){
+                          Rnd.alert("좋아요 오류","error","확인",function(){});
+                      }
+                      else{
+                          if(jdata.likecheck == 1){
+                              $("#btn_like").attr("src","/home/img/ico_like_after.png");
+                              $("#likecnt").empty();
+                              $("#likecnt").append(jdata.likecnt);
+                          }
+                          else if (jdata.likecheck == 0){
+                              $("#btn_like").attr("src","/home/img/ico_like_before.png");
+                              $("#likecnt").empty();
+                              $("#likecnt").append(jdata.likecnt);
+                              
+                          }
+                      }
+                  }
+              });
+       }
+
+      </script> -->
    
     <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

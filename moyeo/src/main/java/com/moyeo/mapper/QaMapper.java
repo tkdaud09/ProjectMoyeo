@@ -1,10 +1,9 @@
 package com.moyeo.mapper;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import com.moyeo.dto.Qa;
-import com.moyeo.util.Pager;
 
 public interface QaMapper {
 	/* 회원 */
@@ -25,4 +24,8 @@ public interface QaMapper {
 	/*답변관련*/
 	int updateQaReplyStatusToOne(int qaIdx);
 	int updateQaReplyStatusToZero(int qaIdx);
+	
+	//userinfo-details
+	int selectMyQaCount(String accountId);
+	List<Qa> selectMyQaList(Map<String, Object> map);
 }

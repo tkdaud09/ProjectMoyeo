@@ -1,6 +1,7 @@
 package com.moyeo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -29,6 +30,18 @@ public class DiyDAOImpl implements DiyDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(DiyMapper.class).updateDiy(diy);
 	}
+	
+	@Override
+	public int loveCheck(Diy diy) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(DiyMapper.class).loveCheck(diy);
+	}
+
+	@Override
+	public int loveCancel(Diy diy) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(DiyMapper.class).loveCancel(diy);
+	}
 
 	@Override
 	public int deleteDiy(int diyIdx) {
@@ -43,15 +56,15 @@ public class DiyDAOImpl implements DiyDAO {
 	}
 
 	@Override
-	public List<Diy> selectDiyList() {
+	public List<Diy> selectDiyList(Map<String, Object>map) {
 		// TODO Auto-generated method stub
-		return sqlSession.getMapper(DiyMapper.class).selectDiyList();
+		return sqlSession.getMapper(DiyMapper.class).selectDiyList(map);
 	}
 
 	@Override
-	public List<Diy> selectDiyList(String diyTitle) {
+	public List<Diy> selectDiyListByTitle(String diyTitle) {
 		// TODO Auto-generated method stub
-		return sqlSession.getMapper(DiyMapper.class).selectDiyList(diyTitle);
+		return sqlSession.getMapper(DiyMapper.class).selectDiyListByTitle(diyTitle);
 	}
 
 	@Override
@@ -69,5 +82,15 @@ public class DiyDAOImpl implements DiyDAO {
 
 	// *** 내용으로도 검색하는거 만들기
 	
+	//userinfo-details
+	@Override
+	public int selectMyDiyCount(String accountId) {
+		return sqlSession.getMapper(DiyMapper.class).selectMyDiyCount(accountId);
+	}
+
+	@Override
+	public List<Diy> selectMyDiyList(Map<String, Object> map) {
+		return sqlSession.getMapper(DiyMapper.class).selectMyDiyList(map);
+	}
 
 }
