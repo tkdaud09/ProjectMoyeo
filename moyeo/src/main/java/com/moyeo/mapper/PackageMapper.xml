@@ -212,8 +212,11 @@
 
 	<!-- 전체 패키지 조회(페이징) -->
 	<select id="packageCount" resultType="int">
-		SELECT COUNT(*) 
+		SELECT COUNT(*)
 		FROM pack
+		<if test="keyword != null and keyword !=''">
+			WHERE pack_title LIKE '%' || #{keyword} || '%'	
+		</if>
 	</select>
 	
 	<!-- 리뷰 -->
@@ -344,9 +347,9 @@
 			FROM (
 				SELECT * 
 				FROM pack 
-					<if test ='keyword != null'>
-					WHERE pack_title LIKE '%' || #{keyword} || '%'
-					</if>
+					<if test="keyword != null and keyword != ''">
+      				WHERE pack_title LIKE '%' || #{keyword} || '%'	
+      				</if>  
 				ORDER BY pack_idx DESC
 				) pack
 			) 

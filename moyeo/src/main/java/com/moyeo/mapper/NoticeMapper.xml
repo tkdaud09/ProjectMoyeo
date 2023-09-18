@@ -74,6 +74,10 @@
    <select id="selectNoticeCount" resultType="int">
       SELECT COUNT(*) 
       FROM notice
+      <if test="keyword != null and keyword !=''">
+      		<bind name="word" value="'%'+keyword+'%'"/>
+      		WHERE ${type} like #{word}
+      </if>
    </select>
 
    <!-- 페이징된 게시글 리스트 조회 -->
@@ -88,18 +92,17 @@
 	      , notice_status
 	      , notice_viewcnt
       FROM (
-      SELECT rownum as rn, notice.*
-      FROM (
-      SELECT * FROM notice
-      <if test='keyword != null and type == "T"'>
-      WHERE notice_title LIKE '%' || #{keyword} || '%'
-      </if>
-      <if test='keyword != null and type == "C"'>
-      WHERE notice_content LIKE '%' || #{keyword} || '%'   
-      </if>   
-      ORDER BY notice_idx DESC
-      ) notice
-      )
+      	SELECT rownum as rn, notice.*
+      	FROM (
+      		SELECT * 
+      		FROM notice
+      			<if test="keyword != null and keyword != ''">
+      				<bind name="word" value="'%'+keyword+'%'"/>
+      				WHERE ${type} like #{word}
+      			</if>   
+      		ORDER BY notice_idx DESC
+      		) notice
+      		)
       WHERE rn BETWEEN #{startRow} and #{endRow}
    </select>
 

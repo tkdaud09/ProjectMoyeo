@@ -48,8 +48,8 @@ public class NoticeDAOImpl implements NoticeDAO{
 
    //전체 게시글 조회(페이징) + 검색
    @Override
-   public int selectNoticeCount(String keyword, String type) {
-      return sqlSession.getMapper(NoticeMapper.class).selectNoticeCount();
+   public int selectNoticeCount(Map<String, Object> map) {
+      return sqlSession.getMapper(NoticeMapper.class).selectNoticeCount(map);
    }
 
    //페이징된 게시글 리스트 조회 + 검색

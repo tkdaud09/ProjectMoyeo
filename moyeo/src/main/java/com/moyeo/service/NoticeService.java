@@ -20,5 +20,5 @@ public interface NoticeService {
    void viewcntNotice(int noticeIdx);
    
    //페이징된 게시글 리스트 조회
-   Map<String, Object> selectNoticeList(int pageNum, String keyword, String type);
+   Map<String, Object> selectNoticeList(Map<String, Object> map);
 }

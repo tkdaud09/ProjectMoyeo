@@ -69,8 +69,8 @@ public class PackageDAOImpl implements PackageDAO {
 	
 	//전체 패키지 조회(페이징)
 	@Override
-	public int packageCount(String keyword) {
-		return sqlSession.getMapper(PackageMapper.class).packageCount();
+	public int packageCount(Map<String, Object> map) {
+		return sqlSession.getMapper(PackageMapper.class).packageCount(map);
 	}
 	
 	/* 리뷰 */

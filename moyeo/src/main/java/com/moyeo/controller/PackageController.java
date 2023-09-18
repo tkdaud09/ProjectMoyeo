@@ -41,14 +41,10 @@ public class PackageController {
 	private final ReviewService reviewService;
 	
 	//패키지 리스트 페이지 이동
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String packageMainGET(@RequestParam(defaultValue = "1") int pageNum,
-		   		@RequestParam(required = false) String keyword, 
-		   		Model model) {
-		Map<String, Object> map=packageService.getPackageListUser(pageNum, keyword);
-		
-		model.addAttribute("pager", map.get("pager"));
-		model.addAttribute("packList", map.get("packList"));
+	@RequestMapping(value = "/")
+	public String packageMainGET(@RequestParam Map<String, Object> map, Model model) {
+		model.addAttribute("result", packageService.getPackageListUser(map));
+		model.addAttribute("search", map);
 		
 		return "package/mo_package";
 	}

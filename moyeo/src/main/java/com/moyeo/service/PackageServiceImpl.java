@@ -98,25 +98,29 @@ public class PackageServiceImpl implements PackageService {
 	
 	//전체 패키지 리스트 조회 + 페이징
 	@Override
-	public Map<String, Object> getPackageListUser(int pageNum, String keyword) {
-		int totalPack=packageDAO.packageCount(keyword);
-		int pageSize=3;
+	public Map<String, Object> getPackageListUser(Map<String, Object> map) {
+		int pageNum=1;
+		
+		if(map.get("pageNum") != null && !map.get("pageNum").equals("")) {
+			pageNum=Integer.parseInt((String)map.get("pageNum"));
+		}
+		
+		int pageSize=3;		
+		int totalBoard=packageDAO.packageCount(map);
 		int blockSize=5;
 		
-		Pager pager=new Pager(pageNum, totalPack, pageSize, blockSize);
+		Pager pager=new Pager(pageNum, totalBoard, pageSize, blockSize);
 		
-		Map<String, Object> pageMap=new HashMap<String, Object>();
-		pageMap.put("startRow", pager.getStartRow());
-		pageMap.put("endRow", pager.getEndRow());
-		pageMap.put("keyword", keyword);
+		map.put("startRow", pager.getStartRow());
+		map.put("endRow", pager.getEndRow());
 		
-		List<Pack> packList=packageDAO.selectPackageListUser(pageMap);
+		List<Pack> packList=packageDAO.selectPackageListUser(map);
 		
-		Map<String, Object> resultMap=new HashMap<String, Object>();
-		resultMap.put("pager", pager);
-		resultMap.put("packList", packList);
+		Map<String, Object> result=new HashMap<String, Object>();
+		result.put("pager", pager);
+		result.put("packList", packList);
 		
-		return resultMap;
+		return result;
 	}
 	
 	//진행중인 패키지 검색
