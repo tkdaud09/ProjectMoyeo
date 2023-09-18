@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html lang="utf-8">
   
-  <head>
+<head>
 
- 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style> 
     .my{
@@ -17,11 +18,12 @@
     .my h1{
         font-size: 3.5em;
         font-weight: 100;
-        margin-top: 5%;
+        margin-top: 10%;
     }
     
     .my h1:nth-child(1){
     	text-align: center;
+    	margin-top: 5%;
     }
     
     .my h4{
@@ -30,7 +32,7 @@
     }
     
     .quick_menu{
-        width: 50%;
+        width: 100%;
         height: 190px;
         margin-top: 5%;
     }
@@ -43,13 +45,13 @@
     }
     
     .quick_menu ul li input{
-        width: 20%;
-        height: 50px;
+        width: 130px;
+        height: 60px;
         background: #fff;
         float: left;
-        margin-right: 1.5%;
-        border: 1px solid #a1a1a1;
-        font-size: 0.85em;
+        margin-right: 1.2%;
+        border: 1.2px solid #a1a1a1;
+        font-size: 1.2em;
         border-radius: 5px;
     }
 
@@ -74,9 +76,32 @@
     .my #mypage div{
         width: 100%;
         height: 350px;
-        border: 1px solid #a1a1a1;
+        border: 1.2px solid #a1a1a1;
         border-radius: 10px;
         margin-top: 2%;
+    }
+    
+    .heart {
+    	display: flex;
+    	padding-left: 10px;
+    }
+    
+    .heart li {
+    	width: 250px;
+    	margin-right: 35px;
+    }
+    
+    .heart li img {
+    	width: 250px;
+    	height: 280px;
+    	border-radius: 10px;
+    	margin: 15px;
+    }
+    
+    .heart li span {
+    	display: block;
+    	font-size: 20px;
+    	margin: -5px 20px;
     }
     
 
@@ -103,13 +128,19 @@
                     onclick="location.href='${pageContext.request.contextPath}/user/modifypw';">
             </li>
             <li>
-                <input type="button" value="찜한 내역"
-                    onclick="location.href='#';">
+                <input type="button" value="후기"
+                    onclick="location.href='${pageContext.request.contextPath}/user/myReview';">
             </li>
 
+           
             <li>
                 <input type="button" value="1:1 문의 내역"
-                    onclick="location.href='#';">
+                     onclick="location.href='${pageContext.request.contextPath}/user/myQa';">
+            </li>
+            
+            <li>
+                <input type="button" value="장바구니"
+                     onclick="location.href='${pageContext.request.contextPath}/cart/list';">
             </li>
 
             <li>
@@ -126,10 +157,21 @@
     </section>
     
     <section id="mypage">
-        <h4>후기 내역</h4>
-        <p><a href="#">더보기 &nbsp;→</a></p>
-        <div></div>
-    </section>
+	    <h4>찜 내역</h4>
+	    <p><a href="#">더보기 &nbsp;→</a></p>
+	    <div>
+	    <ul class="heart">
+	        <c:forEach var="pack" items="${heartList}" begin="0" end="3">
+	            <li>
+	                <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}">
+	                    <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>" alt="">
+	                    <span>${pack.packTitle}</span>
+	                </a>
+	            </li>
+	        </c:forEach>
+	    </ul>
+		</div>
+	</section>
 </div>
 
 	
@@ -142,30 +184,6 @@
 		}
 	</script>
 	
-	 <!-- Javascript -->
-		    <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
-		    <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-		    <script src="${pageContext.request.contextPath}/assets/plugins/menuzord/js/menuzord.js"></script>
-		    
-		    <script src='${pageContext.request.contextPath}/assets/plugins/isotope/isotope.min.js'></script>
-		    <script src='${pageContext.request.contextPath}/assets/plugins/images-loaded/js/imagesloaded.pkgd.min.js'></script>
-		    <script src='${pageContext.request.contextPath}/assets/plugins/fancybox/jquery.fancybox.min.js'></script>
-		    
-		    <script src='${pageContext.request.contextPath}/assets/plugins/selectric/jquery.selectric.min.js'></script>
-		    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/moment.min.js'></script>
-		    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/daterangepicker.min.js'></script>
-		    
-		    <script src="${pageContext.request.contextPath}/assets/plugins/lazyestload/lazyestload.js"></script>
-		    <script src='${pageContext.request.contextPath}/assets/plugins/dzsparallaxer/dzsparallaxer.js'></script>
-		    
-		    
-		    
-		    
-		    
-		    <script src='${pageContext.request.contextPath}/assets/plugins/revolution/js/jquery.themepunch.tools.min.js'></script>
-		    <script src='${pageContext.request.contextPath}/assets/plugins/revolution/js/jquery.themepunch.revolution.min.js'></script>
-		    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
-		    
-		    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
+
 </body>
 </html>

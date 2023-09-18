@@ -146,5 +146,22 @@
             ORDER BY review_idx DESC
           ) BOARD
       ) WHERE RN BETWEEN #{startRow} and #{endRow}<!-- 페이징 처리 -->
-    </select>		
+    </select>
+    
+    <!-- 마이페이지 -->
+    <!-- 유저별 Review 목록 조회 - 페이징 X -->
+	<select id="selectUserReviewListById" resultType="Review">
+		SELECT
+			review_idx
+			, userinfo_id
+			, orders_idx
+			, review_star
+			, review_title
+			, review_content
+			, review_regdate
+			, review_viewcnt
+        FROM review 
+		WHERE userinfo_id = #{userinfoId}
+        ORDER BY review_idx DESC
+    </select>
 </mapper>

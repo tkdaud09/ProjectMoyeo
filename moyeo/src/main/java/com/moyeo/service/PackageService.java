@@ -41,7 +41,7 @@ public interface PackageService {
 	Map<String, Object> getPackageList(int pageNum, int pageSize, String selectKeyword);
 	
 	////페이징된 패키지 리스트 조회 + 검색
-	Map<String, Object> getPackageListUser(int pageNum, String keyword);
+	Map<String, Object> getPackageListUser(Map<String, Object> map);
 	
 	//진행중인 패키지 검색
 	Map<String, Object> getContinuePackageList(int pageNum, int pageSize, String selectKeyword);

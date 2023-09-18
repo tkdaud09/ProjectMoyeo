@@ -701,7 +701,7 @@
 	        data: {"idx": idx},
 	        dataType: "html",
 	        success: function(html) {
-	            var festivalDetailDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
+	            var packageDetailDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
 	            $("#infoListDiv").empty().append(packageDetailDiv); // 기존 내용 지우고 새로운 내용 삽입
 	        },
 	        error: function(xhr) {
@@ -722,7 +722,7 @@
 	        data: {"idx": idx},
 	        dataType: "html",
 	        success: function(html) {
-	            var festivalDetailDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
+	            var diyDetailDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
 	            $("#infoListDiv").empty().append(diyDetailDiv); // 기존 내용 지우고 새로운 내용 삽입
 	        },
 	        error: function(xhr) {

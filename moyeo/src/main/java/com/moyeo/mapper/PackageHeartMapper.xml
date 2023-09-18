@@ -49,7 +49,6 @@
       AND userinfo_id=#{userinfoId}
    </select>
    
-   <!-- 추가했음 --> 
    <!-- 패키지 번호로 검색 -->
    <select id="selectPackHeartIdxByPackIdx" resultType="PackHeart">
    		SELECT 
@@ -59,16 +58,14 @@
    		FROM pack_heart 
    		WHERE pack_idx=#{packIdx}
    </select>
-   
-   <!-- 추가해야함 -->
-   <!-- 게시물 삭제시 전체 삭제 -->
-   <delete id="deleteAllByPackIdx">
+
+	<!-- 추가 -->
+	<!-- 게시물 삭제시 전체 삭제 -->
+	<delete id="deleteAllByPackIdx">
 		DELETE FROM pack_heart
 		WHERE pack_idx = #{packIdx}
 	</delete>
 
-   
-   
    <!-- userinfo-details -->
 	<select id="selectMyPackageHeartCount" resultType="int">
 		SELECT
@@ -91,5 +88,15 @@
           ) BOARD
       ) WHERE RN BETWEEN #{startRow} and #{endRow}<!-- 페이징 처리 -->
     </select>
+    
+    <!-- 마이페이지 -->
+
+	<!-- 유저 아이디별 패키지 찜 목록 검색 -->
+	<select id="selectUserHeartListById" resultType="Pack">
+	    SELECT p.*
+	    FROM pack p
+	    INNER JOIN pack_heart ph ON p.pack_idx = ph.pack_idx
+	    WHERE ph.userinfo_id = #{userinfoId}
+	</select>
    
 </mapper>

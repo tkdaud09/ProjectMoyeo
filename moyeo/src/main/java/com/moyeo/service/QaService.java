@@ -1,5 +1,6 @@
 package com.moyeo.service;
 
+import java.util.List;
 import java.util.Map; 
 
 import com.moyeo.dto.Qa;
@@ -26,5 +27,8 @@ public interface QaService {
 	Map<String, Object> getMyQaList(int pageNum, String userinfoId);
 	
 	Map<String, Object> getQaList1(int pageNum, int pageSize, String selectKeyword);
+	
+	/*마이페이지*/
+	List<Qa> getUserQaListById(String userinfoId);//유저별 Qa 목록 조회 - 페이징 X
 
 }

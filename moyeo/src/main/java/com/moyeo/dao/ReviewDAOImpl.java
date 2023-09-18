@@ -73,4 +73,13 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public List<Review> selectMyReviewList(Map<String, Object> map) {
 		return sqlSession.getMapper(ReviewMapper.class).selectMyReviewList(map);
 	}
+	
+	/* 마이페이지 */
+
+	//유저별 Review 목록 조회 - 페이징 X
+	@Override
+	public List<Review> selectUserReviewListById(String userinfoId) {
+		return sqlSession.getMapper(ReviewMapper.class).selectUserReviewListById(userinfoId);
+	}
+	
 }

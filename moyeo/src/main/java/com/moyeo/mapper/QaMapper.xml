@@ -267,4 +267,23 @@
 		)
 	</select>
 	
+	<!-- 마이페이지 -->
+    <!-- 유저별 Qa 목록 조회 - 페이징 X -->
+	<select id="selectUserQaListById" resultType="Qa">
+		SELECT 
+			qa_idx
+			, userinfo_id
+			, qa_option
+			, qa_title
+			, qa_content
+			, qa_img1
+			, qa_img2
+			, qa_img3
+			, TO_CHAR(qa_regdate, 'yyyy-mm-dd') as qa_regdate
+			, qa_reply_status
+		FROM qa
+		WHERE userinfo_id = #{userinfoId}
+        ORDER BY qa_idx DESC
+    </select>
+	
 </mapper>

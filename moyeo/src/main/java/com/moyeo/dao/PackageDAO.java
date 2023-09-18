@@ -33,7 +33,7 @@ public interface PackageDAO {
 	int deletePackage(int packIdx);
 	
 	//전체 패키지 조회(페이징)
-	int packageCount(String keyword);
+	int packageCount(Map<String, Object> map);
 	
 	/* 리뷰 */
 	//최신 리뷰를 가져오는 메서드

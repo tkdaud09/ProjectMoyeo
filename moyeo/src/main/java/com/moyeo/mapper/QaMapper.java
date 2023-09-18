@@ -31,4 +31,7 @@ public interface QaMapper {
 	
 	List<Qa> selectQaList1(Map<String, Object> map);
 	int selectQaCount1(String selectKeyword);
+	
+	/*마이페이지*/
+	List<Qa> selectUserQaListById(String userinfoId);//유저별 Qa 목록 조회 - 페이징 X
 }

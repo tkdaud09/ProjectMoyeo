@@ -87,5 +87,12 @@ public class QaDAOImpl implements QaDAO {
 	public int selectQaCount1(String selectKeyword) {
 		return sqlSession.getMapper(QaMapper.class).selectQaCount1(selectKeyword);
 	}
+	
+	/* 마이페이지 */
+	//유저별 Qa 목록 조회 - 페이징 X
+	@Override
+	public List<Qa> selectUserQaListById(String userinfoId) {
+		return sqlSession.getMapper(QaMapper.class).selectUserQaListById(userinfoId);
+	}
 
 }

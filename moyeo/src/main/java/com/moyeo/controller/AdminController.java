@@ -1,7 +1,7 @@
 package com.moyeo.controller;
 
 
-import java.io.File;
+import java.io.File; 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -93,7 +93,7 @@ public class AdminController {
       model.addAttribute("userinfo", userinfoservice.getUserinfo(id));
       return "admin/detail/userinfo-detail";
    }
-   
+   /*
    //패키지 디테일 페이지
    @RequestMapping(value = "/package-detail", method = RequestMethod.GET)
    public String adminPackageMainGET(@RequestParam(defaultValue = "1") int pageNum,
@@ -104,6 +104,7 @@ public class AdminController {
 	   model.addAttribute("packList", map.get("packList"));
 	   return "admin/detail/package-detail";
    }
+   */
    
    // 패키지 상세 페이지 이동 - 패키지 상세 정보 select
    @RequestMapping(value = "/package-detail/{packIdx}", method = RequestMethod.GET) // Spring에서 사용자가 전송한 식별자 값을 변수로 인식하기 위해 템플릿
@@ -321,6 +322,7 @@ public class AdminController {
    @RequestMapping(value = "/delete/{packIdx}", method = RequestMethod.GET)
 	public String remove(@PathVariable int packIdx) {
 		packageService.deletePackage(packIdx);
+		packageHeartService.removeAllByPackIdx(packIdx);
 		return "admin/packagelist";
 	}
    

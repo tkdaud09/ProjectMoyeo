@@ -669,7 +669,7 @@ progress {
 
 @media (min-width: 1200px) {
   .container, .container-sm, .container-md, .container-lg, .container-xl {
-    max-width: 1170px;
+    max-width: 1200px;
   }
 }
 
@@ -16559,7 +16559,7 @@ a.hover-text-gray-color:hover, a.hover-text-gray-color:focus {
 }
 
 
-/******************************************½½¶óÀÌµå**/
+/******************************************ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½**/
 /* Revolution Slider */
 /*#rev_slider_12_1 .metis.tparrows {
   background: rgba(255, 255, 255, 0.15);
@@ -18150,13 +18150,13 @@ label {
 
 @media (min-width: 992px) {
   .count-input .incr-btn {
-    width: 40px;
+    /*width: 40px;*/
   }
 }
 
 @media (min-width: 1200px) {
   .count-input .incr-btn {
-    width: 48px;
+    width: 40px;
   }
 }
 
@@ -21799,7 +21799,7 @@ img.lazyestload {
 }
 
 
-/*-ÇªÅÍm--------------------------------------------------*/
+/*-Çªï¿½ï¿½m--------------------------------------------------*/
 #footer{
 	width:100%; 
 	height:auto; 
@@ -21846,7 +21846,7 @@ img.lazyestload {
 }
 
 
-/*--¸ÞÀÎ ÆÐÅ°Áö--------------------------------------------------*/
+/*--ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½--------------------------------------------------*/
 .swiper-container {
 	width: 100%;
 	height: 400px;
@@ -21931,7 +21931,7 @@ img.lazyestload {
 	background:#fff;
 }
 
-/*--¸ÞÀÎ ¸®ºä--*/
+/*--ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½--*/
 #main_review {
 	width:100%;
 	padding:70px 0;
@@ -21947,7 +21947,7 @@ img.lazyestload {
 	margin: 0 auto;
 	padding-bottom:35px;
 }
-#main_review .review_img{
+#main_review .review_img a{
 	background-color:#eee;
 	width:100%;
 	height:200px;
@@ -21966,6 +21966,14 @@ img.lazyestload {
 #main_review ul .t1{
 	font-weight:700;
 	margin-bottom:13px;
+}
+#main_review ul .t1 a{
+	font-weight:700;
+	color:#000;
+}
+#main_review ul .t1 a:hover{
+	font-weight:700;
+	color:#000;
 }
 #main_review ul .t2{
 	width:100%;
@@ -21988,7 +21996,7 @@ img.lazyestload {
 
 
 
-/*--ÆÐÅ°Áö »ó¼¼ÆäÀÌÁö--------------------------------------------------*/
+/*--ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------------------*/
 .pd{
 	margin-top:-50px;
 }
@@ -22021,7 +22029,7 @@ img.lazyestload {
 
 
 
-/*--div ÀÌº¥Æ®--------------------------------------------------*/
+/*--div ï¿½Ìºï¿½Æ®--------------------------------------------------*/
 .div_con1{
 	width:100%;
 	height:auto;
@@ -22181,7 +22189,7 @@ img.lazyestload {
 	transition:all 0.3s ease-out;
 }
 
-/*--div ÀÌº¥Æ® ÀÛ¼º Æû--------------------------------------------------*/
+/*--div ï¿½Ìºï¿½Æ® ï¿½Û¼ï¿½ ï¿½ï¿½--------------------------------------------------*/
 .diy_content {
 	/*width:1200px;
 	background:#eee;*/
@@ -22233,7 +22241,7 @@ img.lazyestload {
 
 
 
-/*--diy Æû ´Ù½Ã--*/
+/*--diy ï¿½ï¿½ ï¿½Ù½ï¿½--*/
 .price_01{width:90%; margin:0 auto; text-align:center;}
 .price_01 .t1{font-size:23px; font-size:500; color:#3a94d0; line-height:30px; padding:0px 0px 10px 0;}
 .price_01 .t2{font-size:15px; line-height:23px; margin-bottom:30px; }
@@ -22331,7 +22339,7 @@ select::-ms-expand {display:none}
 
 
 
-/*-Ã¼Å©¹Ú½º-*/
+/*-Ã¼Å©ï¿½Ú½ï¿½-*/
 
 .control-group {
   /*display: inline-block;*/
@@ -22416,7 +22424,7 @@ select::-ms-expand {display:none}
 
 
 
-/*-Ã·ºÎÆÄÀÏ-*/
+/*-Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-*/
 
 .filebox div{width:100%; margin-bottom:5px;}
 
@@ -22483,7 +22491,7 @@ td .textarea { padding:10px; width:100%;}
 .price_02 .inline-email input:focus{border-color:#333;}
 
 
-/*-´Þ·Â-*/
+/*-ï¿½Þ·ï¿½-*/
 label {
   display: block;
 }
@@ -22541,7 +22549,7 @@ label {
 /*----------------------------------------------------------------------------*/
 @media (min-width: 1200px) {
 
-	/*--ÇªÅÍp--*/
+	/*--Çªï¿½ï¿½p--*/
 	#footer .footer_In{
 		width:1200px; 
 		max-width:1170px;
@@ -22587,7 +22595,7 @@ label {
 		font-size:15px;
 	}
 
-	/*--¸ÞÀÎ ÆÐÅ°Áö--------------------------------------------------*/
+	/*--ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½--------------------------------------------------*/
 	#main_pack {
 		width:100%;
 		padding:90px 0 ;
@@ -22600,7 +22608,7 @@ label {
 		background:#fff;
 	}
 	
-	/*--¸ÞÀÎ ¸®ºä--------------------------------------------------*/
+	/*--ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½--------------------------------------------------*/
 	#main_review{
 		width:100%;
 		padding:80px 0 ;
@@ -22644,7 +22652,7 @@ label {
 		margin-left:8px;
 	}
 
-	/*--ÆÐÅ°Áö »ó¼¼ÆäÀÌÁö--------------------------------------------------*/
+	/*--ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------------------*/
 	.pd{
 		margin-top:-50px;
 	}
@@ -22673,7 +22681,7 @@ label {
 */
 
 
-	/*--div ÀÌº¥Æ®--------------------------------------------------*/
+	/*--div ï¿½Ìºï¿½Æ®--------------------------------------------------*/
 	.div_con1{
 		width:100%;
 		height:auto;
@@ -22837,7 +22845,7 @@ label {
 	
 
 
-	/*--diy ÀÔ·ÂÆû--------------------------------------------------*/
+	/*--diy ï¿½Ô·ï¿½ï¿½ï¿½--------------------------------------------------*/
 	.map_spot:after{
 		content:""; 
 		display:block; 
@@ -22880,7 +22888,7 @@ label {
 	
 
 
-	/*--diy Æû ´Ù½Ã--*/
+	/*--diy ï¿½ï¿½ ï¿½Ù½ï¿½--*/
 	.price_01{width:1100px; margin:0 auto; text-align:center;}
 	.price_01 .t1{font-size:23px; font-size:500; color:#3a94d0; line-height:30px; padding:0px 0px 10px 0;}
 	.price_01 .t2{font-size:15px; line-height:23px; margin-bottom:30px; }
@@ -22975,7 +22983,7 @@ label {
 
 
 
-	/*-Ã¼Å©¹Ú½º-*/
+	/*-Ã¼Å©ï¿½Ú½ï¿½-*/
 
 	.control-group {
 	  /*display: inline-block;*/
@@ -23060,7 +23068,7 @@ label {
 
 
 
-	/*-Ã·ºÎÆÄÀÏ-*/
+	/*-Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-*/
 
 	.filebox div{width:42%; margin-bottom:5px; display:inline-block;}
 
@@ -23134,7 +23142,7 @@ label {
 	.price_02 .inline-email{width:75%; display:inline-block;}
 
 
-	/*-´Þ·Â-*/
+	/*-ï¿½Þ·ï¿½-*/
 	label {
 	  display: block;
 	}
@@ -23279,7 +23287,7 @@ label {
 	
 	
 	
-	/*---¸®ºä°Ô½ÃÆÇ °Ë»ö-*/
+	/*---ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½-*/
 	
 	/* search */
 	.search-area{
@@ -23350,7 +23358,7 @@ label {
 	
 	
 	/***************************************/
-	/*--°Ô½ÃÆÇ »ó¼¼
+	/*--ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	.view .tit{
 		font-size: 30px;
 	    font-weight: 700;
@@ -23411,7 +23419,7 @@ label {
 	
 	
 	
-	/*--°Ô½ÃÆÇ »ó¼¼--*/
+	/*--ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½--*/
 	.view .tit{
 		font-size: 30px;
 	    font-weight: 700;
@@ -23540,7 +23548,7 @@ label {
 
 	
 	
-	/**Àå¹Ù±¸´Ï*****/
+	/**ï¿½ï¿½Ù±ï¿½ï¿½ï¿½*****/
 	.cart_f {
 		width:100%;
 		margin:80px 0;
@@ -23635,5 +23643,96 @@ label {
 		height:100px;
 		object-fit:cover;
 	}
+	.pack_reviewList h5 a{
+		color:#000;
+	}
+	.pack_reviewList h5 a:hover{
+		color:#000;
+	}
+	
+	
+	
+	.pack_option_btn{
+	
+	}
+	.pack_option_btn button{
+		font-size:14px;
+	}
+	.pack_option_btn .po_btn01{
+		width:39%;
+	}
+	.pack_option_btn .po_btn02{
+		width:20%;
+	}
+	.pack_option_btn .po_btn02 img{
+		width:115%;
+	}
+	
+	
+	.p_date ul{
+		display: flex;
+	    justify-content: space-between;
+	    width: 54%;
+	    margin-top: 11px;
+	}
+	
+	    
+	
+	
+	
+	
+	.diy_tit_t{
+		font-size: 16px;
+	    color: #979797;
+	    font-weight: 600;
+	    text-align: center;
+	    margin-top: 10px;
+	}
+	
+	
+
+	.write_form .diy_con1{
+		display: flex;
+    	justify-content: space-between;
+    	margin-bottom:8px;
+	}
+	.write_form .diy_con1 label{
+		width:49%;
+	}	
+	.write_form .diy_con2{
+		display: flex;
+    	justify-content: space-between;
+	}
+	.write_form .diy_con2 label{
+		width:32%;
+		margin-bottom:8px;
+	}	
+	.diy_f{
+		width:100%;
+		margin-bottom:5px;
+	}
+	.diy_con3{
+		margin:50px 0;
+	}
+	.diy_con3 label{
+		margin-bottom:10px;
+	}
+	.diy_con4{
+		margin-bottom:30px;
+	}
+	.diyy_form label{
+		font-weight:600;
+	}
+	
+	
+	.star-rating img{
+		width:40px;
+		margin-right:5px;
+		margin-bottom:25px;
+	}
+	
+	
+	
+	
 
 }/*--1200-------------------------------------------------------*/

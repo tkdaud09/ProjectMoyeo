@@ -524,9 +524,13 @@
         
         <c:forEach var="review" items="${latestReviews}">
             <div class="con1 sp">
-                <div class="review_img"><img src="<c:url value='/assets/img/upload/${review.reviewImg}'/>" alt=""></div>
+                <div class="review_img">
+                	<a href="<c:url value='/review/view?reviewIdx=${review.reviewIdx}'/>">
+               			<img src="<c:url value='/assets/img/upload/${review.reviewImg}'/>" alt="">
+		            </a>
+		        </div>
                 <ul>
-                    <li class="t1">${review.reviewTitle}</li>
+                    <li class="t1"><a href="<c:url value='/review/view?reviewIdx=${review.reviewIdx}'/>">${review.reviewTitle}</a></li>
                     <li class="t2">${review.reviewContent}</li>
                     <li class="t3">${review.userinfoId} <span><fmt:formatDate value="${review.reviewRegdate}" pattern="yyyy-MM-dd" /></span></li>
                 </ul>
