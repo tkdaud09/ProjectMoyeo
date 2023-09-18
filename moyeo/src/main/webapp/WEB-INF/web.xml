@@ -6,8 +6,12 @@
    <!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
    <context-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/spring/root-context.xml</param-value>
+      <param-value>
+      	/WEB-INF/spring/root-context.xml 
+      	/WEB-INF/spring/appServlet/security-context.xml 
+      </param-value>
    </context-param>
+   
    
    <!-- Creates the Spring Container shared by all Servlets and Filters -->
    <listener>
@@ -32,6 +36,23 @@
        <filter-name>encodingFilter</filter-name> 
        <url-pattern>/*</url-pattern> 
    </filter-mapping>
+   
+    <!-- DelegatingFilterProxy 클래스를 필터로 등록되도록 설정 -->
+	<!-- => 반드시 필터의 이름은 [springSecurityFilterChain]으로 등록되도록 작성 -->
+	<!-- DelegatingFilterProxy : 메인 Filter Chain에 위치되도록 설정하는 클래스 -->
+	<!-- => Spring Security 필터를 사용하는 시작점으로 설정되며 서블릿 컨테이너 영역(WAS)의 필터와 
+	ApplicationContext(Spring Container)에서 Spring Bean으로 등록된 필터를 연결하는 다리 역활 수행  -->
+	<!-- => 사용자가 웹프로그램을 요청하면 DelegatingFilterProxy가 요청을 받아 FilterChainProxy 필터에게
+	요청을 위임하여 필요한 필터들이 순서대로 실행되도록 동작 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
    <!-- Processes application requests -->
    <servlet>
@@ -41,7 +62,6 @@
          <param-name>contextConfigLocation</param-name>
          <param-value>
          	/WEB-INF/spring/appServlet/servlet-context.xml
-         	/WEB-INF/spring/appServlet/security-context.xml 
          </param-value>
       </init-param>
       <load-on-startup>1</load-on-startup>
