@@ -252,12 +252,14 @@
 */
     
    //필터 안에 버튼 클릭 시 
+   /*
     const buttons = document.querySelectorAll("#filters button");
     buttons.forEach(button => {
     	button.addEventListener("click", function(){
     		document.querySelector(".search-area").submit();
     	});
     });
+    */
     
     
     document.getElementById("total").addEventListener("click", function () {

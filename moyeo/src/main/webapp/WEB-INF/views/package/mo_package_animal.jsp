@@ -51,8 +51,8 @@
             <div class="card-body px-3 py-4">
               <div class="border-bottom mb-5">
                 <div class="form-group mb-5">
-                  <div class="row">
-                    <label for="inputTime" class="col-xl-5 col-form-label text-center text-xl-right px-2">여행 일정</label>
+                  <div class="row p_date">
+                    <label for="inputTime" class="col-xl-3 col-form-label text-center text-xl-right px-2"><b>여행 일정</b></label>
                
                <!-- 데이트피커 부분  -->
                <!--  <div class="col-xl-7">
@@ -63,10 +63,12 @@
                       </div>
                     </div>  -->
                     
-                         <div class="pack_date">
-                            <p>${pack.packStartDate}</p>
-                            <p>${pack.packEndDate}</p>
-                          </div>
+                         
+                            <ul class="pack_date">
+	                            <li>${pack.packStartDate}</li>
+	                            <li>${pack.packEndDate}</li>
+                            </ul>
+                          
    
                      
                   </div>
@@ -98,8 +100,8 @@
 <form action="<c:url value='/cart/insert'/>" method="post">
                <c:set var="packIdx" value="${pack.packIdx}" />
 <div class="form-group mb-5">
-    <div class="row align-items-center">
-        <label class="control-label col-xl-5 text-center text-xl-right">성인</label>
+    <div class="row align-items-center" >
+        <label class="control-label col-xl-3 text-center text-xl-right"><b>성인</b></label>
         <div class="col-xl-5">
             <div class="count-input mx-auto">
                 <a class="incr-btn adult" data-action="decrease" href="javascript:void(0)">–</a>
@@ -107,15 +109,15 @@
                 <a class="incr-btn adult" data-action="increase" href="javascript:void(0)">+</a>
             </div>
         </div>
-        <div class="col-xl-2">
-            <p class="text-center mt-3 mt-xl-0 mb-0">${pack.packAdultPrice}원</p>
+        <div class="col-xl-3">
+            <p class="text-center mt-3 mt-xl-0 mb-0"><b>${pack.packAdultPrice}원</b></p>
         </div>
     </div>
 </div>
 
 <div class="form-group mb-5">
     <div class="row align-items-center">
-        <label class="control-label col-xl-5 text-center text-xl-right">소인</label>
+        <label class="control-label col-xl-3 text-center text-xl-right"><b>소인</b></label>
         <div class="col-xl-5">
             <div class="count-input mx-auto">
                 <a class="incr-btn child" data-action="decrease" href="javascript:void(0)">–</a>
@@ -123,8 +125,8 @@
                 <a class="incr-btn child" data-action="increase" href="javascript:void(0)">+</a>
             </div>
         </div>
-        <div class="col-xl-2">
-            <p class="text-center mt-3 mt-xl-0 mb-0">${pack.packChildPrice}원</p>
+        <div class="col-xl-3">
+            <p class="text-center mt-3 mt-xl-0 mb-0"><b>${pack.packChildPrice}원</b></p>
         </div>
     </div>
 </div>
@@ -137,16 +139,26 @@
              
               </div>
 
-              <div class="text-center px-4">
-                <button type="button" onclick="location.href='booking-step-1.html';"
-                  class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
-                  예약하기 <span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                </button>
-           		  <input type="hidden" name="packIdx" value="${packIdx}" />
 
-				<button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize" value="장바구니"onclick="showAlert()">
-					장바구니<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+
+
+
+
+              <div class="pack_option_btn">
+  
+                <button type="button" onclick="location.href='booking-step-1.html';"
+                  class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01">
+                  예약하기
+                </button>
+           		<input type="hidden" name="packIdx" value="${packIdx}" />
+
+
+
+				<button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01" value="장바구니"onclick="showAlert()">
+					장바구니
 				</button>
+						
+						
 								
 				<%--<button type="button" onclick="location.href='booking-step-1.html';"
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
@@ -156,15 +168,19 @@
 
 				
 				<!-- 찜 기능 -->
-				<button type="button" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize" id="packageHeartBtn">
-				    <img id="heartImage" src="${pageContext.request.contextPath}/assets/img/package_heart.png" alt="하트 이미지" style="width: 50px; height: 50px;">
-				    <span class="ms-4"></span>
+				<button type="button" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn02" id="packageHeartBtn">
+				    <img id="heartImage" src="${pageContext.request.contextPath}/assets/img/package_heart.png" alt="하트 이미지" >
 				</button>
 				<input type="hidden" name="userinfoId" value="${userinfo.id}">
 				<input type="hidden" name="packHeartIdx" value="${packHeartList.packHeartIdx}" id="packHeartIdx">
-				
-             	
-              </div>
+
+           </div><!-- //pack_option_btn -->
+              
+              
+              
+              
+              
+              
             </div>
           </div>
         </form>
@@ -221,14 +237,14 @@
 
 	<c:forEach var="review" items="${latestReviews}">
           <div class="media mb-6">
-            <a class="me-6 pack_review" href=""> <!-- 사진 -->
+            <a class="me-6 pack_review" href="<c:url value='/review/view?reviewIdx=${review.reviewIdx}'/>"> <!-- 사진 -->
               <img class="rounded" src="<c:url value='/assets/img/upload/${review.reviewImg}'/>" alt="">
             </a>
 
-            <div class="media-body"> <!-- 제목, 내용, 이름날짜 -->
-              <h5 style="font-weight:600;">${review.reviewTitle}</h5>
+            <div class="media-body pack_reviewList"> <!-- 제목, 내용, 이름날짜 -->
+              <h5 style="font-weight:600;"><a href="<c:url value='/review/view?reviewIdx=${review.reviewIdx}'/>">${review.reviewTitle}</a></h5>
               <p class="mb-0" style="color:#000;">${review.reviewContent}</p>
-              <p class="mb-0">${review.userinfoId} / ${review.reviewRegdate}</p>
+              <p class="mb-0">${review.userinfoId} / <span><fmt:formatDate value="${review.reviewRegdate}" pattern="yyyy-MM-dd" /></span></p>
             </div>
           </div>
 	</c:forEach>
@@ -293,8 +309,7 @@
         </form>
       
        -->
-       <button type="button" id="removeBtn">삭제</button>
-       
+      
       </div>
     </div>
   </div>
