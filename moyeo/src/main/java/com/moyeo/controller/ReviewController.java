@@ -1,4 +1,4 @@
-package com.moyeo.controller;
+	package com.moyeo.controller;
 
 import java.io.File; 
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class ReviewController {
 			return "errorPage"; // 오류 페이지로 리다이렉트
 		}
 
-		reviewService.addReview(review);
+		reviewService.addReview(review); 
 		return "redirect:/review/list";
 	}
 	*/
