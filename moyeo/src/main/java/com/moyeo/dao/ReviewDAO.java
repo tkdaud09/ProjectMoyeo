@@ -22,4 +22,7 @@ public interface ReviewDAO {
     //userinfo-details
     int selectMyReviewCount(String userinfoId);
     List<Review> selectMyReviewList(Map<String, Object> map);
+    
+    /* 마이페이지 */
+    List<Review> selectUserReviewListById(String userinfoId);//유저별 Review 목록 조회 - 페이징 X
 }

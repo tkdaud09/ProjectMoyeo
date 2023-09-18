@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.moyeo.dao.PackageHeartDAO;
+import com.moyeo.dto.Pack;
 import com.moyeo.dto.PackHeart;
 import com.moyeo.util.Pager;
 
@@ -63,5 +64,17 @@ public class PackageHeartServiceImpl implements PackageHeartService {
 		
 		return packageHeartMap;
 	}
+
+	@Override
+	public List<Pack> getUserHeartListById(String userinfoId) {
+		return packageHeartDAO.selectUserHeartListById(userinfoId);
+	}
+
+	@Override
+	public void removeAllByPackIdx(int packIdx) {
+		packageHeartDAO.deleteAllByPackIdx(packIdx);
+	}
+
+	
 	
 }

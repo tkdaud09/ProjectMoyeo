@@ -129,4 +129,12 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return reviewMap;
 	}
+	
+	/* 마이페이지 */
+	
+	//유저별 Review 목록 조회 - 페이징 X
+	@Override
+	public List<Review> getUserReviewListById(String userinfoId) {
+		return reviewDAO.selectUserReviewListById(userinfoId);
+	}
 }

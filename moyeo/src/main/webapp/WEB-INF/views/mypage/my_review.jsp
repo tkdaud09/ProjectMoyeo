@@ -57,7 +57,7 @@
 
     .my #mypage{
         width: 100%;
-        height: 500px;
+        height: 600px;
         position: relative;
     }
     
@@ -75,7 +75,7 @@
     
     .my #mypage div{
         width: 100%;
-        height: 350px;
+        height: 500px;
         border: 1.2px solid #a1a1a1;
         border-radius: 10px;
         margin-top: 2%;
@@ -104,6 +104,10 @@
     	margin: -5px 20px;
     }
     
+    .qa_list {
+    max-height: 400px; /* 섹션의 최대 높이를 지정 */
+    overflow-y: scroll; /* 세로 스크롤 바를 표시 */
+	}
 
 </style>
 </head>     
@@ -131,16 +135,9 @@
                 <input type="button" value="후기"
                     onclick="location.href='${pageContext.request.contextPath}/user/myReview';">
             </li>
-
-           
             <li>
                 <input type="button" value="1:1 문의 내역"
                      onclick="location.href='${pageContext.request.contextPath}/user/myQa';">
-            </li>
-            
-            <li>
-                <input type="button" value="장바구니"
-                     onclick="location.href='${pageContext.request.contextPath}/cart/list';">
             </li>
 
             <li>
@@ -149,30 +146,46 @@
             </li>
         </ul>
     </section>
-
-    <section id="mypage">
-        <h4>예약 내역</h4>
-        <p><a href="#">더보기 &nbsp;→</a></p>
-        <div></div>
-    </section>
     
     <section id="mypage">
-	    <h4>찜 내역</h4>
-	    <p><a href="#">더보기 &nbsp;→</a></p>
-	    <div>
-	    <ul class="heart">
-	        <c:forEach var="pack" items="${heartList}" begin="0" end="3">
-	            <li>
-	                <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}">
-	                    <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>" alt="">
-	                    <span>${pack.packTitle}</span>
-	                </a>
-	            </li>
-	        </c:forEach>
-	    </ul>
-		</div>
+    <h4>문의 내역</h4>
+    <p><a href="#">더보기 &nbsp;→</a></p>
+    <div class="qa_list border_list">
+        <table>
+            <colgroup>
+                <col width="30%">
+                <col width="40%">
+                <col width="30%">
+            </colgroup>
+            <tr>
+                <td class="t1">번호</td>
+                <td class="t1">제목</td>
+                <td class="t1">작성일</td>
+            </tr>
+            <c:choose>
+                <c:when test="${empty reviewList}">
+                    <tr>
+                        <td colspan="3">작성된 리뷰가 없습니다.</td>
+                    </tr>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="review" items="${reviewList}">
+                        <tr>
+                            <td class="t2">${review.reviewIdx}</td>
+                            <td class="t2">
+                                <a href="${pageContext.request.contextPath}/review/view/${review.reviewIdx}">
+                                    ${review.reviewTitle}
+                                </a>
+                            </td>
+                            <td class="t2">${review.reviewRegdate}</td>
+                        </tr>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </table>
+    </div>
 	</section>
-</div>
+	</div>
 
 	
 	

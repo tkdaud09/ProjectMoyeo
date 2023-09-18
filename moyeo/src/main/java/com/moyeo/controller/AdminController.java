@@ -23,8 +23,10 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moyeo.dto.Pack;
+import com.moyeo.dto.PackHeart;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.UserinfoNotFoundException;
+import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.PackageService;
 import com.moyeo.service.UserinfoService;
 
@@ -38,6 +40,7 @@ public class AdminController {
    private final WebApplicationContext context;
    private final UserinfoService userinfoservice;
    private final PackageService packageService;
+   private final PackageHeartService packageHeartService;
 
    // 관리자 권한 정보 확인 
    @GetMapping(value = "/main")
@@ -263,6 +266,9 @@ public class AdminController {
    @RequestMapping(value = "/delete/{packIdx}", method = RequestMethod.GET)
 	public String remove(@PathVariable int packIdx) {
 		packageService.deletePackage(packIdx);
+		
+		packageHeartService.removeAllByPackIdx(packIdx);
+		
 		return "admin/packagelist";
 	}
    

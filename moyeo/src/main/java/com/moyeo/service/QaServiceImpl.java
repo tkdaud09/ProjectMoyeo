@@ -98,4 +98,11 @@ public class QaServiceImpl implements QaService {
 		
 		return qaMap;
 	}
+	
+	/* 마이페이지 */
+	//유저별 Qa 목록 조회 - 페이징 X
+	@Override
+	public List<Qa> getUserQaListById(String userinfoId) {
+		return qaDAO.selectUserQaListById(userinfoId);
+	}
 }

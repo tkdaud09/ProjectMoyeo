@@ -20,4 +20,7 @@ public interface ReviewService {
     
     //userinfo-details
     Map<String, Object> getMyReviewList(int pageNumm, String userinfoId);
+    
+    /* 마이페이지 */
+    List<Review> getUserReviewListById(String userinfoId);//유저별 Review 목록 조회 - 페이징 X
 }

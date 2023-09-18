@@ -49,7 +49,8 @@
 				
 				<div class="login_button_wrap ">
 					<input type="button" class="confirm_button btn2" value="확인">
-					<button class="btn1" onclick="goBack()">취소</button>
+					<%--<button class="btn1" onclick="goBack()">취소</button> --%>
+					<button type="button" class="btn1" id="mypage">취소</button>
 				</div>			
 			</div>
 			
@@ -74,10 +75,12 @@
 		$("#login_form").submit();
 	});
 	
+	
 	function goBack() {
         // 이전 페이지로 돌아가기
         window.history.back();
     }
+	
 	
 
 </script>

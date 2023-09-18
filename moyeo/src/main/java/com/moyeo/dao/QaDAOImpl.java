@@ -78,5 +78,12 @@ public class QaDAOImpl implements QaDAO {
 		return sqlSession.getMapper(QaMapper.class).selectMyQaList(map);
 	}
 	
+	/* 마이페이지 */
+	//유저별 Qa 목록 조회 - 페이징 X
+	@Override
+	public List<Qa> selectUserQaListById(String userinfoId) {
+		return sqlSession.getMapper(QaMapper.class).selectUserQaListById(userinfoId);
+	}
+	
 	
 }

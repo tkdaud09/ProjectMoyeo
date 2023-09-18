@@ -28,4 +28,7 @@ public interface QaMapper {
 	//userinfo-details
 	int selectMyQaCount(String accountId);
 	List<Qa> selectMyQaList(Map<String, Object> map);
+	
+	/*마이페이지*/
+	List<Qa> selectUserQaListById(String userinfoId);//유저별 Qa 목록 조회 - 페이징 X
 }

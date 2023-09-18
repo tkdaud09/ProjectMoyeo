@@ -26,9 +26,15 @@ input[type="password"] {
 
 $(document).ready(function(){
    //이전버튼 눌렀을 경우
+   /*
     $("#mypage").click(function(){
         //alert("이전 버튼 작동");
         $("#modifypw_form").submit();
+    });
+   */
+   //이전버튼 눌렀을 경우
+    $("#mypage").click(function(){
+        history.back(); // 이전 페이지로 이동
     });
     
    //변경버튼 눌렀을 경우
