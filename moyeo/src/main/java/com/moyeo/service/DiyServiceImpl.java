@@ -62,9 +62,9 @@ public class DiyServiceImpl implements DiyService {
 	}
 
 	@Override
-	public Map<String, Object> selectDiyList(int pageNum) {
+	public Map<String, Object> selectDiyList(int pageNum, String searchKeyword ) {
 		// TODO Auto-generated method stub
-		int totalBoard=diyDao.selectDiyListCount();
+		int totalBoard=diyDao.selectDiyCount(searchKeyword);
 		int pageSize= 6; //하나의 페이지에 출력될 게시글 개수 저장
 		int blockSize=5; //하나의 블럭에 출력될 개수 저장
 		
@@ -99,20 +99,12 @@ public class DiyServiceImpl implements DiyService {
 	}
 
 	@Override
-	public int selectDiyListCount() {
-		// TODO Auto-generated method stub
-		return diyDao.selectDiyListCount();
-	}
-
-	@Override
 	public Diy getUserinfoById(int diyIdx) {
 		// TODO Auto-generated method stub
 		return diyDao.getUserinfoById(diyIdx);
 	}
 
 	// 지도 추가하기
-	
-	
 	
 	
 	//userinfo-details
@@ -136,5 +128,26 @@ public class DiyServiceImpl implements DiyService {
 		
 		return diyMap;
 	}
-	
+
+	@Override
+	public Map<String, Object> getDiyList(int pageNum, int pageSize, String searchKeyword) {
+		int totalBoard = diyDao.selectDiyCount1(searchKeyword);//전체 공지사항 개수 조회
+    	int blockSize = 10; //페이지 블록 크기
+    	
+    	Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+    	
+    	Map<String, Object> pageMap = new HashMap<String, Object>(); //페이지 정보 담을 맵 객체
+		pageMap.put("startRow", pager.getStartRow()); //시작 행 번호 추가
+		pageMap.put("endRow", pager.getEndRow()); //마지막 행 번호 추가
+		pageMap.put("selectKeyword", searchKeyword); //검색 키워드 추가
+    	
+		List<Diy> diyList = diyDao.selectDiyList1(pageMap);
+		
+        Map<String, Object> diyMap = new HashMap<String, Object>();
+        diyMap.put("diyList", diyList);
+        diyMap.put("pager", pager);
+        
+        return diyMap;
+	}
+
 }

@@ -72,4 +72,24 @@ public class NoticeServiceImpl implements NoticeService{
 
 		return resultMap;
 	}
+
+	@Override
+	public Map<String, Object> getNoticeList(int pageNum, int pageSize, String selectKeyword) {
+		int totalBoard = noticeDAO.selectNoticeCount1(selectKeyword);
+		int blockSize = 10;
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("startRow", pager.getStartRow());
+		pageMap.put("endRow", pager.getEndRow());
+		pageMap.put("selectKeyword", selectKeyword);
+		
+		List<Notice> noticeList = noticeDAO.selectNoticeList1(pageMap);
+		
+		Map<String, Object> noticeMap = new HashMap<String, Object>();
+		noticeMap.put("noticeList", noticeList);
+		noticeMap.put("pager", pager);
+		
+		return noticeMap;
+	}
 }

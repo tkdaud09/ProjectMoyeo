@@ -121,4 +121,9 @@ public class UserinfoDAOImpl implements UserinfoDAO {
 		return sqlSession.getMapper(UserinfoMapper.class).deleteUserinfo1(id);
 }
 
+	@Override
+	public int updateUserinfoByAdmin(Userinfo userinfo) {
+		return sqlSession.getMapper(UserinfoMapper.class).updateUserinfoByAdmin(userinfo);
+	}
+
 }

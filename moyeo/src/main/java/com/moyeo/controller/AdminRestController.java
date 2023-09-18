@@ -1,19 +1,27 @@
 package com.moyeo.controller;
 
+import java.io.IOException;
 import java.util.HashMap; 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.moyeo.dto.Notice;
+import com.moyeo.dto.Pack;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.UserinfoNotFoundException;
 import com.moyeo.service.DiyService;
+import com.moyeo.service.NoticeService;
 import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.PackageService;
 import com.moyeo.service.QaService;
@@ -32,6 +40,7 @@ public class AdminRestController {
 	private final DiyService diyService;
 	private final ReviewService reviewService;
 	private final PackageHeartService packageHeartService;
+	private final NoticeService noticeService;
 	
 	@GetMapping("/userinfo-list")
 	public Map<String, Object> getUserinfos(@RequestParam(defaultValue = "1") int pageNum, 
@@ -64,13 +73,13 @@ public class AdminRestController {
 	}
 	
 	@PutMapping("/userinfo-modify")
-	public String modifyAcocunt(@RequestBody Userinfo userinfo) throws UserinfoNotFoundException {
+	public String modifyUserinfo(@RequestBody Userinfo userinfo) throws UserinfoNotFoundException {
 		userinfo.setName(userinfo.getName());
 		userinfo.setEmail(userinfo.getEmail());
 		userinfo.setPhone(userinfo.getPhone());
 		userinfo.setAddress(userinfo.getAddress());
 		userinfo.setStatus(userinfo.getStatus());
-		userinfoService.modifyUserinfo(userinfo);
+		userinfoService.modifyUserinfoByAdmin(userinfo);
 		return "success";
 	}
 	
@@ -102,7 +111,59 @@ public class AdminRestController {
 		return packageService.getPackageList(pageNum, pageSize, selectKeyword);
 	}
 	
+	@PutMapping("/package-accept")
+	public String acceptPackage(@RequestBody Pack pack, HttpSession httpSession) {
+		pack.setPackStatus(0);
+		packageService.modifyPackageStatus(pack);
+
+		return "success";
+	}
+	
+	@PutMapping("/package-reject")
+	public String rejectPackage(@RequestBody Pack pack, HttpSession httpSession) {
+		pack.setPackStatus(1);
+		packageService.modifyPackageStatus(pack);
+
+		return "success";
+	}
+
+	
+	
+	@GetMapping("/diy-list")
+	public Map<String, Object> getDiys(@RequestParam(defaultValue = "1") int pageNum,
+									   @RequestParam(defaultValue = "20") int pageSize,
+									   @RequestParam(defaultValue = "") String selectKeyword) {
+		return diyService.getDiyList(pageNum, pageSize, selectKeyword);
+	}
+	
+	@GetMapping("/notice-list")
+	public Map<String, Object> getNotices(@RequestParam(defaultValue = "1") int pageNum,
+										  @RequestParam(defaultValue = "20") int pageSize,
+										  @RequestParam(defaultValue = "") String selectKeyword) {
+		return noticeService.getNoticeList(pageNum, pageSize, selectKeyword);
+	}
+	
+	
+	@PostMapping("/notice_add")
+	public String addNotice(@RequestBody Notice notice, HttpServletRequest request)
+			throws IllegalStateException, IOException {
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+
+		notice.setNoticeTitle(title);
+		notice.setNoticeContent(content);
+		noticeService.insertNotice(notice);
+
+		// 나머지 공지사항 등록 로직을 수행합니다.
+		return "success";
+	}
 	
 	
 	
+	@GetMapping("/qa-list")
+	public Map<String, Object> getQas(@RequestParam(defaultValue = "1") int pageNum,
+									  @RequestParam(defaultValue = "20") int pageSize,
+									  @RequestParam(defaultValue = "") String selectKeyword) {
+		return qaService.getQaList1(pageNum, pageSize, selectKeyword);
+	}
 }	

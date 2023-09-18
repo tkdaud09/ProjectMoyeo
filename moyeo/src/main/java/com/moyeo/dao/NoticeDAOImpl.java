@@ -58,6 +58,17 @@ public class NoticeDAOImpl implements NoticeDAO{
 	   return sqlSession.getMapper(NoticeMapper.class).selectNoticeList(map);
    }
    
+   //count 관리자
+	@Override
+	public List<Notice> selectNoticeList1(Map<String, Object> map) {
+		return sqlSession.getMapper(NoticeMapper.class).selectNoticeList1(map);
+	}
+	
+	@Override
+	public int selectNoticeCount1(String selectKeyword) {
+		return sqlSession.getMapper(NoticeMapper.class).selectNoticeCount1(selectKeyword);
+	}
+   
 }
 
    

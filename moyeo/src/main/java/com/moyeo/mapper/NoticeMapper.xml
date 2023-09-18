@@ -70,14 +70,14 @@
       WHERE notice_idx = #{noticeIdx}
    </update>
 
-      <!-- 전체 게시글 조회(페이징) -->
+   <!-- 전체 게시글 조회(페이징) -->
    <select id="selectNoticeCount" resultType="int">
       SELECT COUNT(*) 
       FROM notice
    </select>
-
-   <!-- 페이징된 게시글 리스트 조회 -->
-   <select id="selectNoticeList" resultType="Notice">
+    
+   <!-- 공지사항 목록 조회 -->
+    <select id="selectNoticeList" resultType="Notice">
       SELECT
 	      notice_idx
 	      , userinfo_id
@@ -102,6 +102,69 @@
       )
       WHERE rn BETWEEN #{startRow} and #{endRow}
    </select>
+   
+    <!-- 관리자 조회 -->
+    <select id="selectNoticeList1" resultType="Notice">
+		SELECT * FROM (
+		SELECT ROWNUM RN, BOARD.* FROM (
+		SELECT
+			notice_idx
+	      , userinfo_id
+	      , notice_title
+	      , notice_content
+	      , notice_img
+	      , TO_CHAR(notice_regdate,'yyyy-mm-dd') as notice_regdate
+	      , notice_status
+	      , notice_viewcnt
+			FROM notice
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+				(notice_idx LIKE '%' || #{selectKeyword} || '%' OR
+				notice_title LIKE '%' || #{selectKeyword} || '%' OR
+				notice_content LIKE '%' || #{selectKeyword} || '%' OR
+				notice_regdate LIKE '%' || #{selectKeyword} || '%' OR
+				notice_status LIKE '%' || #{selectKeyword} || '%' OR
+				notice_viewcnt LIKE '%' || #{selectKeyword} || '%')
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		ORDER BY notice_idx DESC
+		) BOARD
+		) WHERE RN BETWEEN #{startRow} and #{endRow}
+	</select>
+   
+   <!-- 패키지 검색 Count -->
+	<select id="selectNoticeCount1" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT
+			notice_idx
+		      , userinfo_id
+		      , notice_title
+		      , notice_content
+		      , notice_img
+		      , TO_CHAR(notice_regdate,'yyyy-mm-dd') as notice_regdate
+		      , notice_status
+		      , notice_viewcnt
+				FROM notice
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+				(notice_idx LIKE '%' || #{selectKeyword} || '%' OR
+				notice_title LIKE '%' || #{selectKeyword} || '%' OR
+				notice_content LIKE '%' || #{selectKeyword} || '%' OR
+				notice_regdate LIKE '%' || #{selectKeyword} || '%' OR
+				notice_status LIKE '%' || #{selectKeyword} || '%' OR
+				notice_viewcnt LIKE '%' || #{selectKeyword} || '%')
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		)
+	</select>
 
 
 </mapper>

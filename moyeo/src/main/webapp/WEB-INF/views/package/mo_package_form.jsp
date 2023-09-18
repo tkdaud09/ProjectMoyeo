@@ -13,7 +13,7 @@
     .admin_content_wrap{
         max-width: 1200px;
         margin: 0 auto;
-        height: 1000px;
+        height: 1200px;
     }
     
     .admin_content_subject{

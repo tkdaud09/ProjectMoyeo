@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css" >
 </head>
-<body>
+<body>	
 	<div id="preloader">
 		<div class="spinner spinner-round"></div>
 	</div>
 	
-	<!-- userifo-detail -->
+<!-- userifo-detail -->
 <section id="userinfo">
     <div class="container">
         <div class="row">
@@ -39,17 +39,24 @@
                     	<p> 이름 </p>
                     	<input id="aName" name="aName" value="${userinfo.name }">
                     	<hr>
+                    	<hr>
                     	<p> 이메일 </p>
                     	<input id="aEmail" name="aEmail" value="${userinfo.email }">
+                    	<hr>
                     	<hr>
                     	<p> 전화번호 </p>
                     	<input id="aPhone" name="aPhone" value="${userinfo.phone }">
                     	<hr>
+                    	<hr>
                     	<p> 주소 </p>
                     	<input id="aAddress" name="aAddress" value="${userinfo.address }">
                     	<hr>
+                    	<hr>
                     	<p> 상태 </p>
-                    	<input id="aStatus" name="aStatus" value="${userinfo.status }">
+                    	<input id="aStatus" name="aStatus" value="${userinfo.status }"> 
+                    	<input type="hidden" name="aBirth" value="${account.birth }">
+                    	<input type="hidden" name="aPw" value="${account.password }">
+                    	<hr>
                     	<hr>
                     	<!-- 수정 버튼 -->
                     	<button id="modifyBtn" type="submit">저장</button>
@@ -149,15 +156,15 @@
 	    var table = $("<table>").attr("id", "diyTable");
 	    var thead = $("<thead>").append(
 	        "<tr>" +
-	        "<th>번호</th>" +
-	        "<th>출발일</th>" +
-	        "<th>도착일</th>" +
-	        "<th>인원수</th>" +
-	        "<th>지역</th>" +
-	        "<th>총 가격</th>" +
-	        "<th>좋아요수</th>" +
-	        "<th>제목</th>" +
-	        "<th>한줄평</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>출발일</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>도착일</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>인원수</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>지역</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>총 가격</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>좋아요수</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>제목</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>한줄평</th>" +
 	        "</tr>"
 	    );
 	    
@@ -173,15 +180,15 @@
 	    for (var i = 0; i < myDiyData.diyList.length; i++) {
 	        var diy = myDiyData.diyList[i];
 	        var row = "<tr data-idx='" + diy.diyIdx + "'>" +
-	            "<td>" + diy.diyIdx + "</td>" +
-	            "<td>" + diy.diyStartdate + "</td>" +
-	            "<td>" + diy.diyEnddate + "</td>" +
-	            "<td>" + diy.diyPeople + "</td>" +
-	            "<td>" + diy.diyLoc + "</td>" +
-	            "<td>" + diy.diyPrice + "</td>" +
-	            "<td>" + diy.loveCount + "</td>" +
-	            "<td>" + diy.diyTitle + "</td>" +
-	            "<td>" + diy.diyIntroduction + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyIdx + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyStartdate.substring(0, 10) + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyEnddate.substring(0, 10) + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyPeople + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyLoc + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyPrice + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + diy.loveCount + "</td>" +
+	            "<td style='padding: 10px;'>" + diy.diyTitle + "</td>" +
+	            "<td style='padding: 10px;'>" + diy.diyIntroduction + "</td>" +
 	            "</tr>";
 	        tbody.append(row);
 	   	}
@@ -200,11 +207,11 @@
 	    var table = $("<table>").attr("id", "qaTable");
 	    var thead = $("<thead>").append(
 	        "<tr>" +
-	        "<th>번호</th>" +
-	        "<th>옵션</th>" +
-	        "<th>제목</th>" +
-	        "<th>내용</th>" +
-	        "<th>등록일</th>" +
+	        "<th style='padding: 10px;'>번호</th>" +
+	        "<th style='padding: 10px;'>옵션</th>" +
+	        "<th style='padding: 10px;'>제목</th>" +
+	        "<th style='padding: 10px;'>내용</th>" +
+	        "<th style='padding: 10px;'>등록일</th>" +
 	        "</tr>"
 	    );
 	
@@ -220,11 +227,11 @@
 	    for (var i = 0; i < myQaData.qaList.length; i++) {
 	        var qa = myQaData.qaList[i];
 	        var row = "<tr data-idx='" + qa.qaIdx + "'>" +
-	            "<td>" + qa.qaIdx + "</td>" +
-	            "<td>" + qa.qaOption + "</td>" +
-	            "<td>" + qa.qaTitle + "</td>" +
-	            "<td>" + qa.qaContent + "</td>" +
-	            "<td>" + qa.qaRegdate + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + qa.qaIdx + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + qa.qaOption + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + qa.qaTitle + "</td>" +
+	            "<td style='padding: 10px;'>" + qa.qaContent + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + qa.qaRegdate.substring(0, 10) + "</td>" +
 	            "</tr>";
 	        tbody.append(row);
 	   	}
@@ -243,12 +250,13 @@
 	    var table = $("<table>").attr("id", "reviewTable");
 	    var thead = $("<thead>").append(
 	        "<tr>" +
-	        "<th>번호</th>" +
-	        "<th>별점</th>" +
-	        "<th>제목</th>" +
-	        "<th>내용</th>" +
-	        "<th>등록일</th>" +
-	        "<th>조회수</th>" +
+	        "<th style='padding: 10px;'>번호</th>" +
+	        "<th style='padding: 10px;'>패키지 제목</th>" +
+	        "<th style='padding: 10px;'>별점</th>" +
+	        "<th style='padding: 10px;'>후기 제목</th>" +
+	        "<th style='padding: 10px;'>내용</th>" +
+	        "<th style='padding: 10px;'>등록일</th>" +
+	        "<th style='padding: 10px;'>조회수</th>" +
 	        "</tr>"
 	    );
 
@@ -256,21 +264,28 @@
 
 	    if (myReviewData.reviewList.length == 0) { // 검색된 리뷰가 없을 때
 	        var row = "<tr>" +
-	            "<td colspan='6'>리뷰 내역이 없습니다.</td>" +
+	            "<td colspan='7'>리뷰 내역이 없습니다.</td>" +
 	            "</tr>";
 	        tbody.append(row);
 	    }
 
 	    for (var i = 0; i < myReviewData.reviewList.length; i++) {
-	        var review = myReviewData.reviewList[i]; // 변수 이름을 'qa'에서 'review'로 수정
+	        var review = myReviewData.reviewList[i];
+	        
+	     	// 별점을 ★ 문자로 변환
+	        var stars = "";
+	        for (var j = 0; j < review.reviewStar; j++) {
+	            stars += "★";
+	        }
 
 	        var row = "<tr data-idx='" + review.reviewIdx + "'>" +
-	            "<td>" + review.reviewIdx + "</td>" +
-	            "<td>" + review.reviewStar + "</td>" +
-	            "<td>" + review.reviewTitle + "</td>" +
-	            "<td>" + review.reviewContent + "</td>" +
-	            "<td>" + review.reviewRegdate + "</td>" +
-	            "<td>" + review.reviewViewcnt + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + review.reviewIdx + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + review.packTitle + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + stars + "</td>" +  // ★ 문자로 변경된 부분
+	            "<td style='padding: 10px; white-space: nowrap;'>" + review.reviewTitle + "</td>" +
+	            "<td style='padding: 10px;'>" + review.reviewContent + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + review.reviewRegdate + "</td>" +
+	            "<td style='padding: 10px; white-space: nowrap;'>" + review.reviewViewcnt + "</td>" +
 	            "</tr>";
 	        tbody.append(row);
 	    }
@@ -284,44 +299,28 @@
 
 	
 	/*
-	//위시 리스트 데이터를 표시하는 함수
-	function displayPackageHeartData(myWishData) {
-		$("#wishListDiv").empty();
+	//myPackageHeartData 리스트 데이터를 표시하는 함수
+	function displayPackageHeartData(myPackageHeartData) {
+		$("#packageHeartListDiv").empty();
 	    
 		var griDiv = $("<div>").attr("id", "gri").addClass("row"); // 클래스 추가
 		
-		if (myWishData.wishList.length == 0) { // 검색된 게시글이 없을 때
-		    var noResultMessage = $("<p>").text("찜목록이 없습니다. 어서 찜하세요!");
+		if (myPackageHeartData.packageHeartList.length == 0) { // 검색된 게시글이 없을 때
+		    var noResultMessage = $("<p>").text("찜목록이 없습니다.");
 		    griDiv.append(noResultMessage);
 		} 
 			   
-	   for (var i = 0; i < myWishData.wishList.length; i++) {
-	       var wish = myWishData.wishList[i];
-	       
-	       var wishDiv = $("<div>").addClass("col-xs-6 col-md-3 product");
-	       
-	       var wishA = $("<a>").attr('href', 'javascript:festivalDetail(' + wish.festivalIdx + ');').addClass('product-link');
-	       
-	       var wishImg = $("<img>").attr("src", '<c:url value="/resources/upload/' + wish.mainImg + '" />').attr("alt", wish.subject + " 포스터");
-	       
-	       var shopTitleDiv = $("<div>").addClass("shop_title");
-	       
-	       var strongTitle = $("<h3>").addClass("product-title").text(wish.subject);
-	       
-	       // 요소들을 조립합니다.
-	       shopTitleDiv.append(strongTitle);
-	       
-	       donationDiv.append(donationA, donationImg, shopTitleDiv);
-	       
-	       griDiv.append(donationDiv);
-	       
+	   for (var i = 0; i < myPackageHeartData.packageHeartList.length; i++) {
+	        var packageHeart = myPackageHeartData.packageHeartList[i];
+
 		   }
 		    
-	    $("#wishListDiv").append(griDiv);
+	    $("#packageHeartListDiv").append(griDiv);
 	    
-	    wishPageNumDisplay(myWishData.pager);
+	    packageHeartPageNumDisplay(myPackageHeartData.pager);
 	}
 	*/
+	
 	
 	
 	
@@ -450,7 +449,10 @@
 	    	var aName = $("#aName").val();
 	    	var aEmail = $("#aEmail").val();
 	    	var aPhone = $("#aPhone").val();
-	    	var aAddress1 = $("#aAddress1").val();
+	    	var aAddress = $("#aAddress").val();
+	    	var aStatus = $("#aStatus").val();
+	    	var aPw = $("#aPw").val();
+	        var aBirth = $("#aBirth").val();
 	    	
 	    	if(aName == "") {
 	    		alert("이름을 입력해 주세요.");
@@ -473,7 +475,7 @@
 	    	}
 	    	
 	    	if(aStatus == "") {
-	    	    alert("주소를 입력해 주세요.");
+	    	    alert("상태를 입력해 주세요.");
 	    	    return;
 	    	}
 	    	
@@ -481,20 +483,27 @@
 	    		type: "PUT",
 	    		url: "<c:url value="/admin/userinfo-modify"/>",
 	    		contentType: "application/json",
-	    		data: JSON.stringify({"id":id, "name":aName, "email":aEmail, "phone":aPhone, "address":aAddress, "status":aStatus, }),
+	    		data: JSON.stringify({
+	    			"id":id,
+	    			"pw":aPw,
+	    			"birth":aBirth,
+	    			"name":aName,
+	    			"email":aEmail,
+	    			"phone":aPhone,
+	    			"address":aAddress,
+	    			"status":aStatus 
+	    		}),
 	    		dataType: "text",
-	    		success: function(result) {
-	    			
-	    			if(result == "success") {
-	    			
-	    			userinfoDetail(id);
-	    			
-	    			}
-	    		},
-	    		error: function(xhr) {
-	    			alert("회원 정보 편집 중 오류가 발생하였습니다("+ xhr.status+")");
-	    		}
-	    	});
+	            success: function(result) {
+	                if (result == "success") {
+	                    userinfoDetail(id);
+
+	                }
+	            },
+	            error: function(xhr) {
+	                alert("회원 정보 편집 중 오류가 발생하였습니다(" + xhr.status + ")");
+	            }
+	        });
 	    });
 		
 	$("#remove-userinfo").click(function() {

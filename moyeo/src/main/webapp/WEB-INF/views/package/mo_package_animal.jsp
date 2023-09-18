@@ -8,28 +8,7 @@
 <head><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script></head>
 <body id="body" class="up-scroll">
 
-  <div class="main-wrapper packages-grid">
-
-
-<!-- ====================================
-———   PAGE TITLE
-===================================== -->
-<!-- <section class="page-title">
-  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(assets/img/pages/page-title-bg13.jpg);">
-    <div class="container">
-      <div class="row align-items-center justify-content-center" style="height: 200px;">
-        <div class="col-lg-6">
-          <div class="page-title-content">
-            <div class="">
-              <h2 class="text-uppercase text-white font-weight-bold">City Museum Tour</h2>
-            </div>
-            <p class="text-white mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
+<div class="main-wrapper packages-grid">
 
 <div class="pack_detail_title">
    <p>${pack.packTitle} </p>

@@ -48,6 +48,7 @@ public class DiyController {
 	public String diyList() {
 		return "diy/diy";
 	}
+	
 	// diy 자세히보기
 	@GetMapping("/diy_detail/{diyIdx}")
 	@ResponseBody
@@ -71,12 +72,13 @@ public class DiyController {
 	public String diyAdd() {
 		return "diy/diy_add";
 	}
+	
 	//================================================================
 	
 	// diy 리스트 페이지 요청
 	@GetMapping("/diy_list")
-	public String selectDiyList(@RequestParam(defaultValue = "1", value = "pager",required = false) int pageNum, Model model) throws DiyNotFoundException {
-		Map<String, Object> resultMap = diyService.selectDiyList(pageNum);
+	public String selectDiyList(@RequestParam(defaultValue = "1", value = "pager",required = false) int pageNum, String searchKeyword, Model model) throws DiyNotFoundException {
+		Map<String, Object> resultMap = diyService.selectDiyList(pageNum, searchKeyword);
 		model.addAttribute("diyList", resultMap.get("diyList"));
 		model.addAttribute("pager", resultMap.get("pager"));
 		// model.addAttribute("diyCount", diyService.selectDiyListCount());

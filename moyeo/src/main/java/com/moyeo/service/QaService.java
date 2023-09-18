@@ -24,4 +24,7 @@ public interface QaService {
 	
 	//userinfo-details
 	Map<String, Object> getMyQaList(int pageNum, String userinfoId);
+	
+	Map<String, Object> getQaList1(int pageNum, int pageSize, String selectKeyword);
+
 }

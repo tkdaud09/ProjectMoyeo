@@ -169,7 +169,7 @@
 	
 	
 	
-	
+	<!-- 관리자 -->
 	<!-- userinfo-details -->
 	<select id="selectMyQaCount" resultType="int">
 		SELECT
@@ -199,5 +199,72 @@
           ) BOARD
       ) WHERE RN BETWEEN #{startRow} and #{endRow}<!-- 페이징 처리 -->
     </select>
+    
+    <!-- Qa 검색 -->
+	<select id="selectQaList1" resultType="Qa">
+		SELECT * FROM (
+		SELECT ROWNUM RN, BOARD.* FROM (
+		SELECT
+				qa_idx
+				, userinfo_id
+				, qa_option
+				, qa_title
+				, qa_content
+				, qa_img1
+				, qa_img2
+				, qa_img3
+				, TO_CHAR(qa_regdate, 'yyyy-mm-dd') as qa_regdate
+				, qa_reply_status
+            FROM qa
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+				(qa_idx LIKE '%' || #{selectKeyword} || '%' OR
+				qa_option LIKE '%' || #{selectKeyword} || '%' OR
+				qa_title LIKE '%' || #{selectKeyword} || '%' OR
+				qa_content LIKE '%' || #{selectKeyword} || '%' OR
+				qa_regdate LIKE '%' || #{selectKeyword} || '%' OR
+				qa_reply_status LIKE '%' || #{selectKeyword} || '%')
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		ORDER BY qa_idx DESC
+		) BOARD
+		) WHERE RN BETWEEN #{startRow} and #{endRow}
+	</select>
+
+	<!-- Qa 검색 Count -->
+	<select id="selectQaCount1" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT
+				qa_idx
+				, userinfo_id
+				, qa_option
+				, qa_title
+				, qa_content
+				, qa_img1
+				, qa_img2
+				, qa_img3
+				, TO_CHAR(qa_regdate, 'yyyy-mm-dd') as qa_regdate
+				, qa_reply_status
+            FROM qa
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+				(qa_idx LIKE '%' || #{selectKeyword} || '%' OR
+				qa_option LIKE '%' || #{selectKeyword} || '%' OR
+				qa_title LIKE '%' || #{selectKeyword} || '%' OR
+				qa_content LIKE '%' || #{selectKeyword} || '%' OR
+				qa_regdate LIKE '%' || #{selectKeyword} || '%' OR
+				qa_reply_status LIKE '%' || #{selectKeyword} || '%')
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		)
+	</select>
 	
 </mapper>

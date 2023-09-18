@@ -19,7 +19,7 @@ public interface QaMapper {
 	List<Qa> selectQaList(Map<String, Object> map);//1:1문의 전체 리스트 검색
 	
  	/* 관리자 */
-	//int insertQaAnswer(Qa Qa);//1:1 문의 답변 등록 
+	//int insertQaAnswer(Qa Qa);//1:1 문의 답변 등록
 	
 	/*답변관련*/
 	int updateQaReplyStatusToOne(int qaIdx);
@@ -28,4 +28,7 @@ public interface QaMapper {
 	//userinfo-details
 	int selectMyQaCount(String accountId);
 	List<Qa> selectMyQaList(Map<String, Object> map);
+	
+	List<Qa> selectQaList1(Map<String, Object> map);
+	int selectQaCount1(String selectKeyword);
 }

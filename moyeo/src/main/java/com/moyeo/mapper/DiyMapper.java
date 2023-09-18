@@ -1,6 +1,6 @@
 package com.moyeo.mapper;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import com.moyeo.dto.Diy;
@@ -28,7 +28,7 @@ public interface DiyMapper {
 	// *** 내용으로 검색도 추가하기 
 	
 	// 전체 글 개수 
-	int selectDiyListCount();
+	int selectDiyCount(String selectKeyword);
 	
 	// *** 맵 추가하기
 	
@@ -40,5 +40,11 @@ public interface DiyMapper {
 	//userinfo-details
 	int selectMyDiyCount(String accountId);
 	List<Diy> selectMyDiyList(Map<String, Object> map);
+	
+	//count 관리자
+	int selectDiyCount1(String selectKeyword);
+	List<Diy> selectDiyList1(Map<String, Object> map);
+
+
 	
 }

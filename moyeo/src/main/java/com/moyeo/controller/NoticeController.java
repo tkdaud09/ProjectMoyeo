@@ -34,9 +34,9 @@ public class NoticeController {
 	//공지사항 리스트 페이지로 이동
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String noticeList(@RequestParam(defaultValue = "1") int pageNum,
-			@RequestParam(required = false) String keyword, 
-			@RequestParam(required = false) String type, 
-			Model model) {
+							 @RequestParam(required = false) String keyword, 
+							 @RequestParam(required = false) String type, 
+							 Model model) {
 		System.out.println("pageNum = "+pageNum);
 		Map<String, Object> map=noticeService.selectNoticeList(pageNum, keyword, type);
 

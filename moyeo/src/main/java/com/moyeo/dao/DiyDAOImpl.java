@@ -1,6 +1,6 @@
 package com.moyeo.dao;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,8 +10,6 @@ import com.moyeo.dto.Diy;
 import com.moyeo.mapper.DiyMapper;
 
 import lombok.RequiredArgsConstructor;
-
-
 
 @Repository
 @RequiredArgsConstructor
@@ -66,11 +64,10 @@ public class DiyDAOImpl implements DiyDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(DiyMapper.class).selectDiyListByTitle(diyTitle);
 	}
-
+	
 	@Override
-	public int selectDiyListCount() {
-		// TODO Auto-generated method stub
-		return sqlSession.getMapper(DiyMapper.class).selectDiyListCount();
+	public int selectDiyCount(String selectKeyword) {
+		return sqlSession.getMapper(DiyMapper.class).selectDiyCount(selectKeyword);
 	}
 
 	@Override
@@ -91,6 +88,16 @@ public class DiyDAOImpl implements DiyDAO {
 	@Override
 	public List<Diy> selectMyDiyList(Map<String, Object> map) {
 		return sqlSession.getMapper(DiyMapper.class).selectMyDiyList(map);
+	}
+
+	@Override
+	public List<Diy> selectDiyList1(Map<String, Object> map) {
+		return sqlSession.getMapper(DiyMapper.class).selectDiyList1(map);
+	}
+
+	@Override
+	public int selectDiyCount1(String selectKeyword) {
+		return sqlSession.getMapper(DiyMapper.class).selectDiyCount1(selectKeyword);
 	}
 
 }

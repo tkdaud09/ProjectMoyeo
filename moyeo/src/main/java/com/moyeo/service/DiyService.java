@@ -23,11 +23,8 @@ public interface DiyService {
 	// DIY 작성 글 자세히보기 페이지 (diyDetail)
 	Diy selectDiy(int diyIdx);
 	
-	// 전체 글 개수 
-	int selectDiyListCount();
-	
 	// 페이징 처리 후 전체 글 검색 (diyList)
-	Map<String, Object> selectDiyList(int pageNum);
+	Map<String, Object> selectDiyList(int pageNum, String searchKeyword);
 		
 	// DIY 제목으로 검색, 내용은 작성 칸이 나눠져있어서 어떻게 해야할까?
 	List<Diy> selectDiyListByTitle(String diyTitle);
@@ -39,5 +36,7 @@ public interface DiyService {
 	
 	//userinfo-details
 	Map<String, Object> getMyDiyList(int pageNum, String userinfoId);
+	
+	Map<String, Object> getDiyList(int pageNum, int pageSize, String searchKeyword);
 	
 }

@@ -32,4 +32,5 @@ public interface UserinfoMapper {
    List<Userinfo> selectUserinfoList(Map<String, Object> map);//전체 유저 정보 검색
    Userinfo selectUserinfobyRegdate(String regdate);//가입일에 따른 유저 정보 검색
    int deleteUserinfo1(String id);
+   int updateUserinfoByAdmin(Userinfo userinfo);
 }

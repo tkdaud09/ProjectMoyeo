@@ -135,6 +135,7 @@
 				review_idx
 			        , userinfo_id
 			        , orders_idx
+			        , pack_title
 			        , review_star
 			        , review_title
 			        , review_content

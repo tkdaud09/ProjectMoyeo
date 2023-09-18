@@ -20,29 +20,43 @@
 		<div class="row">
 			<!-- 사이드바 -->
 			<div class="col-sm-2 bg-dark text-white min-vh-100">
-				<p>
-					<a href="javascript:void(0)" id="userinfo-info"><i class="fas fa-user"></i> 회원 관리</a>
-				</p>
-				<p>
-				    <a href="javascript:void(0)" id="package-info"><i class="fa-solid fa-plane-departure"></i> 패키지 관리</a>
-				</p>
-				<ul id="package-menu" style="list-style-type: none; padding: 0; display: none;">
-				    <li><a href="javascript:void(0)" id="add-package"><i class="fa-solid fa-plus"></i> 패키지 등록</a></li>
-				    <li><a href="javascript:void(0)" id="edit-package"><i class="fa-solid fa-pencil"></i> 패키지 수정</a></li>
-				    <li><a href="javascript:void(0)" id="delete-package"><i class="fa-solid fa-trash"></i> 패키지 삭제</a></li>
+			    <!-- 회원 관리 -->
+			    <p id="userinfo-menumain"><a href="#"><i class="fas fa-user"></i>회원 관리</a></p>
+			    <ul id="userinfo-menu">
+			    	<li><a href="javascript:void(0)" id="userinfo-info"><i class="fas fa-user"></i>목록</a></li>
+			    </ul>
+			    
+			    <!-- 패키지 관리 -->
+				<p id="package-menumain"><a href="#"><i class="fa-solid fa-plane-departure"></i>패키지 관리</a></p>
+				<ul id="package-menu">
+				    <li><a href="javascript:void(0)" id="package-info"><i class="fa-solid fa-plane-departure"></i>목록</a></li>
+				    <li><a href="${pageContext.request.contextPath}/admin/packageForm" id="add-package"><i class="fa-solid fa-plus"></i>등록</a></li>
 				</ul>
-				<p>
-					<a href="javascript:void(0)" id="diy-info"><i class="fa-solid fa-map-location-dot"></i> DIY 관리</a>
-				</p>
-				<p>
-					<a href="javascript:void(0)" id="notice-info"><i class="fas fa-bell"></i> 공지사항 관리</a>
-				</p>
-				<p>
-					<a href="javascript:void(0)" id="qa-manage"><i class="fas fa-question"></i> 1:1문의 관리</a>
-				</p>
-				<p>
-					<a href="javascript:void(0)" id="order-manager"><i class="fas fa-shopping-cart"></i> 결제 및 주문 관리</a>
-				</p>
+			
+			    <!-- DIY 관리 -->
+			    <p id="diy-menumain"><a href="#"><i class="fa-solid fa-map-location-dot"></i>Diy 관리</a></p>
+			    <ul id="diy-menu">
+				    <li><a href="javascript:void(0)" id="diy-info"><i class="fa-solid fa-map-location-dot"></i>목록</a></li>
+				</ul>
+				
+			    <!-- 공지사항 관리 -->
+			    <p id="notice-menumain"><a href="#"><i class="fas fa-bell"></i>공지사항 관리</a></p>
+			    <ul id="notice-menu">
+				    <li><a href="javascript:void(0)" id="notice-info"><i class="fas fa-bell"></i>목록</a></li>
+			        <li><a href="${pageContext.request.contextPath}/admin/write" id="add-notice"><i class="fa-solid fa-plus"></i>등록</a></li>
+				</ul>
+				
+			    <!-- 1:1 문의 관리 -->
+			    <p id="qa-menumain"><a href="#"><i class="fas fa-question"></i>1:1문의 관리</a></p>
+			    <ul id="qa-menu">
+				    <li><a href="javascript:void(0)" id="qa-info"><i class="fas fa-question"></i>목록</a></li>
+			  	</ul>
+			  	
+			    <!-- 결제 및 주문 관리 -->
+			    <p id="order-menumain"><a href="#"><i class="fas fa-shopping-cart"></i>주문 및 결제 관리</a></p>
+				<ul id="order-menu">
+				    <li><a href="javascript:void(0)" id="order-info"><i class="fas fa-shopping-cart"></i> 결제 및 주문 관리</a></li>
+			    </ul>
 			</div>
 
 			<!-- 본문 -->
@@ -73,13 +87,14 @@
 	var keyword = ''; // 기본 검색어 = NULL String
 	var infoType = ''; // 기본 검색 타입 = NULL String(userinfo / package / diy / notice / qa / )
 	var viewType = 'list'; // 기본 보기 설정 = 목록으로 보기
-
+	
 	//회원 정보 리스트 출력
 	function userinfoListDisplay(pageNum, pageSize, selectKeyword) {
 		$("#viewSelect").show();
 		$("#pageSizeSelect").show();
 		$("#pageNumDiv").show();
 		$("#searchDiv").show();
+		$("#packageFormDiv").show();
 	   page=pageNum;
 	   size=pageSize;
 	   keyword=selectKeyword;
@@ -95,16 +110,16 @@
             var table = $("<table>").attr("id", "userinfoInfoTable");
             var thead = $("<thead>").append(
                 "<tr>" +
-                "<th style='min-width:100px; white-space: nowrap;'>아이디</th>" +
-                "<th style='min-width:60px; white-space: nowrap;'>이름</th>" +
-                "<th style='min-width:40px; white-space: nowrap;'>성별</th>" +
-                "<th style='min-width:170px; white-space: nowrap;'>이메일</th>" +
-                "<th style='min-width:80px; white-space: nowrap;'>생년월일</th>" +
-                "<th style='min-width:150px; white-space: nowrap;'>주소</th>" +
-                "<th style='min-width:100px; white-space: nowrap;'>전화번호</th>" +
-                "<th style='min-width:80px; white-space: nowrap;'>가입일</th>" +
-                "<th style='min-width:90px; white-space: nowrap;'>마지막로그인</th>" +
-                "<th style='min-width:50px; white-space: nowrap;'>상태</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>아이디</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>이름</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>성별</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>이메일</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>생년월일</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>주소</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>전화번호</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>가입일</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>마지막로그인</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>상태</th>" +
                 "</tr>"
             );
 
@@ -129,16 +144,16 @@
                 }
                 
                 var row = "<tr data-id='" + userinfo.id + "'>" +
-                    "<td>" + userinfo.id + "</td>" +
-                    "<td>" + userinfo.name + "</td>" +
-                    "<td>" + genderText + "</td>" +
-                    "<td>" + userinfo.email + "</td>" +
-                    "<td>" + userinfo.birth.substring(0, 10) + "</td>" +
-                    "<td>" + userinfo.address + "</td>" +
-                    "<td>" + userinfo.phone + "</td>" +
-                    "<td>" + userinfo.regdate.substring(0, 10) + "</td>" +
-                    "<td>" + userinfo.logdate.substring(0, 10) + "</td>" +
-                    "<td>" + displayStatus  + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.id + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.name + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + genderText + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.email + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.birth.substring(0, 10) + "</td>" +
+                    "<td style='padding: 5px;'>" + userinfo.address + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.phone + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.regdate.substring(0, 10) + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.logdate.substring(0, 10) + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + displayStatus  + "</td>" +
                     "</tr>";
                 tbody.append(row);
            }
@@ -152,15 +167,11 @@
             // 기존 테이블 및 내용 삭제
             searchDiv.empty();
 
-        	searchDiv.append(
-        			"<br>" +
-        		    "<div class='input-group'>" +
-        		    "   <input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>" +
-        		    "   <div class='input-group-append'>" +
-        		    "       <button id='searchButton' class='btn btn-primary'>검색</button>" +
-        		    "   </div>" +
-        		    "</div>" +
-        		    "<br>"
+            searchDiv.append(
+            		"<br>"+
+        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
+				 	"<br>"+        			
+          		 	"<button id='searchButton'>검색</button>"
             )
           
             // 페이지 번호 출력
@@ -184,6 +195,7 @@
 		$("#pageSizeSelect").show();
 		$("#pageNumDiv").show();
 		$("#searchDiv").show();
+		$("#packageFormDiv").show();
        page=pageNum;
    	   size=pageSize;
    	   keyword=selectKeyword;
@@ -194,52 +206,24 @@
         data: {"pageNum": pageNum, "pageSize": pageSize, "selectKeyword": selectKeyword},
         dataType: "json",
         success: function(result) {
+			console.log(result);
+			$("#infoListDiv").empty();
            
-           $("#infoListDiv").empty();
-           
-           // 썸네일로 보기를 눌렀을 때
-           if (viewType === "thumbnail") {
-        	   var gridDiv = $("<div>").attr("id", "grid").addClass("row"); // 클래스 추가
-        	   
-        	   if (result.packageList.length == 0) { // 검색된 게시글이 없을 때
-        	       var noResultMessage = $("<p>").text("검색된 영화제가 없습니다.");
-        	       gridDiv.append(noResultMessage);
-        	   } 
-	        	   
-       	       for (var i = 0; i < result.packageList.length; i++) {
-       	           var package = result.packageList[i];
-       	           
-       	           var packageDiv = $("<div>").addClass("col-xs-6 col-md-3 product");
-       	           
-       	           var aPackageDetail = $("<a>").attr('href', 'javascript:packageDetail(' + pack.packIdx + ');').addClass('product-link');
-       	           
-       	           var imgThumbnail = $("<img>").attr("src", '<c:url value="/resources/upload/' + pack.packPreviewImg + '" />').attr("alt", pack.packTitle + " 포스터");
-       	           
-       	           var shopTitleDiv = $("<div>").addClass("shop_title");
-       	           
-       	           // 요소들을 조립합니다.
-       	           packageDiv.append(aPackageDetail, imgThumbnail, shopTitleDiv);
-       	           
-       	           gridDiv.append(packageDiv); // 요소를 infoListDiv에 추가합니다.
-       	       }
-       	       
-       	       $("#infoListDiv").append(gridDiv); // 요소를 infoListDiv에 추가합니다.
-             
-             // 목록으로 보기를 눌렀을 때
-            } else if(viewType === "list") {
-               var table = $("<table>").attr("id", "packageInfoTable");
+			// 목록으로 보기를 눌렀을 때
+			if(viewType === "list") {
+				var table = $("<table>").attr("id", "packageInfoTable");
                 var thead = $("<thead>").append(
                       "<tr>" +
-                       "<th style='min-width:100px; white-space: nowrap;'>패키지 번호</th>" +
-                       "<th style='min-width:100px; white-space: nowrap;'>패키지 제목</th>" +
-                       "<th style='min-width:100px; white-space: nowrap;'>패키지 종류</th>" +
-                       "<th style='min-width:100px; white-space: nowrap;'>패키지 시작일</th>" +
-                       "<th style='min-width:100px; white-space: nowrap;'>패키지 종료일</th>" +
-                       "<th style='min-width:100px; white-space: nowrap;'>패키지 등록일</th>" +
-                       "<th style='min-width:100px; white-space: nowrap;'>패키지 인원수</th>" +
+                       "<th style='min-width:100px; white-space: nowrap;'>번호</th>" +
+                       "<th style='min-width:100px; white-space: nowrap;'>종류</th>" +
+                       "<th style='min-width:100px; white-space: nowrap;'>제목</th>" +
+                       "<th style='min-width:100px; white-space: nowrap;'>시작일</th>" +
+                       "<th style='min-width:100px; white-space: nowrap;'>종료일</th>" +
+                       "<th style='min-width:100px; white-space: nowrap;'>등록일</th>" +
+                       "<th style='min-width:100px; white-space: nowrap;'>인원수</th>" +
                        "<th style='min-width:100px; white-space: nowrap;'>성인 가격</th>" +
                        "<th style='min-width:100px; white-space: nowrap;'>소인 가격</th>" +
-                       "<th style='min-width:100px; white-space: nowrap;'>패키지 하트</th>" +
+                       "<th style='min-width:100px; white-space: nowrap;'>하트수</th>" +
                        "<th style='min-width:100px; white-space: nowrap;'>상태</th>" +
                        "</tr>"
                 );
@@ -271,7 +255,7 @@
                            "<td>" + pack.packPeople + "</td>" +
                            "<td>" + pack.packChildPrice + "</td>" +
                            "<td>" + pack.packAdultPrice + "</td>" +
-                           "<td>" + pack.packHeart + "</td>" +
+                           "<td>" + pack.packHeartCnt + "</td>" +
                            "<td>" + pack.packStatus + "</td>" +
                            "</tr>";
                    tbody.append(row);
@@ -288,14 +272,10 @@
             searchDiv.empty();
 
             searchDiv.append(
-            		"<br>" +
-            	    "<div class='input-group'>" +
-            	    "   <input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>" +
-            	    "   <div class='input-group-append'>" +
-            	    "       <button id='searchButton' class='btn btn-primary'>검색</button>" +
-            	    "   </div>" +
-            	    "</div>" +
-            	    "<br>"
+            		"<br>"+
+        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
+				 	"<br>"+        			
+          		 	"<button id='searchButton'>검색</button>"
             )
           
             // 페이지 번호 출력
@@ -311,7 +291,285 @@
         }
       
     });
-}   	   
+}
+	
+	//Diy 목록 출력 함수
+	function diyListDisplay(pageNum, pageSize, selectKeyword) {
+		$("#viewSelect").show();
+		$("#pageSizeSelect").show();
+		$("#pageNumDiv").show();
+		$("#searchDiv").show();
+		$("#packageFormDiv").show();
+	   page=pageNum;
+	   size=pageSize;
+	   keyword=selectKeyword;
+	   
+	    $.ajax({
+	        method: "GET",
+	        url: "<c:url value ="/admin/diy-list"/>",
+	        data: {"pageNum": pageNum, "pageSize": pageSize, "selectKeyword": selectKeyword},
+	        dataType: "json",
+	        success: function(result) {
+	        	console.log(result);
+	           	$("#infoListDiv").empty();
+	            
+	            var table = $("<table>").attr("id", "diyInfoTable");
+	            var thead = $("<thead>").append(
+	                "<tr>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>출발일</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>도착일</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>사람수</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>지역</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>등록일</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>수정일</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>좋아요수</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>제목</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>소개글</th>" +
+	                "</tr>"
+	            );
+
+	            var tbody = $("<tbody>");
+
+	            if (result.diyList.length == 0) { // 검색된 게시글이 없을 때
+	                var row = "<tr>" +
+	                    "<td colspan='10'>검색된 Diy가 없습니다.</td>" +
+	                    "</tr>";
+	                tbody.append(row);
+	            } 
+	            for (var i = 0; i < result.diyList.length; i++) {
+	                var diy = result.diyList[i];
+	                var row = "<tr data-idx='" + diy.diyIdx + "'>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyIdx + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyStartdate + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyEnddate + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyPeople + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyLoc + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyRegdate + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyModifydate + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.loveCount + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + diy.diyTitle + "</td>" +
+	                    "<td>" + diy.diyIntroduction + "</td>" +
+	                    "</tr>";
+	                tbody.append(row);
+	           }
+
+	            table.append(thead, tbody);
+	            
+	            $("#infoListDiv").append(table);
+	            
+	            var searchDiv = $("#searchDiv");
+	           
+	            // 기존 테이블 및 내용 삭제
+	            searchDiv.empty();
+
+	            searchDiv.append(
+	            		"<br>"+
+	        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
+					 	"<br>"+        			
+	          		 	"<button id='searchButton'>검색</button>"
+	            )
+	          
+	            // 페이지 번호 출력
+	            pageNumDisplay(result.pager, infoType);
+	            
+	            // 페이지 당 출력 갯수를 출력
+	            pageSizeDisplay();
+	            
+	            viewSelect(infoType)
+	        },
+	        
+	        error: function(xhr) {
+	            alert("Diy를 불러오는 중에 오류가 발생했습니다. (에러 코드 = " + xhr.status + ")");
+	        }
+	    });
+	}
+	
+	
+	
+	//공지 사항 목록 출력 함수
+	function noticeListDisplay(pageNum, pageSize, selectKeyword) {
+		$("#viewSelect").show();
+		$("#pageSizeSelect").show();
+		$("#pageNumDiv").show();
+		$("#searchDiv").show();
+		$("#packageFormDiv").show();
+	   page=pageNum;
+	   size=pageSize;
+	   keyword=selectKeyword;
+	   
+	    $.ajax({
+	        method: "GET",
+	        url: "<c:url value ="/admin/notice-list"/>",
+	        data: {"pageNum": pageNum, "pageSize": pageSize, "selectKeyword": selectKeyword},
+	        dataType: "json",
+	        success: function(result) {
+	        	console.log(result);
+	           	$("#infoListDiv").empty();
+	            
+	            var table = $("<table>").attr("id", "noticeInfoTable");
+	            var thead = $("<thead>").append(
+	                "<tr>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>제목</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>내용</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>작성일</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>조회수</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>상태</th>" +
+	                "</tr>"
+	            );
+
+	            var tbody = $("<tbody>");
+
+	            if (result.noticeList.length == 0) { // 검색된 게시글이 없을 때
+	                var row = "<tr>" +
+	                    "<td colspan='6'>검색된 공지 사항이 없습니다.</td>" +
+	                    "</tr>";
+	                tbody.append(row);
+	            } 
+	            for (var i = 0; i < result.noticeList.length; i++) {
+	                var notice = result.noticeList[i];
+	                var row = "<tr data-idx='" + notice.noticeIdx + "'>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + notice.noticeIdx + "</td>" +
+	                    "<td>" + notice.noticeTitle + "</td>" +
+	                    "<td>" + notice.noticeContent + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + notice.noticeRegDate + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + notice.noticeViewcnt + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + notice.noticeStatus+ "</td>" +
+	                    "</tr>";
+	                tbody.append(row);
+	           }
+
+	            table.append(thead, tbody);
+	            
+	            $("#infoListDiv").append(table);
+	            
+	            var searchDiv = $("#searchDiv");
+	           
+	            // 기존 테이블 및 내용 삭제
+	            searchDiv.empty();
+
+	            searchDiv.append(
+	            		"<br>"+
+	        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
+					 	"<br>"+        			
+	          		 	"<button id='searchButton'>검색</button>"
+	            )
+	          
+	            // 페이지 번호 출력
+	            pageNumDisplay(result.pager, infoType);
+	            
+	            // 페이지 당 출력 갯수를 출력
+	            pageSizeDisplay();
+	            
+	            viewSelect(infoType)
+	        },
+	        
+	        error: function(xhr) {
+	            alert("공지 사항을 불러오는 중에 오류가 발생했습니다. (에러 코드 = " + xhr.status + ")");
+	        }
+	    });
+	}
+	
+	//1:1문의 목록 출력 함수
+	function qaListDisplay(pageNum, pageSize, selectKeyword) {
+		$("#viewSelect").hide();
+		$("#pageSizeSelect").show();
+		$("#pageNumDiv").show();
+		$("#searchDiv").show();
+		$("#packageFormDiv").show();
+	   page=pageNum;
+	   size=pageSize;
+	   keyword=selectKeyword;
+	   
+	    $.ajax({
+	        method: "GET",
+	        url: "<c:url value ="/admin/qa-list"/>",
+	        data: {"pageNum": pageNum, "pageSize": pageSize, "selectKeyword": selectKeyword},
+	        dataType: "json",
+	        success: function(result) {
+	        	console.log(result);
+	            $("#infoListDiv").empty();
+	            
+	            var table = $("<table>").attr("id", "qaInfoTable");
+	            var thead = $("<thead>").append(
+	                "<tr>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>글번호</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>종류</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>제목</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>내용</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>등록일</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>답변상태</th>" +
+	                "</tr>"
+	            );
+
+	            var tbody = $("<tbody>");
+
+	            if (result.qaList.length == 0) { // 검색된 게시글이 없을 때
+	                var row = "<tr>" +
+	                    "<td colspan='6'>검색된 1:1문의가 없습니다.</td>" +
+	                    "</tr>";
+	                tbody.append(row);
+	            } 
+	            for (var i = 0; i < result.qaList.length; i++) {
+	                var qa = result.qaList[i];
+	                var replyStatusText = qa.qaReplyStatus === 0 ? '답변대기' : '답변완료';
+	                var replyStatusColor = qa.qaReplyStatus === 0 ? '' : 'blue';
+	                var row = "<tr data-idx='" + qa.qaIdx + "'>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + qa.qaIdx + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + qa.qaOption + "</td>" +
+	                    "<td>" + qa.qaTitle + "</td>" +
+	                    "<td>" + qa.qaContent  + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + qa.qaRegdate + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap; color: " + replyStatusColor + ";'>" + replyStatusText + "</td>" +
+	                    "<td></td>" +
+	                    "</tr>";
+	                tbody.append(row);
+	                /*
+	                if(qa.qaReplyStatus != null && qa.qaReplyStatus != '') {
+	                   var row2 = "<tr data-idx='" + qa.qaIdx + "' style='background : blue'>" +
+	                    "<td></td>" +
+	                    "<td></td>" +
+	                    "<td> ↳답변: " + qa.qaTitle + "</td>" +
+	                    "<td></td>" +
+	                    "<td>" + replyStatusText + "</td>" +
+	                    "</tr>";
+	                tbody.append(row2);
+	                }
+	                */
+	           }
+
+	            table.append(thead, tbody);
+	            
+	            $("#infoListDiv").append(table);
+	            
+	            var searchDiv = $("#searchDiv");
+	           
+	            // 기존 테이블 및 내용 삭제
+	            searchDiv.empty();
+
+	            searchDiv.append(
+	            		"<br>"+
+	        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
+					 	"<br>"+        			
+	          		 	"<button id='searchButton'>검색</button>"
+	            )
+	          
+	            // 페이지 번호 출력
+	            pageNumDisplay(result.pager, infoType);
+	            
+	            // 페이지 당 출력 갯수를 출력
+	           pageSizeDisplay();
+	            
+	           viewSelect(infoType)
+	        },
+	        
+	        error: function(xhr) {
+	            alert("Q&A 정보를 불러오는 중에 오류가 발생했습니다. (에러 코드 = " + xhr.status + ")");
+	        }
+	    });
+	}
+	
 	
 	//페이지 번호를 출력하는 함수
 	function pageNumDisplay(pager, infoType) {
@@ -367,12 +625,31 @@
 
 		if (infoType === 'package') {
 		viewSelectDiv.append(
-			'<button id="listViewButton" class="btn btn-primary">버튼</button>'+ 
-			'<button id="ViewButton" class="btn btn-primary">버튼</button>'
+			'<button id="ViewButton" class="btn btn-primary">목록</button>'
 			);
 		} else if (infoType === 'notice') {
 			viewSelectDiv.append('<button id="addNotice" class="btn btn-primary">공지사항 등록</button>');
 		}
+	}
+	
+	//새로운 공지 사항 작성 시 사용하는 함수
+	function addNotice() {
+		$("#viewSelect").hide();
+		$("#pageSizeSelect").hide();
+		$("#pageNumDiv").hide();
+		$("#searchDiv").hide();
+		$.ajax({
+	        method: "GET",
+	        url: "<c:url value='/admin/notice_add'/>",
+	        dataType: "html",
+	        success: function(html) {
+	            var adminAddDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
+	            $("#infoListDiv").empty().append(adminAddDiv); // 기존 내용 지우고 새로운 내용 삽입
+	        },
+	        error: function(xhr) {
+	            alert("공지 사항 작성 중 오류가 발생하였습니다. 에러 코드 = (" + xhr.status + ")");
+	        }
+	    });
 	}
 	
 	// 검색하는 함수
@@ -390,7 +667,7 @@
 	        qaListDisplay(1, size, selectKeyword);
 	    }
 	}
-
+	
 	//회원 상세 정보를 열람하기 위한 함수
 	function userinfoDetail(id) {
 		$("#viewSelect").hide();
@@ -407,82 +684,270 @@
 	            $("#infoListDiv").empty().append(userinfoDetailDiv); // 기존 내용 지우고 새로운 내용 삽입
 	        },
 	        error: function(xhr) {
+	            alert("상세 정보를 ㅌ`불러오는 중에 오류가 발생했습니다. 에러 코드 = (" + xhr.status + ")");
+	        }
+	    });
+	}
+	
+	// 패키지 상세 정보를 열람하기 위한 함수
+	function packageDetail(idx) {
+		$("#viewSelect").hide();
+		$("#pageSizeSelect").hide();
+		$("#pageNumDiv").hide();
+		$("#searchDiv").hide();
+	    $.ajax({
+	        method: "GET",
+	        url: "<c:url value='/admin/package-detail'/>",
+	        data: {"idx": idx},
+	        dataType: "html",
+	        success: function(html) {
+	            var festivalDetailDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
+	            $("#infoListDiv").empty().append(packageDetailDiv); // 기존 내용 지우고 새로운 내용 삽입
+	        },
+	        error: function(xhr) {
 	            alert("상세 정보를 불러오는 중에 오류가 발생했습니다. 에러 코드 = (" + xhr.status + ")");
 	        }
 	    });
 	}
-
-    $(document).ready(function() {
+	
+	// diy 상세 정보를 열람하기 위한 함수
+	function diyDetail(idx) {
+		$("#viewSelect").hide();
 		$("#pageSizeSelect").hide();
-	   	$("#viewSelect").hide();
+		$("#pageNumDiv").hide();
+		$("#searchDiv").hide();
+	    $.ajax({
+	        method: "GET",
+	        url: "<c:url value='/admin/diy-detail'/>",
+	        data: {"idx": idx},
+	        dataType: "html",
+	        success: function(html) {
+	            var festivalDetailDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
+	            $("#infoListDiv").empty().append(diyDetailDiv); // 기존 내용 지우고 새로운 내용 삽입
+	        },
+	        error: function(xhr) {
+	            alert("상세 정보를 불러오는 중에 오류가 발생했습니다. 에러 코드 = (" + xhr.status + ")");
+	        }
+	    });
+	}
 	
-	//회원 관리 버튼 클릭 시
-	$("#userinfo-info").off("click").on("click", function() {
-	   	$("#viewSelect").show();
-		$("#pageSizeSelect").show();
-	    $("#pageNumDiv").show();
-	    $("#searchDiv").show();
-	    page = 1;
-	    size = 20;
-	    keyword ='';
-	    infoType = "userinfo";
-	    userinfoListDisplay(page, size, keyword);
-	   
-	    $("#pageSizeSelect").val(size);
-	});
-	
-	//패키지 관리 버튼 클릭 시
-	$("#package-info").click(function() {
-	    $("#package-menu").toggle(); // 하위 메뉴의 가시성을 토글합니다.
 
-		$("#viewSelect").show();
-		$("#pageSizeSelect").show();
-		$("#pageNumDiv").show();
-		$("#searchDiv").show();
-		page = 1;
-		size = 20;
-		keyword ='';
-		infoType = "package";
-		viewType = "list";
-		packageListDisplay(page, size, keyword);
-		       
-		$("#pageSizeSelect").val(size);
-	});
-	
-	//한 페이지 당 출력 갯수를 변경햇을 시
-	$("#pageSizeSelect").change(function() {
-		var functionName = infoType + "ListDisplay";
-		var selectedPageSize = parseInt($(this).val());
-		    
-	// 동적으로 함수 호출
-	window[functionName](page, selectedPageSize, keyword);
-	});
-	
-	//검색 버튼 클릭 시
-	$("#searchDiv").on("click", "#searchButton", function() {
-		performSearch();
+	$(document).ready(
+			function() {
+				$("#pageSizeSelect").hide();
+				$("#viewSelect").hide();
+
+				//회원 목록 버튼 클릭 시
+				$("#userinfo-info").off("click").on("click", function() {
+					$("#viewSelect").show();
+					$("#pageSizeSelect").show();
+					$("#pageNumDiv").show();
+					$("#searchDiv").show();
+					page = 1;
+					size = 20;
+					keyword = '';
+					infoType = "userinfo";
+					userinfoListDisplay(page, size, keyword);
+
+					$("#pageSizeSelect").val(size);
+				});
+
+				//패키지 목록 버튼 클릭 시
+				$("#package-info").click(function() {
+
+					$("#viewSelect").show();
+					$("#pageSizeSelect").show();
+					$("#pageNumDiv").show();
+					$("#searchDiv").show();
+					page = 1;
+					size = 20;
+					keyword = '';
+					infoType = "package";
+					viewType = "list";
+					packageListDisplay(page, size, keyword);
+
+					$("#pageSizeSelect").val(size);
+				});
+
+				//diy 목록 버튼 클릭 시
+				$("#diy-info").click(function() {
+
+					$("#viewSelect").show();
+					$("#pageSizeSelect").show();
+					$("#pageNumDiv").show();
+					$("#searchDiv").show();
+					page = 1;
+					size = 20;
+					keyword = '';
+					infoType = "diy";
+					viewType = "list";
+					diyListDisplay(page, size, keyword);
+
+					$("#pageSizeSelect").val(size);
+				});
+
+				//공지사항 목록 버튼 클릭 시
+				$("#notice-info").click(function() {
+
+					$("#viewSelect").show();
+					$("#pageSizeSelect").show();
+					$("#pageNumDiv").show();
+					$("#searchDiv").show();
+					page = 1;
+					size = 20;
+					keyword = '';
+					infoType = "notice";
+					viewType = "list";
+					noticeListDisplay(page, size, keyword);
+
+					$("#pageSizeSelect").val(size);
+				});
+
+				//1:1문의 목록 버튼 클릭 시
+				$("#qa-info").click(function() {
+
+					$("#viewSelect").show();
+					$("#pageSizeSelect").show();
+					$("#pageNumDiv").show();
+					$("#searchDiv").show();
+					page = 1;
+					size = 20;
+					keyword = '';
+					infoType = "qa";
+					viewType = "list";
+					qaListDisplay(page, size, keyword);
+
+					$("#pageSizeSelect").val(size);
+				});
+
+				//결제주문 목록 버튼 클릭 시
+				$("#order-info").click(function() {
+
+					$("#viewSelect").show();
+					$("#pageSizeSelect").show();
+					$("#pageNumDiv").show();
+					$("#searchDiv").show();
+					page = 1;
+					size = 20;
+					keyword = '';
+					infoType = "order";
+					viewType = "list";
+					orderListDisplay(page, size, keyword);
+
+					$("#pageSizeSelect").val(size);
+				});
+
+				//한 페이지 당 출력 갯수를 변경햇을 시
+				$("#pageSizeSelect").change(function() {
+					var functionName = infoType + "ListDisplay";
+					var selectedPageSize = parseInt($(this).val());
+
+					// 동적으로 함수 호출
+					window[functionName](page, selectedPageSize, keyword);
+				});
+				
+				$("#viewSelect").on("click", "#addNotice", function() {
+					   addNotice();
+				});
+
+				//검색 버튼 클릭 시
+				$("#searchDiv").on("click", "#searchButton", function() {
+					performSearch();
+				});
+
+				// Enter 키를 눌렀을 때 검색 버튼 클릭과 동일한 기능 실행
+				$(document).on("keydown", "#selectKeyword", function(event) {
+					if (event.key === "Enter") {
+						performSearch();
+					}
+				});
+
+				//목록으로 보기 버튼 클릭 시
+				$("#viewSelect").on("click", "#listViewButton", function() {
+					viewType = "list";
+					packageListDisplay(page, size, keyword);
+				});
+
+				// 회원 tr 태그 클릭 시 상세 정보 보기로 이동
+				$("#infoListDiv").on("click", "#userinfoInfoTable tbody tr",function() {
+					var id = $(this).data("id");
+					userinfoDetail(id);
+				});
+				
+				// 패키지 tr 태그 클릭 시 패키지 수정 페이지 이동
+				$("#infoListDiv").on("click", "#packageInfoTable tbody tr", function() {
+				    var idx = $(this).data("idx");
+				    // 패키지 정보를 가져온 후, 수정 페이지로 이동
+				    window.location.href = "/moyeo/admin/packageModify/" + idx; // 수정된 경로
+				});
+				
+				// Diy tr 태그 클릭 시 Diy 상세 페이지 이동
+				$("#infoListDiv").on("click", "#diyInfoTable tbody tr", function() {
+				    var idx = $(this).data("idx");
+				    // 패키지 정보를 가져온 후, 수정 페이지로 이동
+				    window.location.href = "/moyeo/admin/diyDetail/" + idx; // 수정된 경로
+				});
+				
+				// 공지사항 tr 태그 클릭 시 공지사항 수정 페이지 이동
+				$("#infoListDiv").on("click", "#noticeInfoTable tbody tr", function() {
+				    var idx = $(this).data("idx");
+				    window.location.href = "/moyeo/admin/modify/" + idx; // 수정된 경로
+				});
+				
+				// 1:1 문의 tr 태그 클릭 시 1:1 문의 상세 페이지 이동
+				$("#infoListDiv").on("click", "#qaInfoTable tbody tr", function() {
+				    var idx = $(this).data("idx");
+				    window.location.href = "/moyeo/admin/qaDetail/" + idx; // 수정된 경로
+				});
+
+			});
+	//회원 메뉴
+	$(document).ready(function() {
+		// 회원 메뉴를 클릭했을 때 토글 기능 적용
+		$('#package-menumain').click(function() {
+			$('#package-menu').slideToggle();
+		});
 	});
 
-	// Enter 키를 눌렀을 때 검색 버튼 클릭과 동일한 기능 실행
-	$(document).on("keydown", "#selectKeyword", function(event) {
-		if (event.key === "Enter") {
-			performSearch();
-		}
+	//패키지 메뉴
+	$(document).ready(function() {
+		// 패키지 메뉴를 클릭했을 때 토글 기능 적용
+		$('#userinfo-menumain').click(function() {
+			$('#userinfo-menu').slideToggle();
+		});
 	});
-	
-	//목록으로 보기 버튼 클릭 시
-	$("#viewSelect").on("click", "#listViewButton", function() {
-		viewType = "list";
-		packageListDisplay(page, size, keyword);
+
+	//diy 메뉴
+	$(document).ready(function() {
+		// 패키지 메뉴를 클릭했을 때 토글 기능 적용
+		$('#diy-menumain').click(function() {
+			$('#diy-menu').slideToggle();
+		});
 	});
-	
-	// 회원 tr 태그 클릭 시 상세 정보 보기로 이동
-    $("#infoListDiv").on("click", "#userinfoInfoTable tbody tr", function() {
-        var id = $(this).data("id");
-        userinfoDetail(id);
-    });
-	
-});	
+
+	//공지사항 메뉴
+	$(document).ready(function() {
+		// 패키지 메뉴를 클릭했을 때 토글 기능 적용
+		$('#notice-menumain').click(function() {
+			$('#notice-menu').slideToggle();
+		});
+	});
+
+	//1:1 문의 메뉴
+	$(document).ready(function() {
+		// 패키지 메뉴를 클릭했을 때 토글 기능 적용
+		$('#qa-menumain').click(function() {
+			$('#qa-menu').slideToggle();
+		});
+	});
+
+	//결제 및 주문 메뉴
+	$(document).ready(function() {
+		// 패키지 메뉴를 클릭했을 때 토글 기능 적용
+		$('#order-menumain').click(function() {
+			$('#order-menu').slideToggle();
+		});
+	});
 </script>	
 </body>
 </html>

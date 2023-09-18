@@ -21,4 +21,8 @@ public interface NoticeService {
    
    //페이징된 게시글 리스트 조회
    Map<String, Object> selectNoticeList(int pageNum, String keyword, String type);
+
+	//count 관리자
+	Map<String, Object> getNoticeList(int pageNum, int pageSize, String selectKeyword);
+	
 }

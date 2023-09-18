@@ -289,7 +289,18 @@
 	</select>
 	
 	<update id="deleteUserinfo1">
-		UPDATE Userinfo SET STATUS = 3 WHERE id = #{id}
+		UPDATE userinfo SET STATUS = 3 WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserinfoByAdmin">
+		UPDATE userinfo SET
+			id = #{id},
+			name = #{name},
+			phone = #{phone},
+			email = #{email},
+			address = #{address},
+			status = #{status}
+		WHERE id = #{id}
 	</update>
    
    

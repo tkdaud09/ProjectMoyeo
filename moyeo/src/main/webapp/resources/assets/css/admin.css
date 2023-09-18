@@ -1,34 +1,55 @@
-@charset "UTF-8";
-
-/* ì‚¬ì´ë“œë°” */
+/* »çÀÌµå¹Ù */
 .bg-dark {
-	background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
-	color: white;
-	max-width: 210px;
+    background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+    color: white;
+    max-width: 210px;
 }
 
-.bg-dark p {
-	margin: 0;
-	padding: 20px;
-	transition: background 0.3s ease;
-} 
+.bg-dark p, .bg-dark ul {
+    margin: 0;
+    padding: 20px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.bg-dark ul {
+    list-style-type: none; 
+    padding: 0; 
+    display: none; 
+    margin-top: 5px; /* »ó´Ü ¸¶Áø Ãß°¡ */
+}
 
 .bg-dark a {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     color: white;
     width: 100%;
     height: 100%;
+    text-decoration: none; /* »õ·Î Ãß°¡ */
+    vertical-align: middle;
 }
 
 .bg-dark i {
-	margin-right: 20px;
-	font-size: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+    vertical-align: middle;
 }
 
-.bg-dark p:hover {
-	background: rgba(255, 255, 255, 0.1);
+.bg-dark i.fas {
+    font-size: 20px;
+}
+
+.bg-dark i.fa-solid {
+    font-size: 20px;
+}
+
+.bg-dark li a {
+    padding-left: 40px; /* »õ·Î Ãß°¡ */
+}
+
+.bg-dark p:hover, .bg-dark ul li a:hover {
+    background: rgba(255, 255, 255, 0.2); /* ¼öÁ¤ */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* »õ·Î Ãß°¡ */
 }
 
 #userinfoInfoTable {
@@ -40,22 +61,22 @@
 
 /* Select Box */
 #pageSizeSelect {
-    float: right; /* ì˜¤ë¥¸ìª½ ìœ„ì— ìœ„ì¹˜ */
+    float: right; /* ¿À¸¥ÂÊ À§¿¡ À§Ä¡ */
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
     margin: 10px;
     width: auto;
-    background: none; /* ë°°ê²½ ì œê±° */
-    box-shadow: none; /* ê·¸ë¦¼ì ì œê±° */
+    background: none; /* ¹è°æ Á¦°Å */
+    box-shadow: none; /* ±×¸²ÀÚ Á¦°Å */
 }
 
-/* ë²„íŠ¼ ìŠ¤íƒ€ì¼ */
+/* ¹öÆ° ½ºÅ¸ÀÏ */
 #viewSelect {
-    float: left; /* ì™¼ìª½ ìœ„ì— ìœ„ì¹˜ */
-    background: none; /* ë°°ê²½ ì œê±° */
-    box-shadow: none; /* ê·¸ë¦¼ì ì œê±° */
+    float: left; /* ¿ŞÂÊ À§¿¡ À§Ä¡ */
+    background: none; /* ¹è°æ Á¦°Å */
+    box-shadow: none; /* ±×¸²ÀÚ Á¦°Å */
 }
 
 #viewSelect .btn {
@@ -72,19 +93,19 @@
     background-color: #0056b3;
 }
 
-/* í˜ì´ì§€ ë²ˆí˜¸ */
+/* ÆäÀÌÁö ¹øÈ£ */
 #pageNumDiv {
-    text-align: center; /* ì •ì¤‘ì•™ì— ìœ„ì¹˜ */
+    text-align: center; /* Á¤Áß¾Ó¿¡ À§Ä¡ */
     margin-top: 10px;
-    background: none; /* ë°°ê²½ ì œê±° */
-    box-shadow: none; /* ê·¸ë¦¼ì ì œê±° */
+    background: none; /* ¹è°æ Á¦°Å */
+    box-shadow: none; /* ±×¸²ÀÚ Á¦°Å */
 }
 
-/* ê²€ìƒ‰ ì°½ */
+/* °Ë»ö Ã¢ */
 #searchDiv {
     margin-top: 20px;
-    background: none; /* ë°°ê²½ ì œê±° */
-    box-shadow: none; /* ê·¸ë¦¼ì ì œê±° */
+    background: none; /* ¹è°æ Á¦°Å */
+    box-shadow: none; /* ±×¸²ÀÚ Á¦°Å */
 }
 
 #searchDiv input {
@@ -100,3 +121,297 @@
 }
 
 
+/* ¾ÆÀÌÄÜ°ú ÅØ½ºÆ® °£ÀÇ °ø¹é ¼³Á¤ */
+i {
+    margin-right: 10px; /* ¾ÆÀÌÄÜ ¿À¸¥ÂÊ ¿©¹é */
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* ¸Ş´º ÅØ½ºÆ® ½ºÅ¸ÀÏ */
+p a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+}
+
+/* ¸Ş´º ¾ÆÀÌÄÜ Å©±â¿Í ¿©¹é Á¶Á¤ */
+/* ÆĞÅ°Áö ¸Ş´º ¾ÆÀÌÄÜ°ú ÅØ½ºÆ® °£ÀÇ °ø¹é ¼³Á¤ */
+#package-menumain i {
+    margin-right: 20px; /* ¾ÆÀÌÄÜ ¿À¸¥ÂÊ ¿©¹é Á¶Àı */
+    width: 20px; /* ¾ÆÀÌÄÜÀÇ Å©±â ¼³Á¤ */
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* ÃÊ±â¿¡ ¼û±è Ã³¸® */
+#package-menu {
+    display: none;
+}
+
+/* ÆĞÅ°Áö ¸Ş´º µğÀÚÀÎ */
+#package-menumain {
+    background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+    color: white;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#package-menumain a {
+    color: white;
+    text-decoration: none;
+}
+
+#package-menu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+}
+
+#package-menu li a {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#package-menu li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#userinfo-menumain i {
+    margin-right: 20px; /* ¾ÆÀÌÄÜ ¿À¸¥ÂÊ ¿©¹é Á¶Àı */
+    width: 20px; /* ¾ÆÀÌÄÜÀÇ Å©±â ¼³Á¤ */
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* ÃÊ±â¿¡ ¼û±è Ã³¸® */
+#userinfo-menu {
+    display: none;
+}
+
+/* ÆĞÅ°Áö ¸Ş´º µğÀÚÀÎ */
+#userinfo-menumain {
+    background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+    color: white;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#userinfo-menumain a {
+    color: white;
+    text-decoration: none;
+}
+
+#userinfo-menu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+}
+
+#userinfo-menu li a {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#userinfo-menu li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#diy-menumain i {
+    margin-right: 20px; /* ¾ÆÀÌÄÜ ¿À¸¥ÂÊ ¿©¹é Á¶Àı */
+    width: 20px; /* ¾ÆÀÌÄÜÀÇ Å©±â ¼³Á¤ */
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* ÃÊ±â¿¡ ¼û±è Ã³¸® */
+#diy-menu {
+    display: none;
+}
+
+/* ÆĞÅ°Áö ¸Ş´º µğÀÚÀÎ */
+#diy-menumain {
+    background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+    color: white;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#diy-menumain a {
+    color: white;
+    text-decoration: none;
+}
+
+#diy-menu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+}
+
+#diy-menu li a {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#diy-menu li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#notice-menumain i {
+    margin-right: 20px; /* ¾ÆÀÌÄÜ ¿À¸¥ÂÊ ¿©¹é Á¶Àı */
+    width: 20px; /* ¾ÆÀÌÄÜÀÇ Å©±â ¼³Á¤ */
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* ÃÊ±â¿¡ ¼û±è Ã³¸® */
+#notice-menu {
+    display: none;
+}
+
+/* ÆĞÅ°Áö ¸Ş´º µğÀÚÀÎ */
+#notice-menumain {
+    background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+    color: white;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#notice-menumain a {
+    color: white;
+    text-decoration: none;
+}
+
+#notice-menu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+}
+
+#notice-menu li a {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#notice-menu li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#qa-menumain i {
+    margin-right: 20px; /* ¾ÆÀÌÄÜ ¿À¸¥ÂÊ ¿©¹é Á¶Àı */
+    width: 20px; /* ¾ÆÀÌÄÜÀÇ Å©±â ¼³Á¤ */
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* ÃÊ±â¿¡ ¼û±è Ã³¸® */
+#qa-menu {
+    display: none;
+}
+
+/* ÆĞÅ°Áö ¸Ş´º µğÀÚÀÎ */
+#qa-menumain {
+    background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+    color: white;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#qa-menumain a {
+    color: white;
+    text-decoration: none;
+}
+
+#qa-menu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+}
+
+#qa-menu li a {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#qa-menu li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#order-menumain i {
+    margin-right: 20px; /* ¾ÆÀÌÄÜ ¿À¸¥ÂÊ ¿©¹é Á¶Àı */
+    width: 20px; /* ¾ÆÀÌÄÜÀÇ Å©±â ¼³Á¤ */
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* ÃÊ±â¿¡ ¼û±è Ã³¸® */
+#order-menu {
+    display: none;
+}
+
+/* ÆĞÅ°Áö ¸Ş´º µğÀÚÀÎ */
+#order-menumain {
+    background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+    color: white;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#order-menumain a {
+    color: white;
+    text-decoration: none;
+}
+
+#order-menu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+}
+
+#order-menu li a {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#order-menu li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}

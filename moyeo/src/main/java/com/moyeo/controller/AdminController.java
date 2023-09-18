@@ -1,12 +1,14 @@
 package com.moyeo.controller;
 
 
-import java.io.File;   
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -21,11 +23,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.moyeo.dto.Diy;
+import com.moyeo.dto.DiyLove;
+import com.moyeo.dto.Notice;
 import com.moyeo.dto.Pack;
+import com.moyeo.dto.PackHeart;
+import com.moyeo.dto.Qa;
+import com.moyeo.dto.QaReply;
+import com.moyeo.dto.Review;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.UserinfoNotFoundException;
+import com.moyeo.service.DiyLoveService;
+import com.moyeo.service.DiyService;
+import com.moyeo.service.NoticeService;
+import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.PackageService;
+import com.moyeo.service.QaReplyService;
+import com.moyeo.service.QaService;
+import com.moyeo.service.ReviewService;
 import com.moyeo.service.UserinfoService;
 
 import lombok.RequiredArgsConstructor;
@@ -38,6 +55,13 @@ public class AdminController {
    private final WebApplicationContext context;
    private final UserinfoService userinfoservice;
    private final PackageService packageService;
+   private final PackageHeartService packageHeartService;
+   private final ReviewService reviewService;
+   private final DiyLoveService diyLoveService;
+   private final DiyService diyService;
+   private final NoticeService noticeService;
+   private final QaService qaService;
+   private final QaReplyService qaReplyService;
 
    // 관리자 권한 정보 확인 
    @GetMapping(value = "/main")
@@ -70,6 +94,41 @@ public class AdminController {
       return "admin/detail/userinfo-detail";
    }
    
+   //패키지 디테일 페이지
+   @RequestMapping(value = "/package-detail", method = RequestMethod.GET)
+   public String adminPackageMainGET(@RequestParam(defaultValue = "1") int pageNum,
+		   							 @RequestParam(required = false) String keyword, 
+		   							 Model model) {
+	   Map<String, Object> map=packageService.getPackageListUser(pageNum, keyword);
+	   model.addAttribute("pager", map.get("pager")); 
+	   model.addAttribute("packList", map.get("packList"));
+	   return "admin/detail/package-detail";
+   }
+   
+   // 패키지 상세 페이지 이동 - 패키지 상세 정보 select
+   @RequestMapping(value = "/package-detail/{packIdx}", method = RequestMethod.GET) // Spring에서 사용자가 전송한 식별자 값을 변수로 인식하기 위해 템플릿
+   // 변수{packIdx}작성
+   public String adminPackageDetailGET(@PathVariable("packIdx") int packIdx, 
+		   							   Model model,
+		   							   HttpSession session) {
+
+	   String userinfoId = (String) session.getAttribute("userinfoId");
+
+	   model.addAttribute("pack", packageService.getPackageInfo(packIdx));
+
+	   //추가한거
+	   model.addAttribute("packHeartList", packageHeartService.getPackHeartIdxByPackIdx(packIdx));
+
+	   //로그인 유저가 찜 했는지 확인
+	   PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoId);
+	   boolean isHeartAdded = packHeart != null;
+	   // 최신 리뷰 3개
+	   List<Review> latestReviews = reviewService.getLatestReviews(3);
+	   model.addAttribute("latestReviews", latestReviews);
+	   model.addAttribute("isHeartAdded", isHeartAdded);
+	   return "package/mo_package_animal";
+   }
+   
    /*
    //유저 리스트
    @GetMapping(value = "/userlist")
@@ -78,7 +137,7 @@ public class AdminController {
       model.addAttribute("userinfoList", userinfoList);
       return "admin/userlist";
    }
-	*/
+    */
 
    //유저 상세 정보
    @GetMapping(value = "/userinfo")
@@ -92,7 +151,7 @@ public class AdminController {
    // 패키지 등록 페이지 이동
    @RequestMapping(value = "/packageForm", method = RequestMethod.GET)
    public String addPackageGET() {
-      return "package/mo_package_form";
+	   return "package/mo_package_form";
    }
 
    // 패키지 등록
@@ -113,7 +172,7 @@ public class AdminController {
             || packContentImg2File.isEmpty() || packContentImg3File.isEmpty() || packCalendarImgFile.isEmpty()) {
          //이미지 파일이 업로드되지 않은 경우 처리
          model.addAttribute("message","파일이 업로드되지 않았습니다.");
-         return "redirect:/package/";
+         return "redirect:/";
       }
 
       //전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
@@ -159,7 +218,6 @@ public class AdminController {
 
       return "redirect:/package/";
    }
-   
    
    /* 패키지 수정 */
    @GetMapping(value = "/packageModify/{packIdx}")
@@ -295,6 +353,119 @@ public class AdminController {
        }
        
        return response; // 응답 맵 반환
+   }
+   
+   // diy 자세히보기
+   @GetMapping("/diyDetail/{diyIdx}")
+   @ResponseBody
+   @Nullable
+   public String diyDetail(@PathVariable("diyIdx") int diyIdx,DiyLove diyLove, Model model, HttpSession session) {
+
+	   Userinfo userinfo = (Userinfo)session.getAttribute("userinfo");
+	   diyLove.setUserinfoId(userinfo.getId());
+	   // model.addAttribute("loginId",loginId);
+	   model.addAttribute("loveStatus",diyLoveService.loveStatus());
+
+	   Diy diyId = diyService.getUserinfoById(diyIdx);
+	   model.addAttribute("diyId", diyId);
+
+	   model.addAttribute("diyDetail", diyService.selectDiy(diyIdx));
+	   return "diy/diy_detail";
+   }
+   
+   //notice 등록
+   @RequestMapping(value = "/notice_add", method = RequestMethod.GET)
+   public String getNoticeAdd(HttpSession session) {
+	   return "admin/detail/notice_add";
+   }
+
+   //공지사항 등록 폼  - GET (기존에 "/create" 대신 "/write"로 바꿈)
+   @RequestMapping(value = "/write", method = RequestMethod.GET)
+   public String noticeWriteForm() {
+	   return "notice/write";
+   }
+
+   //공지사항 등록 - POST
+   @RequestMapping(value="/addNotice", method = RequestMethod.POST)
+   public String addNoticePost(@ModelAttribute Notice notice, 
+		   @RequestParam("noticeImgFile") MultipartFile noticeImgFile,
+		   Model model, HttpSession session) throws IllegalStateException, IOException {
+
+	   /*
+       if(noticeImgFile.isEmpty()) {
+          //이미지 파일이 업로드되지 않은 경우 처리
+          model.addAttribute("message","파일이 업로드되지 않았습니다.");
+          return "redirect:/notice/";
+       }
+	    */
+
+	   //전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
+	   String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
+
+	   //서버 디렉토리에 업로드 처리되며 저장된 파일의 이름을 반환하여 Command 객체의 필드값 변경
+	   String uploadNotice = UUID.randomUUID().toString()+"-"+noticeImgFile.getOriginalFilename();
+	   notice.setNoticeImg(uploadNotice);
+
+	   //파일 업로드 처리 - 복붙해서 넣어주는게 아니라 서버에 넣어줌
+	   noticeImgFile.transferTo(new File(uploadDirectory,uploadNotice));
+
+	   noticeService.insertNotice(notice);
+
+	   return "redirect:/notice/";
+   }
+
+   //공지사항 수정 - GET 방식
+   @RequestMapping(value="/modify/{noticeIdx}", method = RequestMethod.GET)
+   public String updateNoticeGET(@PathVariable("noticeIdx") int noticeIdx, Model model) {
+	   model.addAttribute("notice", noticeService.selectNoticeInfo(noticeIdx));
+
+	   return "notice/modify";
+   }
+
+
+   //공지사항 수정 - POST 방식
+   //수정될 내용의 데이터를 가져오기 위해 Notice 클래스를 파라미터로 부여, 수정기능 실행 후 리다이렉트 방식으로 리스트 페이지 이동시 데이터 전송하가 위해 RedirectAttributes객체를 피라미터로 부여
+   @RequestMapping(value="/modify", method = RequestMethod.POST)
+   public String updateNoticePOST(@ModelAttribute Notice notice, 
+		   @RequestParam("noticeImgFile") MultipartFile noticeImgFile,
+		   Model model, HttpSession session, RedirectAttributes rttr) throws IllegalStateException, IOException {
+
+	   // 이미지 파일이 업로드되었는지 확인
+	   if (!noticeImgFile.isEmpty()) {
+		   // 파일이 업로드된 경우
+		   String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
+		   String uploadNotice = UUID.randomUUID().toString() + "-" + noticeImgFile.getOriginalFilename();
+		   notice.setNoticeImg(uploadNotice);
+		   noticeImgFile.transferTo(new File(uploadDirectory, uploadNotice));
+	   } else {
+		   // 파일이 업로드되지 않은 경우, 기존 이미지 경로를 유지
+		   notice.setNoticeImg(noticeService.selectNoticeInfo(notice.getNoticeIdx()).getNoticeImg());
+	   }
+
+	   noticeService.updateNotice(notice);
+
+	   return "redirect:/notice/"; // 공지사항 상세 페이지로 리다이렉트 이동
+   }
+
+
+   // 공지사항 삭제 
+   @RequestMapping(value = "/delete/{noticeIdx}", method = RequestMethod.GET)
+   public String deleteNotice(@PathVariable int noticeIdx) {
+	   noticeService.deleteNotice(noticeIdx);
+	   return "redirect:/notice/";
+   }
+
+   // 1:1 문의 상세 페이지로 이동
+   @GetMapping(value = "/qaDetail/{qaIdx}")
+   public String qaDetailGET(@PathVariable("qaIdx") int qaIdx, Model model) {
+	   Qa qa = qaService.getQaInfo(qaIdx);
+	   model.addAttribute("qa", qa);
+
+	   List<QaReply> reply=null;
+	   reply=qaReplyService.getQaReplyList(qaIdx);
+	   model.addAttribute("reply", reply);
+
+	   return "qa/qa_view";
    }
 
 }

@@ -26,5 +26,8 @@ public interface NoticeMapper {
    
    //페이징된 게시글 리스트 조회
    List<Notice> selectNoticeList(Map<String, Object> map);
-
+   
+   //count 관리자
+   List<Notice> selectNoticeList1(Map<String, Object> map);
+   int selectNoticeCount1(String selectKeyword);
 }

@@ -77,6 +77,15 @@ public class QaDAOImpl implements QaDAO {
 	public List<Qa> selectMyQaList(Map<String, Object> map) {
 		return sqlSession.getMapper(QaMapper.class).selectMyQaList(map);
 	}
-	
-	
+
+	@Override
+	public List<Qa> selectQaList1(Map<String, Object> map) {
+		return sqlSession.getMapper(QaMapper.class).selectQaList1(map);
+	}
+
+	@Override
+	public int selectQaCount1(String selectKeyword) {
+		return sqlSession.getMapper(QaMapper.class).selectQaCount1(selectKeyword);
+	}
+
 }

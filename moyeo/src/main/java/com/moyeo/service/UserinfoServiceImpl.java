@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -157,7 +158,20 @@ public class UserinfoServiceImpl implements UserinfoService {
 		if (userinfoDAO.selectUserinfo(id) == null) {
 			throw new UserinfoNotFoundException("아이디의 회원 정보가 존재하지 않습니다.");
 		}
-			userinfoDAO.deleteUserinfo1(id);
+		userinfoDAO.deleteUserinfo1(id);
+	}
+	
+	//관리자 페이지 유저 변경
+	@Override
+	public void modifyUserinfoByAdmin(Userinfo userinfo) throws UserinfoNotFoundException {
+		if (userinfoDAO.selectUserinfo(userinfo.getId()) == null) {
+			throw new UserinfoNotFoundException("아이디의 회원 정보가 존재하지 않습니다.");
 		}
+		if (userinfo.getPw() != null && userinfo.getPw().equals("")) {
+			String hashedPassword = BCrypt.hashpw(userinfo.getPw(), BCrypt.gensalt());
+			userinfo.setPw(hashedPassword);
+		}
+		userinfoDAO.updateUserinfoByAdmin(userinfo);
+	}
 		
 }
