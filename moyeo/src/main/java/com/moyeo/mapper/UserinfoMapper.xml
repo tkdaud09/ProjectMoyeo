@@ -44,7 +44,23 @@
         SELECT count(*) FROM userinfo 
         WHERE email = #{email}
      </select>
-   
+     
+   <!-- id로 회원정보 검색 - 수정해야함 -->
+   <select id="selectUerinfoById" resultType="Userinfo">
+		SELECT id
+        	 , pw
+         	, name
+         	, gender 
+         	, email
+         	, birth
+         	, address
+         	, phone
+         	, regdate
+         	, status  
+         	, enabled
+    	FROM userinfo
+    	WHERE id=#{id}
+	</select>
    
    <!--로그인 -->
    
