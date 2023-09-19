@@ -65,6 +65,7 @@
 								type="button" class="btn_naver" value="네이버 로그인">
 						</div>
 					</div>
+					 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				</form>
 
 

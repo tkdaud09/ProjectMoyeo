@@ -134,7 +134,9 @@
                       </label>
                      </div>
                         <br>
+                    
                         	<input type="hidden" name="userinfoRole" value="ROLE_USER" >
+                        	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
                            <input type="button" class="join_button" value="가입하기">
                </form:form>
             </div>
@@ -157,7 +159,19 @@ var phoneCheck = false;          // 휴대전화 확인
 var numAddressCheck = false;    // 주소 확인
 var genderCheck = false;         // 성별
 
+
+
 $(document).ready(function(){
+	var csrfHeaderName="${_csrf.headerName}";
+	var csrfTokenValue="${_csrf.token}";
+	   
+	//ajaxSend() 메소드를 호출하여 페이지에서 Ajax 기능으로 요청하는 모든 웹프로그램에게 CSRF 토큰 전달
+	// => Ajax 요청시 beforeSend 속성을 설정 불필요
+	$(document).ajaxSend(function(e, xhr) {
+	   xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	});
+
+	
    $(".join_button").on("click", function(){
       address();
         /* 입력값 변수 */
