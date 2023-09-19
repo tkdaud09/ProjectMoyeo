@@ -26,12 +26,16 @@ public class UserinfoServiceImpl implements UserinfoService {
 
 	// 회원가입
 	@Override
-	public void registerUser(Userinfo userinfo) {
+	public void registerUser(Userinfo userinfo, String userinfoRole) {
 		String rawPw = userinfo.getPw(); // 사용자가 입력한 원래의 비밀번호
 		String encodePw = pwEncoder.encode(rawPw); // 비밀번호 인코딩
 		userinfo.setPw(encodePw); // 인코딩된 비밀번호를 설정
 
 		userinfoDAO.insertUserinfo(userinfo);
+		
+		if(userinfoRole.equals("ROLE_USER")) {
+			userinfoDAO.insertSecurityAuth(new SecurityAuth(userinfo.getId(),"ROLE_USER"));
+		}
 	}
 
 	// 아이디 중복 검사

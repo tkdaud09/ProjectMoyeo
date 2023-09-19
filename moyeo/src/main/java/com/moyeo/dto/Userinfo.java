@@ -12,19 +12,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /*
-이름      널?       유형            
-------- -------- ------------- 
-ID      NOT NULL VARCHAR2(50)  
-PW               VARCHAR2(50)  
-NAME             VARCHAR2(50)  
-GENDER           CHAR(1)       
-EMAIL            VARCHAR2(100) 
-BIRTH            DATE          
-ADDRESS          VARCHAR2(100) 
-PHONE            VARCHAR2(50)  
-REGDATE          DATE          
-LOGDATE          DATE          
-STATUS           NUMBER        
+이름              널?       유형             
+--------------- -------- -------------- 
+ID              NOT NULL VARCHAR2(50)   
+PW                       VARCHAR2(3000) 
+NAME                     VARCHAR2(50)   
+GENDER                   CHAR(1)        
+EMAIL                    VARCHAR2(100)  
+BIRTH                    DATE           
+ADDRESS                  VARCHAR2(4000) 
+PHONE                    VARCHAR2(50)   
+REGDATE                  DATE           
+STARTDATEPICKER          DATE           
+ENDDATEPICKER            DATE           
+LOGDATE                  DATE           
+STATUS                   NUMBER         
+ENABLED                  VARCHAR2(1)  
 
  * */
 

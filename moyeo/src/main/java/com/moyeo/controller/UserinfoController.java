@@ -66,14 +66,15 @@ public class UserinfoController {
 
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinPOST(@Valid @ModelAttribute("Userinfo") Userinfo userinfo, BindingResult bindingResult)
-			throws Exception {
+	public String joinPOST(@Valid @ModelAttribute("Userinfo") Userinfo userinfo
+								, @RequestParam("status") String userinfoRole  
+								, BindingResult bindingResult) throws Exception {
 		if (bindingResult.hasErrors()) {// 유효성 검사 실패
 			logger.info(bindingResult.getAllErrors().get(0).getDefaultMessage());
 			return "userinfo/join"; // 유효성 검사 실패 시 다시 회원가입 페이지로
 		}
 
-		userinfoservice.registerUser(userinfo); // 회원가입 서비스 호출
+		userinfoservice.registerUser(userinfo, userinfoRole); // 회원가입 서비스 호출
 		return "redirect:/user/login"; // 로그인 페이지로 리다이렉트
 	}
 
