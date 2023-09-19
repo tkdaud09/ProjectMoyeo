@@ -19121,6 +19121,7 @@ li.default-nav-item > .btn i {
 
 .card img {
   transition: all .3s;
+  object-fit:cover;
 }
 
 .card .card-header {
@@ -23676,7 +23677,17 @@ label {
 	    margin-top: 11px;
 	}
 	
-	    
+	
+	
+	.package-slider .item{
+		width:100%;
+		height:500px;
+		object-fit:cover;
+	}
+	.package-slider .item img{
+		width:100%;
+		object-fit:cover;
+	}
 	
 	
 	
@@ -23733,6 +23744,9 @@ label {
 	
 	
 	
-	
+	.review_view_star img{
+		width: 19px;
+    	margin-bottom: 4px;
+	}
 
 }/*--1200-------------------------------------------------------*/

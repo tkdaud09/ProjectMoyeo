@@ -211,9 +211,9 @@
 
          
          <img src="<c:url value='/assets/img/upload/${pack.packCalendarImg}'/>" alt="">   
-         
+         <img src="<c:url value='/assets/img/upload/${pack.packContentImg1}'/>" alt=""> 
          </div>
-          <img src="<c:url value='/assets/img/upload/${pack.packContentImg1}'/>" alt=""> 
+          
       </div>
       
       
@@ -309,7 +309,8 @@
         </form>
       
        -->
-      
+       <button type="button" id="removeBtn">삭제</button>
+       
       </div>
     </div>
   </div>

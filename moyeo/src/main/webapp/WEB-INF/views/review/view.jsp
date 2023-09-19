@@ -54,7 +54,16 @@
 					        <h3 class="tit">${review.reviewTitle}</h3>
 					        
 					        <p class="t1">상품명: ${review.packTitle}</p>
-					        <p class="t1">별점: ${review.reviewStar}</p>
+					       
+					        <p class="t1 review_view_star">별점:
+							    <c:forEach var="i" begin="1" end="${review.reviewStar}">
+							        <img src="${pageContext.request.contextPath}/assets/img/star-filled.png" alt="별">
+							    </c:forEach>
+							    <c:forEach var="i" begin="${review.reviewStar + 1}" end="5">
+							        <img src="${pageContext.request.contextPath}/assets/img/star-empty.png" alt="별">
+							    </c:forEach>
+							</p>
+
 					        <p class="t1">작성자: ${review.userinfoId}</p>
 					        <p class="t1">작성일: <fmt:formatDate var="formattedDate" value="${review.reviewRegdate}" pattern="yyyy-MM-dd" />${formattedDate}</p>
 					        <p class="t1">조회수: ${review.reviewViewcnt}</p>
@@ -95,6 +104,9 @@
 					        }
 					    });				    
 					</script>
+					
+					
+					
 				
 
 				

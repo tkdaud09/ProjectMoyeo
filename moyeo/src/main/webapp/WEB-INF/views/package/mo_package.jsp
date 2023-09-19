@@ -122,9 +122,10 @@
 
         <div class="card card-hover">
 
-          <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="position-relative">
+          <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="position-relative" style="width:100%; height:auto;">
 
-            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="Card image cap">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" 
+            	src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="Card image cap" style="height:230px;">
 
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
 
