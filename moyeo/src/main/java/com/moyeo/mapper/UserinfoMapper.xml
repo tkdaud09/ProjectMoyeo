@@ -31,7 +31,7 @@
          , #{phone}
          , sysdate
          , #{status}
-         , #{enabled}
+         , 0
       )
    </insert>
    
