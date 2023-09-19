@@ -20,15 +20,16 @@
     </insert>
     
     <delete id="deleteDiyLove" parameterType="DiyLove">
-	    DELETE FROM
-	    			diy_love
+	    DELETE FROM	diy_love
+	    			
 	    WHERE 		diy_idx=#{diyIdx} AND userinfo_id=#{userinfoId}
     </delete>
     
-    <select id="loveStatus" resultType="DiyLove">
-    	SELECT
-    			love_status
+    <select id="loveStatusList" resultType="DiyLove">
+    	SELECT  love_status
+    			
     	FROM	diy_love
+    	
     	WHERE 	diy_idx=#{diyIdx} AND userinfo_id=#{userinfoId}
     
     </select>

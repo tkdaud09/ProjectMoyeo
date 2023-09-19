@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
 <mapper namespace="com.moyeo.mapper.DiyMapper">
-	<insert id="insertDiy">
+	<insert id="insertDiy" parameterType="hashmap">
 		<selectKey resultType="int" keyProperty="diyIdx" order="BEFORE">
 			SELECT diy_seq.nextval 
 			FROM DUAL
@@ -88,28 +90,11 @@
 	
 	
 	<select id="selectDiyList" resultType="Diy">
-        SELECT 
-        		diy_idx
-				,diy_thumbnail
-				,diy_title
-				,diy_people
-				,diy_startdate
-				,diy_loc
-				,diy_regdate
-				,love_count
-				,diy_introduction
+        SELECT *
         FROM 
         		(SELECT 
         				ROWNUM rn
-        		 		,diy_idx
-        				,diy_thumbnail
-        				,diy_title
-        				,diy_people
-        				,diy_startdate
-        				,diy_loc
-        				,diy_regdate
-        				,love_count
-        				,diy_introduction
+        		 		,diy.*
         		FROM 
 						(SELECT
 								diy_idx
@@ -121,11 +106,35 @@
         						,diy_regdate
         						,love_count
         						,diy_introduction
-					 	FROM diy 
-					 	ORDER BY love_count DESC
+					 	FROM diy
+					 	<if test="keyword != null and keyword != ''">
+						    <if test='column == "diy_title"'>
+						      WHERE diy_title LIKE '%'|| #{keyword} ||'%'
+						    </if>
+						    <if test='column == "diy_loc"'>
+						       WHERE diy_loc LIKE '%'|| #{keyword} ||'%'
+						    </if>
+						    <if test='column == "diy_content"'>
+						        WHERE (
+						            diy_content1 LIKE '%'|| #{keyword} ||'%'
+						            OR diy_content2 LIKE '%'|| #{keyword} ||'%'
+						            OR diy_content3 LIKE '%'|| #{keyword} ||'%'
+						            OR diy_content4 LIKE '%'|| #{keyword} ||'%'
+						        )
+						    </if>
+						</if>
+						
+						<if test='type == "recently"'>
+						ORDER BY diy_regdate DESC
+						</if>
+						<if test='type == "love"'>
+						ORDER BY love_count DESC
+						</if>
+						<if test='type == null'>
+						ORDER BY love_count DESC
+						</if>
 					 	) diy
 					 )
-				 
         WHERE rn BETWEEN #{startRow} and #{endRow}  
     </select>
         <!-- 여기에로그인아이디를 출력해주고 글마다...?
@@ -134,18 +143,25 @@
     
     <!-- 목록 출력할때 같이 love 테이블의 love idx, love status 로그인한 사람 의 diylove 상태  -->
     
-   	<select id="selectDiyCount" resultType="int">
-        SELECT COUNT(*) FROM diy
-        <choose>
-        <!-- 검색어 조건 처리 -->
-            <when test="selectKeyword != null and selectKeyword != ''">
-                (TITLE LIKE '%' || #{selectKeyword} || '%' OR
-                 CONTENT LIKE '%' || #{selectKeyword} || '%')
-            </when>
-            <otherwise>
-                1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
-            </otherwise>
-        </choose>
+   	<select id="selectDiyListCount" resultType="int">
+        SELECT count(*)
+        FROM diy
+        <if test="keyword != null and keyword != ''">
+		    <if test='column == "diy_title"'>
+		      WHERE diy_title LIKE '%'|| #{keyword} ||'%'
+		    </if>
+		    <if test='column == "diy_loc"'>
+		       WHERE diy_loc LIKE '%'|| #{keyword} ||'%'
+		    </if>
+		    <if test='column == "diy_content"'>
+		        WHERE (
+		            diy_content1 LIKE '%'|| #{keyword} ||'%'
+		            OR diy_content2 LIKE '%'|| #{keyword} ||'%'
+		            OR diy_content3 LIKE '%'|| #{keyword} ||'%'
+		            OR diy_content4 LIKE '%'|| #{keyword} ||'%'
+		        )
+		    </if>
+		</if>
     </select>
        
        
@@ -241,7 +257,7 @@
   
 	  <update id="loveCheck" parameterType="Diy">
 		    UPDATE diy
-		    SET love_count = love_count +1 
+		    SET love_count = love_count + 1 
 		    WHERE diy_idx=#{diyIdx}
 	  </update>
 	  
@@ -250,120 +266,5 @@
 		    SET love_count = love_count -1
 		    WHERE diy_idx=#{diyIdx}
 	  </update>
-	
-	
-	<!-- userinfo-details -->
-	<select id="selectMyDiyCount" resultType="int">
-		SELECT
-			COUNT(*) AS diy_count
-		FROM qa
-		WHERE userinfo_id = #{userinfoId}
-	</select>
-	
-	<!-- Diy 목록 조회 -->
-    <select id="selectMyDiyList" resultType="Diy">
-        SELECT * FROM (
-          SELECT ROWNUM RN, BOARD.* FROM (
-          	SELECT
-				diy_idx
-				,userinfo_id
-        		,diy_startdate
-        		,diy_enddate
-        		,diy_people
-        		,diy_loc
-        		,diy_price
-        		,diy_map
-        		,TO_CHAR(diy_regdate, 'yyyy-mm-dd') as diy_regdate
-        		,TO_CHAR(diy_modifydate, 'yyyy-mm-dd') as diy_modifydate
-        		,love_count
-        		,diy_title
-        		,diy_introduction
-            FROM diy 
-            WHERE userinfo_id = #{userinfoId}
-            ORDER BY diy_idx DESC
-          ) BOARD
-      ) WHERE RN BETWEEN #{startRow} and #{endRow}<!-- 페이징 처리 -->
-    </select>
-	
-	<!-- Diy 목록 조회 -->
-    <select id="selectDiyList1" resultType="Diy">
-		SELECT * FROM (
-		SELECT ROWNUM RN, BOARD.* FROM (
-		SELECT
-			diy_idx
-			,userinfo_id
-      		,diy_startdate
-      		,diy_enddate
-      		,diy_people
-      		,diy_loc
-      		,diy_price
-      		,diy_map
-      		,TO_CHAR(diy_regdate, 'yyyy-mm-dd') as diy_regdate
-      		,TO_CHAR(diy_modifydate, 'yyyy-mm-dd') as diy_modifydate
-      		,love_count
-      		,diy_title
-      		,diy_introduction
-			FROM diy
-		WHERE
-		<choose>
-			<when test="selectKeyword != null and selectKeyword != ''">
-				(diy_idx LIKE '%' || #{selectKeyword} || '%' OR
-				diy_startdate LIKE '%' || #{selectKeyword} || '%' OR
-				diy_enddate LIKE '%' || #{selectKeyword} || '%' OR
-				diy_people LIKE '%' || #{selectKeyword} || '%' OR
-				diy_loc LIKE '%' || #{selectKeyword} || '%' OR
-				diy_regdate LIKE '%' || #{selectKeyword} || '%' OR
-				diy_modifydate LIKE '%' || #{selectKeyword} || '%' OR
-				love_count LIKE '%' || #{selectKeyword} || '%' OR
-				diy_title LIKE '%' || #{selectKeyword} || '%' OR
-				diy_introduction LIKE '%' || #{selectKeyword} || '%')
-			</when>
-			<otherwise>
-				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
-			</otherwise>
-		</choose>
-		ORDER BY diy_idx DESC
-		) BOARD
-		) WHERE RN BETWEEN #{startRow} and #{endRow}
-	</select>
-	
-	<!-- 패키지 검색 Count -->
-	<select id="selectDiyCount1" resultType="int">
-		SELECT COUNT(*) FROM (
-		SELECT
-			diy_idx
-			,userinfo_id
-      		,diy_startdate
-      		,diy_enddate
-      		,diy_people
-      		,diy_loc
-      		,diy_price
-      		,diy_map
-      		,TO_CHAR(diy_regdate, 'yyyy-mm-dd') as diy_regdate
-      		,TO_CHAR(diy_modifydate, 'yyyy-mm-dd') as diy_modifydate
-      		,love_count
-      		,diy_title
-      		,diy_introduction
-			FROM diy
-		WHERE
-		<choose>
-			<when test="selectKeyword != null and selectKeyword != ''">
-				(diy_idx LIKE '%' || #{selectKeyword} || '%' OR
-				diy_startdate LIKE '%' || #{selectKeyword} || '%' OR
-				diy_enddate LIKE '%' || #{selectKeyword} || '%' OR
-				diy_people LIKE '%' || #{selectKeyword} || '%' OR
-				diy_loc LIKE '%' || #{selectKeyword} || '%' OR
-				diy_regdate LIKE '%' || #{selectKeyword} || '%' OR
-				diy_modifydate LIKE '%' || #{selectKeyword} || '%' OR
-				love_count LIKE '%' || #{selectKeyword} || '%' OR
-				diy_title LIKE '%' || #{selectKeyword} || '%' OR
-				diy_introduction LIKE '%' || #{selectKeyword} || '%')
-			</when>
-			<otherwise>
-				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
-			</otherwise>
-		</choose>
-		)
-	</select>
-	
+
 </mapper>

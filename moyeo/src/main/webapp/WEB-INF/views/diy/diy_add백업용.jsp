@@ -4,24 +4,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="utf-8">
-  
+
 <head>
 <jsp:include page="/WEB-INF/views/inc/head.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>    
+   
+<style>
+input[type='date']::before {
+  content: attr(data-placeholder);
+  width: 100%;
+  color: gray;
+}
 
-<body id="body" class="up-scroll">
+input[type='date']:focus::before,
+input[type='date']:valid::before {
+  display: none;
+  
+}				
+</style>
 
+<body id="body" class="up-scroll">	
   <!-- ====================================
   ——— HEADER
   ===================================== -->
 
 
 <!-- ====================================
-———	PAGE TITLE
+———	PAGE TITLEß
 ===================================== -->
 <section class="page-title">
-  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(${pageContext.request.contextPath}/assets/img/pages/page-title-bg7.jpg);">
+  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url( ${pageContext.request.contextPath}/assets/img/pages/page-title-bg7.jpg);">
     <div class="container">
       <div class="row align-items-center justify-content-center" style="height: 200px;">
         <div class="col-lg-6">
@@ -43,32 +56,26 @@
 ===================================== -->
 <section class="py-10">
   <div class="container">
-    <div class="col-md-12"></div>
-      <div class="row progress-wizard"></div>
-    
     <div class="row">
       <div class="col-md-12">
         <h3 class="text-capitalize mb-5">여행 정보!</h3>
 
-
-        <form action="diy_update" id="diy_update" method="get" enctype="multipart/form-data">
+        <form action="diy_add" id="scrollableContainer" method="post" enctype="multipart/form-data">
+        	<input type="hidden" name="userinfoId" value="${userinfo }">
+        
      	   <div class="row">
      	   
               <div class="col-lg-6">
                 <label for="diyStartdate">출발일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                  <input type="date" class="form-control border-0 bg-smoke" id="diyStartdate" name="diyStartdate" data-placeholder="날짜 선택" required aria-required="true">
                 </div>
-                  <input type="text" class="form-control border-0 bg-smoke" id="diyStartdate" name="dateRange" value="${diyModify.diyStartdate }">
-                </div>
-                
-  	  
+              </div>
     
              <div class="col-lg-6">
                 <label for="diyEnddate">도착일</label>
                 <div class="form-group form-group-icon form-group-icon-default">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <input type="text" class="form-control border-0 bg-smoke" id="diyEnddate" name="dateRange" value="${diyModify.diyEnddate }">
+                  <input type="date"  class="form-control border-0 bg-smoke" id="diyEnddate" name="diyEnddate"  data-placeholder="날짜 선택" required aria-required="true">
                 </div>
               </div>
         
@@ -77,94 +84,89 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyPeople">인원</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyPeople" name="diyPeople" value="${diyModify.diyPeople }">
+                <input type="text" class="form-control border-0 bg-smoke" id= "diyPeople"name="diyPeople" placeholder="ex) 3">
               </div>
             </div>
     
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyLoc">지역</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyLoc" name="diyLoc" value="${diyModify.diyLoc }">
+                <input type="text" class="form-control border-0 bg-smoke" name="diyLoc" placeholder="ex) 서울">
               </div>
             </div>
     
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyPrice">비용</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyPrice" name="diyPrice" value="${diyModify.diyPrice }">
+                <input type="text" class="form-control border-0 bg-smoke" id="diyPrice" name="diyPrice" placeholder="ex) 10">
               </div>
             </div>
-            
+    
           <div class="form-group mb-5">
     		<label for="diyThumbnailimage">썸네일 올리기</label>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyThumbnail" name="diyThumbnailFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyThumbnail}" src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyThumbnail}" alt="image">
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyThumbnail" name="diyThumbnailFile">
     		<div id="diyThumbnail"  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
 		  </div>
-    
-          
+		  
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="diyTitle">제목</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyTitle" name="diyTitle" value="${diyModify.diyTitle }">
+                <input type="text" class="form-control border-0 bg-smoke" name="diyTitle" placeholder="ex) 3박 4일 강릉여행 후기!!">
               </div>
             </div>
            
-           
-           <!-- 다른것도 태그바꾸기 -->
            <div class="col-lg-6">
               <div class="form-group">
-                <label for="diyIntrodution">간단한 소개글</label>
-                <p class="form-control border-0 bg-smoke" id="diyIntrodution">${diyModify.diyIntroduction }</p>
+                <label for="inputName">간단한 소개글</label>
+                <textarea class="form-control border-0 bg-smoke" rows="2" name="diyIntroduction" placeholder="ex) 여행을 간단하게 소개해주세요"></textarea>
               </div>
             </div>
            
-				<!-- day 1 사진 -->          
           <div class="form-group mb-5">
     		<label for="imgUpload">DAY 1 사진올리기</label>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent1Img" name="diyContent1ImgFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent1Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent1Img}" alt="Day 1 img">
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent1Img" name="diyContent1ImgFile">
     		<div id="" style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
 		  </div>
-            
-		 	
-          <div class="form-group mb-5" id="day1Block">
-            <label for="diyContent1">DAY 1</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent1" rows="7">${diyModify.diyContent1 }</textarea>
+          
+          <div class="form-group mb-5">
+            <label for="exampleFormControlTextarea1">DAY 1</label>
+            <textarea class="form-control border-0 bg-smoke" name="diyContent1" rows="7"></textarea>
           </div>
-				
+            
           <div class="form-group mb-5">
     		<label for="imgUpload">DAY 2 사진올리기</label>
     		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent2Img" name="diyContent2ImgFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent2Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent2Img}" alt="Day 2 img">
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent2Img" name="diyContent2ImgFile">
 		  </div>
             
            <div class="form-group mb-5">
-            <label for="diyContent2">DAY 2</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent2" rows="7">${diyModify.diyContent2 }</textarea>
+            <label for="exampleFormControlTextarea1">DAY 2</label>
+            <textarea class="form-control border-0 bg-smoke" rows="7" name="diyContent2" ></textarea>
           </div>
           
- 		  <div class="form-group mb-5">
+          <div class="form-group mb-5">
     		<label for="imgUpload">DAY 3 사진올리기</label>
     		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent3Img" name="diyContent3ImgFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent3Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyModify.diyContent3Img}" alt="Day 3 img">
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent3Img" name="diyContent3ImgFile">
 		  </div>
-            
-          <div class="form-group mb-5">
-            <label for="diyContent3">DAY 3</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent3" rows="7">${diyModify.diyContent3 }</textarea>
+          
+           <div class="form-group mb-5">
+            <label for="exampleFormControlTextarea1">DAY 3</label>
+            <textarea class="form-control border-0 bg-smoke" rows="7" name="diyContent3" ></textarea>
           </div>
           
           <div class="form-group mb-5">
     		<label for="imgUpload">DAY 4 사진올리기</label>
     		<div id=""  style="height: 25px;line-height: 15px;margin-left: 200px;"></div>
-    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent4Img" name="diyContent4ImgFile" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
+    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase" id="diyContent4Img" name="diyContent4ImgFile">
 		  </div>
-          
-		  <div class="form-group mb-5">
-            <label for="diyContent4">DAY 4</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent4" rows="7">${diyModify.diyContent4 }</textarea>
-          </div>
 		  
-		  <div id="elementContainer" class="mt-3">
+		  <div class="form-group mb-5">
+            <label for="exampleFormControlTextarea1">DAY 4</label>
+            <textarea class="form-control border-0 bg-smoke" rows="7" name="diyContent4" ></textarea>
+          </div>
+          
+          <div id="elementContainer" class="mt-3">
 	    	 </div>
 		
           <div class="container mt-5">
@@ -176,23 +178,35 @@
 	            Delete DAY
 	        </button>
 	      </div>
-		  
-		  <!--  추가 버튼 글 + 사진 스크립트 작성 -->
-    
+	      
+           
            <div class="text-center text-md-start text-lg-end">
-            <button type="submit" class="btn btn-primary text-uppercase" id="enrollBtn">
-              수정하기
-            </button>
+             <a href="diy_list">
+              <button type="button" class="btn btn-primary text-uppercase" >
+              목록으로</button>
+             </a>
+              <button type="submit" id="enrollBtn" class="btn btn-primary text-uppercase" >
+              작성하기</button>
            </div>
-          
+           
 		</div>
 	  </form>
      </div>
     </div>
   </div>
 </section>
+
+    <!-- ====================================
+    ——— MODAL SECTION
+    ===================================== -->
+    <!-- Signup Modal -->
     
+
+    <!-- Login Modal -->
+
     
+    <!-- INQUIRY IN MODAL -->
+	 
 	<script >
 	
 	const addButton = document.getElementById('addButton');
@@ -257,11 +271,9 @@
 		}
 	// Add event listener to the "Add DAY" button
 	deleteButton.addEventListener('click', deleteDay);
-	</script>
-
+	</script>	
     
-    
-	<script type="text/javascript">
+    <script type="text/javascript">
 	
 	function submitCheck() {
 		if(dateRange.value=="") {
@@ -310,8 +322,7 @@
 		studentForm.submit();
 	} 
 	</script>
-
-    
+   
     
     
 

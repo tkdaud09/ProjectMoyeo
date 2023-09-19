@@ -22,13 +22,6 @@
          -webkit-line-clamp : 3;
          -webkit-box-orient: vertical;
     	}
-    	
-    	.search-area1 {
-		  display: flex;
-		  justify-content: flex-end;
-		}
-		
-	
     </style>
     
    <head>
@@ -85,26 +78,13 @@
 					<button class="input-group-text border-0 btn bg-primary" type="submit">
                       <i class="fa fa-search text-white" aria-hidden="true"></i>
                     </button>
-	                <a href="${pageContext.request.contextPath}/diy/diy_list" class="btn btn-secondary btn-sm">
+	          <a href="${pageContext.request.contextPath}/diy/diy_list" class="btn btn-secondary btn-sm">
                       초기화
                     </a>
 				</div>
-				
-				<div>
-				  <button class="btn btn-secondary btn-sm" name="type" value="recently" type="submit">
-                    최신순
-                  </button>
-                  <button class="btn btn-secondary btn-sm" name="type" value="love" type="submit">
-                    인기순
-                  </button>
-                </div>
-				
 			</form>	
 		</div><!-- //bord_search -->
 	  <!-- //bord_search -->
-	  
-				
-                    
 
 
 
@@ -191,47 +171,14 @@
                         </div>
 
                             <p class="comment">${diyList.diyIntroduction}</p>
-                            <%-- <input name="userinfoId" value="${userinfo.id }">
-						    <input name="diyIdx" value="${diyList.diyIdx }"> --%>
+                            <input name="userinfoId" value="${userinfo.id }">
+						    <input name="diyIdx" value="${diyList.diyIdx }">
                       </div>
                       
                      	  
-                    <c:if test="${!empty(userinfo.id)}">
-                      <c:if test="${empty(loveStatus.loveStatus)}">
-                        <div class="card-footer px-5">
-		              	  <a href="javascript: loveCheck_func();" class="btn btn-xs btn-outline-secondary" id="btn_love">
-		                  <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
-		                  </a>
-		              	  <input type="hidden" name="userinfoId" value="${userinfo.id }">
-		     		      <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
-		                  <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
-		                </div>
-                      </c:if>
-                      
-                      <c:if test="${loveStatus.loveStatus eq 1}">
-                        <div class="card-footer px-5">
-		                  <a href="javascript: loveCancle_func();" class="btn btn-xs btn-outline-secondary">
-		                  <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
-		                  </a>
-		              	  <input type="hidden" name="userinfoId" value="${userinfo.id }">
-		     		      <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
-		                  <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
-		                </div>
-                      </c:if>
-                    </c:if>
                     
-                    
-                    <c:if test="${empty(userinfo.id)}">
-                      <div class="card-footer px-5">
-			   	        <a href="javascript: Login();" class="btn btn-xs btn-outline-secondary"> 
-			            <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}
-			            </i>
-			            </a>
-			            <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
-			          </div>
-                    </c:if>
 			            
-					  <%-- <!-- 로그인 상태일때 하트 클릭 이벤트 처리 -->
+					  <!-- 로그인 상태일때 하트 클릭 이벤트 처리 -->
 					  <c:choose>
 				   	    <c:when test="${!empty(userinfo.id)}">
 				   	      <c:choose>
@@ -268,7 +215,7 @@
 				            <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
 				          </div>
 				   	    </c:otherwise>
-				   	  </c:choose> --%>
+				   	  </c:choose>
 			           
                       
                   </div>
@@ -332,6 +279,57 @@
     </div>
   </div>
 </section>
+
+<!-- <section class="pt-5 pt-md-7">
+  <div class="container">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center align-items-center">
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)" tabindex="-1">
+            <i class="fas fa-long-arrow-alt-left d-none d-md-inline-block me-md-1" aria-hidden="true"></i> Previous
+          </a>
+        </li>
+    
+        <li class="page-item">
+          <a class="page-link active" href="javascript:void(0)">1</a>
+        </li>
+    
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">2</a>
+        </li>
+    
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">3</a>
+        </li>
+    
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">...</a>
+        </li>
+    
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">9</a>
+        </li>
+    
+        <li class="page-item">
+          <a class="page-link" href="javascript:void(0)">Next
+            <i class="fas fa-long-arrow-alt-right d-none d-md-inline-block ms-md-1" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+</section> -->
+
+
+  <!-- ====================================
+    ——— FOOTER SECTION
+    ===================================== -->
+  
+    <!-- ====================================
+    ——— MODAL SECTION
+    ===================================== -->
   
       <!-- Javascript -->
     <script>
