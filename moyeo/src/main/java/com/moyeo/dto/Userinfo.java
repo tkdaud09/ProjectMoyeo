@@ -1,11 +1,15 @@
 package com.moyeo.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull; 
 import javax.validation.constraints.Pattern;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /*
 이름      널?       유형            
@@ -65,4 +69,8 @@ public class Userinfo {
    private String regdate;
    private String logdate;
    private int status;
+   
+   private String enabled;
+   private List<SecurityAuth> securityAuthList;
+  
 }

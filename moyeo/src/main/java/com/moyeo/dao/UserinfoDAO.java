@@ -3,6 +3,7 @@ package com.moyeo.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.moyeo.dto.SecurityAuth;
 import com.moyeo.dto.Userinfo;
 
 public interface UserinfoDAO {
@@ -33,4 +34,8 @@ public interface UserinfoDAO {
    Userinfo selectUserinfobyRegdate(String regdate);//가입일에 따른 유저 정보 검색
    int deleteUserinfo1(String id);
    int updateUserinfoByAdmin(Userinfo userinfo);
+   
+   /*Auth*/
+   int insertSecurityAuth(SecurityAuth auth);
+   SecurityAuth selectSecurityAuthById(String id);
 }

@@ -2,6 +2,7 @@ package com.moyeo.service;
 
 import java.util.Map;
 
+import com.moyeo.dto.SecurityAuth;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.ExistsUserinfoException;
 import com.moyeo.exception.LoginAuthFailException;
@@ -36,5 +37,9 @@ public interface UserinfoService {
 	Userinfo getUserinfoByRegdate(String regdate);//regdate로 유저정보 가져오기
 	void removeUserinfo1(String id) throws UserinfoNotFoundException;
 	void modifyUserinfoByAdmin(Userinfo userinfo) throws UserinfoNotFoundException;
+	
+	/*Auth*/
+	void addSecurityAuth(SecurityAuth auth);
+	SecurityAuth getSecurityAuthById(String id);
 
 }

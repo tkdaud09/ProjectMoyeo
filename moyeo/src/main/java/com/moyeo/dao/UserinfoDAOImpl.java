@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.moyeo.dto.SecurityAuth;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.mapper.UserinfoMapper;
 
@@ -126,4 +127,14 @@ public class UserinfoDAOImpl implements UserinfoDAO {
 		return sqlSession.getMapper(UserinfoMapper.class).updateUserinfoByAdmin(userinfo);
 	}
 
+	/* Auth */
+	@Override
+	public int insertSecurityAuth(SecurityAuth auth) {
+		return sqlSession.getMapper(UserinfoMapper.class).insertSecurityAuth(auth);
+	}
+
+	@Override
+	public SecurityAuth selectSecurityAuthById(String id) {
+		return sqlSession.getMapper(UserinfoMapper.class).selectSecurityAuthById(id);
+	}
 }

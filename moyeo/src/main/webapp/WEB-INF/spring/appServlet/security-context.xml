@@ -17,10 +17,10 @@
       
 
       <!-- authentication-success-handler-ref 속성: AuthenticationSuccessHandler 인터페이스를 상속받은 클래스에 대한 Spring Bean의 식별자(beanName)를 속성값으로 설정 -->
-      <form-login login-page="/account/login"
-               login-processing-url="/account/login"
+      <form-login login-page="/user/login"
+               login-processing-url="/user/login"
                username-parameter="id"
-               password-parameter="password"
+               password-parameter="pw"
                default-target-url="/"
                authentication-success-handler-ref="customLoginSuccessHandler"
                authentication-failure-handler-ref="customLoginFailureHandler"
@@ -29,8 +29,9 @@
       <access-denied-handler ref="customAccessDeniedHandler"/>
       
       <logout logout-url="/account/logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID"/>
-
-      <remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
+	 
+	  <!-- <remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
+      
       
       <!-- session-management: 로그인 정보가 저장된 세션을 관리하기 위한 엘리먼트 -->
       <session-management>
@@ -41,15 +42,16 @@
    
  
    	<!-- 고쳐야함 -->
-     <authentication-manager>
+   	<!-- <authentication-manager>
       <authentication-provider>
          <user-service>
-            <user name="abc123" password="{noop}123456" authorities="ROLE_USER"/>
+        	<user name="abc123" password="{noop}123456" authorities="ROLE_USER"/>
             <user name="xyz789" password="{noop}123456" authorities="ROLE_MANAGER"/>
-            <user name="opq456" password="{noop}123456" authorities="ROLE_ADMIN"/>
+            <user name="opq456" password="{noop}123456" authorities="ROLE_ADMIN"/> 
          </user-service>
       </authentication-provider>
-   </authentication-manager>
+   </authentication-manager> -->
+     
    
    
    <!--
@@ -70,13 +72,12 @@
    
    <!-- 고쳐야함 -->
    <!-- user-service-ref 속성: 인증에 필요한 사용자 및 권한 정보(UserDetails 객체)기 저장된 객체를 반환하는 클래스(CustomUserDetailsService)에 대한 Spring Bean의 식별자(beanName)를 속성값으로 설정 -->
-   <!-- 
     <authentication-manager>
-      <authentication-provider user-service-ref="customAccountDetailsService">
+      <authentication-provider user-service-ref="customUserDetailsService">
          <password-encoder ref="bcryptPasswordEncoder"/>         
       </authentication-provider>
    </authentication-manager>
-    -->
+
   
 
    <context:component-scan base-package="com.moyeo.dao" />
@@ -90,6 +91,7 @@
    <!-- <beans:bean class="xyz.itwill.security.CustomPasswordEncoder" id="customPasswordEncoder" />  -->
    
    
-   <!-- BCryptPasswordEncoder: 문자열을 암호화 처리하거나 비교 결과를 제공하기 위한 클래스 -->   
+   <!-- BCryptPasswordEncoder: 문자열을 암호화 처리하거나 비교 결과를 제공하기 위한 클래스 -->  
    <beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
 </beans:beans>
+

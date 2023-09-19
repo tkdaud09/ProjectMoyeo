@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.moyeo.dao.UserinfoDAO;
+import com.moyeo.dto.SecurityAuth;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.UserinfoNotFoundException;
 import com.moyeo.util.Pager;
@@ -173,5 +174,16 @@ public class UserinfoServiceImpl implements UserinfoService {
 		}
 		userinfoDAO.updateUserinfoByAdmin(userinfo);
 	}
+	
+	/* Auth */
+	@Override
+	public void addSecurityAuth(SecurityAuth auth) {
+		userinfoDAO.insertSecurityAuth(auth);
+	}
+
+	@Override
+	public SecurityAuth getSecurityAuthById(String id) {
+		return userinfoDAO.selectSecurityAuthById(id);
+	}	
 		
 }

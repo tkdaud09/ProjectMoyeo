@@ -18,6 +18,7 @@
          , phone
          , regdate
          , status  
+         , enabled
       )
       VALUES (
          #{id}
@@ -30,23 +31,41 @@
          , #{phone}
          , sysdate
          , #{status}
+         , #{enabled}
       )
    </insert>
    
-   <!-- 아이디 중복검사 -->
-     <select id="idCheck" resultType="int">
-        SELECT count(*) FROM userinfo 
-        WHERE id = #{id}
-     </select>
-     
-     <!-- 이메일 중복검사 -->
-     <select id="emailCheck" resultType="int">
-        SELECT count(*) FROM userinfo 
-        WHERE email = #{email}
-     </select>
-     
-   <!-- id로 회원정보 검색 - 수정해야함 -->
-   <select id="selectUerinfoById" resultType="Userinfo">
+   <!-- Auth -->
+   <insert id="insertSecurityAuth">
+		INSERT INTO security_auth 
+		VALUES (
+				#{id}
+				, #{auth}
+				)
+	</insert>
+	
+	<resultMap type="Userinfo" id="securityUserinfoResultMap">
+		<id column="id" property="id"/>
+		<result column="pw" property="pw"/>
+		<result column="name" property="name"/>
+		<result column="gender" property="gender"/>
+		<result column="birth" property="birth"/>
+		<result column="address" property="address"/>
+		<result column="phone" property="phone"/>
+		<result column="regdate" property="regdate"/>
+		<result column="status" property="status"/>
+		<result column="enabled" property="enabled"/>
+		<collection property="securityAuthList" select="selectSecurityAuthById" column="id"/>
+	</resultMap> 
+	
+	<select id="selectSecurityAuthById" resultType="SecurityAuth">
+		SELECT id
+			, auth 
+		FROM security_auth 
+		WHERE id=#{id}
+	</select>
+	
+	<select id="selectUerinfoById" resultMap="securityUserinfoResultMap">
 		SELECT id
         	 , pw
          	, name
@@ -61,9 +80,22 @@
     	FROM userinfo
     	WHERE id=#{id}
 	</select>
+	
+   
+   <!-- 아이디 중복검사 -->
+     <select id="idCheck" resultType="int">
+        SELECT count(*) FROM userinfo 
+        WHERE id = #{id}
+     </select>
+     
+     <!-- 이메일 중복검사 -->
+     <select id="emailCheck" resultType="int">
+        SELECT count(*) FROM userinfo 
+        WHERE email = #{email}
+     </select>
+ 
    
    <!--로그인 -->
-   
    
    <!-- 비밀번호 인코딩 전 -->
    <!-- 
