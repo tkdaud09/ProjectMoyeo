@@ -134,7 +134,7 @@
                       </label>
                      </div>
                         <br>
-                        	<input type="hidden" name="status" value="ROLE_USER" >
+                        	<input type="hidden" name="userinfoRole" value="ROLE_USER" >
                            <input type="button" class="join_button" value="가입하기">
                </form:form>
             </div>

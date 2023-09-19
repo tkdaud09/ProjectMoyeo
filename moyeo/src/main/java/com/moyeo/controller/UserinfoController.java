@@ -67,7 +67,7 @@ public class UserinfoController {
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPOST(@Valid @ModelAttribute("Userinfo") Userinfo userinfo
-								, @RequestParam("status") String userinfoRole  
+								, @RequestParam("userinfoRole") String userinfoRole  
 								, BindingResult bindingResult) throws Exception {
 		if (bindingResult.hasErrors()) {// 유효성 검사 실패
 			logger.info(bindingResult.getAllErrors().get(0).getDefaultMessage());
