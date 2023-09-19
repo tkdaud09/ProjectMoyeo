@@ -445,34 +445,34 @@
 	</select>
 
 	<!-- main페이지에서 마감임박 3개 출력 -->
-	<select id="selectDeadlinePackage" resultType="Pack">
-		SELECT *
-		FROM (
-		SELECT
-			pack_idx
-			, pack_kind
-			, pack_title
-			, TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
-			, TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
-			, pack_regdate
-			, pack_people
-			, pack_childprice
-			, pack_adultprice
-			, pack_heart
-			, pack_previewimg
-			, pack_slideimg1
-			, pack_slideimg2
-			, pack_slideimg3
-			, pack_contentimg1
-			, pack_contentimg2
-			, pack_contentimg3
-			, pack_calendarimg
-			, pack_status
-			FROM pack
-		WHERE pack.status = 0 AND SYSDATE BETWEEN pack_startdate AND pack_enddate
-		ORDER BY pack_enddate ASC)
-		WHERE ROWNUM &lt;= 3
-	</select>
+   <select id="selectDeadlinePackage" resultType="Pack">
+      SELECT *
+      FROM (
+      SELECT
+         pack_idx
+         , pack_kind
+         , pack_title
+         , TO_CHAR(pack_startdate,'yyyy-mm-dd') as pack_startdate
+         , TO_CHAR(pack_enddate,'yyyy-mm-dd') as pack_enddate
+         , pack_regdate
+         , pack_people
+         , pack_childprice
+         , pack_adultprice
+         , pack_heart
+         , pack_previewimg
+         , pack_slideimg1
+         , pack_slideimg2
+         , pack_slideimg3
+         , pack_contentimg1
+         , pack_contentimg2
+         , pack_contentimg3
+         , pack_calendarimg
+         , pack_status
+         FROM pack
+      WHERE pack_status = 0 AND pack_startdate &gt; = (SYSDATE - 7)
+      ORDER BY pack_enddate ASC)
+      WHERE ROWNUM &lt;= 3
+   </select>
 
 	<!-- main페이지에서 BEST6 여행지 출력 -->
 	<select id="selectBestPackageByHeart" resultType="Pack">

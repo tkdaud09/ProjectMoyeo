@@ -293,9 +293,6 @@
     </script>
 
 
-
-
-
 <!-- ====================================
 ———   TOP DEALS SECTION  마감임박 상품
 ===================================== -->
@@ -309,19 +306,14 @@
       </h2>
       <p class="text-capitalize text-center noto">모여에서 추천드리는 마감임박 상품입니다.</p>
     </div>
-
+<c:forEach items="${deadlinePackage}" var="pack">
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-4">
         <div class="card card-hover mb-5 mb-lg-0">
-          <a href="#" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-01.png" src="assets/img/home/deal/deal-01.png" alt="Card image cap">
-            
+          <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="position-relative">
+            <img class="card-img-top lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="Card image cap">
+
             <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-              <!-- <div class="badge bg-primary badge-rounded-circle">  
-                <span class="d-block">
-                  50%<br>off
-                </span>
-              </div> -->
 
               <ul class="list-unstyled d-flex mt-auto text-warning">
                 <li>
@@ -342,165 +334,30 @@
               </ul>
 
               <ul class="list-unstyled d-flex text-white font-weight-bold mb-0">
-                <li class="border-right border-white pe-2">7 days</li>
-                <li class="border-right border-white px-2">15 hrs</li>
-                <li class="ps-2">15 min</li>
-              </ul>
-            </div>
-          </a>
-
-          <div class="card-body">
-            <h5>
-              <a href="#" class="card-title text-uppercase">강아지와 함께하는 1박2일</a>
-            </h5>          
-            <p class="mb-5">Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus et pharetra egestas.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary" style="font-weight:700; font-size:21px;">300,000원</h3>
-              </div>
-
-              <div>
-                <a href="#" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="card card-hover mb-5 mb-lg-0">
-          <a href="#" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-02.jpg" src="assets/img/home/deal/deal-02.jpg" alt="Card image cap">
-
-            <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-             <!--  <div class="badge bg-primary badge-rounded-circle">
-                <span class="d-block">
-                  Free<br>gift
-                </span>
-              </div> -->
-
-              <ul class="list-unstyled d-flex mt-auto text-warning">
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </li>
-              </ul>
-
-              <ul class="list-unstyled d-flex text-white font-weight-bold mb-0">
-                <li class="border-right border-white pe-2">7 days</li>
-                <li class="border-right border-white px-2">15 hrs</li>
-                <li class="ps-2">15 min</li>
+                <li class="border-right border-white pe-2">${pack.packStartDate}</li>
+                <li class="border-right border-white px-2">${pack.packEndDate}</li>
+                <li class="ps-2"></li>
               </ul>
             </div>
           </a>
 
           <div class="card-body">
             <h5 class="">
-              <a href="#" class="card-title text-uppercase">강원도 힐링 여행</a>
+              <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="card-title text-uppercase">${pack.packTitle}</a>
             </h5>
-            <p class="mb-5">Proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna sagittis.</p>
+            <p class="mb-5">${pack.packStartDate} ~ ${pack.packEndDate}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary" style="font-weight:700; font-size:21px;">400,000원</h3>
-              </div>
-              
-              <div>
-                <a href="#" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
-              </div>
-            <!-- 
-              <div>
-                <a href="#"  data-bs-toggle="modal" data-bs-target="#inquiry" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
-              </div>
-               -->
+                <h3 class="text-primary" style="font-weight:700; font-size:21px;">성인 가격 : ${pack.packAdultPrice}원</h3>
+                <h3 class="text-primary" style="font-weight:700; font-size:21px;">소인 가격 : ${pack.packChildPrice}원</h3>
+              </div>              
             </div>
           </div>
         </div>
       </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="card card-hover">
-          <a href="#" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-03.png" src="assets/img/home/deal/deal-03.png" alt="Card image cap">
-
-            <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-              <!-- <div class="badge bg-primary badge-rounded-circle">
-                <span class="d-block">
-                  25%<br>off
-                </span>
-              </div> -->
-
-              <ul class="list-unstyled d-flex mt-auto text-warning">
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </li>
-              </ul>
-
-              <ul class="list-unstyled d-flex text-white font-weight-bold mb-0">
-                <li class="border-right border-white pe-2">7 days</li>
-                <li class="border-right border-white px-2">15 hrs</li>
-                <li class="ps-2">15 min</li>
-              </ul>
-            </div>
-          </a>
-
-          <div class="card-body">
-            <h5>
-              <a href="#" class="card-title text-uppercase">제주도 여행 3박4일</a>
-            </h5>
-            <p class="mb-5">Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat. Suspendisse non feugiat mi.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary" style="font-weight:700; font-size:21px;">430,000원</h3>
-              </div>
-              
-               <div>
-                <a href="#" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
-              </div>
-              
-         <!-- 
-              <div>
-                <a href="booking-step-1.html" class="btn btn-sm btn-outline-secondary text-uppercase">상세보기</a>
-              </div>
-               -->
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-
-    <div class="text-center mt-7">
-      <a href="${pageContext.request.contextPath}/package/" class="btn btn-sm btn-outline-secondary text-uppercase noto">더 많은 상품 보기</a>
-    </div>      
-  </div>
-</section>
-
-
+</c:forEach>
 
 
 
@@ -525,10 +382,10 @@
         <c:forEach var="review" items="${latestReviews}">
             <div class="con1 sp">
                 <div class="review_img">
-                	<a href="<c:url value='/review/view?reviewIdx=${review.reviewIdx}'/>">
-               			<img src="<c:url value='/assets/img/upload/${review.reviewImg}'/>" alt="">
-		            </a>
-		        </div>
+                   <a href="<c:url value='/review/view?reviewIdx=${review.reviewIdx}'/>">
+                        <img src="<c:url value='/assets/img/upload/${review.reviewImg}'/>" alt="">
+                  </a>
+              </div>
                 <ul>
                     <li class="t1"><a href="<c:url value='/review/view?reviewIdx=${review.reviewIdx}'/>">${review.reviewTitle}</a></li>
                     <li class="t2">${review.reviewContent}</li>
