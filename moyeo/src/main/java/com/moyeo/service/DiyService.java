@@ -23,4 +23,10 @@ public interface DiyService {
 	Map<String, Object> getDiyList(Map<String, Object> map);
 		
 	//*** 나중에 지도 추가하기
+	
+	//userinfo-details
+	Map<String, Object> getMyDiyList(int pageNum, String userinfoId);
+	
+	Map<String, Object> getDiyList(int pageNum, int pageSize, String searchKeyword);
+
 }

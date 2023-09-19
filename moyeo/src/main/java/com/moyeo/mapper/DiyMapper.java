@@ -27,4 +27,12 @@ public interface DiyMapper {
 	
 	// *** 맵 추가하기
 	
+	//userinfo-details
+	int selectMyDiyCount(String accountId);
+	List<Diy> selectMyDiyList(Map<String, Object> map);
+
+	//count 관리자
+	int selectDiyCount1(String selectKeyword);
+	List<Diy> selectDiyList1(Map<String, Object> map);
+
 }

@@ -66,6 +66,27 @@ public class DiyDAOImpl implements DiyDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(DiyMapper.class).selectDiyListCount(map);
 	}
+	
+	//userinfo-details
+	@Override
+	public int selectMyDiyCount(String accountId) {
+		return sqlSession.getMapper(DiyMapper.class).selectMyDiyCount(accountId);
+	}
+
+	@Override
+	public List<Diy> selectMyDiyList(Map<String, Object> map) {
+		return sqlSession.getMapper(DiyMapper.class).selectMyDiyList(map);
+	}
+
+	@Override
+	public List<Diy> selectDiyList1(Map<String, Object> map) {
+		return sqlSession.getMapper(DiyMapper.class).selectDiyList1(map);
+	}
+
+	@Override
+	public int selectDiyCount1(String selectKeyword) {
+		return sqlSession.getMapper(DiyMapper.class).selectDiyCount1(selectKeyword);
+	}
 
 
 }

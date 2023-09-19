@@ -361,18 +361,9 @@ public class AdminController {
    @GetMapping("/diyDetail/{diyIdx}")
    @ResponseBody
    @Nullable
-   public String diyDetail(@PathVariable("diyIdx") int diyIdx,DiyLove diyLove, Model model, HttpSession session) {
-
-	   Userinfo userinfo = (Userinfo)session.getAttribute("userinfo");
-	   diyLove.setUserinfoId(userinfo.getId());
-	   // model.addAttribute("loginId",loginId);
-	   model.addAttribute("loveStatus",diyLoveService.loveStatus());
-
-	   Diy diyId = diyService.getUserinfoById(diyIdx);
-	   model.addAttribute("diyId", diyId);
-
-	   model.addAttribute("diyDetail", diyService.selectDiy(diyIdx));
-	   return "diy/diy_detail";
+   public String diyDetail(@PathVariable("diyIdx") int diyIdx, Model model) {
+		model.addAttribute("diyDetail", diyService.selectDiy(diyIdx));
+		return "diy/diy_detail";
    }
    
    //notice 등록

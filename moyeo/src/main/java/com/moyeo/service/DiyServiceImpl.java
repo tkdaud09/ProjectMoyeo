@@ -100,6 +100,49 @@ public class DiyServiceImpl implements DiyService {
 	
 	// 지도 추가하기
 	
+	//userinfo-details
+	@Override
+	public Map<String, Object> getMyDiyList(int pageNum, String userinfoId) {
+		int totalBoard = diyDao.selectMyDiyCount(userinfoId);
+		int blockSize = 5;
+		int pageSize = 10;
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
-	
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("startRow", pager.getStartRow());
+		pageMap.put("endRow", pager.getEndRow());
+		pageMap.put("userinfoId", userinfoId);
+
+		List<Diy> diyList = diyDao.selectMyDiyList(pageMap);
+
+		Map<String, Object> diyMap = new HashMap<String, Object>();
+		diyMap.put("diyList", diyList);
+		diyMap.put("pager", pager);
+
+		return diyMap;
+	}
+
+	@Override
+	public Map<String, Object> getDiyList(int pageNum, int pageSize, String searchKeyword) {
+		int totalBoard = diyDao.selectDiyCount1(searchKeyword);//전체 공지사항 개수 조회
+		int blockSize = 10; //페이지 블록 크기
+
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+
+		Map<String, Object> pageMap = new HashMap<String, Object>(); //페이지 정보 담을 맵 객체
+		pageMap.put("startRow", pager.getStartRow()); //시작 행 번호 추가
+		pageMap.put("endRow", pager.getEndRow()); //마지막 행 번호 추가
+		pageMap.put("selectKeyword", searchKeyword); //검색 키워드 추가
+
+		List<Diy> diyList = diyDao.selectDiyList1(pageMap);
+
+		Map<String, Object> diyMap = new HashMap<String, Object>();
+		diyMap.put("diyList", diyList);
+		diyMap.put("pager", pager);
+
+		return diyMap;
+	}
+
+
+
 }
