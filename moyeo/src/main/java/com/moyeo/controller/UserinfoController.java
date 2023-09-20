@@ -189,7 +189,7 @@ public class UserinfoController {
 	 */
 
 	/* 아이디 찾기 */
-
+ 
 	// 아이디 찾기 메인으로 이동
 	@RequestMapping(value = "/findId", method = RequestMethod.GET)
 	public String findIdForm() {
