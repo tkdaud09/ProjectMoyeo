@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,31 +53,40 @@ public class PackageController {
 	}
 
 	// 패키지 상세 페이지 이동 - 패키지 상세 정보 select
-	@RequestMapping(value = "/detail/{packIdx}", method = RequestMethod.GET) // Spring에서 사용자가 전송한 식별자 값을 변수로 인식하기 위해 템플릿
-	// 변수{packIdx}작성
-	public String packageDetailGET(@PathVariable("packIdx") int packIdx
-															,Model model
-															,HttpSession session) {
+	@RequestMapping(value = "/detail/{packIdx}", method = RequestMethod.GET)
+	public String packageDetailGET(@PathVariable("packIdx") Integer packIdx,
+	                               Model model,
+	                               HttpSession session) {
+	  
+	    Userinfo userinfoVal = (Userinfo) session.getAttribute("userinfo");
+	    System.out.println("userinfoVal = " + userinfoVal);
+	    
+	    if (packIdx == null) {
+	        return "redirect:/error"; 
+	    }
 
-		Userinfo userinfoVal = (Userinfo) session.getAttribute("userinfo");
+	    Pack pack = packageService.getPackageInfo(packIdx);
+	    if (pack == null) {
+	        return "redirect:/error"; 
+	    }
+	    
+	    // 로그인한 유저인 경우 isLoggedin 변수를 true로 설정
+	    boolean isLoggedin = userinfoVal != null;
 
-		model.addAttribute("pack", packageService.getPackageInfo(packIdx));
+	    // 로그인 유저가 찜 했는지 확인
+	    PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoVal != null ? userinfoVal.getId() : null);
+	    boolean isHeartAdded = packHeart != null;
 
-		
-		//로그인 유저가 찜 했는지 확인
-		PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoVal.getId());
-		boolean isHeartAdded = packHeart != null;
-		
-		//추가한거
-		model.addAttribute("packHeartList", packHeart);
-		
-		// 최신 리뷰 3개
-        List<Review> latestReviews = reviewService.getLatestReviews(3);
-        
-        model.addAttribute("latestReviews", latestReviews);
-		model.addAttribute("isHeartAdded", isHeartAdded);
-		
-		return "package/mo_package_animal";
+	    // 최신 리뷰 3개
+	    List<Review> latestReviews = reviewService.getLatestReviews(3);
+
+	    model.addAttribute("pack", pack);
+	    model.addAttribute("packHeartList", packHeart);
+	    model.addAttribute("latestReviews", latestReviews);
+	    model.addAttribute("isHeartAdded", isHeartAdded);
+	    model.addAttribute("isLoggedin", isLoggedin);
+
+	    return "package/mo_package_animal";
 	}
 	
 	/* 관리자 */
@@ -152,7 +162,8 @@ public class PackageController {
 	}
 
 	/*패키지 찜 기능 구현*/
-
+	
+	
 	//찜 목록에 추가
 	@PostMapping("/addToPackageHeartList")
 	public ResponseEntity<String> addPackageHeart(@RequestParam int packIdx, 

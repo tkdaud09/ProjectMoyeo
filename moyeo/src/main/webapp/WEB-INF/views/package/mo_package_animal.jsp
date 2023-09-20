@@ -35,15 +35,6 @@
                   <div class="row p_date">
                     <label for="inputTime" class="col-xl-3 col-form-label text-center text-xl-right px-2"><b>여행 일정</b></label>
                
-               <!-- 데이트피커 부분  -->
-               <!--  <div class="col-xl-7">
-                      <div class="form-group form-group-icon form-group-icon-category-2 mb-0">
-                        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                        <input type="text" class="form-control daterange-picker-category-2" autocomplete="off" name="dateRange" value=""
-                          placeholder="MM/DD/YYYY">
-                      </div>
-                    </div>  -->
-                    
                          
                             <ul class="pack_date">
 	                            <li>${pack.packStartDate}</li>
@@ -97,11 +88,6 @@
              
               </div>
 
-
-
-
-
-
               <div class="pack_option_btn">
   
                 <button type="button" onclick="location.href='booking-step-1.html';"
@@ -110,20 +96,9 @@
                 </button>
            		<input type="hidden" name="packIdx" value="${packIdx}" />
 
-
-
 				<button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01" value="장바구니"onclick="showAlert()">
 					장바구니
 				</button>
-						
-						
-								
-				<%--<button type="button" onclick="location.href='booking-step-1.html';"
-                  class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize">
-                  하트수정<span class="ms-4"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                </button> --%>
-				
-
 				
 				<!-- 찜 기능 -->
 				<button type="button" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn02" id="packageHeartBtn">
@@ -215,14 +190,9 @@
 
 
   </div><!-- element wrapper ends -->
-   
 
       <!-- 가격 계산 -->
       <script>
-      
-     
-      
-      
       // 성인 가격 소인 가격 설정 
        const adultPrice = ${pack.packAdultPrice};
        const childPrice = ${pack.packChildPrice};
@@ -272,9 +242,15 @@
 	
 	// 클릭한 하트의 상태를 나타내는 변수
 	var isHeartAdded = ${isHeartAdded}; 	
+	var isLoggedin = ${isLoggedin};
 	
 	// 하트 이미지 클릭 시
 	document.getElementById('packageHeartBtn').addEventListener('click',function (){
+		if (!isLoggedin) {
+	          // 로그인하지 않은 경우
+	          alert("로그인을 해주세요.");
+	          return;
+	      }
 		
 		 var csrfHeaderName="${_csrf.headerName}";
 	      var csrfTokenValue="${_csrf.token}";
@@ -284,6 +260,8 @@
 	      $(document).ajaxSend(function(e, xhr) {
 	         xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 	      });
+	      
+	      
 	      
 	    isHeartAdded = !isHeartAdded; // 상태 토글
 

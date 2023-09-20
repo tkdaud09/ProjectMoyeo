@@ -29,9 +29,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		//로그인 사용자의 권한의 저장하기 위한 List 객체 생성
 		List<String> roleNames=new ArrayList<String>();
 		
-		HttpSession session = request.getSession();	
-		session.setAttribute("userinfo", authentication.getPrincipal());
-		
 		//Authentication.getAuthorities() : 인증된 계정의 모든 권한(GrantedAuthority 객체)을 
 		//List 객체로 반환하는 메소드
 		//GrantedAuthority 객체 : 사용자에게 부여된 권한에 대한 정보를 저장한 객체
