@@ -172,12 +172,14 @@ public class UserinfoController {
 	*/
 
 	// 로그아웃 후 메인 페이지로 이동
+	/*
 	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 
 		return "redirect:/";
 	}
+	*/
 
 	/*
 	 * 메인페이지 이동

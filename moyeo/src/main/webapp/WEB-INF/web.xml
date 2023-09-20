@@ -18,6 +18,17 @@
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
    </listener>
    
+   <!-- springSecurityFilterChain 보다 먼저 실행되어야 함 -->
+	<filter>
+        <filter-name>multipartFilter</filter-name>
+        <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>multipartFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+   
    <filter> 
        <filter-name>encodingFilter</filter-name>
        <filter-class> 

@@ -30,7 +30,7 @@
      
       <access-denied-handler ref="customAccessDeniedHandler"/>
       
-      <logout logout-url="/account/logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID"/>
+      <logout logout-url="/logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID"/>
 	 
 	  <!-- <remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
       
