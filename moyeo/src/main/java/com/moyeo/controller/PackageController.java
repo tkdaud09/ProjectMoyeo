@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.moyeo.dto.Pack;
 import com.moyeo.dto.PackHeart;
 import com.moyeo.dto.Review;
+import com.moyeo.dto.Userinfo;
+import com.moyeo.security.CustomUserDetails;
 import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.PackageService;
 import com.moyeo.service.ReviewService;
@@ -52,11 +54,11 @@ public class PackageController {
 	// 패키지 상세 페이지 이동 - 패키지 상세 정보 select
 	@RequestMapping(value = "/detail/{packIdx}", method = RequestMethod.GET) // Spring에서 사용자가 전송한 식별자 값을 변수로 인식하기 위해 템플릿
 	// 변수{packIdx}작성
-	public String packageDetailGET(@PathVariable("packIdx") int packIdx, 
-			Model model,
-			HttpSession session) {
+	public String packageDetailGET(@PathVariable("packIdx") int packIdx
+															,Model model
+															,HttpSession session) {
 
-		String userinfoId = (String) session.getAttribute("userinfoId");
+		Userinfo userinfoVal = (Userinfo) session.getAttribute("userinfo");
 
 		model.addAttribute("pack", packageService.getPackageInfo(packIdx));
 
@@ -64,14 +66,15 @@ public class PackageController {
 		model.addAttribute("packHeartList", packageHeartService.getPackHeartIdxByPackIdx(packIdx));
 
 		//로그인 유저가 찜 했는지 확인
-		PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoId);
+		PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoVal.getId());
 		boolean isHeartAdded = packHeart != null;
+		
 		// 최신 리뷰 3개
         List<Review> latestReviews = reviewService.getLatestReviews(3);
         
         model.addAttribute("latestReviews", latestReviews);
 		model.addAttribute("isHeartAdded", isHeartAdded);
-
+		
 		return "package/mo_package_animal";
 	}
 	
@@ -165,7 +168,6 @@ public class PackageController {
 		}
 	}
 	
-	
 	//찜 목록에서 제거
 	@PostMapping("/removeFromPackageHeartList")
 	public ResponseEntity<String> removePackageHeart(@RequestParam String userinfoId,
@@ -183,5 +185,4 @@ public class PackageController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찜 삭제에 실패했습니다.");
 		}
 	}
-	
 }

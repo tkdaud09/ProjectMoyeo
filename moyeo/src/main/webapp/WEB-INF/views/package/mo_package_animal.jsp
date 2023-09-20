@@ -207,7 +207,6 @@
 
         </div>
 
-       <button type="button" id="removeBtn">삭제</button>
        
       </div>
     </div>
