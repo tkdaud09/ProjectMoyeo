@@ -3,6 +3,7 @@ package com.moyeo.controller;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -124,7 +125,10 @@ public class UserinfoController {
 
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginGET() {
+	public String loginGET(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+
 		return "userinfo/login";
 	}
 
