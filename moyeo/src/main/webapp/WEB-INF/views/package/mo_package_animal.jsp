@@ -11,25 +11,6 @@
   <div class="main-wrapper packages-grid">
 
 
-<!-- ====================================
-———   PAGE TITLE
-===================================== -->
-<!-- <section class="page-title">
-  <div class="page-title-img bg-img bg-overlay-darken" style="background-image: url(assets/img/pages/page-title-bg13.jpg);">
-    <div class="container">
-      <div class="row align-items-center justify-content-center" style="height: 200px;">
-        <div class="col-lg-6">
-          <div class="page-title-content">
-            <div class="">
-              <h2 class="text-uppercase text-white font-weight-bold">City Museum Tour</h2>
-            </div>
-            <p class="text-white mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
 
 <div class="pack_detail_title">
    <p>${pack.packTitle} </p>
@@ -73,30 +54,7 @@
                      
                   </div>
                 </div>
-                
 
-                <!-- <div class="form-group mb-5">
-                  <div class="row">
-                    <label for="inputTime" class="col-xl-5 col-form-label text-center text-xl-right px-2">Select a time
-                      slot:</label>
-                    <div class="col-xl-7">
-                      <div class="form-group mb-0">
-                        <div class="select-default select-category-2 timer">
-                          <select class="select-option">
-                            <option>9:00 AM</option>
-                            <option>10:00 AM</option>
-                            <option>11:00 AM</option>
-                            <option>12:00 AM</option>
-                            <option>13:00 AM</option>
-                            <option>14:00 AM</option>
-                            <option>15:00 AM</option>
-                            <option>16:00 AM</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
 <form action="<c:url value='/cart/insert'/>" method="post">
                <c:set var="packIdx" value="${pack.packIdx}" />
 <div class="form-group mb-5">
@@ -175,14 +133,11 @@
 				<input type="hidden" name="packHeartIdx" value="${packHeartList.packHeartIdx}" id="packHeartIdx">
 
            </div><!-- //pack_option_btn -->
-              
-              
-              
-              
-              
+
               
             </div>
           </div>
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>          
         </form>
       </div>
     
@@ -250,65 +205,8 @@
 	</c:forEach>
 
 
-
-<!-- 
-          <div class="media mb-6">
-            <a class="me-6" href="">
-              <img class="rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/comments-01.jpg" src="${pageContext.request.contextPath}/assets/img/blog/comments-01.jpg" alt="Generic placeholder image">
-            </a>
-
-            <div class="media-body">
-              <h5>Amanda Smith</h5>
-              <span class="star add-rating-default pb-1"></span>
-              <p class="mb-0">Nunc ultricies dui sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna
-                aliqua.</p>
-            </div>
-          </div>
- -->
- 
- <!-- 
-          <div class="media">
-            <a class="me-6" href="">
-              <img class="rounded lazyestload" data-src="${pageContext.request.contextPath}/assets/img/blog/comments-03.jpg" src="${pageContext.request.contextPath}/assets/img/blog/comments-03.jpg" alt="Generic placeholder image">
-            </a>
-            <div class="media-body">
-              <h5>Rodney Artichoke</h5>
-              <span class="star add-rating-default pb-1"></span>
-              <p class="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                laudan totam rem ape riam</p>
-            </div>
-          </div> 
--->
         </div>
 
-<!-- ------------------------------//후기끝----------------------- -->
-
-
-
-      <!-- 
-      
-          <form class="mb-9 mb-md-0">
-          <h3 class="text-uppercase mb-6">Leave your review</h3>
-
-          <p class="rating-view d-flex align-items-center">
-            <span class="content-view">Want to Rate it?</span>
-            <span class="star add-rating-default ms-2"></span>
-          </p>
-
-          <div class="form-group mb-6">
-            <textarea class="form-control border-0 bg-smoke" placeholder="Comment" rows="6"></textarea>
-          </div>
-
-          <div class="">
-            <button type="button" onclick="location.href='javascript:void(0)';"
-              class="btn btn-hover btn-outline-secondary text-uppercase">
-              Submit
-            </button>
-          </div>
-        </form>
-      
-       -->
        <button type="button" id="removeBtn">삭제</button>
        
       </div>
@@ -316,215 +214,16 @@
   </div>
 </section>
 
-         
-
-
-<!-- ====================================
-———   PACKAGES LIKE SECTION
-===================================== -->
-<!-- <section class="pb-10">
-  <div class="container">
-    <div class="text-uppercase mb-4">
-      <h2 class="mb-0">you may also like</h2>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-        <div class="card card-bg">
-          <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-01.jpg" src="assets/img/home/deal/deal-01.jpg" alt="Card image cap">
-            <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-              <div class="badge bg-primary badge-rounded-circle">
-                <span class="d-block">
-                  45%<br>off
-                </span>
-              </div>
-
-              <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </li>
-              </ul>
-
-              <ul class="list-unstyled d-flex text-white font-weight-bold mb-0">
-                <li class="border-right border-white pe-2">7 days</li>
-                <li class="border-right border-white px-2">15 hrs</li>
-                <li class="ps-2">15 min</li>
-              </ul>
-            </div>
-          </a>
-
-          <div class="card-body">
-            <h5>
-              <a href="single-package-right-sidebar.html" class="card-title text-uppercase">France / Paris</a>
-            </h5>
-
-            <p class="mb-7">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-              labore dolore.</p>
-
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary">$299</h3>
-              </div>
-
-              <div>
-                <a href="single-package-fullwidth.html" class="btn btn-xs btn-outline-secondary text-uppercase">Details</a>
-                <a href="" class="btn btn-xs btn-outline-secondary px-4">
-                  <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-        <div class="card card-bg">
-          <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-02.jpg" src="assets/img/home/deal/deal-02.jpg" alt="Card image cap">
-            <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-              <div class="badge bg-primary badge-rounded-circle">
-                <span class="d-block">
-                  50%<br>off
-                </span>
-              </div>
-
-              <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </li>
-              </ul>
-
-              <ul class="list-unstyled d-flex text-white font-weight-bold mb-0">
-                <li class="border-right border-white pe-2">7 days</li>
-                <li class="border-right border-white px-2">15 hrs</li>
-                <li class="ps-2">15 min</li>
-              </ul>
-            </div>
-          </a>
-
-          <div class="card-body">
-            <h5>
-              <a href="single-package-right-sidebar.html" class="card-title text-uppercase">Australia / Canberra</a>
-            </h5>
-
-            <p class="mb-7">Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus et
-              pharetra
-              egestas.</p>
-
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary">$299</h3>
-              </div>
-
-              <div>
-                <a href="single-package-fullwidth.html" class="btn btn-xs btn-outline-secondary text-uppercase">Details</a>
-                <a href="" class="btn btn-xs btn-outline-secondary px-4">
-                  <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="card card-bg">
-          <a href="single-package-right-sidebar.html" class="position-relative">
-            <img class="card-img-top lazyestload" data-src="assets/img/home/deal/deal-03.jpg" src="assets/img/home/deal/deal-03.jpg" alt="Card image cap">
-            <div class="card-img-overlay card-hover-overlay rounded-top d-flex flex-column">
-              <div class="badge bg-primary badge-rounded-circle">
-                <span class="d-block">
-                  40%<br>off
-                </span>
-              </div>
-
-              <ul class="list-unstyled d-flex mt-auto text-warning mb-0">
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star me-1" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </li>
-              </ul>
-
-              <ul class="list-unstyled d-flex text-white font-weight-bold mb-0">
-                <li class="border-right border-white pe-2">7 days</li>
-                <li class="border-right border-white px-2">15 hrs</li>
-                <li class="ps-2">15 min</li>
-              </ul>
-            </div>
-          </a>
-
-          <div class="card-body">
-            <h5>
-              <a href="single-package-right-sidebar.html" class="card-title text-uppercase">Jarmani / Berlin</a>
-            </h5>
-
-            <p class="mb-7">Donec lacus felis, dapibus males uada massa non, ferm entum tincidunt quam. Orci varius
-              natoque.</p>
-
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <p class="mb-0 text-capitalize">Start from</p>
-                <h3 class="text-primary">$299</h3>
-              </div>
-
-              <div>
-                <a href="single-package-fullwidth.html" class="btn btn-xs btn-outline-secondary text-uppercase">Details</a>
-                <a href="" class="btn btn-xs btn-outline-secondary px-4">
-                  <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
- -->
-
 
   </div><!-- element wrapper ends -->
    
 
       <!-- 가격 계산 -->
       <script>
+      
+     
+      
+      
       // 성인 가격 소인 가격 설정 
        const adultPrice = ${pack.packAdultPrice};
        const childPrice = ${pack.packChildPrice};
@@ -577,6 +276,16 @@
 	
 	// 하트 이미지 클릭 시
 	document.getElementById('packageHeartBtn').addEventListener('click',function (){
+		
+		 var csrfHeaderName="${_csrf.headerName}";
+	      var csrfTokenValue="${_csrf.token}";
+	         
+	      //ajaxSend() 메소드를 호출하여 페이지에서 Ajax 기능으로 요청하는 모든 웹프로그램에게 CSRF 토큰 전달
+	      // => Ajax 요청시 beforeSend 속성을 설정 불필요
+	      $(document).ajaxSend(function(e, xhr) {
+	         xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	      });
+	      
 	    isHeartAdded = !isHeartAdded; // 상태 토글
 
 	    // 이미지 변경

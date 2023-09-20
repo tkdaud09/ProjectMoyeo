@@ -96,6 +96,7 @@
          <input type="text" class="inp-base" id="schValue" name="keyword" placeholder="패키지 이름을 입력하세요">
          <button class="btn-type-s search" id="btnSearch">검색</button>
       </div>
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
    </form>
 
    <div id="filters" class="button-group">
