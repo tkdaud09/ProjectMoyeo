@@ -62,12 +62,13 @@ public class PackageController {
 
 		model.addAttribute("pack", packageService.getPackageInfo(packIdx));
 
-		//추가한거
-		model.addAttribute("packHeartList", packageHeartService.getPackHeartIdxByPackIdx(packIdx));
-
+		
 		//로그인 유저가 찜 했는지 확인
 		PackHeart packHeart = packageHeartService.getPackIdxWithId(packIdx, userinfoVal.getId());
 		boolean isHeartAdded = packHeart != null;
+		
+		//추가한거
+		model.addAttribute("packHeartList", packHeart);
 		
 		// 최신 리뷰 3개
         List<Review> latestReviews = reviewService.getLatestReviews(3);
