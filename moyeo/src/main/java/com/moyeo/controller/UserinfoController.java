@@ -1,7 +1,6 @@
 package com.moyeo.controller;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -130,6 +129,7 @@ public class UserinfoController {
 	}
 
 	// 로그인
+	/*
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session)
 			throws Exception {
@@ -162,9 +162,10 @@ public class UserinfoController {
 			}
 		} else {
 			rttr.addFlashAttribute("result", 0);
-			return "redirect:/user/login";
+			return "redirect:/";
 		}
 	}
+	*/
 
 	// 로그아웃 후 메인 페이지로 이동
 	@RequestMapping(value = "/logout")

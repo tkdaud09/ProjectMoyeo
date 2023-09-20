@@ -32,7 +32,7 @@
 	<section class="">
 		<div class="container">
 			<div class="py-10">
-				<form id="login_form" method="post">
+				<form id="login_form" method="post" action="<c:url value="/user/login"/>">
 					<div class="logo_wrap title_f">로그인</div>
 					<div class="login_wrap">
 						<div class="id_wrap ">

@@ -109,10 +109,6 @@ public class CustomUserDetails implements UserDetails {
    // ▶ false: 사용자 비활성화 상태 / true: 사용자 활성화 상태
    @Override
    public boolean isEnabled() {
-      if (enabled.equals("0")) {
-         return false;
-      } else {
-         return true;
-      }
+     return enabled.equals("0");
    }
 }

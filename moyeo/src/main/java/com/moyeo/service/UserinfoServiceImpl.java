@@ -99,7 +99,8 @@ public class UserinfoServiceImpl implements UserinfoService {
 	public void removeUserinfo(String id) {
 		userinfoDAO.outUser(id);
 	}
-
+	
+	/* 로그인 */
 	// 아이디로 유저 정보 검색
 	@Override
 	public Userinfo getUserinfoById(String id) throws UserinfoNotFoundException {

@@ -37,36 +37,37 @@
    
    <!-- Auth -->
    <insert id="insertSecurityAuth">
-		INSERT INTO security_auth 
-		VALUES (
-				#{id}
-				, #{auth}
-				)
-	</insert>
-	
-	<resultMap type="Userinfo" id="securityUserinfoResultMap">
-		<id column="id" property="id"/>
-		<result column="pw" property="pw"/>
-		<result column="name" property="name"/>
-		<result column="gender" property="gender"/>
-		<result column="birth" property="birth"/>
-		<result column="address" property="address"/>
-		<result column="phone" property="phone"/>
-		<result column="regdate" property="regdate"/>
-		<result column="status" property="status"/>
-		<result column="enabled" property="enabled"/>
-		<collection property="securityAuthList" select="selectSecurityAuthById" column="id"/>
-	</resultMap> 
-	
-	<select id="selectSecurityAuthById" resultType="SecurityAuth">
-		SELECT id
-			, auth 
-		FROM security_auth 
-		WHERE id=#{id}
-	</select>
-	
-	<select id="selectUerinfoById" resultMap="securityUserinfoResultMap">
-		SELECT id
+      INSERT INTO security_auth 
+      VALUES (
+            #{id}
+            , #{auth}
+            )
+   </insert>
+   
+   <resultMap type="Userinfo" id="securityUserinfoResultMap">
+      <id column="id" property="id"/>
+      <result column="pw" property="pw"/>
+      <result column="name" property="name"/>
+      <result column="gender" property="gender"/>
+      <result column="birth" property="birth"/>
+      <result column="address" property="address"/>
+      <result column="phone" property="phone"/>
+      <result column="regdate" property="regdate"/>
+      <result column="status" property="status"/>
+      <result column="enabled" property="enabled"/>
+      <collection property="securityAuthList" select="selectSecurityAuthById" column="id"/>
+   </resultMap> 
+   
+   <select id="selectSecurityAuthById" resultType="SecurityAuth">
+      SELECT id
+         , auth 
+      FROM security_auth 
+      WHERE id=#{id}
+   </select>
+   
+  
+    <select id="selectUserinfoById" resultMap="securityUserinfoResultMap">
+		SELECT users.id
         	 , pw
          	, name
          	, gender 
@@ -77,10 +78,14 @@
          	, regdate
          	, status  
          	, enabled
-    	FROM userinfo
-    	WHERE id=#{id}
+         	, auth
+    	FROM userinfo users
+    	LEFT JOIN security_auth auth
+    	ON users.id=auth.id
+    	WHERE users.id=#{id}
 	</select>
-	
+
+
    
    <!-- 아이디 중복검사 -->
      <select id="idCheck" resultType="int">
@@ -192,7 +197,7 @@
    
    
    <!-- 새로 추가했음 -->
-   <!-- 아이디로 유저 정보 검색 -->
+   <!-- 아이디로 유저 정보 검색 - 삭제하면 안되어요
    <select id="selectUserinfoById" resultType="Userinfo">
       SELECT id
          , pw
@@ -208,7 +213,8 @@
       FROM userinfo
       WHERE id=#{id}
    </select>   
-   
+    -->
+    
    <!-- 관리자 -->
    
    
@@ -238,11 +244,11 @@
          </if>
       </sql>
       
-	<delete id="deleteUserinfo">
-		DELETE
-		FROM Userinfo
-		WHERE ID = #{id}
-	</delete>
+   <delete id="deleteUserinfo">
+      DELETE
+      FROM Userinfo
+      WHERE ID = #{id}
+   </delete>
       
       <select id="selectUserinfo" resultType="Userinfo">
       SELECT 
@@ -262,9 +268,9 @@
        <include refid="search" />
    </select>
    
-	<select id="selectUserinfoCount">
-		SELECT COUNT(*) FROM Userinfo
-	</select>
+   <select id="selectUserinfoCount">
+      SELECT COUNT(*) FROM Userinfo
+   </select>
    
    <!-- 가입일에 따른 유저 정보 검색 -->
    <!--  
@@ -297,22 +303,22 @@
    </select>
    
    <select id="selectUserinfoList" resultType="Userinfo">
-		SELECT * FROM (
-		SELECT ROWNUM RN, BOARD.* FROM (
-			SELECT 
-				id
-				, pw
-				, name
-				, gender 
-				, email
-				, birth
-				, address
-				, phone
-				, regdate
-				, logdate
-				, status 
-				FROM userinfo 
-       		 WHERE
+      SELECT * FROM (
+      SELECT ROWNUM RN, BOARD.* FROM (
+         SELECT 
+            id
+            , pw
+            , name
+            , gender 
+            , email
+            , birth
+            , address
+            , phone
+            , regdate
+            , logdate
+            , status 
+            FROM userinfo 
+              WHERE
         <choose>
             <when test="selectKeyword != null and selectKeyword != ''">
                 (id LIKE '%' || #{selectKeyword} || '%' OR
@@ -331,25 +337,25 @@
                 1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
             </otherwise>
         </choose>
-        		ORDER BY id DESC
-    		) BOARD
-		) WHERE RN BETWEEN #{startRow} and #{endRow}
-	</select>
-	
-	<update id="deleteUserinfo1">
-		UPDATE userinfo SET STATUS = 3 WHERE id = #{id}
-	</update>
-	
-	<update id="updateUserinfoByAdmin">
-		UPDATE userinfo SET
-			id = #{id},
-			name = #{name},
-			phone = #{phone},
-			email = #{email},
-			address = #{address},
-			status = #{status}
-		WHERE id = #{id}
-	</update>
+              ORDER BY id DESC
+          ) BOARD
+      ) WHERE RN BETWEEN #{startRow} and #{endRow}
+   </select>
+   
+   <update id="deleteUserinfo1">
+      UPDATE userinfo SET STATUS = 3 WHERE id = #{id}
+   </update>
+   
+   <update id="updateUserinfoByAdmin">
+      UPDATE userinfo SET
+         id = #{id},
+         name = #{name},
+         phone = #{phone},
+         email = #{email},
+         address = #{address},
+         status = #{status}
+      WHERE id = #{id}
+   </update>
    
    
    

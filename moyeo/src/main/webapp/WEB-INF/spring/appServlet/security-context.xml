@@ -13,6 +13,7 @@
       <!--  <csrf disabled="true"/>
       -->
       <intercept-url pattern="/**" access="permitAll" /> 
+    
      
       <!-- <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" /> -->
       
