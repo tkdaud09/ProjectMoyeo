@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>     
-
 <body id="body" class="up-scroll">
   <div class="main-wrapper packages-grid">
 
@@ -40,22 +39,36 @@
                 <div class="diy_form_title">
                     1:1 문의
                 </div>
-
-
 				<div class="border_view">
 				    <div class="view">
 				        <h3 class="tit">${qa.qaTitle}</h3>
 				        <p class="t1">작성자: ${qa.userinfoId}</p>
 				        <p class="t1">작성일: ${qa.qaRegdate}</p>
-				        <p class="t1">수정일: ${qa.qaModifyDate}</p>
+				        <%--  <p class="t1">수정일: ${qa.qaModifyDate}</p>--%>
 				    </div><hr>
 					<div class="view_con">${qa.qaContent}</div>
-					
-					
+					 <div class="view_img">
+                        <img
+                           src="<c:url value='/assets/img/upload/${qa.qaImg1}'/>"
+                           alt="">
+                        <img
+                           src="<c:url value='/assets/img/upload/${qa.qaImg2}'/>"
+                           alt="">
+                        <img
+                           src="<c:url value='/assets/img/upload/${qa.qaImg3}'/>"
+                           alt="">                    	
+                     </div>
 					<div class="border_btn">
 						<div class="list_btn"><a href="${pageContext.request.contextPath}/qa/list">목록</a></div>
+						<sec:authorize access="isAuthenticated()">
+                        <sec:authorize access="hasRole('ROLE_ADMIN')" var="adminRole"/>
+                        <sec:authentication property="principal" var="pinfo"/>   
+						<c:if test="${adminRole || pinfo.id eq qa.userinfoId}">
 						<div class="list_btn sp"><a href="${pageContext.request.contextPath}/qa/modify/${qa.qaIdx}">수정</a></div>
 						<div class="list_btn sp"><a href="${pageContext.request.contextPath}/qa/delete/${qa.qaIdx}">삭제</a></div>
+						</c:if>               
+                    	<sec:csrfInput/>
+                     	</sec:authorize>
 					</div>
 				</div>
 				
@@ -67,10 +80,15 @@
 							<div>
 								<p>${reply.userinfoId} / ${reply.qaReplyRegdate}</p>
 					            <p id="qaReplyContent_${reply.qaReplyIdx}">${reply.qaReplyContent}</p>
+					            <sec:authorize access="isAuthenticated()">
+								<sec:authorize access="hasRole('ROLE_ADMIN')" var="adminRole"/>
+								<c:if test="${adminRole}">
 					            <p>
 					                <a href="${pageContext.request.contextPath}/reply/modify?qaIdx=${reply.qaIdx}&qaReplyIdx=${reply.qaReplyIdx}">수정</a> /
 					                <a href="javascript:;" class="deleteLink" data-qa-idx="${reply.qaIdx}" id="${reply.qaReplyIdx}">삭제</a>
 					            </p>
+					            </c:if>      
+					            </sec:authorize>
 					            <hr />
 						 	</div>
 						</li>	
@@ -81,8 +99,11 @@
 				
 				<div>
 					<form id="addReplyForm" method="post" action="${pageContext.request.contextPath}/reply/write">
+						<sec:authorize access="isAuthenticated()">
+						<sec:authorize access="hasRole('ROLE_ADMIN')" var="adminRole"/>
+						<c:if test="${adminRole}">
 						<p>
-							<label>댓글 작성자</label><input type="text" name="userinfoId" value="${userinfo.id }" readonly>
+							<label>답글 작성자</label><input type="text" name="userinfoId" value="운영자" readonly>
 							
 						</p>
 						<p>
@@ -90,8 +111,12 @@
 						</p>
 						<p>
 							<input type="hidden" name="qaIdx" value="${qa.qaIdx}">
-							<button type="submit">댓글 작성</button>
+							<input type="hidden" name="isAdmin" value="${isAdmin}">
+							<button type="submit">답글 작성</button>
 						</p>
+						</c:if>
+						<sec:csrfInput/>
+						</sec:authorize>
 					</form>
 				</div>
 				
@@ -105,8 +130,18 @@
 
 	<script>
 	
+	
 	/* 댓글 추가 */
-	$("#addReplyForm").submit(function(event) {
+	$("#addReplyForm").submit(function(event) {		
+		  var csrfHeaderName="${_csrf.headerName}";
+    	  var csrfTokenValue="${_csrf.token}";
+    	     
+    	  //CSRF 토큰 전달
+    	  $(document).ajaxSend(function(e, xhr) {
+    	     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    	  }); 
+		
+    	  
 	    event.preventDefault();
 	    
 	    var formData = $(this).serialize();
@@ -118,7 +153,8 @@
 	        data: formData,
 	        success: function(response) {
 	            // 서버에서 반환된 JSON을 사용하여 새로운 댓글을 추가
-	            var newReply = "<li><div><p>" + response.userinfoId + " / " + response.qaReplyRegdate + "</p><p>" + response.qaReplyContent + "</p><p><a href='#'>수정</a> / <a href='#'>삭제</a></p><hr /></div></li>";
+	            var newReply = 
+	            	"<li><div><p>" + response.userinfoId + " / " + response.qaReplyRegdate + "</p><p>" + response.qaReplyContent + "</p><p><a href='#'>수정</a> / <a href='#'>삭제</a></p><hr /></div></li>";
 	            $("#replyList").append(newReply);
 	            
 	            // 입력 필드 초기화
@@ -129,9 +165,6 @@
 	        }
 	    });
 	});
-	
-
-	
 	</script>
 	
 	
@@ -139,6 +172,14 @@
 		/*삭제*/
 	
 		$(document).on("click", ".deleteLink", function(event) {
+			  var csrfHeaderName="${_csrf.headerName}";
+	    	  var csrfTokenValue="${_csrf.token}";
+	    	     
+	    	  //CSRF 토큰 전달
+	    	  $(document).ajaxSend(function(e, xhr) {
+	    	     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	    	  }); 
+			
 		    event.preventDefault();
 
 		    var qaReplyIdx = $(this).attr("id");

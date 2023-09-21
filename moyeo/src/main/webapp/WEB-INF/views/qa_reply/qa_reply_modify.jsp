@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>   
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +41,7 @@
         <div class="py-10">
             <div class="review_content">
                 <div class="diy_form_title">
-                    1:1 문의 댓글 수정
+                    1:1 문의 답글 수정
                 </div>
 
 				
@@ -49,7 +49,7 @@
 				<div>
 					<form id="modifyQaReply" method="post" action="${pageContext.request.contextPath}/reply/modify">
 						<p>
-							<label>댓글 작성자</label><input type="text" name="userinfoId" value="${reply.userinfoId }" readonly>
+							<label>답글 작성자</label><input type="text" name="userinfoId" value="${reply.userinfoId }" readonly>
 							
 						</p>
 						<p>
@@ -59,24 +59,18 @@
 							<input type="hidden" name="qaIdx" value="${reply.qaIdx}">
 							<input type="hidden" name="qaReplyIdx" value="${reply.qaReplyIdx}">
 							
-							<button type="submit">댓글 수정</button>
+							<button type="submit">답글 수정</button>
 						</p>
+						<sec:csrfInput/>
 					</form>
 				</div>
 				
-				<!-- 댓글 끝 -->
+				<!--  답글 끝  -->
 
-            </div><!-- /diy_content -->
+            </div><!--  /diy_content -->
         </div> <!-- /py-10 -->
-    </div> <!-- /container -->
+    </div> <!--  /container  -->
 </section>
   </div>
-
-	<script>
-	
-
-	
-	</script>
-
 </body>
 </html>

@@ -2,16 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
-  
 <head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>     
@@ -39,12 +37,9 @@
     </div>
   </div>
 </section>
-
-
 <!-- ====================================
 ———	DIY SECTION
 ===================================== -->
-
 <section class="">
   <div class="container">
 			<div class="py-10">
@@ -55,10 +50,7 @@
 				</div>
 				
 				<div class="bord_search">
-					
 					<div class="search-area">	
-						
-						
 						<div class="sel-search">
 							<select class="sel-base" id="schKeyword" name="searchType">
 								<%-- <option value="both" >제목+내용</option> --%>
@@ -67,8 +59,6 @@
 								<option value="writer">작성자</option>
 							</select>
 						</div>
-						
-					
 							<div class="inp-search">
 							    <input type="text" class="inp-base" id="schValue" placeholder="검색어를 입력하세요">
 							    <button class="btn-type-s search" id="btnSearch" name="searchKeyword">검색</button>
@@ -87,11 +77,7 @@
 						</div>
 						
 					</div><!-- search-area -->
-
 				</div>
-				
-						
-				
 				<div class="qa_list border_list">
 					
 					<table>
@@ -132,9 +118,6 @@
 					        </tr>
 					    </c:forEach>
 					</table>
-					
-
-
 				<div class="page_t">	
 					<%-- 페이지 번호 출력 --%>
 					<c:choose >
@@ -165,18 +148,14 @@
 						<c:otherwise>
 							[다음]
 						</c:otherwise>
-					</c:choose>	
-					
+					</c:choose>		
 				</div>
-
+				<sec:authorize access="isAuthenticated()">
 					<a href="${pageContext.request.contextPath}/qa/write" class="btn_right">
 						<button class="btn">글쓰기</button>
 					</a>
-				
+				</sec:authorize>
 				</div>
-				
-
-
 			</div><!-- /review_content -->
 		</div>	<!-- /py-10 -->
     </div>	<!-- /container -->

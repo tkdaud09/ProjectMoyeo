@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
     
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
@@ -54,13 +55,7 @@
 					    <input class="text" type="text" name="userinfoId" value="${qa.userinfoId }" readonly>
 					   
 						<p>문의 유형</p>
-						<select name="qaOption">
-							<option>선택</option>
-							<option>유형 1</option>
-							<option>유형 2</option>
-							<option>유형 3</option>
-							<option>유형 4</option>					       
-						</select>
+						<input class="text" type="text" name="qaOption" value="${qa.qaOption }" readonly>
 
 					   
 					    <p>제목</p>
@@ -82,24 +77,15 @@
 					        <a href="${pageContext.request.contextPath}/qa/list"><button class="btn1" id="cancelBtn" type="button">취소</button></a>
 					        <button class="btn2" id="enrollBtn" type="submit">수정 </button>
 					    </div>
+					    	<sec:csrfInput/>
 					</form>
 				</div>
 
 			</div><!-- /diy_content -->
 		</div>	<!-- /py-10 -->
-    </div>	<!-- /container -->
-   
-    
- 
-    
-   
-    
-    
+    </div>	<!-- /container -->    
 </section>
- </div>
-
-
- 
+</div> 
     <script>
 	    let enrollForm = $("#enrollForm");
 	    
@@ -116,9 +102,5 @@
 	        enrollForm.submit();
    	 });
 	</script>
-  
-
-
-
   </body>
 </html>

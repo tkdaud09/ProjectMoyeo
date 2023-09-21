@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.moyeo.dto.Qa;
 import com.moyeo.dto.QaReply;
+import com.moyeo.security.CustomUserDetails;
 import com.moyeo.service.QaReplyService;
 import com.moyeo.service.QaService;
 
@@ -35,52 +37,60 @@ public class QaController {
 
 	@Autowired
 	private QaService qaService;
-	
+
 	@Autowired
 	private QaReplyService qaReplyService;
 
 	// 1:1 문의 상세 페이지로 이동
 	@GetMapping(value = "/detail/{qaIdx}")
-	public String qaDetailGET(@PathVariable("qaIdx") int qaIdx, Model model) {
+	public String qaDetailGET(@PathVariable("qaIdx") int qaIdx, Model model, Authentication authentication) {
+		CustomUserDetails userinfo = null;
+
+		if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
+			userinfo = (CustomUserDetails) authentication.getPrincipal();
+		}
+
 		Qa qa = qaService.getQaInfo(qaIdx);
 		model.addAttribute("qa", qa);
-		
-		List<QaReply> reply=null;
-		reply=qaReplyService.getQaReplyList(qaIdx);
+
+		List<QaReply> reply = null;
+		reply = qaReplyService.getQaReplyList(qaIdx);
+
 		model.addAttribute("reply", reply);
-		
+		model.addAttribute("userinfo", userinfo);
+
 		return "qa/qa_view";
 	}
 
 	// 1:1 문의 리스트 페이지로 이동
 	/*
-	@GetMapping(value = "/list")
-	public String qaListGET(Model model) {
-		model.addAttribute("qaList", qaService.getQaList());
-		System.out.println();
-		return "qa/qa_list";
-	}
-	*/
-	
+	 * @GetMapping(value = "/list") public String qaListGET(Model model) {
+	 * model.addAttribute("qaList", qaService.getQaList()); System.out.println();
+	 * return "qa/qa_list"; }
+	 */
+
 	// 1:1 문의 리스트 페이지로 이동 - 페이징 처리
 	@GetMapping(value = "/list")
-	public String qaListGET(@RequestParam(defaultValue = "1") int pageNum, 
-							@RequestParam(defaultValue = "10") int pageSize,
-							@RequestParam(required = false) String searchKeyword,
-		                    @RequestParam(required = false) String searchType,
-							Model model ) {
+	public String qaListGET(@RequestParam(defaultValue = "1") int pageNum,
+			@RequestParam(defaultValue = "10") int pageSize, @RequestParam(required = false) String searchKeyword,
+			@RequestParam(required = false) String searchType, Model model) {
 		Map<String, Object> resultMap = qaService.getQaList(pageNum, pageSize, searchKeyword, searchType);
-		
+
 		model.addAttribute("qaList", resultMap.get("qaList"));
 		model.addAttribute("pager", resultMap.get("pager"));
 		return "qa/qa_list";
 	}
-	
+
 	/* 등록 */
 
 	// 1:1 문의 작성 페이지로 이동
 	@GetMapping(value = "/write")
-	public String addQaGET(Model model) {
+	public String addQaGET(Authentication authentication, Model model) {
+
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+
+		model.addAttribute("userinfo", userinfo);
+
 		return "qa/qa_write";
 	}
 
@@ -88,7 +98,7 @@ public class QaController {
 	@PostMapping(value = "/addQa")
 	public String addQaPOST(@ModelAttribute Qa qa, @RequestParam("qaImgFile1") MultipartFile qaImgFile1,
 			@RequestParam("qaImgFile2") MultipartFile qaImgFile2, @RequestParam("qaImgFile3") MultipartFile qaImgFile3,
-			Model model, HttpSession session) throws IllegalStateException, IOException {
+			Model model) throws IllegalStateException, IOException {
 
 		// 전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
 		String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
@@ -118,22 +128,24 @@ public class QaController {
 
 	// 1:1 문의 수정 페이지로 이동
 	@GetMapping(value = "/modify/{qaIdx}")
-	public String qaModifyGET(@PathVariable("qaIdx") int qaIdx, Model model) {
+	public String qaModifyGET(@PathVariable("qaIdx") int qaIdx, Model model,Authentication authentication) {
+		
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+		
 		Qa qa = qaService.getQaInfo(qaIdx);
+		
 		model.addAttribute("qa", qa);
-
+		model.addAttribute("userinfo", userinfo);
 		return "qa/qa_modify";
 	}
 
 	// 1:1 문의 수정 - POST
-	
-	
+
 //	@PostMapping(value = "/modify/{qaIdx}") 
 //	public String qaModifyPOST(@PathVariable("qaIdx") int qaIdx, @ModelAttribute Qa qa) {
 //		qaService.modifyQa(qa); 
 //		return "redirect:/qa/detail/{qaIdx}"; 
 //	}
-	
 
 	// 1:1 문의 수정 - POST
 	@PostMapping(value = "/modify/{qaIdx}")
@@ -179,12 +191,12 @@ public class QaController {
 
 		return "redirect:/qa/detail/{qaIdx}";
 	}
-	
-	/*삭제*/
-	
+
+	/* 삭제 */
+
 	@GetMapping("/delete/{qaIdx}")
 	public String removeQaPOST(@PathVariable("qaIdx") int qaIdx) {
-	    qaService.removeQa(qaIdx);
-	    return "redirect:/qa/list";
+		qaService.removeQa(qaIdx);
+		return "redirect:/qa/list";
 	}
 }
