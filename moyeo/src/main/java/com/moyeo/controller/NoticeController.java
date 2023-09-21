@@ -1,6 +1,7 @@
 package com.moyeo.controller;
 
 import com.moyeo.dto.Notice;
+import com.moyeo.security.CustomUserDetails;
 import com.moyeo.service.NoticeService;
 
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,10 +54,13 @@ public class NoticeController {
 		return "notice/view";
 	}
 
-	/*
+	
 	//공지사항 등록 폼  - GET (기존에 "/create" 대신 "/write"로 바꿈)
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String noticeWriteForm() {
+	public String noticeWriteForm(Model model, Authentication authentication) {
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+		model.addAttribute("userinfo",userinfo);
+		
 		return "notice/write";
 	}
 
@@ -128,5 +133,5 @@ public class NoticeController {
 		noticeService.deleteNotice(noticeIdx);
 		return "redirect:/notice/";
 	}
-*/
+
 }

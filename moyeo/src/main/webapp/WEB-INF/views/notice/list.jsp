@@ -135,9 +135,11 @@
                            </c:otherwise>
                         </c:choose>
                      </div>
+                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                      <a href="${pageContext.request.contextPath}/notice/write" class="btn_right">
                   <button class="btn">글쓰기</button>
                </a>
+               </sec:authorize>
             </div>
          </div><!-- /notice_content -->
       </div>   <!-- /py-10 -->

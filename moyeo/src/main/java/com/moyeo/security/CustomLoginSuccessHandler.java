@@ -41,7 +41,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		//Collection<T>.contains(T obj) : Collection 객체에 저장된 요소의 존재 유무를 확인하여
 		//Collection 객체에 요소가 없는 [false]를 반환하고 요소가 있는 경우 [true]를 반환하는 메소드
 		if(roleNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect(request.getContextPath()+"/admin/page");
+			response.sendRedirect(request.getContextPath()+"/");
 			return;
 		}
 		

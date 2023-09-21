@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
   
@@ -60,6 +62,7 @@
                         <div class="list_btn">
                            <a href="${pageContext.request.contextPath}/notice/">목록</a>
                         </div>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <div class="list_btn sp">
                            <a
                               href="${pageContext.request.contextPath}/notice/modify/${notice.noticeIdx}">수정</a>
@@ -69,12 +72,12 @@
                                 <form id="deleteForm" action="${pageContext.request.contextPath}/notice/delete/${notice.noticeIdx}" method="POST">-->
                                     <!-- CSRF 토큰 등을 포함하려면 여기에 추가 -->
                                     <!-- 예: <input type="hidden" name="_csrf" value="${_csrf.token}"> -->
-                                </form>
+                                
                                 <!-- 삭제 버튼 -->
                                 <button type="button" class="list_btn sp" id="deleteBtn">삭제</button>
+                            </sec:authorize>
                             </div>
                   </div>
-
 
                </div>
                <!-- /diy_content -->
