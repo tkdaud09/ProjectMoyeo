@@ -166,28 +166,37 @@
 					        <td class="t1">작성일</td>
 					        <td class="t1">답변상태</td>
 					    </tr>
-					    <c:forEach var="qa" items="${qaList}">
-					        <tr>
-					            <td class="t2">${qa.qaIdx}</td>
-					            <td class="t2">${qa.qaOption}</td>
-					            <td class="t2">
-					                <a href="${pageContext.request.contextPath}/qa/detail/${qa.qaIdx}">
-					                    ${qa.qaTitle}
-					                </a>
-					            </td>
-					            <td class="t2">${qa.qaRegdate}</td>
-					            <td class="t2">
-								    <c:choose>
-								        <c:when test="${qa.qaReplyStatus == 1}">
-								        <span style="color: blue;">답변완료</span>
-								        </c:when>
-								        <c:otherwise>
-								            답변대기
-								        </c:otherwise>
-								    </c:choose>	
-								</td>
-					        </tr>
-					    </c:forEach>
+					     <c:choose>
+			                <c:when test="${empty qaList}">
+			                    <tr>
+			                        <td colspan="5">작성된 문의내역이 없습니다.</td>
+			                    </tr>
+			                </c:when>
+			                <c:otherwise>
+						    <c:forEach var="qa" items="${qaList}">
+						        <tr>
+						            <td class="t2">${qa.qaIdx}</td>
+						            <td class="t2">${qa.qaOption}</td>
+						            <td class="t2">
+						                <a href="${pageContext.request.contextPath}/qa/detail/${qa.qaIdx}">
+						                    ${qa.qaTitle}
+						                </a>
+						            </td>
+						            <td class="t2">${qa.qaRegdate}</td>
+						            <td class="t2">
+									    <c:choose>
+									        <c:when test="${qa.qaReplyStatus == 1}">
+									        <span style="color: blue;">답변완료</span>
+									        </c:when>
+									        <c:otherwise>
+									            답변대기
+									        </c:otherwise>
+									    </c:choose>	
+									</td>
+						        </tr>
+						    </c:forEach>
+						  </c:otherwise>
+            			</c:choose>
 					</table>
 					
 					

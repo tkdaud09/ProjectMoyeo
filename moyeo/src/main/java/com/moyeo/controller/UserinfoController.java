@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -125,60 +126,11 @@ public class UserinfoController {
 	/* 로그인 */
 
 	// 로그인 페이지 이동
-	/*
-	 * @RequestMapping(value = "/login", method = RequestMethod.GET) public String
-	 * loginGET(Authentication authentication) { CustomUserDetails loginUser =
-	 * (CustomUserDetails) authentication.getPrincipal();
-	 * 
-	 * 
-	 * return "userinfo/login"; }
-	 */
-
-	// 로그인 페이지 이동
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET() {
 
 		return "userinfo/login";
 	}
-
-	// 로그인
-	/*
-	 * @RequestMapping(value = "/login", method = RequestMethod.POST) public String
-	 * loginPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr,
-	 * HttpSession session) throws Exception {
-	 * 
-	 * session.setAttribute("userinfoId", userinfo.getId());
-	 * 
-	 * Userinfo lto = userinfoservice.userLogin(userinfo);
-	 * 
-	 * if (lto != null) { if (lto.getStatus() == 3) { // 탈퇴 회원은 로그인 차단
-	 * rttr.addFlashAttribute("result", 0); return "redirect:/user/login"; } else if
-	 * (lto.getStatus() == 2) { // 휴면 계정은 활성화 요구 페이지로 바로 이동 return
-	 * "redirect:/user/dormantAccount"; }
-	 * 
-	 * String rawPw = userinfo.getPw(); String encodePw = lto.getPw();
-	 * 
-	 * if (pwEncoder.matches(rawPw, encodePw)) { lto.setPw("");
-	 * session.setAttribute("userinfo", lto);
-	 * userinfoservice.updateUserLogindate(lto.getId()); return "redirect:/"; } else
-	 * { rttr.addFlashAttribute("result", 0); return "redirect:/user/login"; } }
-	 * else { rttr.addFlashAttribute("result", 0); return "redirect:/"; } }
-	 */
-
-	// 로그아웃 후 메인 페이지로 이동
-	/*
-	 * @RequestMapping(value = "/logout") public String logout(HttpSession session)
-	 * { session.invalidate();
-	 * 
-	 * return "redirect:/"; }
-	 */
-
-	/*
-	 * 메인페이지 이동
-	 * 
-	 * @RequestMapping(value = "/main", method = RequestMethod.GET) public String
-	 * mainGET() { return "userinfo/main"; }
-	 */
 
 	/* 아이디 찾기 */
 
@@ -321,36 +273,6 @@ public class UserinfoController {
 		
 		return "mypage/pwCheck";
 	}
-
-	// 회원정보 변경 확인 페이지 (비밀번호 확인) - POST
-	/*
-	@RequestMapping(value = "/pwCheck", method = RequestMethod.POST)
-	public String pwCheckPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session)
-			throws LoginAuthFailException {
-
-		Userinfo lto = userinfoservice.userLogin(userinfo);
-
-		if (lto == null) {
-			throw new LoginAuthFailException("Authentication failed for user: " + userinfo.getId());
-		}
-
-		String birth = lto.getBirth().substring(0, 10);
-		lto.setBirth(birth);
-
-		String rawPw = userinfo.getPw();
-		String encodePw = lto.getPw();
-
-		if (pwEncoder.matches(rawPw, encodePw)) {
-			lto.setPw("");
-			session.setAttribute("userinfo", lto);
-			userinfoservice.updateUserLogindate(lto.getId());
-			return "redirect:/user/modify";
-		} else {
-			rttr.addFlashAttribute("result", 0);
-			return "redirect:/user/pwCheck";
-		}
-	}
-	*/
 	
 	// 회원정보 변경 확인 페이지 (비밀번호 확인) - POST
 	@RequestMapping(value = "/pwCheck", method = RequestMethod.POST)
@@ -387,31 +309,7 @@ public class UserinfoController {
 		return "mypage/modify_pw";
 	}
 
-	// 비밀번호 변경 - POST
-	/*
-	@RequestMapping(value = "/modifypw", method = RequestMethod.POST)
-	public String modiftpwPOST(HttpSession session, Userinfo userinfo, @RequestParam String updatePw, Model model)
-			throws LoginAuthFailException, UserinfoNotFoundException {
-
-		Userinfo lto = userinfoservice.userLogin(userinfo);
-
-		if (lto == null) {
-			throw new UserinfoNotFoundException("User not found");
-		}
-
-		String rawPw = userinfo.getPw();
-		String encodePw = lto.getPw();
-
-		if (!pwEncoder.matches(rawPw, encodePw)) {
-			throw new LoginAuthFailException("Incorrect password");
-		}
-
-		lto.setPw(pwEncoder.encode(updatePw));
-		userinfoservice.modifyPw(lto);
-		session.setAttribute("userinfo", lto);
-		return "redirect:/user/mypage";
-	}
-	*/
+	
 	
 	// 비밀번호 변경 - POST
 	@RequestMapping(value = "/modifypw", method = RequestMethod.POST)
@@ -423,14 +321,14 @@ public class UserinfoController {
 		Userinfo lto = userinfoservice.getUserinfoById(userinfoVal.getId());
 
 		if (lto == null) {
-			throw new UserinfoNotFoundException("User not found");
+			throw new UserinfoNotFoundException("회원 정보를 찾을 수 없습니다.");
 		}
 
 		String rawPw = userinfo.getPw();
 		String encodePw = lto.getPw();
 		
 		if (!pwEncoder.matches(rawPw, encodePw)) {
-			throw new LoginAuthFailException("Incorrect password");
+			throw new LoginAuthFailException("비밀번호가 맞지 않습니다.");
 		}
 
 		lto.setPw(pwEncoder.encode(updatePw));
@@ -440,27 +338,30 @@ public class UserinfoController {
 
 	// 회원 탈퇴 확인 페이지 (비밀번호 확인) - GET
 	@RequestMapping(value = "/removePwCheck", method = RequestMethod.GET)
-	public String removeUserinfoGET() {
-
+	public String removeUserinfoGET(Authentication authentication, Model model) {
+		
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+		
+		model.addAttribute("userinfo", userinfo);
+		
 		return "mypage/remove";
 	}
 
 	// 회원 탈퇴 확인 페이지 (비밀번호 확인) - POST
 	@RequestMapping(value = "/removePwCheck", method = RequestMethod.POST)
-	public String removeUserinfoPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session)
-			throws LoginAuthFailException {
-
-		Userinfo lto = userinfoservice.userLogin(userinfo);
+	public String removeUserinfoPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, Authentication authentication)
+			throws LoginAuthFailException, UserinfoNotFoundException {
+		
+		CustomUserDetails userinfoVal = (CustomUserDetails) authentication.getPrincipal();
+		
+		Userinfo lto = userinfoservice.getUserinfoById(userinfoVal.getId());
 
 		if (lto != null) {
-			String rawPw = userinfo.getPw(); // 사용자가 제출한 비밀번호
-			String encodePw = lto.getPw(); // 데이터베이스에 저장한 인코딩된 비밀번호
+			String rawPw = userinfo.getPw();
+			String encodePw = lto.getPw();
 
 			if (pwEncoder.matches(rawPw, encodePw)) {
-				lto.setPw("");
-				session.setAttribute("userinfo", lto);
-
-				userinfoservice.updateUserLogindate(lto.getId());
+				userinfoservice.removeUserinfo(userinfoVal.getId());
 
 				return "redirect:/";
 			} else {
@@ -468,25 +369,26 @@ public class UserinfoController {
 				return "redirect:/user/remove";
 			}
 		} else {
-			throw new LoginAuthFailException("Authentication failed for user: " + userinfo.getId());
+			throw new LoginAuthFailException("유저 정보가 없습니다.");
 		}
 	}
 
 	// 회원 탈퇴 시 status 값 변경
 	@RequestMapping(value = "/remove")
-	public String remove(@RequestParam String id, HttpSession session) throws UserinfoNotFoundException {
-		Userinfo userinfo = userinfoservice.getUserinfoById(id);
-		if (userinfo != null) {
-			userinfo.setStatus(3); // 탈퇴 회원으로 변경
-			userinfoservice.updateUserStatus(userinfo); // status 업데이트
-			session.invalidate(); // 로그아웃
-
-			return "redirect:/user/login";
-		} else {
-			throw new UserinfoNotFoundException("회원정보를 찾을 수 없습니다.");
-		}
+	public String remove(@RequestParam String id, Authentication authentication, HttpServletRequest request) throws UserinfoNotFoundException {
+	    CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+	    
+	    Userinfo userinfoVal = userinfoservice.getUserinfoById(userinfo.getId());
+	    
+		userinfoservice.removeUserinfo(id);
+		
+		// 스프링 시큐리티 로그아웃 수행
+		new SecurityContextLogoutHandler().logout(request, null, null);
+		
+		return "redirect:/user/login";
 	}
 
+	
 	/* 마이페이지 추가 */
 
 	// 작성한 리뷰 페이지로 이동
