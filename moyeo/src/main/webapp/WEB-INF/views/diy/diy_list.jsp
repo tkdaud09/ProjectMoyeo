@@ -102,16 +102,7 @@
 			</form>	
 		</div><!-- //bord_search -->
 	  <!-- //bord_search -->
-	  
-				
-                    
-
-
-
-
-
-
-         
+	   
       <div class="container">
        <div class="row">
        
