@@ -81,11 +81,6 @@ public class AdminController {
        }
    }
 
-   //고객센터 페이지 이동
-   @GetMapping(value = "/center")
-   public String centerGET() {
-      return "admin/center";
-   }
    
    //회원 디테일 페이지
    @RequestMapping(value = "/userinfo-detail", method = RequestMethod.GET)

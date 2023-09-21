@@ -387,6 +387,12 @@ public class UserinfoController {
 		
 		return "redirect:/user/login";
 	}
+	
+	//고객센터 페이지 이동
+	@GetMapping(value = "/center")
+	public String centerGET() {
+		return "userinfo/center";
+	}
 
 	
 	/* 마이페이지 추가 */

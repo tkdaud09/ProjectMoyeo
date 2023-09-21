@@ -48,7 +48,7 @@
                          </sec:authorize>   
                       </li>
                   <li class="me-6">
-                     <a href="${pageContext.request.contextPath}/admin/center">고객센터</a>
+                     <a href="${pageContext.request.contextPath}/user/center">고객센터</a>
                       </li>
                </ul>
             </div>
