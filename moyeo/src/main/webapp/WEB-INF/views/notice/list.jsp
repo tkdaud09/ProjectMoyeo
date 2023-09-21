@@ -2,7 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
 <html lang="en">
   
@@ -63,14 +63,10 @@
         			<input type="text" class="inp-base" id="schValue" name="keyword" placeholder="검색어를 입력하세요">
         			<button type="submit" class="btn-type-s search" id="btnSearch" >검색</button>
     			</div>
+    			<sec:csrfInput/>
 			</form>
-
-		</div>            
-            
-            
-            
+		</div>                    
             <div class="review_list border_list">
-
                      <table>
                         <colgroup>
                            <col width="10%">
@@ -85,7 +81,6 @@
                            <td class="t1">작성일</td>
                            <td class="t1">조회수</td>
                         </tr>
-
                         <c:choose>
 							<c:when test="${empty result.noticeList}">
 								<tr>
@@ -105,7 +100,6 @@
                       </c:otherwise>
                     </c:choose>
                   </table>
-
                      <div class="page_t">
                         <%-- 페이지 번호 출력 --%>
                         <c:choose>
@@ -119,7 +113,6 @@
                                [이전]
                            </c:otherwise>
                         </c:choose>
-
                         <c:forEach var="i" begin="${result.pager.startPage }" end="${result.pager.endPage }" step="1">
                            <c:choose>
                               <c:when test="${result.pager.pageNum != i  }">
@@ -130,7 +123,6 @@
                               </c:otherwise>
                            </c:choose>
                         </c:forEach>
-
                         <c:choose>
                            <c:when test="${result.pager.endPage != result.pager.totalPage }">
                               <a
@@ -143,20 +135,10 @@
                            </c:otherwise>
                         </c:choose>
                      </div>
-
-
-
-
                      <a href="${pageContext.request.contextPath}/notice/write" class="btn_right">
                   <button class="btn">글쓰기</button>
                </a>
-            
-            
             </div>
-            
-            
-
-
          </div><!-- /notice_content -->
       </div>   <!-- /py-10 -->
     </div>   <!-- /container -->
@@ -190,9 +172,6 @@
         });
       */
    </script>
-
-
-
 
 </body>
 </html>

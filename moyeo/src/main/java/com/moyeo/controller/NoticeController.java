@@ -52,6 +52,7 @@ public class NoticeController {
 		return "notice/view";
 	}
 
+	/*
 	//공지사항 등록 폼  - GET (기존에 "/create" 대신 "/write"로 바꿈)
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String noticeWriteForm() {
@@ -62,15 +63,15 @@ public class NoticeController {
 	@RequestMapping(value="/addNotice", method = RequestMethod.POST)
 	public String addNoticePost(@ModelAttribute Notice notice, 
 			@RequestParam("noticeImgFile") MultipartFile noticeImgFile,
-			Model model, HttpSession session) throws IllegalStateException, IOException {
+			Model model) throws IllegalStateException, IOException {
 
-		/*
+		
       if(noticeImgFile.isEmpty()) {
          //이미지 파일이 업로드되지 않은 경우 처리
          model.addAttribute("message","파일이 업로드되지 않았습니다.");
          return "redirect:/notice/";
       }
-		 */
+		 
 
 		//전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
 		String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
@@ -101,7 +102,7 @@ public class NoticeController {
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
 	public String updateNoticePOST(@ModelAttribute Notice notice, 
 			@RequestParam("noticeImgFile") MultipartFile noticeImgFile,
-			Model model, HttpSession session, RedirectAttributes rttr) throws IllegalStateException, IOException {
+			Model model, RedirectAttributes rttr) throws IllegalStateException, IOException {
 
 		// 이미지 파일이 업로드되었는지 확인
 		if (!noticeImgFile.isEmpty()) {
@@ -127,5 +128,5 @@ public class NoticeController {
 		noticeService.deleteNotice(noticeIdx);
 		return "redirect:/notice/";
 	}
-
+*/
 }

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>  
 <!DOCTYPE html>
 <html lang="en">
   
@@ -97,8 +98,9 @@
                        <button type="button" id="cancelBtn" class="btn">취 소</button>
                        <button id="modifyBtn" class="btn enroll_btn">수 정</button>
                    </div>
+                   <sec:csrfInput/>
                </form>
-]
+
    
                
             </div>
