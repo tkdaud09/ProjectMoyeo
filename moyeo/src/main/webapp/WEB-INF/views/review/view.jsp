@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
     
@@ -76,8 +76,15 @@
 						<div class="border_btn">
 							<form method="get" id="linkForm">	
 								<button class="list_btn" type="button" id="listBtn">목록</button>
+								<sec:authorize access="isAuthenticated()">
+								<sec:authorize access="hasRole('ROLE_ADMIN')" var="adminRole"/>
+								<sec:authentication property="principal" var="pinfo"/>	
+								<c:if test="${adminRole || pinfo.id eq review.userinfoId}">
 								<button class="list_btn sp" type="button" id="modifyBtn">수정</button>
-								<button class="list_btn sp" type="button" id="removeBtn">삭제</button>
+								<button class="list_btn sp" type="button" id="removeBtn">삭제</button>	
+								</c:if>					
+							<sec:csrfInput/>
+							</sec:authorize>
 							</form>
 						</div>
 					</div>

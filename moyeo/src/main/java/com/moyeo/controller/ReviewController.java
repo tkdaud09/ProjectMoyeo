@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.HtmlUtils;
 
 import com.moyeo.dto.Review;
+import com.moyeo.security.CustomUserDetails;
 import com.moyeo.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -41,9 +43,14 @@ public class ReviewController {
  
 	// 리뷰 작성 페이지로 이동(GET 요청)
     @RequestMapping(value = "/write", method = RequestMethod.GET)
-    public String write(Model model) {
-        List<String> packageTitles = reviewService.getAllPackageTitles(); //패키지 타이틀
+    public String write(Model model, Authentication authentication) {
+        CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal(); 
+        
+    	List<String> packageTitles = reviewService.getAllPackageTitles(); //패키지 타이틀
+    	
         model.addAttribute("packageTitles", packageTitles);
+        model.addAttribute("userinfo",userinfo);
+        
         return "review/write";
     }
 	
@@ -116,19 +123,22 @@ public class ReviewController {
 	    return "review/view";
 	}
 
-
-	
-
 	 
 	// 리뷰 수정 페이지로 이동(GET 요청)
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public String modify(@RequestParam Map<String, Object> map, Model model) {
-	    int reviewIdx = Integer.parseInt((String) map.get("reviewIdx"));
-	    model.addAttribute("review", reviewService.getselectReviewByIdx(reviewIdx));
+	public String modify(@RequestParam Map<String, Object> map, Model model, Authentication authentication) {
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal(); 
+        model.addAttribute("userinfo",userinfo);
+		
+		int reviewIdx = Integer.parseInt((String) map.get("reviewIdx"));
+		Review review = reviewService.getselectReviewByIdx(reviewIdx);
+	    model.addAttribute("review", review);
 
 	    // 패키지 타이틀 목록을 가져와서 모델에 추가
 	    List<String> packageTitles = reviewService.getAllPackageTitles();
 	    model.addAttribute("packageTitles", packageTitles);
+	    
+	    model.addAttribute("selectedPackage",review.getPackTitle());
 
 	    model.addAttribute("search", map);
 	    return "review/modify";
@@ -141,41 +151,40 @@ public class ReviewController {
 	// 리뷰 수정 처리(POST 요청)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modify(@ModelAttribute Review review, @RequestParam("reviewImgFile") MultipartFile reviewImgFile,
-	                    @RequestParam Map<String, Object> map) { 
+			@RequestParam Map<String, Object> map) { 
 
-	    review.setReviewTitle(HtmlUtils.htmlEscape(review.getReviewTitle()));
-	    review.setReviewContent(HtmlUtils.htmlEscape(review.getReviewContent()));
-	    
-	    // 이미지 파일이 업로드되었는지 확인
-	    if (!reviewImgFile.isEmpty()) {
-	        // 파일이 업로드된 경우
-	        String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
-	        String uploadNotice = UUID.randomUUID().toString() + "-" + reviewImgFile.getOriginalFilename();
-	        review.setReviewImg(uploadNotice);
-	        try {
-	            reviewImgFile.transferTo(new File(uploadDirectory, uploadNotice));
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            // 파일 업로드 중 오류 처리
-	            return "errorPage"; // 오류 페이지로 리다이렉트
-	        }
-	    } else {
-	        // 파일이 업로드되지 않은 경우, 기존 이미지 경로를 유지
-	        review.setReviewImg(reviewService.getselectReviewByIdx(review.getReviewIdx()).getReviewImg());
-	    }
+		review.setReviewTitle(HtmlUtils.htmlEscape(review.getReviewTitle()));
+		review.setReviewContent(HtmlUtils.htmlEscape(review.getReviewContent()));
 
-	    reviewService.modifyReview(review);
+		// 이미지 파일이 업로드되었는지 확인
+		if (!reviewImgFile.isEmpty()) {
+			// 파일이 업로드된 경우
+			String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
+			String uploadNotice = UUID.randomUUID().toString() + "-" + reviewImgFile.getOriginalFilename();
+			review.setReviewImg(uploadNotice);
+			try {
+				reviewImgFile.transferTo(new File(uploadDirectory, uploadNotice));
+			} catch (IOException e) {
+				e.printStackTrace();
+				// 파일 업로드 중 오류 처리
+				return "errorPage"; // 오류 페이지로 리다이렉트
+			}
+		} else {
+			// 파일이 업로드되지 않은 경우, 기존 이미지 경로를 유지
+			review.setReviewImg(reviewService.getselectReviewByIdx(review.getReviewIdx()).getReviewImg());
+		}
 
-	    String pageNum = (String) map.get("pageNum");
-	    String column = (String) map.get("column");
-	    String keyword = (String) map.get("keyword");
-	    return "redirect:/review/view?reviewIdx=" + review.getReviewIdx() + "&pageNum=" + pageNum
-	            + "&column=" + column + "&keyword=" + keyword;
+		reviewService.modifyReview(review);
+
+		String pageNum = (String) map.get("pageNum");
+		String column = (String) map.get("column");
+		String keyword = (String) map.get("keyword");
+		return "redirect:/review/view?reviewIdx=" + review.getReviewIdx() + "&pageNum=" + pageNum
+				+ "&column=" + column + "&keyword=" + keyword;
 	}
 
-	
-	
-	
+
+
 	
 	
 	

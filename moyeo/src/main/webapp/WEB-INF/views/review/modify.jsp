@@ -74,17 +74,14 @@
 				</div>
 				<input type="hidden" id="reviewStar" name="reviewStar" value="${review.reviewStar}" required>
 
-
-								
-
-
 				<p>패키지 상품</p>
-				<select name="packTitle" required>
-				    <option value="">선택</option>
-				    <c:forEach var="title" items="${packageTitles}">
-				        <option value="${title}" <c:if test="${title eq review.packTitle}">selected</c:if>>${title}</option>
-				    </c:forEach>
+					<select name="packTitle" required>
+    				<option value="">선택</option>
+    				<c:forEach var="title" items="${packageTitles}">
+        				<option value="${title}" <c:if test="${title eq selectedPackage}">selected</c:if>>${title}</option>
+    				</c:forEach>
 				</select>
+
 				
 			    
 			    
