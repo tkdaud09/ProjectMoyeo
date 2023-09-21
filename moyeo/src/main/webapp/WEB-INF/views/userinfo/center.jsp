@@ -92,7 +92,9 @@
    
 </div>  
    
-   
+   	<div class="c_con2">
+      <h3 class="c_con1_tit sp"><a href="${pageContext.request.contextPath}/qa/list">1:1문의 게시판 바로가기</a></h3>
+    </div>
    
    <div class="c_con2">
       <h3 class="c_con1_tit sp">자주 묻는 질문 (FAQ)</h3>
@@ -119,35 +121,24 @@
         서비스 개선을 위해 여러분의 의견이 필요합니다. <a href="javascript:void(0)" onclick="openModal()">여기</a>를 클릭하여 설문조사에 참여해 주세요.
     </p>
     
-    <!-- 설문조사 모달 -->
-    <div id="surveyModal" class="modal">
-        <div class="modal-content">
-            <h4>설문조사</h4>
-            <form action="#" method="post" onsubmit="return displayInProgress();">
-                <label for="title">제목:</label>
-                <input type="text" id="title" name="title"><br>
-
-                <label for="content">내용:</label><br>
-                <textarea id="content" name="content"></textarea><br>
-
-                <input type="submit" value="보내기">
-            </form>
-            <button onclick="closeModal()">닫기</button>
-        </div>
-    </div>
-</div>
-
-</div>
-
-
-
-
+		    <!-- 설문조사 모달 -->
+		    <div id="surveyModal" class="modal">
+		        <div class="modal-content">
+		            <h4>설문조사</h4>
+		            <form action="#" method="post" onsubmit="return displayInProgress();">
+		                <label for="title">제목:</label>
+		                <input type="text" id="title" name="title"><br>
+		                <label for="content">내용:</label><br>
+		                <textarea id="content" name="content"></textarea><br>		
+		                <input type="submit" value="보내기">
+		            </form>
+		            <button onclick="closeModal()">닫기</button>
+		        </div>
+		    </div>
+		</div>
+	</div>
 </div>
 </div>
 </section>
-
-
-
-
 </body>
 </html>
