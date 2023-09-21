@@ -71,12 +71,12 @@ public class NoticeController {
 			Model model) throws IllegalStateException, IOException {
 
 		
-      if(noticeImgFile.isEmpty()) {
+      /*if(noticeImgFile.isEmpty()) {
          //이미지 파일이 업로드되지 않은 경우 처리
          model.addAttribute("message","파일이 업로드되지 않았습니다.");
          return "redirect:/notice/";
       }
-		 
+		 */
 
 		//전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
 		String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
