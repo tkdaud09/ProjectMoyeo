@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>   
 <!DOCTYPE html>
-<html >
-  
-
+<html>
 <head>
 	 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css" >
 	 
@@ -49,40 +47,28 @@
 				
 				<div class="login_button_wrap ">
 					<input type="button" class="confirm_button btn2" value="확인">
-					<%--<button class="btn1" onclick="goBack()">취소</button> --%>
 					<button type="button" class="btn1" id="mypage">취소</button>
 				</div>			
 			</div>
-			
+			<sec:csrfInput/>
 		</form>
-		
-		
-		
 	</div>
-
 </div>
 </section>
 
 <script>
-
-
 	/* 확인 버튼 클릭 메서드 */
 	$(".confirm_button").click(function(){	
-		//alert("확인 버튼 작동");
-		
+	
 		/* 로그인 메서드 서버 요청 */
 		$("#login_form").attr("action", "pwCheck");
 		$("#login_form").submit();
 	});
 	
-	
-	function goBack() {
-        // 이전 페이지로 돌아가기
-        window.history.back();
-    }
-	
-	
-
+	/* 취소 버튼 클릭 메서드 */
+	document.getElementById('mypage').addEventListener('click', function() {
+	    window.history.back(); 
+	});
 </script>
 
 </body>

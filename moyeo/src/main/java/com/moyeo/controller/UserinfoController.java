@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ import com.moyeo.dto.Review;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.LoginAuthFailException;
 import com.moyeo.exception.UserinfoNotFoundException;
+import com.moyeo.security.CustomUserDetails;
 import com.moyeo.service.MailSendService;
 import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.QaService;
@@ -47,16 +49,16 @@ public class UserinfoController {
 
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
-	
+
 	@Autowired
 	private PackageHeartService packageHeartService;
-	
+
 	@Autowired
 	private QaService qaService;
-	
+
 	@Autowired
 	private ReviewService reviewService;
-	
+
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String joinGET(Model model) {
@@ -66,9 +68,8 @@ public class UserinfoController {
 
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinPOST(@Valid @ModelAttribute("Userinfo") Userinfo userinfo
-								, @RequestParam("userinfoRole") String userinfoRole  
-								, BindingResult bindingResult) throws Exception {
+	public String joinPOST(@Valid @ModelAttribute("Userinfo") Userinfo userinfo,
+			@RequestParam("userinfoRole") String userinfoRole, BindingResult bindingResult) throws Exception {
 		if (bindingResult.hasErrors()) {// 유효성 검사 실패
 			logger.info(bindingResult.getAllErrors().get(0).getDefaultMessage());
 			return "userinfo/join"; // 유효성 검사 실패 시 다시 회원가입 페이지로
@@ -124,62 +125,53 @@ public class UserinfoController {
 	/* 로그인 */
 
 	// 로그인 페이지 이동
+	/*
+	 * @RequestMapping(value = "/login", method = RequestMethod.GET) public String
+	 * loginGET(Authentication authentication) { CustomUserDetails loginUser =
+	 * (CustomUserDetails) authentication.getPrincipal();
+	 * 
+	 * 
+	 * return "userinfo/login"; }
+	 */
+
+	// 로그인 페이지 이동
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginGET(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+	public String loginGET() {
 
 		return "userinfo/login";
 	}
 
 	// 로그인
 	/*
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session)
-			throws Exception {
-
-		session.setAttribute("userinfoId", userinfo.getId());
-
-		Userinfo lto = userinfoservice.userLogin(userinfo);
-
-		if (lto != null) {
-			if (lto.getStatus() == 3) {
-				// 탈퇴 회원은 로그인 차단
-				rttr.addFlashAttribute("result", 0);
-				return "redirect:/user/login";
-			} else if (lto.getStatus() == 2) {
-				// 휴면 계정은 활성화 요구 페이지로 바로 이동
-				return "redirect:/user/dormantAccount";
-			}
-
-			String rawPw = userinfo.getPw();
-			String encodePw = lto.getPw();
-
-			if (pwEncoder.matches(rawPw, encodePw)) {
-				lto.setPw("");
-				session.setAttribute("userinfo", lto);
-				userinfoservice.updateUserLogindate(lto.getId());
-				return "redirect:/";
-			} else {
-				rttr.addFlashAttribute("result", 0);
-				return "redirect:/user/login";
-			}
-		} else {
-			rttr.addFlashAttribute("result", 0);
-			return "redirect:/";
-		}
-	}
-	*/
+	 * @RequestMapping(value = "/login", method = RequestMethod.POST) public String
+	 * loginPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr,
+	 * HttpSession session) throws Exception {
+	 * 
+	 * session.setAttribute("userinfoId", userinfo.getId());
+	 * 
+	 * Userinfo lto = userinfoservice.userLogin(userinfo);
+	 * 
+	 * if (lto != null) { if (lto.getStatus() == 3) { // 탈퇴 회원은 로그인 차단
+	 * rttr.addFlashAttribute("result", 0); return "redirect:/user/login"; } else if
+	 * (lto.getStatus() == 2) { // 휴면 계정은 활성화 요구 페이지로 바로 이동 return
+	 * "redirect:/user/dormantAccount"; }
+	 * 
+	 * String rawPw = userinfo.getPw(); String encodePw = lto.getPw();
+	 * 
+	 * if (pwEncoder.matches(rawPw, encodePw)) { lto.setPw("");
+	 * session.setAttribute("userinfo", lto);
+	 * userinfoservice.updateUserLogindate(lto.getId()); return "redirect:/"; } else
+	 * { rttr.addFlashAttribute("result", 0); return "redirect:/user/login"; } }
+	 * else { rttr.addFlashAttribute("result", 0); return "redirect:/"; } }
+	 */
 
 	// 로그아웃 후 메인 페이지로 이동
 	/*
-	@RequestMapping(value = "/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-
-		return "redirect:/";
-	}
-	*/
+	 * @RequestMapping(value = "/logout") public String logout(HttpSession session)
+	 * { session.invalidate();
+	 * 
+	 * return "redirect:/"; }
+	 */
 
 	/*
 	 * 메인페이지 이동
@@ -189,7 +181,7 @@ public class UserinfoController {
 	 */
 
 	/* 아이디 찾기 */
- 
+
 	// 아이디 찾기 메인으로 이동
 	@RequestMapping(value = "/findId", method = RequestMethod.GET)
 	public String findIdForm() {
@@ -258,7 +250,10 @@ public class UserinfoController {
 		}
 		return newPassword.toString();
 	}
-
+	
+	
+	/* 관리자 */
+	
 	// 사용자 정보, 마지막 로그인 시간 가져오기
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String userGET(Model model, HttpSession session) {
@@ -281,27 +276,31 @@ public class UserinfoController {
 
 	/* 마이페이지 */
 
-	//마이페이지 메인으로 이동
+	// 마이페이지 메인으로 이동
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypageGET(HttpSession session, Model model) {
+	public String mypageGET(Authentication authentication, Model model) {
 
-		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
 
 		String userinfoIdVal = userinfo.getId();
 		System.out.println("아이디 값 = " + userinfoIdVal);
 
 		List<Pack> heartList = packageHeartService.getUserHeartListById(userinfo.getId());
 		model.addAttribute("heartList", heartList);
-
+		model.addAttribute("userinfo", userinfo);
 		return "mypage/main";
 	}
 
 	// 정보 수정 페이지 - GET
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	   public String modifyGET() {
-
-	      return "mypage/modify";
-	   }
+	public String modifyGET(Authentication authentication, Model model) {
+		
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+		
+		model.addAttribute("userinfo", userinfo);
+		
+		return "mypage/modify";
+	}
 
 	// 정보 수정 페이지 - POST
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
@@ -314,12 +313,17 @@ public class UserinfoController {
 
 	// 회원정보 변경 확인 페이지 (비밀번호 확인) - GET
 	@RequestMapping(value = "/pwCheck", method = RequestMethod.GET)
-	public String pwCheckGET() {
-
+	public String pwCheckGET(Authentication authentication, Model model) {
+		
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+		
+		model.addAttribute("userinfo", userinfo);
+		
 		return "mypage/pwCheck";
 	}
 
 	// 회원정보 변경 확인 페이지 (비밀번호 확인) - POST
+	/*
 	@RequestMapping(value = "/pwCheck", method = RequestMethod.POST)
 	public String pwCheckPOST(@ModelAttribute Userinfo userinfo, RedirectAttributes rttr, HttpSession session)
 			throws LoginAuthFailException {
@@ -346,6 +350,36 @@ public class UserinfoController {
 			return "redirect:/user/pwCheck";
 		}
 	}
+	*/
+	
+	// 회원정보 변경 확인 페이지 (비밀번호 확인) - POST
+	@RequestMapping(value = "/pwCheck", method = RequestMethod.POST)
+	public String pwCheckPOST(@ModelAttribute Userinfo userinfo
+							, RedirectAttributes rttr
+							, Authentication authentication) throws LoginAuthFailException, UserinfoNotFoundException {
+		
+		CustomUserDetails userinfoVal = (CustomUserDetails) authentication.getPrincipal();
+		
+		Userinfo lto = userinfoservice.getUserinfoById(userinfoVal.getId());
+
+		if (lto == null) {
+			throw new LoginAuthFailException("유저 정보가 없습니다.");
+		}
+
+		String birth = lto.getBirth().substring(0, 10);
+		lto.setBirth(birth);
+
+		String rawPw = userinfo.getPw();
+		String encodePw = lto.getPw();
+
+		if (pwEncoder.matches(rawPw, encodePw)) {
+			userinfoservice.updateUserLogindate(lto.getId());
+			return "redirect:/user/modify";
+		} else {
+			rttr.addFlashAttribute("result", 0);
+			return "redirect:/user/pwCheck";
+		}
+	}
 
 	// 비밀번호 변경 - GET
 	@RequestMapping(value = "/modifypw", method = RequestMethod.GET)
@@ -354,6 +388,7 @@ public class UserinfoController {
 	}
 
 	// 비밀번호 변경 - POST
+	/*
 	@RequestMapping(value = "/modifypw", method = RequestMethod.POST)
 	public String modiftpwPOST(HttpSession session, Userinfo userinfo, @RequestParam String updatePw, Model model)
 			throws LoginAuthFailException, UserinfoNotFoundException {
@@ -374,6 +409,32 @@ public class UserinfoController {
 		lto.setPw(pwEncoder.encode(updatePw));
 		userinfoservice.modifyPw(lto);
 		session.setAttribute("userinfo", lto);
+		return "redirect:/user/mypage";
+	}
+	*/
+	
+	// 비밀번호 변경 - POST
+	@RequestMapping(value = "/modifypw", method = RequestMethod.POST)
+	public String modiftpwPOST(Authentication authentication, Userinfo userinfo, @RequestParam String updatePw, Model model)
+			throws LoginAuthFailException, UserinfoNotFoundException {
+		
+		CustomUserDetails userinfoVal = (CustomUserDetails) authentication.getPrincipal();
+		
+		Userinfo lto = userinfoservice.getUserinfoById(userinfoVal.getId());
+
+		if (lto == null) {
+			throw new UserinfoNotFoundException("User not found");
+		}
+
+		String rawPw = userinfo.getPw();
+		String encodePw = lto.getPw();
+		
+		if (!pwEncoder.matches(rawPw, encodePw)) {
+			throw new LoginAuthFailException("Incorrect password");
+		}
+
+		lto.setPw(pwEncoder.encode(updatePw));
+		userinfoservice.modifyPw(lto);
 		return "redirect:/user/mypage";
 	}
 
@@ -425,35 +486,39 @@ public class UserinfoController {
 			throw new UserinfoNotFoundException("회원정보를 찾을 수 없습니다.");
 		}
 	}
-	
-	/* 마이페이지  추가 */
-	
-	//작성한 리뷰 페이지로 이동
+
+	/* 마이페이지 추가 */
+
+	// 작성한 리뷰 페이지로 이동
 	@RequestMapping(value = "/myReview", method = RequestMethod.GET)
-	public String myReviewGET(HttpSession session, Model model) {
-		
-		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+	public String myReviewGET(Authentication authentication, Model model) {
+
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+
 		String userinfoIdVal = userinfo.getId();
-		
+
 		List<Review> reviewList = reviewService.getUserReviewListById(userinfoIdVal);
-		
+
+		model.addAttribute("userinfo", userinfo);
 		model.addAttribute("reviewList", reviewList);
-		
+
 		return "mypage/my_review";
 	}
-	
-	//작성한 1:1 문의 페이지로 이동
+
+	// 작성한 1:1 문의 페이지로 이동
 	@RequestMapping(value = "/myQa", method = RequestMethod.GET)
-	public String myQaGET(HttpSession session, Model model) {
-		
-		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+	public String myQaGET(Authentication authentication, Model model) {
+
+		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+
 		String userinfoIdVal = userinfo.getId();
-		
+
 		List<Qa> qaList = qaService.getUserQaListById(userinfoIdVal);
-		
+
+		model.addAttribute("userinfo", userinfo);
 		model.addAttribute("qaList", qaList);
 
 		return "mypage/my_qa";
 	}
-	
+
 }

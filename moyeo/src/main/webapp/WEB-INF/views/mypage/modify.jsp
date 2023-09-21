@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
 <html>
 
@@ -98,6 +99,7 @@
             </label> 
             <br><br>
             <input type="button" class="join_button" value="수정완료">
+            <sec:csrfInput/>
          </form>
       </div>
    </div>
@@ -138,6 +140,16 @@
       var phoneCheck = false;
       
       $(document).ready(function(){
+    	  var csrfHeaderName="${_csrf.headerName}";
+    	  var csrfTokenValue="${_csrf.token}";
+    	     
+    	  //CSRF 토큰 전달
+    	  $(document).ajaxSend(function(e, xhr) {
+    	     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    	  }); 
+    	  
+    	  
+    	  
          $(".join_button").on("click", function(){
             address();
             
@@ -174,10 +186,12 @@
                   $('.final_phone_ck').css('display', 'none');
                   phoneCheck = true;
              }
-       
+       	
+             /*
              alert("emailCheck = " + emailCheck);
              alert("mailnumCheck = " + mailnumCheck);
              alert("phoneCheck = " + phoneCheck);
+             */
              
                /* 최종 유효성 검사 */
               if (emailCheck && mailnumCheck && phoneCheck) {

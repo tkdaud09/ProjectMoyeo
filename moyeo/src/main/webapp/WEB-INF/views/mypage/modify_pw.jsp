@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +9,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css" >
 
 <style>
-
 input[type="password"] {
    width: 100%;
    padding: 8px;
    border: 1px solid #ccc;
    border-radius: 4px;
 }
-
-
 </style>
 
 <script>
@@ -97,8 +95,6 @@ $('.pw_input').on("input", function() {
         
     }
 });
-
-
 </script>
 
 </head>
@@ -107,49 +103,44 @@ $('.pw_input').on("input", function() {
 	  <div class="container">
 		<div class="py-10">
 		<div class="join_form_section">
+
+	      <h2 class="title_f">비밀번호 변경</h2>
+	      <form id="modifypw_form" action="modifypw" method="post">
+	         <input type="hidden" class="id_input" name="id" value="${userinfo.id }">
+	         <div class="form-group">
+	            <label for="currentPw">현재 비밀번호</label> <input type="password"
+	               class="currentPw" id="currentPw" name="pw">
+	            <span class="final_current_ck error">비밀번호를 입력해주세요.</span>
+	         </div>
+	         
+	         <c:if test = "${result == 0 }">
+	               <div class = "login_warn">사용자 비밀번호를 잘못 입력하셨습니다.</div>
+	         </c:if>
+	         
+	         <div class="form-group">
+	            <label for="pw">새 비밀번호</label> <input type="password"
+	               class="pw_input" id="pw" name="updatePw"> <span
+	               class="final_pw_ck error">비밀번호를 입력해주세요.</span> <span class="pw_input_re error">8~16자의
+	               영문 대소문자 숫자 및 특수문자를 최소 하나씩 입력해주세요.</span> <span class="pw_input_re2 error">사용
+	               가능한 비밀번호 입니다.</span>
+	         </div>
+	         <div class="form-group">
+	            <label for="pw2">비밀번호 재확인</label> <input type="password"
+	               class="pwck_input" id="pw2" name="updatePw2"> <span
+	               class="final_pwck_ck error">비밀번호 재확인을 입력해주세요.</span> <span
+	               class="pwck_input_re_1 error">비밀번호가 일치합니다.</span> <span
+	               class="pwck_input_re_2 error">비밀번호가 일치하지 않습니다.</span>
+	         </div>
+	         <div class="form-group fg_btn">
+	           <button type="button" class="btn btn1" id="update">변경</button>
+	           <button type="button" class="btn btn2" id="mypage">이전</button>
+	        </div>
+	        <sec:csrfInput/>
+	      </form>
       
-      
-      
-      <h2 class="title_f">비밀번호 변경</h2>
-      <form id="modifypw_form" action="modifypw" method="post">
-         <input type="hidden" class="id_input" name="id" value="${userinfo.id }">
-         <div class="form-group">
-            <label for="currentPw">현재 비밀번호</label> <input type="password"
-               class="currentPw" id="currentPw" name="pw">
-            <span class="final_current_ck error">비밀번호를 입력해주세요.</span>
-         </div>
-         
-         <c:if test = "${result == 0 }">
-               <div class = "login_warn">사용자 비밀번호를 잘못 입력하셨습니다.</div>
-         </c:if>
-         
-         <div class="form-group">
-            <label for="pw">새 비밀번호</label> <input type="password"
-               class="pw_input" id="pw" name="updatePw"> <span
-               class="final_pw_ck error">비밀번호를 입력해주세요.</span> <span class="pw_input_re error">8~16자의
-               영문 대소문자 숫자 및 특수문자를 최소 하나씩 입력해주세요.</span> <span class="pw_input_re2 error">사용
-               가능한 비밀번호 입니다.</span>
-         </div>
-         <div class="form-group">
-            <label for="pw2">비밀번호 재확인</label> <input type="password"
-               class="pwck_input" id="pw2" name="updatePw2"> <span
-               class="final_pwck_ck error">비밀번호 재확인을 입력해주세요.</span> <span
-               class="pwck_input_re_1 error">비밀번호가 일치합니다.</span> <span
-               class="pwck_input_re_2 error">비밀번호가 일치하지 않습니다.</span>
-         </div>
-         <div class="form-group fg_btn">
-           <button type="button" class="btn btn1" id="update">변경</button>
-           <button type="button" class="btn btn2" id="mypage">이전</button>
-        </div>
-      </form>
-      
-   </div>
-   </div>
-   </div>
+		</div>
+		</div>
+	</div>
    </section>
-   
-   
-   
-   
 </body>
 </html>

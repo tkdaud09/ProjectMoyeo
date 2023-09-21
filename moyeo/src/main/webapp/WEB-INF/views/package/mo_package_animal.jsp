@@ -37,8 +37,8 @@
                
                          
                             <ul class="pack_date">
-	                            <li>${pack.packStartDate}</li>
-	                            <li>${pack.packEndDate}</li>
+                               <li>${pack.packStartDate}</li>
+                               <li>${pack.packEndDate}</li>
                             </ul>
                           
    
@@ -94,18 +94,18 @@
                   class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01">
                   예약하기
                 </button>
-           		<input type="hidden" name="packIdx" value="${packIdx}" />
+                 <input type="hidden" name="packIdx" value="${packIdx}" />
 
-				<button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01" value="장바구니"onclick="showAlert()">
-					장바구니
-				</button>
-				
-				<!-- 찜 기능 -->
-				<button type="button" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn02" id="packageHeartBtn">
-				    <img id="heartImage" src="${pageContext.request.contextPath}/assets/img/package_heart.png" alt="하트 이미지" >
-				</button>
-				<input type="hidden" name="userinfoId" value="${userinfo.id}">
-				<input type="hidden" name="packHeartIdx" value="${packHeartList.packHeartIdx}" id="packHeartIdx">
+            <button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01" value="장바구니"onclick="showAlert()">
+               장바구니
+            </button>
+            
+            <!-- 찜 기능 -->
+            <button type="button" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn02" id="packageHeartBtn">
+                <img id="heartImage" src="${pageContext.request.contextPath}/assets/img/package_heart.png" alt="하트 이미지" >
+            </button>
+            <input type="hidden" name="userinfoId" value="${userinfo.id}">
+            <input type="hidden" name="packHeartIdx" value="${packHeartList.packHeartIdx}" id="packHeartIdx">
 
            </div><!-- //pack_option_btn -->
 
@@ -116,8 +116,6 @@
         </form>
       </div>
     
- 
-      
      <!-- 이미지 출력 -->
       <div class="col-md-7 col-lg-8">
         <div id="package-slider" class="owl-carousel owl-theme package-slider">
@@ -133,22 +131,14 @@
             <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/upload/${pack.packSlideImg3}" src="${pageContext.request.contextPath}/assets/img/upload/${pack.packSlideImg3}" alt="image">
           </div>
         </div>
-
-      
-
       <div class="package_con">
-         <div class="pack_img1">
-
-         
+         <div class="pack_img1">         
          <img src="<c:url value='/assets/img/upload/${pack.packCalendarImg}'/>" alt="">   
          <img src="<c:url value='/assets/img/upload/${pack.packContentImg1}'/>" alt=""> 
-         </div>
-          
+         </div>         
       </div>
-      
-      
-      
-	<!-- -----------------------------------후기----------------------- -->
+     
+   <!-- -----------------------------------후기----------------------- -->
         <div class="mb-7">
 
           <div class="d-flex align-items-center mb-6">
@@ -165,7 +155,7 @@
             </h3>
           </div>
 
-	<c:forEach var="review" items="${latestReviews}">
+   <c:forEach var="review" items="${latestReviews}">
           <div class="media mb-6">
             <a class="me-6 pack_review" href="<c:url value='/review/view?reviewIdx=${review.reviewIdx}'/>"> <!-- 사진 -->
               <img class="rounded" src="<c:url value='/assets/img/upload/${review.reviewImg}'/>" alt="">
@@ -177,12 +167,8 @@
               <p class="mb-0">${review.userinfoId} / <span><fmt:formatDate value="${review.reviewRegdate}" pattern="yyyy-MM-dd" /></span></p>
             </div>
           </div>
-	</c:forEach>
-
-
+   </c:forEach>
         </div>
-
-       
       </div>
     </div>
   </div>
@@ -232,110 +218,109 @@
      
    /*패키지삭제*/
    $("#removeBtn").click(function() {
-		if(confirm("게시글을 삭제 하시겠습니까?")) {
-			$("#linkForm").attr("action", "<c:url value="/admin/removePackage"/>").submit();
-		}
-	});
+      if(confirm("게시글을 삭제 하시겠습니까?")) {
+         $("#linkForm").attr("action", "<c:url value="/admin/removePackage"/>").submit();
+      }
+   });
    
    
     /* 찜 기능 구현 */
-	
-	// 클릭한 하트의 상태를 나타내는 변수
-	var isHeartAdded = ${isHeartAdded}; 	
-	var isLoggedin = ${isLoggedin};
-	
-	// 하트 이미지 클릭 시
-	document.getElementById('packageHeartBtn').addEventListener('click',function (){
-		if (!isLoggedin) {
-	          // 로그인하지 않은 경우
-	          alert("로그인을 해주세요.");
-	          return;
-	      }
-		
-		 var csrfHeaderName="${_csrf.headerName}";
-	      var csrfTokenValue="${_csrf.token}";
-	         
-	      //ajaxSend() 메소드를 호출하여 페이지에서 Ajax 기능으로 요청하는 모든 웹프로그램에게 CSRF 토큰 전달
-	      // => Ajax 요청시 beforeSend 속성을 설정 불필요
-	      $(document).ajaxSend(function(e, xhr) {
-	         xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-	      });
-	      
-	      
-	      
-	    isHeartAdded = !isHeartAdded; // 상태 토글
+   
+   // 클릭한 하트의 상태를 나타내는 변수
+   var isHeartAdded = ${isHeartAdded};    
+   var isLoggedin = ${isLoggedin}; //로그인 여부 확인
+   
+   // 하트 이미지 클릭 시
+   document.getElementById('packageHeartBtn').addEventListener('click',function (){
+      if (!isLoggedin) {
+             // 로그인하지 않은 경우
+             alert("로그인을 해주세요.");
+             return;
+         }      
+      
+       var csrfHeaderName="${_csrf.headerName}";
+        var csrfTokenValue="${_csrf.token}";
+            
+         //ajaxSend() 메소드를 호출하여 페이지에서 Ajax 기능으로 요청하는 모든 웹프로그램에게 CSRF 토큰 전달
+         // => Ajax 요청시 beforeSend 속성을 설정 불필요
+         $(document).ajaxSend(function(e, xhr) {
+            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+         });
+         
+      
+       isHeartAdded = !isHeartAdded; // 상태 토글
 
-	    // 이미지 변경
-	    var heartImage = document.getElementById('heartImage');
-	    if (isHeartAdded) {
-	        heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart_red.png";
-	        addToWishlist(); // 찜 목록에 추가
-	    } else {
-	        heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart.png";
-	        removeFromWishlist(); // 찜 목록에서 삭제
-	    }
-	});
+       // 이미지 변경
+       var heartImage = document.getElementById('heartImage');
+       if (isHeartAdded) {
+           heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart_red.png";
+           addToWishlist(); // 찜 목록에 추가
+       } else {
+           heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart.png";
+           removeFromWishlist(); // 찜 목록에서 삭제
+       }
+   });
 
-	// 찜 목록에 추가하는 함수
-	function addToWishlist() {
-	    var packIdx = ${pack.packIdx};
-	    var userinfoId = "${userinfo.id}";
+   // 찜 목록에 추가하는 함수
+   function addToWishlist() {
+       var packIdx = ${pack.packIdx};
+       var userinfoId = "${userinfo.id}";
 
-	    $.ajax({
-	        url: "${pageContext.request.contextPath}/package/addToPackageHeartList",
-	        method: "POST",
-	        data: {
-	            packIdx: packIdx,
-	            userinfoId: userinfoId
-	        },
-	        success: function (response) {
-	        	isHeartAdded = true; // 찜이 추가되었으므로 상태를 true로 변경
-	            console.log("찜 목록에 추가되었습니다.");
-	        },
-	        error: function () {
-	            console.error("찜 목록 추가에 실패했습니다.");
-	        }
-	    });
-	}
+       $.ajax({
+           url: "${pageContext.request.contextPath}/package/addToPackageHeartList",
+           method: "POST",
+           data: {
+               packIdx: packIdx,
+               userinfoId: userinfoId
+           },
+           success: function (response) {
+              isHeartAdded = true; // 찜이 추가되었으므로 상태를 true로 변경
+               console.log("찜 목록에 추가되었습니다.");
+           },
+           error: function () {
+               console.error("찜 목록 추가에 실패했습니다.");
+           }
+       });
+   }
 
-	// 찜 목록에서 삭제하는 함수
-	function removeFromWishlist() {
-	    //var packHeartIdx = ${packHeartList.packHeartIdx};
-	    var packHeartIdx = document.getElementById("packHeartIdx").value
-	    var userinfoId = "${userinfo.id}";
+   // 찜 목록에서 삭제하는 함수
+   function removeFromWishlist() {
+       //var packHeartIdx = ${packHeartList.packHeartIdx};
+       var packHeartIdx = document.getElementById("packHeartIdx").value
+       var userinfoId = "${userinfo.id}";
 
-	    $.ajax({
-	        url: "${pageContext.request.contextPath}/package/removeFromPackageHeartList", 
-	        method: "POST",
-	        data: {
-	        	packHeartIdx: packHeartIdx,
-	            userinfoId: userinfoId
-	        },
-	        success: function (response) {
-	            console.log("찜 목록에서 삭제되었습니다.");
-	            isHeartAdded = false; // 찜이 삭제되었으므로 상태를 false로 변경
-	            updateHeartImage(); // 하트 이미지 업데이트
-	        },
-	        error: function () {
-	            console.error("찜 삭제에 실패했습니다.");
-	        }
-	    });
-	}
-	
-	// 하트 이미지 업데이트 함수
-	function updateHeartImage() {
-	    var heartImage = document.getElementById('heartImage');
-	    if (isHeartAdded) {
-	        heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart_red.png";
-	    } else {
-	        heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart.png";
-	    }
-	}
+       $.ajax({
+           url: "${pageContext.request.contextPath}/package/removeFromPackageHeartList", 
+           method: "POST",
+           data: {
+              packHeartIdx: packHeartIdx,
+               userinfoId: userinfoId
+           },
+           success: function (response) {
+               console.log("찜 목록에서 삭제되었습니다.");
+               isHeartAdded = false; // 찜이 삭제되었으므로 상태를 false로 변경
+               updateHeartImage(); // 하트 이미지 업데이트
+           },
+           error: function () {
+               console.error("찜 삭제에 실패했습니다.");
+           }
+       });
+   }
+   
+   // 하트 이미지 업데이트 함수
+   function updateHeartImage() {
+       var heartImage = document.getElementById('heartImage');
+       if (isHeartAdded) {
+           heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart_red.png";
+       } else {
+           heartImage.src = "${pageContext.request.contextPath}/assets/img/package_heart.png";
+       }
+   }
 
-	// 페이지 로드 시 초기 하트 이미지 설정
-	$(document).ready(function () {
-	    updateHeartImage();
-	});
+   // 페이지 로드 시 초기 하트 이미지 설정
+   $(document).ready(function () {
+       updateHeartImage();
+   });
    
    </script>
    
