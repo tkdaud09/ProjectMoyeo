@@ -1,10 +1,12 @@
 package com.moyeo.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.moyeo.dto.Diy;
+import com.moyeo.dto.Qa;
 
 
 @Service
@@ -28,5 +30,7 @@ public interface DiyService {
 	Map<String, Object> getMyDiyList(int pageNum, String userinfoId);
 	
 	Map<String, Object> getDiyList(int pageNum, int pageSize, String searchKeyword);
-
-}
+	
+	/*마이페이지*/
+	List<Diy> getUserDiyListById(String userinfoId);//유저별 Qa 목록 조회 - 페이징 X
+}	

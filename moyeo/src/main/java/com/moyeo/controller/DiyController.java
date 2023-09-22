@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ import com.moyeo.dto.Diy;
 import com.moyeo.dto.DiyLove;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.DiyNotFoundException;
+import com.moyeo.security.CustomUserDetails;
 import com.moyeo.service.DiyLoveService;
 import com.moyeo.service.DiyService;
 
@@ -83,7 +85,7 @@ public class DiyController {
 	   @RequestParam(value = "diyContent2ImgFile" ,required = false) MultipartFile diyContent2ImgFile,
 	   @RequestParam(value = "diyContent3ImgFile" ,required = false) MultipartFile diyContent3ImgFile,
 	   @RequestParam(value = "diyContent4ImgFile" ,required = false) MultipartFile diyContent4ImgFile,
-	   Model model, HttpSession session) throws IllegalStateException, IOException { 
+	   Model model,Authentication authentication) throws IllegalStateException, IOException { 
 		
 	   //전달파일을 저장하기 위한 서버 디렉토리의 시스템 경로 반환
 	   String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
@@ -111,7 +113,7 @@ public class DiyController {
 	   diyContent3ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent3));
 	   diyContent4ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent4));
 	   	   
-	   Userinfo userinfo=(Userinfo)session.getAttribute("userinfo");
+	   CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
 	   diy.setUserinfoId(userinfo.getId());
 		
 	   //테이블에 행 삽입
@@ -218,44 +220,3 @@ public class DiyController {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

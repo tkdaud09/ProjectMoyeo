@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-    
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
 <html lang="utf-8">
 <head><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script></head>
@@ -107,6 +107,7 @@
 	                            <button type="button" class="b1" id="orderButton">선택상품 주문</button>
 	                            <button type="button" class="b1" id="allorderButton">전체상품 주문</button>                      
 	                        </div>   
+	                        <sec:csrfInput/>
 	                        </form>	             
 	                        </div>
 	                </div>
@@ -121,8 +122,18 @@
     font-size: 18px; /* 원하는 폰트 크기로 조절하세요 */
     padding: 0px 10px; /* 원하는 여백 값으로 조절하세요 */
 }
+
 </style>
 	<script>
+	  var csrfHeaderName="${_csrf.headerName}";
+	  var csrfTokenValue="${_csrf.token}";
+	     
+	  //CSRF 토큰 전달
+	  $(document).ajaxSend(function(e, xhr) {
+	     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	  }); 
+	  
+	  
 	    document.getElementById('selectAllCheckbox').addEventListener('change', function () {
 	        var cartCheckboxes = document.getElementsByClassName('cartCheckbox');
 	        for (var i = 0; i < cartCheckboxes.length; i++) {
@@ -195,11 +206,5 @@
 	    });
 	    
 	</script>
-
-
-
-
-
-
   </body>
 </html>

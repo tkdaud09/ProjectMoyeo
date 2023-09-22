@@ -34,5 +34,7 @@ public interface DiyMapper {
 	//count 관리자
 	int selectDiyCount1(String selectKeyword);
 	List<Diy> selectDiyList1(Map<String, Object> map);
-
+	
+	/*마이페이지*/
+	List<Diy> selectUserDiyListById(String userinfoId);//아이디로 유저 정보 검색 - 페이징X
 }

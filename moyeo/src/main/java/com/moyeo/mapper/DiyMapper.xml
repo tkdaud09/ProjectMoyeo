@@ -382,5 +382,35 @@
       )
    </select>
    
+   <!-- 마이페이지 -->
+   
+   <!-- 아이디로 유저 검색 - 페이징 X -->
+   <select id="selectUserDiyListById" resultType="Diy">
+        SELECT 
+        	diy_idx
+        	,userinfo_id
+        	,diy_startdate
+        	,diy_enddate
+        	,diy_people
+        	,diy_loc
+        	,diy_price
+        	,diy_map
+        	,TO_CHAR(diy_regdate, 'yyyy-mm-dd')
+        	,TO_CHAR(diy_modifydate, 'yyyy-mm-dd')
+        	,love_count
+        	,diy_title
+        	,diy_introduction
+        	,diy_content1img
+        	,diy_content1
+        	,diy_content2img
+        	,diy_content2
+        	,diy_content3img
+        	,diy_content3
+        	,diy_content4img
+        	,diy_content4
+        FROM diy
+        WHERE userinfo_id = #{userinfoId}
+        ORDER BY diy_idx DESC
+	</select>
 
 </mapper>

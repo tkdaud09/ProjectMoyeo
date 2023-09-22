@@ -143,6 +143,8 @@ public class DiyServiceImpl implements DiyService {
 		return diyMap;
 	}
 
-
-
+	@Override
+	public List<Diy> getUserDiyListById(String userinfoId) {
+		return diyDao.selectUserDiyListById(userinfoId);
+	}
 }

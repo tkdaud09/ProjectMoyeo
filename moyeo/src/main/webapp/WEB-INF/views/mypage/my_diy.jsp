@@ -104,12 +104,12 @@
     	margin: -5px 20px;
     }
     
-    .qa_list {
+    .diy_list {
     max-height: 400px; /* 섹션의 최대 높이를 지정 */
     overflow-y: scroll; /* 세로 스크롤 바를 표시 */
 	}
 	
-	 .my-main {
+	.my-main {
 	   	text-decoration: none; /* 밑줄 제거 */
 	    color: black; /* 검정색으로 변경 */
     }
@@ -164,57 +164,39 @@
     </section>
     
     <section id="mypage">
-	    <h4>문의 내역</h4>
-	    <div class="qa_list border_list">
-	   		<table>
-					    <colgroup>
-					        <col width="10%">
-					        <col width="15%">
-					        <col width="35%">
-					        <col width="20%">
-					        <col width="20%">
-					    </colgroup>
-					    <tr>
-					        <td class="t1">번호</td>
-					        <td class="t1">문의유형</td>
-					        <td class="t1">제목</td>
-					        <td class="t1">작성일</td>
-					        <td class="t1">답변상태</td>
-					    </tr>
-					     <c:choose>
-			                <c:when test="${empty qaList}">
-			                    <tr>
-			                        <td colspan="5">작성된 문의내역이 없습니다.</td>
-			                    </tr>
-			                </c:when>
-			                <c:otherwise>
-						    <c:forEach var="qa" items="${qaList}">
-						        <tr>
-						            <td class="t2">${qa.qaIdx}</td>
-						            <td class="t2">${qa.qaOption}</td>
-						            <td class="t2">
-						                <a href="${pageContext.request.contextPath}/qa/detail/${qa.qaIdx}">
-						                    ${qa.qaTitle}
-						                </a>
-						            </td>
-						            <td class="t2">${qa.qaRegdate}</td>
-						            <td class="t2">
-									    <c:choose>
-									        <c:when test="${qa.qaReplyStatus == 1}">
-									        <span style="color: blue;">답변완료</span>
-									        </c:when>
-									        <c:otherwise>
-									            답변대기
-									        </c:otherwise>
-									    </c:choose>	
-									</td>
-						        </tr>
-						    </c:forEach>
-						  </c:otherwise>
-            			</c:choose>
-					</table>	
-		</div>
+    <h4>내가 작성한 DIY 내역</h4>
+    <div class="diy_list border_list">
+        <table>
+            <colgroup>
+                <col width="50%">
+                <col width="50%">
+            </colgroup>
+            <tr>
+                <td class="t1">제목</td>
+                <td class="t1">작성일</td>
+            </tr>
+            <c:choose>
+                <c:when test="${empty diyList}">
+                    <tr>
+                        <td colspan="3">작성된 DIY 글이 없습니다.</td>
+                    </tr>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="diy" items="${diyList}">
+                        <tr>
+                            <td class="t2">
+                                <a href="${pageContext.request.contextPath}/diy/diy_detail/${diy.diyIdx}">
+                                    ${diy.diyTitle}
+                                </a>
+                            </td>
+                            <td class="t2">${diy.diyRegdate}</td>
+                        </tr>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </table>
+    </div>
 	</section>
-</div>
+	</div>
 </body>
 </html>

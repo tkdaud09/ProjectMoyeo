@@ -104,7 +104,10 @@
     	margin: -5px 20px;
     }
     
-
+    .my-main {
+	   	text-decoration: none; /* 밑줄 제거 */
+	    color: black; /* 검정색으로 변경 */
+    }
 </style>
 </head>     
 
@@ -112,7 +115,7 @@
 
 
 <div class="my">
-	<h1>마이페이지</h1>
+	<h1><a href="${pageContext.request.contextPath}/user/mypage" class="my-main">마이페이지</a></h1>
 
 	<h1><u>${userinfo.name}</u>님, 안녕하세요!</h1>
 
@@ -136,6 +139,11 @@
             <li>
                 <input type="button" value="1:1 문의 내역"
                      onclick="location.href='${pageContext.request.contextPath}/user/myQa';">
+            </li>
+            
+            <li>
+                <input type="button" value="DIY"
+                     onclick="location.href='${pageContext.request.contextPath}/user/myDiy';">
             </li>
             
             <li>
@@ -173,17 +181,5 @@
 		</div>
 	</section>
 </div>
-
-	
-	
-	<script>
-		function removeMember() {
-			if (window.confirm("탈퇴하시겠습니까?")) {
-				location.href = "/user/remove";//수정필요
-			}
-		}
-	</script>
-	
-
 </body>
 </html>

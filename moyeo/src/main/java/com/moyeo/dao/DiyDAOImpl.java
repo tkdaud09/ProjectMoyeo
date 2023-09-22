@@ -88,5 +88,10 @@ public class DiyDAOImpl implements DiyDAO {
 		return sqlSession.getMapper(DiyMapper.class).selectDiyCount1(selectKeyword);
 	}
 
+	@Override
+	public List<Diy> selectUserDiyListById(String userinfoId) {
+		return sqlSession.getMapper(DiyMapper.class).selectUserDiyListById(userinfoId);
+	}
+
 
 }

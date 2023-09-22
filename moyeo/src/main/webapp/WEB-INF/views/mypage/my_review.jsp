@@ -108,7 +108,11 @@
     max-height: 400px; /* 섹션의 최대 높이를 지정 */
     overflow-y: scroll; /* 세로 스크롤 바를 표시 */
 	}
-
+	
+	 .my-main {
+	   	text-decoration: none; /* 밑줄 제거 */
+	    color: black; /* 검정색으로 변경 */
+    }
 </style>
 </head>     
 
@@ -116,7 +120,7 @@
 
 
 <div class="my">
-	<h1>마이페이지</h1>
+	<h1><a href="${pageContext.request.contextPath}/user/mypage" class="my-main">마이페이지</a></h1>
 
 	<h1><u>${userinfo.name}</u>님, 안녕하세요!</h1>
 
@@ -135,9 +139,21 @@
                 <input type="button" value="후기"
                     onclick="location.href='${pageContext.request.contextPath}/user/myReview';">
             </li>
+
+           
             <li>
                 <input type="button" value="1:1 문의 내역"
                      onclick="location.href='${pageContext.request.contextPath}/user/myQa';">
+            </li>
+            
+            <li>
+                <input type="button" value="DIY"
+                     onclick="location.href='${pageContext.request.contextPath}/user/myDiy';">
+            </li>
+            
+            <li>
+                <input type="button" value="장바구니"
+                     onclick="location.href='${pageContext.request.contextPath}/cart/list';">
             </li>
 
             <li>
@@ -149,7 +165,6 @@
     
     <section id="mypage">
     <h4>문의 내역</h4>
-    <p><a href="#">더보기 &nbsp;→</a></p>
     <div class="qa_list border_list">
         <table>
             <colgroup>
@@ -186,17 +201,5 @@
     </div>
 	</section>
 	</div>
-
-	
-	
-	<script>
-		function removeMember() {
-			if (window.confirm("탈퇴하시겠습니까?")) {
-				location.href = "/user/remove";//수정필요
-			}
-		}
-	</script>
-	
-
 </body>
 </html>

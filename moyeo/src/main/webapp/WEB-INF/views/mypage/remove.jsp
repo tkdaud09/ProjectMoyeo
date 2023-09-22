@@ -43,18 +43,15 @@
 				
 				<div class="login_button_wrap">
 					<input type="button" class="confirm_button btn2" value="탈퇴하기">
-					<button class="btn1" onclick="goBack()">취소</button>
+					<button type="button" class="btn1" id="mypage">취소</button>
 				</div>		
 			</div>
 			<sec:csrfInput/>
 		</form>	
 	</div>
 </div>
-</section>
-
+</section>	
 <script>
-
-
 	/* 확인 버튼 클릭 메서드 */
 	$(".confirm_button").click(function(){	
 		//alert("확인 버튼 작동");
@@ -64,13 +61,10 @@
 		$("#login_form").submit();
 	});
 	
-	function goBack() {
-        // 이전 페이지로 돌아가기
-        window.history.back();
-    }
-	
-
+	/* 취소 버튼 클릭 메서드 */
+	document.getElementById('mypage').addEventListener('click', function() {
+	    window.history.back(); 
+	});
 </script>
-
 </body>
 </html>
