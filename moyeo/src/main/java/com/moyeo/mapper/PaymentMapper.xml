@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.PaymentMapper">
+
+<!-- 결제내역 추가 -->
+<insert id = "insertPayment">
+	<selectKey resultType="int" keyProperty="idx" order="BEFORE">
+		SELECT packIdx_seq.nextval 
+		FROM dual
+	</selectKey>
+	INSERT INTO payment( 
+			imp_uid
+			, merchant_uid
+			, pack_idx
+			, userinfo_id
+			, payment_amount	
+			, payment_date
+			, payment_status
+	)VALUES(
+		#{impUid}
+		, #{merchantUid}
+		, #{packIdx}
+		, #{userinfoId}
+		, #{paymentAmount}
+		, #{paymentDate}
+		, #{paymentStatus}
+	)
+</insert>
+
+<!-- 결제내역 조회 -->
+<select id="selectPayment" resultType="payment">
+	SELECT 
+		imp_uid
+		, merchant_uid
+		, pack_idx
+		, userinfo_id
+		, payment_amount
+		, payment_date
+		, payment_status
+	FROM payment
+	WHERE imp_uid=#{impUid} AND userinfo_id=#{userinfoId}
+</select>
+
+<!-- 관리자용 결제 내역 조회 -->
+<select id="selectAllPayments" resultType="payment">
+	SELECT 
+		imp_uid
+		, merchant_uid
+		, pack_idx
+		, userinfo_id
+		, payment_amount
+		, payment_date
+		, payment_status
+	FROM payment
+	ORDERY BY payment_date DESC
+</select>
+
+<!-- 결제 상태 업데이트 -->
+<update id="updatePaymentStatus">
+	UPDATE payment
+	SET payment_status = #{paymentStatus}
+	WHERE imp_uid=#{impUid} AND userinfo_id=#{userinfoId}
+</update>
+
+</mapper>
