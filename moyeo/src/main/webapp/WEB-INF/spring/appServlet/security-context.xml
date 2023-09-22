@@ -9,12 +9,9 @@
    
 
    <http auto-config="true" use-expressions="true">
-      <!-- 이거 안해주면 POST 안됨 -->
-      <!--  <csrf disabled="true"/>
-      -->
+	  <intercept-url pattern="/cart/insert" access="hasRole('ROLE_USER')" />  
       <intercept-url pattern="/**" access="permitAll" /> 
-    
-     
+   	  
       <!-- <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" /> -->
       
  
@@ -24,9 +21,11 @@
                username-parameter="id"
                password-parameter="pw"
                default-target-url="/"
-               authentication-success-handler-ref="customLoginSuccessHandler"
                authentication-failure-handler-ref="customLoginFailureHandler"
       />
+      
+      <!-- 
+      authentication-success-handler-ref="customLoginSuccessHandler" -->
      
       <access-denied-handler ref="customAccessDeniedHandler"/>
       
