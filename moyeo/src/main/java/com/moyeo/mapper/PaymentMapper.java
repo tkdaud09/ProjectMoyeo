@@ -6,16 +6,16 @@ import com.moyeo.dto.Payment;
 
 public interface PaymentMapper {
 	//결제내역 추가
-	void addPayment(Payment payment);
+	void insertPayment(Payment payment);
 
 	//결제내역 조회
-	Payment selectPayment(String impUid, String userinfoId);
+	Payment selectMyPayment(String impUid, String userinfoId);
 
 	//관리자용 결제 내역 조회
 	List<Payment> selectAllPayments();
 
 	//결제상태 업데이트
-	void modifyPayment(Payment payment);
+	void updatePaymentStatus(Payment payment);
 
 	//액세스 토큰 받음
 	String getAccessToken(Payment payment);
