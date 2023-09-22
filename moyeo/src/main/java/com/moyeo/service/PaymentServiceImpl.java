@@ -4,33 +4,35 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.moyeo.dao.PaymentDAO;
 import com.moyeo.dto.Payment;
 
-@Service
-public class PaymentServiceImpl implements PaymentService {
+import lombok.RequiredArgsConstructor;
 
+@Service
+@RequiredArgsConstructor
+public class PaymentServiceImpl implements PaymentService {
+	
+	private final PaymentDAO paymentDAO;
+	
 	@Override
 	public void addPayment(Payment payment) {
-		// TODO Auto-generated method stub
-		
+		paymentDAO.insertPayment(payment);
 	}
 
 	@Override
 	public Payment getMyPayment(String impUid, String userinfoId) {
-		// TODO Auto-generated method stub
-		return null;
+		return paymentDAO.selectMyPayment(impUid, userinfoId);
 	}
 
 	@Override
 	public List<Payment> getAllPayments() {
-		// TODO Auto-generated method stub
-		return null;
+		return paymentDAO.selectAllPayments();
 	}
 
 	@Override
 	public void addPaymentStatus(Payment payment) {
-		// TODO Auto-generated method stub
-		
+		paymentDAO.updatePaymentStatus(payment);
 	}
 
 	@Override
