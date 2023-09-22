@@ -94,7 +94,7 @@
                   <a class="" href="javascript:void(0)">이벤트</a>
                     <ul class="dropdown drop-up">
                       <li class=" ">
-                        <a href="${pageContext.request.contextPath}/event">이벤트</a>
+                        <a href="${pageContext.request.contextPath}/event/">이벤트</a>
                       </li>
                     </ul>
                   </li>

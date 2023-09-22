@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.EventMapper">
+
+    <!-- 이벤트 등록 -->
+    <insert id="insertEvent">
+        <selectKey resultType="int" keyProperty="eventIdx" order="BEFORE">
+            SELECT event_seq.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO event (
+            event_idx,
+            event_title,
+            event_content,
+            event_regdate,
+            event_startdate,
+            event_enddate,
+            event_status,
+            event_previewimg,
+            event_contentimg
+        )
+        VALUES (
+            #{eventIdx},
+            #{eventTitle},
+            #{eventContent},
+           	sysdate,
+            TO_DATE(#{eventStartdate}, 'YYYY-MM-DD'),  
+			TO_DATE(#{eventEnddate}, 'YYYY-MM-DD'),
+            #{eventStatus},
+            #{eventPreviewimg},
+            #{eventContentimg}
+        )
+    </insert>
+    
+    <!-- 이벤트 변경 -->
+    <update id="updateEvent">
+        UPDATE event
+        <set>
+            <if test="eventTitle != null and eventTitle  != ''">
+                event_title = #{eventTitle},
+            </if>
+            <if test="eventContent != null and eventContent != ''">
+                event_content = #{eventContent},
+            </if>
+            <if test="eventRegdate != null and eventRegdate != ''">
+                event_regdate = #{eventRegdate},
+            </if>
+              <if test="eventStartdate != null and eventStartdate != ''">
+                event_startdate = #{eventStartdate},
+            </if>
+            <if test="eventEnddate != null and eventEnddate != ''">
+                event_enddate = #{eventEnddate},
+            </if>
+            <if test="eventStatus == 0 or eventStatus == 1">
+                event_status = #{eventStatus},
+            </if>
+            <if test="eventPreviewimg != null and eventPreviewimg != ''">
+                event_previewimg = #{eventPreviewimg},
+            </if>
+            <if test="eventContentimg != null and eventContentimg != ''">
+                event_contentimg = #{eventContentimg}
+            </if>
+        </set>
+        WHERE event_idx = #{eventIdx}
+    </update>
+    
+    <!-- 이벤트 상품 정보 출력 -->
+<select id="selectEventInfo" resultType="com.moyeo.dto.Event">
+    SELECT
+        event_idx,
+        event_title,
+        event_content,
+        event_regdate,
+        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+        event_status,
+        event_previewimg,
+        event_contentimg
+    FROM event
+    WHERE event_idx = #{eventIdx}
+</select>
+
+<!-- 이벤트 전체 목록 검색 -->
+<select id="selectEventList" resultType="com.moyeo.dto.Event">
+    SELECT
+        event_idx,
+        event_title,
+        event_content,
+        event_regdate,
+        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+        event_status,
+        event_previewimg,
+        event_contentimg
+    FROM event
+    ORDER BY event_idx
+</select>
+
+
+    <!-- 이벤트 삭제 -->  
+    <delete id="deleteEvent"> 
+        DELETE FROM event WHERE event_idx = #{eventIdx}
+    </delete>
+    
+    	<!-- 이벤트 제목으로 검색 -->
+		<select id="searchEventByTitle" parameterType="string" resultType="com.moyeo.dto.Event">
+	    SELECT *
+	    FROM event
+	    WHERE eventTitle LIKE CONCAT('%', #{keyword}, '%')
+		</select>
+		
+		<!-- 진행중인 이벤트 조회(페이징) -->
+<select id="selectOngoingEventCount" resultType="int">
+    SELECT COUNT(*) 
+    FROM event
+    WHERE event_status = 0
+    <if test="keyword != null and keyword !=''">
+        <bind name="word" value="'%'+keyword+'%'"/>
+        AND ${type} like #{word}
+    </if>
+</select>
+		<!-- 진행 중인 이벤트 목록 조회 (페이징 및 검색) -->
+<select id="selectOngoingEventList" resultType="com.moyeo.dto.Event">
+    SELECT
+        event_idx,
+        event_title,
+        event_content,
+        event_regdate,
+        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+        event_status,
+        event_previewimg,
+        event_contentimg
+    FROM (
+        SELECT rownum as rn, event.*
+        FROM (
+            SELECT *
+            FROM event
+            WHERE event_status = 0
+            <if test="keyword != null and keyword != ''">
+                <bind name="word" value="'%'+keyword+'%'"/>
+                AND ${type} LIKE #{word}
+            </if>   
+            ORDER BY event_idx DESC
+        ) event
+    )
+    WHERE rn BETWEEN #{startRow} and #{endRow}
+</select>
+
+<!--진행중인 이벤트 관리자 조회 -->
+    <select id="selectOngoingEventList1" resultType="com.moyeo.dto.Event">
+		SELECT * FROM (
+		SELECT ROWNUM RN, BOARD.* FROM (
+		SELECT
+			event_idx,
+	        event_title,
+	        event_content,
+	        event_regdate,
+	        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+	        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+	        event_status,
+	        event_previewimg,
+	        event_contentimg
+			FROM event
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+			event_status = 0		
+			AND	event_title LIKE '%' || #{selectKeyword} || '%'
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		ORDER BY event_idx DESC
+		) BOARD
+		) WHERE RN BETWEEN #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 진행중인 이벤트 패키지 검색 Count -->
+	<select id="selectOngoingEventCount1" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT
+			event_idx,
+	        event_title,
+	        event_content,
+	        event_regdate,
+	        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+	        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+	        event_status,
+	        event_previewimg,
+	        event_contentimg
+			FROM event
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+			event_status = 0		
+			AND	event_title LIKE '%' || #{selectKeyword} || '%'
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		)
+	</select>
+
+
+<!-- 종료된 이벤트 조회(페이징) -->
+<select id="selectCloseEventCount" resultType="int">
+    SELECT COUNT(*) 
+    FROM event
+    WHERE event_status = 1
+    <if test="keyword != null and keyword !=''">
+        <bind name="word" value="'%'+keyword+'%'"/>
+        AND ${type} like #{word}
+    </if>
+</select>
+		<!-- 종료된 이벤트 목록 조회 (페이징 및 검색) -->
+<select id="selectCloseEventList" resultType="com.moyeo.dto.Event">
+    SELECT
+        event_idx,
+        event_title,
+        event_content,
+        event_regdate,
+        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+        event_status,
+        event_previewimg,
+        event_contentimg
+    FROM (
+        SELECT rownum as rn, event.*
+        FROM (
+            SELECT *
+            FROM event
+            WHERE event_status = 1
+            <if test="keyword != null and keyword != ''">
+                <bind name="word" value="'%'+keyword+'%'"/>
+                AND ${type} LIKE #{word}
+            </if>   
+            ORDER BY event_idx DESC
+        ) event
+    )
+    WHERE rn BETWEEN #{startRow} and #{endRow}
+</select>
+
+<!--종료된 이벤트 관리자 조회 -->
+    <select id="selectCloseEventList1" resultType="com.moyeo.dto.Event">
+		SELECT * FROM (
+		SELECT ROWNUM RN, BOARD.* FROM (
+		SELECT
+			event_idx,
+	        event_title,
+	        event_content,
+	        event_regdate,
+	        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+	        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+	        event_status,
+	        event_previewimg,
+	        event_contentimg
+			FROM event
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+			event_status = 0		
+			AND	event_title LIKE '%' || #{selectKeyword} || '%'
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		ORDER BY event_idx DESC
+		) BOARD
+		) WHERE RN BETWEEN #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 종료된 이벤트 패키지 검색 Count -->
+	<select id="selectCloseEventCount1" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT
+			event_idx,
+	        event_title,
+	        event_content,
+	        event_regdate,
+	        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+	        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+	        event_status,
+	        event_previewimg,
+	        event_contentimg
+			FROM event
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+			event_status = 0		
+			AND	event_title LIKE '%' || #{selectKeyword} || '%'
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		)
+	</select>
+
+		
+		<!-- 이벤트 스케쥴러 업데이트 -->
+<update id="updateEventStatus" parameterType="com.moyeo.dto.Event">
+    UPDATE event
+    SET event_status = #{eventStatus}
+    WHERE event_idx = #{eventIdx}
+</update>
+
+
+		
+</mapper>
