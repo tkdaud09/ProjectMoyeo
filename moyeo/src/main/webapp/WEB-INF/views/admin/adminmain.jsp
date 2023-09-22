@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +10,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css" >
 </head>
 <body>
-
 	<div id="preloader">
 		<div class="spinner spinner-round"></div>
 	</div>
-
 <section id="adminpage">
 	<div class="container-fluid">
 		<div class="row">
@@ -46,6 +44,13 @@
 			        <li><a href="${pageContext.request.contextPath}/admin/write" id="add-notice"><i class="fa-solid fa-plus"></i>등록</a></li>
 				</ul>
 				
+				<!-- 이벤트 관리 -->
+			    <p id="event-menumain"><a href="#"><i class="fas fa-calendar-alt"></i>이벤트 관리</a></p>
+			    <ul id="event-menu">
+				    <li><a href="javascript:void(0)" id="event-info"><i class="fas fa-calendar"></i>목록</a></li>
+			        <li><a href="${pageContext.request.contextPath}/admin/eventForm" id="add-event"><i class="fa-solid fa-plus"></i>등록</a></li>
+				</ul>
+				
 			    <!-- 1:1 문의 관리 -->
 			    <p id="qa-menumain"><a href="#"><i class="fas fa-question"></i>1:1문의 관리</a></p>
 			    <ul id="qa-menu">
@@ -65,9 +70,10 @@
 				<!-- 페이지 당 출력 갯수를 출력하는 태그 -->
 				<select id="pageSizeSelect" class="mb-3"></select>
 
-				<!-- 버튼 추가 -->
+				<!-- 버튼 추가
 				<div id="viewSelect" class="nav nav-pills text-right mb-3"></div>
-
+				
+				
 				<!-- 게시글 목록을 출력하는 태그 -->
 				<div id="infoListDiv" class="mb-3"></div>
 
@@ -82,6 +88,16 @@
 </section>
 	
 <script type="text/javascript">
+//CSRF 토큰 관련 정보를 자바스크립트 변수에 저장
+var csrfHeaderName = "${_csrf.headerName}";
+var csrfTokenValue = "${_csrf.token}";
+
+// Ajax 기능을 사용하여 요청하는 모든 웹 프로그램에게 CSRF 토큰 전달 가능
+// ▶ Ajax 요청 시 beforeSend 속성을 설정할 필요 없음
+$(document).ajaxSend(function(e, xhr){
+   xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+});
+	
 	var page = 1; // 기본 페이지 번호 설정
 	var size = 20; // 기본 페이지 크기 설정
 	var keyword = ''; // 기본 검색어 = NULL String
@@ -120,6 +136,7 @@
                 "<th style='padding: 10px; white-space: nowrap;'>가입일</th>" +
                 "<th style='padding: 10px; white-space: nowrap;'>마지막로그인</th>" +
                 "<th style='padding: 10px; white-space: nowrap;'>상태</th>" +
+                "<th style='padding: 10px; white-space: nowrap;'>권한</th>" +
                 "</tr>"
             );
 
@@ -127,7 +144,7 @@
 
             if (result.userinfoList.length == 0) { // 검색된 게시글이 없을 때
                 var row = "<tr>" +
-                    "<td colspan='10'>검색된 회원 정보가 없습니다.</td>" +
+                    "<td colspan='11'>검색된 회원 정보가 없습니다.</td>" +
                     "</tr>";
                 tbody.append(row);
             } 
@@ -153,7 +170,8 @@
                     "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.phone + "</td>" +
                     "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.regdate.substring(0, 10) + "</td>" +
                     "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.logdate.substring(0, 10) + "</td>" +
-                    "<td style='padding: 5px; white-space: nowrap;'>" + displayStatus  + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + displayStatus + "</td>" +
+                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.enabled + "</td>" +
                     "</tr>";
                 tbody.append(row);
            }
@@ -386,7 +404,6 @@
 	}
 	
 	
-	
 	//공지 사항 목록 출력 함수
 	function noticeListDisplay(pageNum, pageSize, selectKeyword) {
 		$("#viewSelect").show();
@@ -470,6 +487,93 @@
 	        }
 	    });
 	}
+	
+	//이벤트 목록 출력 함수
+	function eventListDisplay(pageNum, pageSize, selectKeyword) {
+		$("#viewSelect").show();
+		$("#pageSizeSelect").show();
+		$("#pageNumDiv").show();
+		$("#searchDiv").show();
+		$("#packageFormDiv").show();
+	   page=pageNum;
+	   size=pageSize;
+	   keyword=selectKeyword;
+	   
+	    $.ajax({
+	        method: "GET",
+	        url: "<c:url value ="/admin/event-list"/>",
+	        data: {"pageNum": pageNum, "pageSize": pageSize, "selectKeyword": selectKeyword},
+	        dataType: "json",
+	        success: function(result) {
+	        	console.log(result);
+	           	$("#infoListDiv").empty();
+	            
+	            var table = $("<table>").attr("id", "eventInfoTable");
+	            var thead = $("<thead>").append(
+	                "<tr>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>제목</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>내용</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>등록일</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>시작 날짜</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>종료 날짜</th>" +
+	                "<th style='padding: 10px; white-space: nowrap;'>상태</th>" +
+	                "</tr>"
+	            );
+
+	            var tbody = $("<tbody>");
+
+	            if (result.eventList.length == 0) { // 검색된 게시글이 없을 때
+	                var row = "<tr>" +
+	                    "<td colspan='7'>검색된 공지 사항이 없습니다.</td>" +
+	                    "</tr>";
+	                tbody.append(row);
+	            } 
+	            for (var i = 0; i < result.eventList.length; i++) {
+	                var event = result.eventList[i];
+	                var row = "<tr data-idx='" + event.eventIdx + "'>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + event.eventIdx + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + event.eventTitle + "</td>" +
+	                    "<td>" + event.eventContent + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + event.eventRegdate + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + event.eventStartdate + "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + event.eventEnddate+ "</td>" +
+	                    "<td style='padding: 10px; white-space: nowrap;'>" + event.eventStatus+ "</td>" +
+	                    "</tr>";
+	                tbody.append(row);
+	           }
+
+	            table.append(thead, tbody);
+	            
+	            $("#infoListDiv").append(table);
+	            
+	            var searchDiv = $("#searchDiv");
+	           
+	            // 기존 테이블 및 내용 삭제
+	            searchDiv.empty();
+
+	            searchDiv.append(
+	            		"<br>"+
+	        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
+					 	"<br>"+        			
+	          		 	"<button id='searchButton'>검색</button>"
+	            )
+	          
+	            // 페이지 번호 출력
+	            pageNumDisplay(result.pager, infoType);
+	            
+	            // 페이지 당 출력 갯수를 출력
+	            pageSizeDisplay();
+	            
+	            viewSelect(infoType)
+	        },
+	        
+	        error: function(xhr) {
+	            alert("이벤트를 불러오는 중에 오류가 발생했습니다. (에러 코드 = " + xhr.status + ")");
+	        }
+	    });
+	}
+	
 	
 	//1:1문의 목록 출력 함수
 	function qaListDisplay(pageNum, pageSize, selectKeyword) {
@@ -618,40 +722,6 @@
 	    }
 	}
 	
-	//infoType으로 설정
-	function viewSelect(infoType) {
-		var viewSelectDiv = $("#viewSelect");
-		viewSelectDiv.empty();
-
-		if (infoType === 'package') {
-		viewSelectDiv.append(
-			'<button id="ViewButton" class="btn btn-primary">목록</button>'
-			);
-		} else if (infoType === 'notice') {
-			viewSelectDiv.append('<button id="addNotice" class="btn btn-primary">공지사항 등록</button>');
-		}
-	}
-	
-	//새로운 공지 사항 작성 시 사용하는 함수
-	function addNotice() {
-		$("#viewSelect").hide();
-		$("#pageSizeSelect").hide();
-		$("#pageNumDiv").hide();
-		$("#searchDiv").hide();
-		$.ajax({
-	        method: "GET",
-	        url: "<c:url value='/admin/notice_add'/>",
-	        dataType: "html",
-	        success: function(html) {
-	            var adminAddDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
-	            $("#infoListDiv").empty().append(adminAddDiv); // 기존 내용 지우고 새로운 내용 삽입
-	        },
-	        error: function(xhr) {
-	            alert("공지 사항 작성 중 오류가 발생하였습니다. 에러 코드 = (" + xhr.status + ")");
-	        }
-	    });
-	}
-	
 	// 검색하는 함수
 	function performSearch() {
 	    var selectKeyword = $("#selectKeyword").val();
@@ -663,6 +733,8 @@
 	        diyListDisplay(1, size, selectKeyword);
 	    } else if (infoType == "notice") {
 	        noticeListDisplay(1, size, selectKeyword);
+	    } else if (infoType == "event") {
+	        eventListDisplay(1, size, selectKeyword);
 	    } else if (infoType == "qa") {
 	        qaListDisplay(1, size, selectKeyword);
 	    }
@@ -684,7 +756,7 @@
 	            $("#infoListDiv").empty().append(userinfoDetailDiv); // 기존 내용 지우고 새로운 내용 삽입
 	        },
 	        error: function(xhr) {
-	            alert("상세 정보를 ㅌ`불러오는 중에 오류가 발생했습니다. 에러 코드 = (" + xhr.status + ")");
+	            alert("상세 정보를 불러오는 중에 오류가 발생했습니다. 에러 코드 = (" + xhr.status + ")");
 	        }
 	    });
 	}
@@ -709,28 +781,6 @@
 	        }
 	    });
 	}
-	
-	// diy 상세 정보를 열람하기 위한 함수
-	function diyDetail(idx) {
-		$("#viewSelect").hide();
-		$("#pageSizeSelect").hide();
-		$("#pageNumDiv").hide();
-		$("#searchDiv").hide();
-	    $.ajax({
-	        method: "GET",
-	        url: "<c:url value='/admin/diy-detail'/>",
-	        data: {"idx": idx},
-	        dataType: "html",
-	        success: function(html) {
-	            var diyDetailDiv = $("<div>").html(html); // HTML을 DOM 요소로 변환
-	            $("#infoListDiv").empty().append(diyDetailDiv); // 기존 내용 지우고 새로운 내용 삽입
-	        },
-	        error: function(xhr) {
-	            alert("상세 정보를 불러오는 중에 오류가 발생했습니다. 에러 코드 = (" + xhr.status + ")");
-	        }
-	    });
-	}
-	
 
 	$(document).ready(
 			function() {
@@ -802,6 +852,23 @@
 
 					$("#pageSizeSelect").val(size);
 				});
+				
+				//이벤트 목록 버튼 클릭 시
+				$("#event-info").click(function() {
+
+					$("#viewSelect").show();
+					$("#pageSizeSelect").show();
+					$("#pageNumDiv").show();
+					$("#searchDiv").show();
+					page = 1;
+					size = 20;
+					keyword = '';
+					infoType = "event";
+					viewType = "list";
+					eventListDisplay(page, size, keyword);
+
+					$("#pageSizeSelect").val(size);
+				});
 
 				//1:1문의 목록 버튼 클릭 시
 				$("#qa-info").click(function() {
@@ -846,10 +913,6 @@
 					window[functionName](page, selectedPageSize, keyword);
 				});
 				
-				$("#viewSelect").on("click", "#addNotice", function() {
-					   addNotice();
-				});
-
 				//검색 버튼 클릭 시
 				$("#searchDiv").on("click", "#searchButton", function() {
 					performSearch();
@@ -885,13 +948,19 @@
 				$("#infoListDiv").on("click", "#diyInfoTable tbody tr", function() {
 				    var idx = $(this).data("idx");
 				    // 패키지 정보를 가져온 후, 수정 페이지로 이동
-				    window.location.href = "/moyeo/admin/diyDetail/" + idx; // 수정된 경로
+				    window.location.href = "/moyeo/diy/diy_detail/" + idx; // 수정된 경로
 				});
 				
 				// 공지사항 tr 태그 클릭 시 공지사항 수정 페이지 이동
 				$("#infoListDiv").on("click", "#noticeInfoTable tbody tr", function() {
 				    var idx = $(this).data("idx");
 				    window.location.href = "/moyeo/admin/modify/" + idx; // 수정된 경로
+				});
+				
+				// 이벤트 tr 태그 클릭 시 공지사항 수정 페이지 이동
+				$("#infoListDiv").on("click", "#eventInfoTable tbody tr", function() {
+				    var idx = $(this).data("idx");
+				    window.location.href = "/moyeo/admin/edit/" + idx; // 수정된 경로
 				});
 				
 				// 1:1 문의 tr 태그 클릭 시 1:1 문의 상세 페이지 이동
@@ -930,6 +999,14 @@
 		// 패키지 메뉴를 클릭했을 때 토글 기능 적용
 		$('#notice-menumain').click(function() {
 			$('#notice-menu').slideToggle();
+		});
+	});
+	
+	//이벤트 메뉴
+	$(document).ready(function() {
+		// 패키지 메뉴를 클릭했을 때 토글 기능 적용
+		$('#event-menumain').click(function() {
+			$('#event-menu').slideToggle();
 		});
 	});
 

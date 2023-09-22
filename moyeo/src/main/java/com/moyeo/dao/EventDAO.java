@@ -6,7 +6,7 @@ import java.util.Map;
 import com.moyeo.dto.Event;
 
 public interface EventDAO {
-    int insertEvent(Event event);
+	int insertEvent(Event event);
     int updateEvent(Event event);
     Event selectEventInfo(int eventIdx);
     List<Event> selectEventList();
@@ -26,4 +26,7 @@ public interface EventDAO {
     int selectCloseEventCount1(String selectKeyword);
     
     int updateEventStatus(Event event);
+    
+    List<Event> selectEventList1(Map<String, Object> map);
+	int selectEventCount1(String selectKeyword);
 }

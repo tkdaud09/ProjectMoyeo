@@ -88,10 +88,6 @@
       </section>
    </div>
 
-
-
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
            // 삭제 버튼 클릭 이벤트 핸들러
@@ -102,9 +98,6 @@
             }
         });
     </script>
-</script>
-
-
 
 </body>
 </html>

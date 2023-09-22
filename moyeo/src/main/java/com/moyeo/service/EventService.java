@@ -19,4 +19,7 @@ public interface EventService {
     Map<String, Object> getOngoingEventList(int pageNum, int pageSize, String selectKeyword);
     Map<String, Object> getCloseEventList(int pageNum, int pageSize, String selectKeyword);
     void updateEventStatus(Event event);
+    
+	Map<String, Object> getEventList1(int pageNum, int pageSize, String selectKeyword);
+
 }

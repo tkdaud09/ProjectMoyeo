@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>       
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,8 +54,6 @@
                     	<hr>
                     	<p> 상태 </p>
                     	<input id="aStatus" name="aStatus" value="${userinfo.status }"> 
-                    	<input type="hidden" name="aBirth" value="${account.birth }">
-                    	<input type="hidden" name="aPw" value="${account.password }">
                     	<hr>
                     	<hr>
                     	<!-- 수정 버튼 -->
@@ -322,14 +320,6 @@
 	*/
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	function diyPageNumDisplay(pager) {
 		 var html = "";
 		 if (pager.startPage > pager.blockSize) {
@@ -434,6 +424,17 @@
 	
 	
 	$(document).ready(function () {
+		
+		//CSRF 토큰 관련 정보를 자바스크립트 변수에 저`장
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+
+		// Ajax 기능을 사용하여 요청하는 모든 웹 프로그램에게 CSRF 토큰 전달 가능
+		// ▶ Ajax 요청 시 beforeSend 속성을 설정할 필요 없음
+		$(document).ajaxSend(function(e, xhr){
+		   xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		});
+		
 		getMyUserinfosData(id, diyPage, qaPage, reviewPage, packageHeartPage);
 		
 		$("#cancelModifyBtn").click(function(){
@@ -510,7 +511,7 @@
         if (confirm("정말로 삭제하시겠습니까?")) {
             
             $.ajax({
-                type: "DELETE",
+                type: "PUT",
                 url: "<c:url value='/admin/userinfo-remove?id='/>" + id,
                 success: function(result) {
                     if(result == "success") {

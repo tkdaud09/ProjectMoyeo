@@ -26,4 +26,7 @@ public interface EventMapper {
     int selectCloseEventCount1(String selectKeyword);
     
     int updateEventStatus(Event event);
+    
+    List<Event> selectEventList1(Map<String, Object> map);
+	int selectEventCount1(String selectKeyword);
 }

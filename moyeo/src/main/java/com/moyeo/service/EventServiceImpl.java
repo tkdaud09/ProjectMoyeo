@@ -4,7 +4,6 @@ import com.moyeo.dao.EventDAO;
 import com.moyeo.dto.Event;
 import com.moyeo.util.Pager;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
@@ -139,11 +138,29 @@ public class EventServiceImpl implements EventService {
 		return eventMap1;
 	}
 
-
     
-
     @Override
     public void updateEventStatus(Event event) {
         eventDAO.updateEventStatus(event);
     }
+
+	@Override
+	public Map<String, Object> getEventList1(int pageNum, int pageSize, String selectKeyword) {
+		int totalBoard = eventDAO.selectEventCount1(selectKeyword);
+		int blockSize = 10;
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("startRow", pager.getStartRow());
+		pageMap.put("endRow", pager.getEndRow());
+		pageMap.put("selectKeyword", selectKeyword);
+		
+		List<Event> eventList = eventDAO.selectEventList1(pageMap);
+		
+		Map<String, Object> eventMap = new HashMap<String, Object>();
+		eventMap.put("eventList", eventList);
+		eventMap.put("pager", pager);
+		
+		return eventMap;
+	}
 }

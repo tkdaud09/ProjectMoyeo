@@ -1,11 +1,9 @@
 package com.moyeo.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.moyeo.dto.Event;
@@ -94,4 +92,14 @@ public class EventDAOImpl implements EventDAO {
     public int updateEventStatus(Event event) {
         return sqlSession.update("com.moyeo.mapper.EventMapper.updateEventStatus", event);
     }
+
+	@Override
+	public List<Event> selectEventList1(Map<String, Object> map) {
+		return sqlSession.getMapper(EventMapper.class).selectEventList1(map);
+	}
+
+	@Override
+	public int selectEventCount1(String selectKeyword) {
+		return sqlSession.getMapper(EventMapper.class).selectEventCount1(selectKeyword);
+	}
 }

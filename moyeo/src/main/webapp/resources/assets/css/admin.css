@@ -415,3 +415,49 @@ p a {
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+#event-menumain i {
+    margin-right: 20px; /* 아이콘 오른쪽 여백 조절 */
+    width: 20px; /* 아이콘의 크기 설정 */
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* 초기에 숨김 처리 */
+#event-menu {
+    display: none;
+}
+
+/* 패키지 메뉴 디자인 */
+#event-menumain {
+    background: linear-gradient(45deg, rgba(72, 72, 72, 1), rgba(5, 5, 5, 1));
+    color: white;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#event-menumain a {
+    color: white;
+    text-decoration: none;
+}
+
+#event-menu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+}
+
+#event-menu li a {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#event-menu li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}

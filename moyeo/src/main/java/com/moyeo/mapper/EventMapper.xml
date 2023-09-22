@@ -308,5 +308,76 @@
 </update>
 
 
+	<!-- 관리자 event 조회 -->
+	<select id="selectEventList1" resultType="Event">
+		SELECT * FROM (
+		SELECT ROWNUM RN, BOARD.* FROM (
+		SELECT
+				event_idx,
+		        event_title,
+		        event_content,
+		        event_regdate,
+		        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+		        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+		        event_status,
+		        event_previewimg,
+		        event_contentimg
+			FROM event
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+				(event_idx LIKE '%' || #{selectKeyword} || '%' OR
+				event_title LIKE '%' || #{selectKeyword} || '%' OR
+				event_content LIKE '%' || #{selectKeyword} || '%' OR
+				event_regdate LIKE '%' || #{selectKeyword} || '%' OR
+				event_startdate LIKE '%' || #{selectKeyword} || '%' OR
+				event_enddate LIKE '%' || #{selectKeyword} || '%' OR
+				event_status LIKE '%' || #{selectKeyword} || '%' OR
+				event_status LIKE '%' || #{selectKeyword} || '%')
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		ORDER BY event_idx DESC
+		) BOARD
+		) WHERE RN BETWEEN #{startRow} and #{endRow}
+	</select>
+	
+	
+	<!-- 관리자 event Count -->
+	<select id="selectEventCount1" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT
+				event_idx,
+		        event_title,
+		        event_content,
+		        event_regdate,
+		        TO_CHAR(event_startdate, 'yyyy-mm-dd') AS event_startdate,
+		        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
+		        event_status,
+		        event_previewimg,
+		        event_contentimg
+			FROM event
+		WHERE
+		<choose>
+			<when test="selectKeyword != null and selectKeyword != ''">
+				(event_idx LIKE '%' || #{selectKeyword} || '%' OR
+				event_title LIKE '%' || #{selectKeyword} || '%' OR
+				event_content LIKE '%' || #{selectKeyword} || '%' OR
+				event_regdate LIKE '%' || #{selectKeyword} || '%' OR
+				event_startdate LIKE '%' || #{selectKeyword} || '%' OR
+				event_enddate LIKE '%' || #{selectKeyword} || '%' OR
+				event_status LIKE '%' || #{selectKeyword} || '%' OR
+				event_status LIKE '%' || #{selectKeyword} || '%')
+			</when>
+			<otherwise>
+				1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
+			</otherwise>
+		</choose>
+		)
+	</select>
+
+
 		
 </mapper>

@@ -5,11 +5,9 @@
 	import org.springframework.stereotype.Component;
 	
 	import com.moyeo.dto.Event;
-	import com.moyeo.service.EventService;
 	
 	import java.util.List;
 	import java.time.LocalDate;
-	import java.time.LocalDateTime;
 	import java.time.format.DateTimeFormatter; // 날짜 형식 변환을 위한 클래스 추가
 	
 	@Component

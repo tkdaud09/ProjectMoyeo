@@ -6,7 +6,15 @@
 <!DOCTYPE html>
 <html lang="utf-8">
 <head><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script></head>
-       
+	<style>
+/* + 버튼과 - 버튼의 스타일 설정 */
+.plus-btn,
+.minus-btn {
+    font-size: 18px; /* 원하는 폰트 크기로 조절하세요 */
+    padding: 0px 10px; /* 원하는 여백 값으로 조절하세요 */
+}
+
+</style>       
   
 <body id="body" class="up-scroll">
   <div class="main-wrapper packages-grid">
@@ -101,7 +109,7 @@
 	                                <li class="tot3">﻿<fmt:formatNumber value="${map.sumTotal}" pattern="###,###"/></li>
 	                            </ul>
 	                        </div>
-	                     <div class="cart_btn">
+	                     	<div class="cart_btn">
 	                            <button type="submit" class="b1" id="deleteButton">선택상품 삭제</button>
 	                            <button type="button" class="b1" id="updateButton">선택상품 수정</button>    
 	                            <button type="button" class="b1" id="orderButton">선택상품 주문</button>
@@ -114,17 +122,8 @@
 	            </div><!-- cart_list -->
 	        </div><!-- py-10 -->
 	    </div><!-- container -->
-	</section>
-	<style>
-/* + 버튼과 - 버튼의 스타일 설정 */
-.plus-btn,
-.minus-btn {
-    font-size: 18px; /* 원하는 폰트 크기로 조절하세요 */
-    padding: 0px 10px; /* 원하는 여백 값으로 조절하세요 */
-}
-
-</style>
-	<script>
+</section>
+<script>
 	  var csrfHeaderName="${_csrf.headerName}";
 	  var csrfTokenValue="${_csrf.token}";
 	     

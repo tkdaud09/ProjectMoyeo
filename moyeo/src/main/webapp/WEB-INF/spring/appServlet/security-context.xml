@@ -9,8 +9,9 @@
    
 
    <http auto-config="true" use-expressions="true">
-	  <intercept-url pattern="/cart/insert" access="hasRole('ROLE_USER')" />  
-	  <intercept-url pattern="/user/mypage" access="hasRole('ROLE_USER')" />  
+	  <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+	  <intercept-url pattern="/user/mypage" access="hasRole('ROLE_USER')" />
+	  <intercept-url pattern="/cart/insert" access="hasRole('ROLE_USER')" /> 
       <intercept-url pattern="/**" access="permitAll" /> 
    	  
       <!-- <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" /> -->
@@ -96,4 +97,3 @@
    <!-- BCryptPasswordEncoder: 문자열을 암호화 처리하거나 비교 결과를 제공하기 위한 클래스 -->  
    <beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
 </beans:beans>
-

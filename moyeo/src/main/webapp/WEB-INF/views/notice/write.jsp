@@ -3,43 +3,38 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>  
-    
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
 <style>
-    .btn_section{
-       text-align: center;
-       margin-top: 70px;
-   }
-    
-   .btn_section button{
-      width: 130px;
-      padding: 8px;
-        border: none;
-        font-size: 0.9em;
-        letter-spacing: 2px;
-        cursor: pointer;
-   }
-    
-   .btn_section .btn{
-      background: #eee;
-      margin-right: 5px;
-   }
-    
-   .btn_section .enroll_btn{
-      background:#000;
-      color:#fff;
-   }
+.btn_section {
+	text-align: center;
+	margin-top: 70px;
+}
 
+.btn_section button {
+	width: 130px;
+	padding: 8px;
+	border: none;
+	font-size: 0.9em;
+	letter-spacing: 2px;
+	cursor: pointer;
+}
+
+.btn_section .btn {
+	background: #eee;
+	margin-right: 5px;
+}
+
+.btn_section .enroll_btn {
+	background: #000;
+	color: #fff;
+}
 </style>
 </head>     
 
 <body id="body" class="up-scroll">
   <div class="main-wrapper packages-grid">
-
-
 <!-- ====================================
 ———   PAGE TITLE
 ===================================== -->
@@ -59,13 +54,9 @@
     </div>
   </div>
 </section>
-
-
 <!-- ====================================
 ———   DIY SECTION
 ===================================== -->
-
-
 <section class="">
   <div class="container">
          <div class="py-10">
@@ -76,11 +67,6 @@
             </div>
             
             <div class="write_form">
-            
-            
-            
-            
-            
             <form class="w_f" action="addNotice" method="post" id="enrollForm" enctype="multipart/form-data">            
                    <p>작성자</p>
                         <input class="text" type="text" name="userinfoId"
@@ -101,26 +87,13 @@
                    </div>
                    <sec:csrfInput/>
                </form>
-
-   
-               
             </div>
-
          </div><!-- /diy_content -->
       </div>   <!-- /py-10 -->
     </div>   <!-- /container -->
-   
-    
- 
-    
-   
-    
-    
 </section>
  </div>
-
-
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  
     <script>
        let enrollForm = $("#enrollForm");
@@ -139,9 +112,6 @@
            enrollForm.submit();
        });
    </script>
-  
-
-
 
   </body>
 </html>

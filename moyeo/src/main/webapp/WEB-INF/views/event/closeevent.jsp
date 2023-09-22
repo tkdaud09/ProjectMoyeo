@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>   
+
 <!DOCTYPE html>
 <html lang="utf-8">
 <head>
@@ -174,8 +174,7 @@
         			<div class="inp-search">
         			<input type="text" class="inp-base" id="schValue" name="keyword" placeholder="검색어를 입력하세요">
         			<button type="submit" class="btn-type-s search" id="btnSearch" >검색</button>
-    			</div> 
-    			<sec:csrfInput/>     
+    			</div>      
     			</form>   	
 
 <div class="page_t">
@@ -216,7 +215,17 @@
                            </c:otherwise>
                         </c:choose>
                      </div>
+
+
+
+
+
+            
             </div>
+
+
+             
+
 
                 </div><!-- /diy_content -->
             </div> <!-- /py-10 -->

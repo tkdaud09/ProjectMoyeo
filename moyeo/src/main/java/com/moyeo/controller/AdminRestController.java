@@ -1,26 +1,21 @@
 package com.moyeo.controller;
 
-import java.io.IOException;
-import java.util.HashMap; 
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.moyeo.dto.Notice;
-import com.moyeo.dto.Pack;
 import com.moyeo.dto.Userinfo;
 import com.moyeo.exception.UserinfoNotFoundException;
 import com.moyeo.service.DiyService;
+import com.moyeo.service.EventService;
 import com.moyeo.service.NoticeService;
 import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.PackageService;
@@ -41,6 +36,7 @@ public class AdminRestController {
 	private final ReviewService reviewService;
 	private final PackageHeartService packageHeartService;
 	private final NoticeService noticeService;
+	private final EventService eventService;
 	
 	@GetMapping("/userinfo-list")
 	public Map<String, Object> getUserinfos(@RequestParam(defaultValue = "1") int pageNum, 
@@ -83,50 +79,19 @@ public class AdminRestController {
 		return "success";
 	}
 	
-	@DeleteMapping("/userinfo-remove")
+	@PutMapping("/userinfo-remove")
 	public String removeAccount(@RequestParam String id) throws UserinfoNotFoundException {
 		userinfoService.removeUserinfo1(id);
 		return "success";
 	}
 	
-	/*
-	@GetMapping("/selected_list")
-	public Map<String, Object> getSelectPackageList() {
-		List<Pack> deadlinePackage = packageService.getDeadlinePackage();
-		List<Pack> bestPackageByHeart = packageService.getBestPackageByHeart();
 
-		Map<String, Object> pageMap = new HashMap<String, Object>();
-
-		pageMap.put("deadlinePackage", deadlinePackage);
-		pageMap.put("bestPackageByHeart", bestPackageByHeart);
-
-		return pageMap;
-	}
-	*/
-	
 	@GetMapping("/package-list")
 	public Map<String, Object> getPackages(@RequestParam(defaultValue = "1") int pageNum,
 										   @RequestParam(defaultValue = "20") int pageSize,
 										   @RequestParam(defaultValue = "") String selectKeyword) {
 		return packageService.getPackageList(pageNum, pageSize, selectKeyword);
 	}
-	
-	@PutMapping("/package-accept")
-	public String acceptPackage(@RequestBody Pack pack, HttpSession httpSession) {
-		pack.setPackStatus(0);
-		packageService.modifyPackageStatus(pack);
-
-		return "success";
-	}
-	
-	@PutMapping("/package-reject")
-	public String rejectPackage(@RequestBody Pack pack, HttpSession httpSession) {
-		pack.setPackStatus(1);
-		packageService.modifyPackageStatus(pack);
-
-		return "success";
-	}
-
 	
 	
 	@GetMapping("/diy-list")
@@ -143,22 +108,12 @@ public class AdminRestController {
 		return noticeService.getNoticeList(pageNum, pageSize, selectKeyword);
 	}
 	
-	
-	@PostMapping("/notice_add")
-	public String addNotice(@RequestBody Notice notice, HttpServletRequest request)
-			throws IllegalStateException, IOException {
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-
-		notice.setNoticeTitle(title);
-		notice.setNoticeContent(content);
-		noticeService.insertNotice(notice);
-
-		// 나머지 공지사항 등록 로직을 수행합니다.
-		return "success";
+	@GetMapping("/event-list")
+	public Map<String, Object> getEvents(@RequestParam(defaultValue = "1") int pageNum,
+										  @RequestParam(defaultValue = "20") int pageSize,
+										  @RequestParam(defaultValue = "") String selectKeyword) {
+		return eventService.getEventList1(pageNum, pageSize, selectKeyword);
 	}
-	
-	
 	
 	@GetMapping("/qa-list")
 	public Map<String, Object> getQas(@RequestParam(defaultValue = "1") int pageNum,

@@ -262,7 +262,8 @@
          , phone
          , regdate
          , logdate
-         , status 
+         , status
+         , enabled 
       FROM userinfo 
       WHERE 1 = 1
        <include refid="search" />
@@ -297,7 +298,8 @@
          , phone
          , regdate
          , logdate
-         , status 
+         , status
+         , enabled 
       FROM userinfo 
       ORDER BY id
    </select>
@@ -316,7 +318,8 @@
             , phone
             , regdate
             , logdate
-            , status 
+            , status
+            , enabled 
             FROM userinfo 
               WHERE
         <choose>
@@ -331,7 +334,8 @@
                  phone LIKE '%' || #{selectKeyword} || '%' OR
                  regdate LIKE '%' || #{selectKeyword} || '%' OR
                  logdate LIKE '%' || #{selectKeyword} || '%' OR
-                 status LIKE '%' || #{selectKeyword} || '%')
+                 status LIKE '%' || #{selectKeyword} || '%' OR
+                 enabled LIKE '%' || #{selectKeyword} || '%')
             </when>
             <otherwise>
                 1=1 <!-- 검색어가 없는 경우 모든 데이터 검색 -->
@@ -353,7 +357,8 @@
          phone = #{phone},
          email = #{email},
          address = #{address},
-         status = #{status}
+         status = #{status},
+         enabled = #{enabled}
       WHERE id = #{id}
    </update>
    

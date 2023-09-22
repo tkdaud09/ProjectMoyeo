@@ -75,12 +75,12 @@
                            <col width="15%">
                         </colgroup>
                         <tr>
-                           <td class="t1">번호</td>
-                           <td class="t1">제목</td>
-                           <td class="t1">작성자</td>
-                           <td class="t1">작성일</td>
-                           <td class="t1">조회수</td>
-                        </tr>
+						    <td class="t1">번호</td>
+						    <td class="t1">제목</td>
+						    <td class="t1">작성자</td>
+						    <td class="t1">작성일</td>
+						    <td class="t1" style="white-space: nowrap;">조회수</td>
+						</tr>
                         <c:choose>
 							<c:when test="${empty result.noticeList}">
 								<tr>

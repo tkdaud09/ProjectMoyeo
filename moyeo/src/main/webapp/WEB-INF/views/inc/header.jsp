@@ -14,42 +14,47 @@
             <div class="col-5">
                  <ul class="list-inline d-flex justify-content-end mb-0">
                     
-                    <li class="me-6">
-                       <sec:authorize access="isAuthenticated()">
-                       <form action="<c:url value="/logout"/>" method="post">
-							<sec:csrfInput/>
-							<button type="submit">로그아웃</button>
-					   </form>
-                       </sec:authorize>      
-                    </li>
-                  <li class="me-6">
-                     <sec:authorize access="hasRole('ROLE_USER')">
-                     <a href="${pageContext.request.contextPath}/user/mypage">마이페이지</a>
-                     </sec:authorize>
-                  </li>
-                  <li class="me-6">
-                     <sec:authorize access="hasRole('ROLE_USER')">
-                     <a href="${pageContext.request.contextPath}/cart/list">장바구니</a>
-                     </sec:authorize>
-                  </li>
-                  <li class="me-6">
-                     <sec:authorize access="isAnonymous()">
-                            <a href="${pageContext.request.contextPath}/user/login">로그인</a>
-                         </sec:authorize>
-                      </li>
-                      <li class="me-6">
-                     <sec:authorize access="isAnonymous()">
-                            <a href="${pageContext.request.contextPath}/user/join">회원가입</a>
-                         </sec:authorize>
-                      </li>
-                      <li class="me-6">
-                         <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <a href="${pageContext.request.contextPath}/admin/main">관리자페이지</a>
-                         </sec:authorize>   
-                      </li>
-                  <li class="me-6">
-                     <a href="${pageContext.request.contextPath}/user/center">고객센터</a>
-                      </li>
+                 <li class="me-6">
+                 	<sec:authorize access="isAuthenticated()">
+                 		<form action="<c:url value="/logout"/>" method="post">
+				 			<button type="submit">로그아웃</button>
+				 			<sec:csrfInput/>
+				 		</form>
+                 	</sec:authorize>      
+                 </li>
+                 
+                 <li class="me-6">
+	                 <sec:authorize access="hasRole('ROLE_USER')">
+	               	 	<a href="${pageContext.request.contextPath}/user/mypage">마이페이지</a>
+	                 </sec:authorize>
+                 </li>
+                 
+                 <li class="me-6">
+	                 <sec:authorize access="hasRole('ROLE_USER')">
+	                 	<a href="${pageContext.request.contextPath}/cart/list">장바구니</a>
+	                 </sec:authorize>
+                 </li>
+                 
+                 <li class="me-6">
+	                 <sec:authorize access="isAnonymous()">
+	                 	<a href="${pageContext.request.contextPath}/user/login">로그인</a>
+	                 </sec:authorize>
+                 </li>
+                 
+                 <li class="me-6">
+	                 <sec:authorize access="isAnonymous()">
+	                 	<a href="${pageContext.request.contextPath}/user/join">회원가입</a>
+	                 </sec:authorize>
+                 </li>
+                 
+                 <li class="me-6">
+	                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+	                 	<a href="${pageContext.request.contextPath}/admin/main">관리자페이지</a>
+	                 </sec:authorize>   
+                 </li>
+	                 <li class="me-6">
+	                 	<a href="${pageContext.request.contextPath}/user/center">고객센터</a>
+                 </li>
                </ul>
             </div>
          </div>
@@ -61,60 +66,63 @@
       <div class="container clearfix">
          <div id="menuzord" class="menuzord">
             <a href="${pageContext.request.contextPath}/" class="menuzord-brand">
-                  <img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/logo-color-big.png" src="${pageContext.request.contextPath}/assets/img/logo-color-big.png" alt="logo-img">
-                </a>
+				<img class="lazyestload" data-src="${pageContext.request.contextPath}/assets/img/logo-color-big.png" src="${pageContext.request.contextPath}/assets/img/logo-color-big.png" alt="logo-img">
+			</a>
       
-         <ul class="menuzord-menu menuzord-right">
-            <li class="">
-               <a class="" href="javascript:void(0)">패키지여행</a>
-         <ul class="dropdown drop-up">
-            <li class=" ">
-               <a href="${pageContext.request.contextPath}/package/">패키지여행</a>
-            </li>
-         </ul>
-            </li>
+		<ul class="menuzord-menu menuzord-right">
+			<li class="">
+					<a class="" href="javascript:void(0)">패키지여행</a>
+				<ul class="dropdown drop-up">
+			<li class=" ">
+					<a href="${pageContext.request.contextPath}/package/">패키지여행</a>
+			</li>
+				</ul>
+			</li>
       
-                  <li class="">
-                  <a class="" href="javascript:void(0)">DIY</a>
-                  <ul class="dropdown drop-up">
-                  <li class=" ">
-                  <a href="${pageContext.request.contextPath}/diy/diy">DIY</a>
-                  </li>
+			<li class="">
+					<a class="" href="javascript:void(0)">DIY</a>
+				<ul class="dropdown drop-up">
+					<li class=" ">
+                  	<a href="${pageContext.request.contextPath}/diy/diy">DIY</a>
+					</li>
                       
-                  <li class=" ">
-                  <a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
-                  </li>
-                      
-                  <li class=" ">
-                  <a href="${pageContext.request.contextPath}/diy/diy_list">DIY 전체보기</a>
-                  </li>
-                  </ul>
-                  </li>
-                    <li class="">
-                  <a class="" href="javascript:void(0)">이벤트</a>
-                    <ul class="dropdown drop-up">
-                      <li class=" ">
-                        <a href="${pageContext.request.contextPath}/event/">이벤트</a>
-                      </li>
-                    </ul>
-                  </li>
+            		<li class=" ">
+            		<a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
+           			</li>
+                
+            		<li class=" ">
+            		<a href="${pageContext.request.contextPath}/diy/diy_list">DIY 전체보기</a>
+            		</li>
+            	</ul>
+            </li>
+            
+			<li class="">
+					<a class="" href="javascript:void(0)">이벤트</a>
+				<ul class="dropdown drop-up">
+					<li class=" ">
+					<a href="${pageContext.request.contextPath}/event/">이벤트</a>
+					</li>
+				</ul>
+			</li>
                   
-                  <li class="">
-                    <a href="javascript:void(0)">후기</a>
-                    <ul class="dropdown drop-up">
-                      <li class="">
-                        <a href="${pageContext.request.contextPath}/review/list">후기</a>
-                      </li>
-                    </ul>
-                  </li>
+			<li class="">
+					<a href="javascript:void(0)">후기</a>
+				<ul class="dropdown drop-up">
+					<li class="">
+					<a href="${pageContext.request.contextPath}/review/list">후기</a>
+					</li>
+				</ul>
+			</li>
       
-                  <li class="">
-                    <a href="javascript:void(0)">공지사항</a>
-      
-                       <ul class="dropdown drop-up">
-                        <li class="">
-                           <a href="${pageContext.request.contextPath}/notice/">공지사항</a>
-                         </li>
+			<li class="">
+					<a href="javascript:void(0)">공지사항</a>
+				<ul class="dropdown drop-up">
+				<li class="">
+					<a href="${pageContext.request.contextPath}/notice/">공지사항</a>
+				</li>
+				</ul>
+			</li>
+			
                </div>
             </div>
          </nav>
