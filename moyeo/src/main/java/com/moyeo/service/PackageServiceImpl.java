@@ -156,4 +156,9 @@ public class PackageServiceImpl implements PackageService {
 		return packageDAO.selectBestPackageByHeart();
 	}
 
+	//패키지 스케줄러 업데이트
+	@Override
+    public void updatePackStatus(Pack pack) {
+        packageDAO.updatePackStatus(pack);
+    }
 }

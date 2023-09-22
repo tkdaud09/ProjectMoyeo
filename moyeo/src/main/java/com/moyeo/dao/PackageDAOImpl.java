@@ -122,5 +122,11 @@ public class PackageDAOImpl implements PackageDAO {
 	public int selectContinuePackageCount(String selectKeyword) {
 		return sqlSession.getMapper(PackageMapper.class).selectContinuePackageCount(selectKeyword);
 	}
+	
+	//패키지 스케줄러 업데이트
+	@Override
+    public int updatePackStatus(Pack pack) {
+        return sqlSession.update("com.moyeo.mapper.PackageMapper.updatePackStatus", pack);
+    }
 
 }

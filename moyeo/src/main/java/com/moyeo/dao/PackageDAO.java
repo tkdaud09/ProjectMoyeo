@@ -58,5 +58,8 @@ public interface PackageDAO {
 	//갯수 반환
 	int selectPackageCount(String selectKeyword);
 	int selectContinuePackageCount(String selectKeyword);
+	
+	//패키지 스케쥴러 업데이트
+	int updatePackStatus(Pack pack);
 
 }

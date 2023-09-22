@@ -51,5 +51,8 @@ public interface PackageService {
 	
 	//main페이지에서 BEST6 여행지를 출력
 	List<Pack> getBestPackageByHeart();
+	
+	//패키지 스케쥴러 업데이트
+	void updatePackStatus(Pack pack);
 
 }	

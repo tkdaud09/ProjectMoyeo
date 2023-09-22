@@ -504,4 +504,11 @@
 		WHERE ROWNUM &lt;= 6
 	</select>
 	
+	<!-- 패키지 스케쥴러 업데이트 -->
+	<update id="updatePackStatus" parameterType="com.moyeo.dto.Pack">
+    	UPDATE pack
+    	SET pack_status = #{packStatus}
+    	WHERE pack_idx = #{packIdx}
+	</update>
+	
 </mapper>
