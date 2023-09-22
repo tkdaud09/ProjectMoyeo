@@ -70,7 +70,7 @@ public class AdminController {
        Integer status = null;
        if (userinfo != null) {
            status = userinfo.getStatus();
-       }
+       } 
        
        System.out.println("Admin Page Accessed. Status: " + status);
 
