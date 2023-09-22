@@ -15,7 +15,7 @@ public class PackageStatusUpdaterService {
 	@Autowired
 	private PackageService packageService;
 	
-	@Scheduled(cron = "0 * * * * ?") // 1분마다 실행
+	@Scheduled(cron = "0 0 0 * * ?") //하루에 한 번 실행
     public void updateEventStatus() {
         // 현재 날짜 가져오기 (시간 정보 무시)
         LocalDate currentDate = LocalDate.now();
