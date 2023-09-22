@@ -80,11 +80,15 @@
 
 
 	<context:component-scan
-		base-package="com.moyeo.controller" />
-	<context:component-scan
-		base-package="com.moyeo.dao" />
-	<context:component-scan
-		base-package="com.moyeo.service" />
+      base-package="com.moyeo.controller" />
+   <context:component-scan
+      base-package="com.moyeo.auth" />
+   <context:component-scan
+      base-package="com.moyeo.dao" />
+      <context:component-scan
+      base-package="com.moyeo.repository" />
+   <context:component-scan
+      base-package="com.moyeo.service" />
 		
 	<!-- interceptors : interceptor 엘리먼트를 등록하기 위한 엘리먼트 -->
 	<!-- <interceptors> -->

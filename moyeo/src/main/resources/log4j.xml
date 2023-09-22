@@ -61,6 +61,10 @@
 	<logger name="jdbc.connection">
 		<level value="info"/>
 	</logger>
+	
+	<logger name="com.moyeo.auth">
+      <level value="info" />
+</logger>
 
 	<!-- Root Logger -->
 	<root>

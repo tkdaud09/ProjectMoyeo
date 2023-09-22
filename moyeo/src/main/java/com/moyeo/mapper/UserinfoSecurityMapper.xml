@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.UserinfoSecurityMapper">
+
+	<!-- <insert id="insertUserinfoSecurity">
+		INSERT INTO userinfo_security 
+		VALUES(#{id}, #{pd}, #{name}, #{email}, #{enabled})
+	</insert>
+	
+	<insert id="insertUserinfoSecurityAuth">
+		INSERT INTO userinfo_security_auth values(#{id}, #{auth})
+	</insert> -->
+	
+	<insert id="insertUserinfoSecurity">
+		INSERT INTO userinfo_security (
+					id
+					,pw
+					,name
+					,email
+					,enabled) 
+		VALUES (
+					#{id}
+					,#{pw}
+					,#{name}
+					,#{email}
+					,#{enabled})
+	</insert>
+	
+	<insert id="insertUserinfoSecurityAuth">
+		INSERT INTO userinfo_security_auth values(#{id}, #{auth})
+	</insert>
+	
+	<resultMap type="UserinfoSecurity" id="userinfoSecurityResultMap">
+		<id column="id" property="id"/>
+		<result column="pw" property="pw"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="enabled" property="enabled"/>
+		<collection property="UserinfoSecurityAuthList" select="selectUserinfoSecurityAuthByUserid" column="id"/>
+	</resultMap>
+	
+	<select id="selectUserinfoSecurityAuthByUserid" resultType="UserinfoSecurityAuth">
+		SELECT 
+			 id
+			 ,auth
+			  
+		FROM userinfo_security_auth 
+		WHERE id=#{id}
+	</select>
+	
+	<select id="selectUserinfoSecurityByUserid" resultMap="userinfoSecurityResultMap">
+		SELECT 
+			 id
+			 ,pw
+			 ,name
+			 ,email
+			 ,enabled
+			 
+		FROM userinfo_security
+		WHERE id=#{id}
+	</select>
+</mapper>

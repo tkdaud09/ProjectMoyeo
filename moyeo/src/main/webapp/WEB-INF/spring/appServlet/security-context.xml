@@ -84,6 +84,7 @@
   
 
    <context:component-scan base-package="com.moyeo.dao" />
+   <context:component-scan base-package="com.moyeo.repository"/>
    <context:component-scan base-package="com.moyeo.security" />
    
    
