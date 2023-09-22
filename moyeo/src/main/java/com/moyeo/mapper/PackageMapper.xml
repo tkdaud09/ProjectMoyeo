@@ -350,6 +350,7 @@
 					<if test="keyword != null and keyword != ''">
       				WHERE pack_title LIKE '%' || #{keyword} || '%'	
       				</if>  
+      			WHERE pack_status = 0
 				ORDER BY pack_idx DESC
 				) pack
 			) 
