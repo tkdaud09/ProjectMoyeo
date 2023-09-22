@@ -10,6 +10,7 @@
 
    <http auto-config="true" use-expressions="true">
 	  <intercept-url pattern="/cart/insert" access="hasRole('ROLE_USER')" />  
+	  <intercept-url pattern="/user/mypage" access="hasRole('ROLE_USER')" />  
       <intercept-url pattern="/**" access="permitAll" /> 
    	  
       <!-- <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" /> -->
