@@ -6,6 +6,7 @@ import com.moyeo.security.CustomUserDetails;
 import com.moyeo.service.CartService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,8 +64,13 @@ public class CartController {
     
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public String insert(@ModelAttribute CartDTO dto, Authentication authentication, Model model) {
-    	CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
     	
+    	CustomUserDetails userinfo = null;
+
+		if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
+			userinfo = (CustomUserDetails) authentication.getPrincipal();
+		}
+	
     	String userinfoId = userinfo.getId();
 
         dto.setUserinfoId(userinfoId);

@@ -96,11 +96,9 @@
                   예약하기
                 </button>
                  <input type="hidden" name="packIdx" value="${packIdx}" />
-
             <button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01" value="장바구니"onclick="showAlert()">
                장바구니
             </button>
-            
             <!-- 찜 기능 -->
             <button type="button" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn02" id="packageHeartBtn">
                 <img id="heartImage" src="${pageContext.request.contextPath}/assets/img/package_heart.png" alt="하트 이미지" >
