@@ -199,7 +199,7 @@ $(document).ajaxSend(function(e, xhr){
            pageSizeDisplay();
             
            viewSelect(infoType)
-        },
+        }, 
         
         error: function(xhr) {
             alert("회원 정보를 불러오는 중에 오류가 발생했습니다. (에러 코드 = " + xhr.status + ")");
