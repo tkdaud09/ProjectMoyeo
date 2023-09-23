@@ -67,4 +67,9 @@ public class CartServiceImpl implements CartService {
         }
         return cartList;
     }
+
+	@Override
+	public CartDTO getCartByIdx(int cartIdx) {
+		return cartDAO.selectCartByIdx(cartIdx);
+	}
 }

@@ -4,8 +4,8 @@
 
 	<!-- 결제내역 추가 -->
 	<insert id = "insertPayment">
-		<selectKey resultType="int" keyProperty="idx" order="BEFORE">
-			SELECT packIdx_seq.nextval 
+		<selectKey resultType="int" keyProperty="paymentIdx" order="BEFORE">
+			SELECT pack_seq.nextval 
 			FROM dual
 		</selectKey>
 		INSERT INTO payment( 
@@ -16,14 +16,16 @@
 				, payment_amount	
 				, payment_date
 				, payment_status
+				, payment_idx
 		)VALUES(
-			#{impUid}
-			, #{merchantUid}
-			, #{packIdx}
-			, #{userinfoId}
-			, #{paymentAmount}
-			, #{paymentDate}
-			, #{paymentStatus}
+				#{impUid}
+				, #{merchantUid}
+				, #{packIdx}
+				, #{userinfoId}
+				, #{paymentAmount}
+				, #{paymentDate}
+				, #{paymentStatus}
+				, #{paymentIdx}
 		)
 	</insert>
 	
@@ -37,6 +39,7 @@
 			, payment_amount
 			, payment_date
 			, payment_status
+			, payment_idx
 		FROM payment
 		WHERE imp_uid=#{impUid} AND userinfo_id=#{userinfoId}
 	</select>
@@ -44,13 +47,14 @@
 	<!-- 관리자용 결제 내역 조회 -->
 	<select id="selectAllPayments" resultType="payment">
 		SELECT 
-			imp_uid
+			 imp_uid
 			, merchant_uid
 			, pack_idx
 			, userinfo_id
 			, payment_amount
 			, payment_date
 			, payment_status
+			, payment_idx
 		FROM payment
 		ORDERY BY payment_date DESC
 	</select>

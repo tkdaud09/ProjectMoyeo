@@ -136,8 +136,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 				payment.setImpUid((String)responseObject.get("imp_uid"));
 				payment.setMerchantUid((String)responseObject.get("merchant_uid"));
-				payment.setPaymentAmount((Long)responseObject.get("payment_amount"));
-				payment.setPaymentStatus((String)responseObject.get("payment_status"));
+				payment.setPaymentAmount((Long)responseObject.get("amount"));
 			} else {
 				return null;
 			}

@@ -44,43 +44,36 @@
 				<div class="pay_form">
 						<div class="pay_con1_box">
 							<p>주문 상품 정보</p>
-							<div class="pay_con1_img">
-								상품 썸네일이 들어갈 공간
-							</div>
-							<div class="pay_con1_text">
-								<ul>
-									<li>${cart.packTitle }</li>
-									<li>${pack.packAdultCount }, ${pack.packChildCount}</li>
-									<li>10,000원</li>
-								</ul>
-							</div>
+							 <c:forEach var="cart" items="${cartList}" varStatus="i">
+						        <p>상품 번호: ${cart.packIdx}</p>
+						        <p>성인 수: ${cart.packAdultcount}</p>
+						        <p>소인 수: ${cart.packChildcount}</p>
+						     </c:forEach>
+							
+							
 						</div><!-- //pay_con1_box -->
 						<div class="pay_con2_box">
 							<p>주문자 정보</p>
 							<ul>
-								<li>홍길동</li>
-								<li>010-1234-5678</li>
-								<li>asd@naver.com</li>
+								<li>${userinfo.id}</li>
+								<li>${userinfo.name}</li>
+								<li>${userinfo.phone}</li>
+								<li>${userinfo.email}</li>
 							</ul>
 						</div><!-- //pay_con2_box -->
 						<div class="pay_con3_box">
 							<p>최종 결제금액</p>
 							<ul>
-								<li>대인 (2명) <span>10,000원</span></li>
-								<li>소인 (2명) <span>10,000원</span></li>
-								<li></li>
-								<li>총 결제금액 <span>10,000원</span></li>
+								<li>총 결제금액 <span>${sumTotal}</span></li>
 							</ul>
 						</div><!-- //pay_con3_box -->
 						<div class="pay_con4_box">
 							<p>결제 방법</p>
-							
-							<form>
-						        <label><input type="radio" name="color" value="kg">KG이니시스</label>
-						        <sec:csrfInput/>
-						    </form>
-						    
-						    <button>결제하기</button>
+
+						       <button type="button" id="html5_inicis" class="pay">일반결재(KG이니시스)</button>
+
+						    <%--  <button class="pay" id="pay">결제하기</button> --%>
+						  
 						</div><!-- //pay_con3_box -->
 				</div><!-- pay_form -->
 			</div>
@@ -91,21 +84,28 @@
 </body>
 
 <script type="text/javascript">
-	
+	 
 	var name = "${pack.packTitle}";
-	//var idx = ${donation.idx};
+	//var paymentIdx = ${payment.paymentIdx};
 	
-	var buyerEmail="<sec:authentication property="principal.email"/>";
-	var buyerName="<sec:authentication property="principal.name"/>";
-	var buyerTel="<sec:authentication property="principal.phone"/>";
-	var buyerAddress="<sec:authentication property="principal.address"/>;
-
-	var csrfHeaderName="${_csrf.headerName}"
-	var csrfTokenValue="${_csrf.token}";
-	$(document).ajaxSend(function(e, xhr) {
-		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-	});
+	var buyerEmail="${userinfo.email}";
+	var buyerName="${userinfo.name}";
+	var buyerTel="${userinfo.phone}";
+	var buyerAddress="${userinfo.address}";
 	
+	var postalCodeMatch = buyerAddress.match(/우편번호 (\d{5})/);
+	var restOfAddressMatch = buyerAddress.match(/주소 (\S.+)/);
+	
+	var postalCode = postalCodeMatch[1];
+	var restOfAddress = restOfAddressMatch[1];
+	
+	$(document).ready(function() {
+		var csrfHeaderName="${_csrf.headerName}"
+			var csrfTokenValue="${_csrf.token}";
+			$(document).ajaxSend(function(e, xhr) {
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			});
+			
 	$(".pay").click(function() {
 		var pg=$(this).attr("id");
 		//alert(pg);
@@ -117,13 +117,13 @@
 		//주문번호 - 주문테이블에서 제공된 값 사용
 		var merchantUid="merchant_"+new Date().getTime();
 		//결제금액 - 주문테이블에서 제공된 값 사용
-		var paymentAmount=10;
+		var paymentAmount=${sumTotal};
 		
 		//결제 전 주문번호와 결제금액을 세션에 저장하기 위한 페이지 요청
 		// => 결제 후 결제정보와 비교하여 검증하기 위해 세션에 저장 
 		$.ajax({
 			type: "post",
-			url: "<c:url value="/payment/pay"/>",
+			url: "<c:url value="/payment/addPay"/>",
 			contentType: "application/json",
 			data: JSON.stringify({"merchantUid":merchantUid, "paymentAmount":paymentAmount}),
 			dataType: "text",
@@ -145,14 +145,15 @@
 						buyer_email: buyerEmail,
 	                    buyer_name: buyerName,//결제 사용자 이름
 	                    buyer_tel: buyerTel,//결제 사용자 전화번호
-	                    buyer_address: buyerAddress,//결제 사용자 주소
+	                    buyer_postcode: postalCode,//결제 사용자 우편번호
+	                    buyer_address: restOfAddress,//결제 사용자 주소
 	               }, function(response) {//결제 관련 응답 결과를 제공받아 처리하는 함수
 						//response : 응답결과를 저장한 Object 객체
 						if (response.success) {//결제한 경우
 							//결제금액을 검증하기 위한 페이지를 요청
 							$.ajax({
 								type: "post",
-								url: "<c:url value="/payment/complate"/>",
+								url: "<c:url value="/payment/complete"/>",
 								contentType: "application/json",
 								data: JSON.stringify({"impUid": response.imp_uid, "merchantUid": response.merchant_uid}),
 								dataType: "text",
@@ -179,38 +180,8 @@
 		});
 		
 	});
+	});
 	</script>
+	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,7 +2,32 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- Security 태그 라이브러리를 JSP 문서에 포함 - Spring Security 관련 태그 사용 가능 --%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<style>
+	.admin-logout {
+		border: none;
+		background: none;
+		color: #989898;
+		font-size: 13px;
+		position: relative;
+		right: -150px;
+		letter-spacing: -0.5px;
+	}
+	
+	.user-logout {
+		border: none;
+		background: none;
+		color: #989898;
+		font-size: 13px;
+		position: relative;
+		right: -245px;
+		letter-spacing: -0.5px;
+	}
+	
+	.join {
+		position: relative;
+		right: -15px;
+	} 
+</style>
 <header class="header" id="pageTop">
 <!-- 일반회원용 헤더 내용 추가 -->
 <!-- Top Bar -->
@@ -13,11 +38,22 @@
             </div>
             <div class="col-5">
                  <ul class="list-inline d-flex justify-content-end mb-0">
-                    
+                 
+                 <!-- 관리자 -->   
                  <li class="me-6">
-                 	<sec:authorize access="isAuthenticated()">
+                 	<sec:authorize access="hasRole('ROLE_ADMIN')">
                  		<form action="<c:url value="/logout"/>" method="post">
-				 			<button type="submit">로그아웃</button>
+				 			<button type="submit" class="admin-logout">로그아웃</button>
+				 			<sec:csrfInput/>
+				 		</form>
+                 	</sec:authorize>      
+                 </li>
+                 
+                 <!-- 로그인유저 -->
+                 <li class="me-6">
+                 	<sec:authorize access="hasRole('ROLE_USER')">
+                 		<form action="<c:url value="/logout"/>" method="post">
+				 			<button type="submit" class="user-logout">로그아웃</button>
 				 			<sec:csrfInput/>
 				 		</form>
                  	</sec:authorize>      
@@ -43,7 +79,7 @@
                  
                  <li class="me-6">
 	                 <sec:authorize access="isAnonymous()">
-	                 	<a href="${pageContext.request.contextPath}/user/join">회원가입</a>
+	                 	<a href="${pageContext.request.contextPath}/user/join" class="join">회원가입</a>
 	                 </sec:authorize>
                  </li>
                  

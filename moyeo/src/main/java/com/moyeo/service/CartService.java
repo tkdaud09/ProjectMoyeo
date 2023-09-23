@@ -12,4 +12,7 @@ public interface CartService {
     int sumTotal(String userinfoId);
     void deleteCart(int cartIdx);
     List<Map<String, Object>> getAllCartItemsWithPackages(String userinfoId);
+    
+    /*결제*/
+    CartDTO getCartByIdx (int cartIdx);
 }

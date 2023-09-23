@@ -5,7 +5,39 @@
 <html lang="en" >
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>     
+</head>  
+<style>
+    form {
+        position: relative;
+    }
+    
+    form button {
+        width: 90px;
+        height: 45px;
+        border-radius: 5px;
+        background-color: #D5D5D5;
+        border: none;
+        line-height: 35px;
+        position: absolute;
+        left: 600px;
+        margin: 20px 0;
+    }
+    
+    .reply-style p:nth-child(1) {
+    	color: #000;
+    }
+    
+    .reply-style p:nth-child(2) {
+    	color: #000;
+    	font-size: 17px;
+    	margin: 20px 0 
+    }
+    
+    .reply-style p strong {
+    	font-size: 18px;
+    	margin-right: 10px;
+    }
+</style>   
 <body id="body" class="up-scroll">
   <div class="main-wrapper packages-grid">
 
@@ -77,8 +109,8 @@
 					
 					<c:forEach items="${reply}" var="reply">
 						<li>
-							<div>
-								<p>${reply.userinfoId} / ${reply.qaReplyRegdate}</p>
+							<div class="reply-style">
+								<p><strong>${reply.userinfoId}</strong> ${reply.qaReplyRegdate}</p>
 					            <p id="qaReplyContent_${reply.qaReplyIdx}">${reply.qaReplyContent}</p>
 					            <sec:authorize access="isAuthenticated()">
 								<sec:authorize access="hasRole('ROLE_ADMIN')" var="adminRole"/>
@@ -107,7 +139,7 @@
 							
 						</p>
 						<p>
-							<textarea rows="5" cols="50" name="qaReplyContent"></textarea>
+							<textarea rows="6" cols="170" name="qaReplyContent"></textarea>
 						</p>
 						<p>
 							<input type="hidden" name="qaIdx" value="${qa.qaIdx}">

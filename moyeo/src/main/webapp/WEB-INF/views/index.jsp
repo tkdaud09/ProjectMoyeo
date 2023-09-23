@@ -306,8 +306,9 @@
       </h2>
       <p class="text-capitalize text-center noto">모여에서 추천드리는 마감임박 상품입니다.</p>
     </div>
-<c:forEach items="${deadlinePackage}" var="pack">
+
     <div class="row justify-content-center">
+    <c:forEach items="${deadlinePackage}" var="pack">
       <div class="col-md-6 col-lg-4">
         <div class="card card-hover mb-5 mb-lg-0">
           <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="position-relative">
@@ -342,7 +343,7 @@
           </a>
 
           <div class="card-body">
-            <h5 class="">
+            <h5>
               <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}" class="card-title text-uppercase">${pack.packTitle}</a>
             </h5>
             <p class="mb-5">${pack.packStartDate} ~ ${pack.packEndDate}</p>
@@ -351,13 +352,16 @@
                 <p class="mb-0 text-capitalize">Start from</p>
                 <h3 class="text-primary" style="font-weight:700; font-size:21px;">성인 가격 : ${pack.packAdultPrice}원</h3>
                 <h3 class="text-primary" style="font-weight:700; font-size:21px;">소인 가격 : ${pack.packChildPrice}원</h3>
-              </div>              
+              </div>   
+                         
             </div>
           </div>
         </div>
       </div>
+      </c:forEach>
       </div>
-</c:forEach>
+</div>
+</section>
 
 
 

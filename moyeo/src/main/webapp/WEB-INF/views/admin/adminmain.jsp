@@ -208,7 +208,7 @@ $(document).ajaxSend(function(e, xhr){
 }
 	
 	//패키지 리스트 출력
-	function packageListDisplay(pageNum, pageSize, selectKeyword) {
+	function packageListDisplay(pageNum, pageSize, selectKeyword) { 
 		$("#viewSelect").show();
 		$("#pageSizeSelect").show();
 		$("#pageNumDiv").show();

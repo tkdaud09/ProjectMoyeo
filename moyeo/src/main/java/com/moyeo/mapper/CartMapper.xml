@@ -55,5 +55,17 @@
         SELECT c.pack_idx FROM cart c WHERE c.userinfo_id = #{userinfoId}
     )
 	</select>
-
+	
+	<!-- 결제 -->
+	<select id="selectCartByIdx" resultType="CartDTO">
+		SELECT 
+			cart_idx
+			, userinfo_id
+			, pack_idx
+			, pack_adultcount
+			, pack_childcount
+		FROM cart
+		WHERE cart_idx= #{cartIdx}
+	</select>
+	
 	</mapper>

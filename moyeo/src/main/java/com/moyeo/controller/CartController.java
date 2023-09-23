@@ -72,9 +72,9 @@ public class CartController {
 		}
 	
     	String userinfoId = userinfo.getId();
-
+    	
+    	
         dto.setUserinfoId(userinfoId);
-
         // 장바구니에 이미 동일한 packIdx가 있는지 확인
         List<CartDTO> cartList = cartService.cartList(userinfoId);
 

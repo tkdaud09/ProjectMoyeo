@@ -11,4 +11,7 @@ public interface CartDAO {
     int sumTotal(String userinfoId);
     void deleteCart(int cartIdx);
     List<Map<String, Object>> getAllCartItemsWithPackages(String userinfoId);
+    
+    /*결제*/
+    CartDTO selectCartByIdx (int cartIdx);
 }

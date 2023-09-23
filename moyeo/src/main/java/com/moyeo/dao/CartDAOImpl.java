@@ -1,6 +1,8 @@
 package com.moyeo.dao;
 
 import com.moyeo.dto.CartDTO;
+import com.moyeo.mapper.CartMapper;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
@@ -49,4 +51,9 @@ public class CartDAOImpl implements CartDAO {
     public List<Map<String, Object>> getAllCartItemsWithPackages(String userinfoId) {
         return sqlSession.selectList("com.moyeo.mapper.CartMapper.getAllCartItemsWithPackages", userinfoId);
     }
+    
+	@Override
+	public CartDTO selectCartByIdx(int cartIdx) {
+		 return sqlSession.getMapper(CartMapper.class).selectCartByIdx(cartIdx);
+	}
 }
