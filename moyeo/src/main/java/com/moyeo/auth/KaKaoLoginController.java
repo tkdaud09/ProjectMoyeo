@@ -28,7 +28,7 @@ import com.moyeo.service.UserinfoSecurityService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/kakao")
+@RequestMapping("/kakao") 
 @RequiredArgsConstructor
 public class KaKaoLoginController {
 	private final KakaoLoginBean kakaoLoginBean;
