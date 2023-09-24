@@ -4,7 +4,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-icons/2.0.1/css/LineIcons.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css" >
@@ -16,87 +19,106 @@
 	
 <!-- userifo-detail -->
 <section id="userinfo">
-    <div class="container">
-        <div class="row">
-        	<!-- userinfo -->
-			<div class="col-sm-10 userinfo-info">
-                <div id="userDetail" class="userinfo-info-content">
-                    <h4>사용자 정보 <span class="pull-right"><button id="modify-userinfo" type="button" class="btn btn-sm btn-default btn-rounded no-margin"><i class="lnr lnr-pencil"></i><span>편집</span></button></span></h4>
-                    <div class="row">
-
-                        <div class="col-xs-6 col-sm-8 col-md-10">
-                            <p>이 름: <span>${userinfo.name }</span></p>
-                            <p>이메일: <span>${userinfo.email }</span></p>
-                            <p>전화번호: <span>${userinfo.phone }</span></p>
-                            <p>주소: <span>${userinfo.address }</span></p>
-                            <p>상태: <span>${userinfo.status }</span></p>
+        <div class="container">
+            <div class="row">
+                <!-- userinfo -->
+                <div class="col-lg-10 mx-auto userinfo-info">
+                    <div id="userDetail" class="userinfo-info-content">
+                        <div class="d-flex justify-content-between align-items-center">
+                        <br>
+                        <br>
+                            <h4>사용자 정보</h4>
+                            <button id="modify-userinfo" type="button" class="btn btn-primary">
+							    <i class="fas fa-edit"></i> 편집
+							</button>
                         </div>
-                    </div><!-- / row -->
-                    
-                    <div id="edit-form" style="display: none;">
-                    	<br>
-                    	<h3>수정하세요</h3>
-                    	<p> 이름 </p>
-                    	<input id="aName" name="aName" value="${userinfo.name }">
-                    	<hr>
-                    	<hr>
-                    	<p> 이메일 </p>
-                    	<input id="aEmail" name="aEmail" value="${userinfo.email }">
-                    	<hr>
-                    	<hr>
-                    	<p> 전화번호 </p>
-                    	<input id="aPhone" name="aPhone" value="${userinfo.phone }">
-                    	<hr>
-                    	<hr>
-                    	<p> 주소 </p>
-                    	<input id="aAddress" name="aAddress" value="${userinfo.address }">
-                    	<hr>
-                    	<hr>
-                    	<p> 상태 </p>
-                    	<input id="aStatus" name="aStatus" value="${userinfo.status }"> 
-                    	<hr>
-                    	<hr>
-                    	<!-- 수정 버튼 -->
-                    	<button id="modifyBtn" type="submit">저장</button>
-                    	<button id="cancelModifyBtn" type="button">취소</button>
-                   	</div>
-                </div><!-- /userinfo -->
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aName">이름:</label>
+                                    <span>${userinfo.name}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="aEmail">이메일:</label>
+                                    <span>${userinfo.email}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="aPhone">전화번호:</label>
+                                    <span>${userinfo.phone}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aAddress">주소:</label>
+                                    <span>${userinfo.address}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="aStatus">상태:</label>
+                                    <span>${userinfo.status}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="edit-form" style="display: none;">
+                            <!-- 편집용 입력 폼 -->
+                            <h3>수정하세요</h3>
+                            <div class="form-group">
+                                <label for="aName">이름:</label>
+                                <input type="text" class="form-control" id="aName" name="aName" value="${userinfo.name}">
+                            </div>
+                            <div class="form-group">
+                                <label for="aEmail">이메일:</label>
+                                <input type="text" class="form-control" id="aEmail" name="aEmail" value="${userinfo.email}">
+                            </div>
+                            <div class="form-group">
+                                <label for="aPhone">전화번호:</label>
+                                <input type="text" class="form-control" id="aPhone" name="aPhone" value="${userinfo.phone}">
+                            </div>
+                            <div class="form-group">
+                                <label for="aAddress">주소:</label>
+                                <input type="text" class="form-control" id="aAddress" name="aAddress" value="${userinfo.address}">
+                            </div>
+                            <div class="form-group">
+                                <label for="aStatus">상태:</label>
+                                <input type="text" class="form-control" id="aStatus" name="aStatus" value="${userinfo.status}">
+                            </div>
+                            <!-- 수정 버튼과 취소 버튼 추가 -->
+                            <button id="modifyBtn" type="submit" class="btn btn-success">저장</button>
+                            <button id="cancelModifyBtn" type="button" class="btn btn-danger">취소</button>
+                        </div>
+                    </div><!-- /userinfo -->
 
-                <div id="myDiy" class="userinfo-info-content">
-                    <h4> DIY 내역 </h4>
-                    <p class="space-bottom"></p>
-                    <div id="diyListDiv"></div>
-                    <div id="diyPageNumDiv"></div>
-                </div>
+                    <div id="myDiy" class="userinfo-info-content">
+	                    <h4> DIY 내역 </h4>
+	                    <p class="space-bottom"></p>
+	                    <div id="diyListDiv"></div>
+	                    <div id="diyPageNumDiv"></div>
+	                </div>
 
-                <div id="myQa" class="userinfo-info-content">
-                    <h4> QnA 내역 </h4>
-                    <p class="space-bottom"></p>
-                    <div id="qaListDiv"></div>
-                    <div id="qaPageNumDiv"></div>
-                </div>
+	                <div id="myQa" class="userinfo-info-content">
+	                    <h4> QnA 내역 </h4>
+	                    <p class="space-bottom"></p>
+	                    <div id="qaListDiv"></div>
+	                    <div id="qaPageNumDiv"></div>
+	                </div>
                 
-                <div id="myReview" class="userinfo-info-content">
-                    <h4> 후기 내역 </h4>
-                    <p class="space-bottom"></p>
-                    <div id="reviewListDiv"></div>
-                    <div id="reviewPageNumDiv"></div>
+	                <div id="myReview" class="userinfo-info-content">
+	                    <h4> 후기 내역 </h4>
+	                    <p class="space-bottom"></p>
+	                    <div id="reviewListDiv"></div>
+	                    <div id="reviewPageNumDiv"></div>
+	                </div>
+                    
+                    <br>
+                    <button id="remove-userinfo" type="button" class="btn btn-danger">회원 삭제</button>
                 </div>
+            </div><!-- / row -->
+        </div>
+    </section>
 
-				<div id="myPackageHeart" class="userinfo-info-content">
-                    <h4> 하트 리스트 </h4>
-                    <p class="space-bottom"></p>
-                    <div id="heartListDiv"></div>
-                    <div id="packageHeartPageNumDiv"></div>
-                </div>
-                <br>
-                <button id="remove-userinfo" type="button" style="color: red;">회원 삭제</button>
-            </div>
-	
-        </div><!-- / row -->
-    </div>
-</section>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
 	var id = "${userinfo.id}"; // 전달받은 아이디
@@ -151,7 +173,7 @@
 	function displayDiyData(myDiyData) {
 		$("#diyListDiv").empty();
 	    
-	    var table = $("<table>").attr("id", "diyTable");
+	    var table = $("<table>").attr("id", "diyTable").addClass('table table-striped');
 	    var thead = $("<thead>").append(
 	        "<tr>" +
 	        "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
@@ -202,14 +224,14 @@
 	function displayQaData(myQaData) {
 		$("#qaListDiv").empty();
 	    
-	    var table = $("<table>").attr("id", "qaTable");
+	    var table = $("<table>").attr("id", "qaTable").addClass('table table-striped');
 	    var thead = $("<thead>").append(
 	        "<tr>" +
-	        "<th style='padding: 10px;'>번호</th>" +
-	        "<th style='padding: 10px;'>옵션</th>" +
-	        "<th style='padding: 10px;'>제목</th>" +
-	        "<th style='padding: 10px;'>내용</th>" +
-	        "<th style='padding: 10px;'>등록일</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>옵션</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>제목</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>내용</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>등록일</th>" +
 	        "</tr>"
 	    );
 	
@@ -245,16 +267,16 @@
 	function displayReviewData(myReviewData) {
 	    $("#reviewListDiv").empty();
 
-	    var table = $("<table>").attr("id", "reviewTable");
+	    var table = $("<table>").attr("id", "reviewTable").addClass('table table-striped');
 	    var thead = $("<thead>").append(
 	        "<tr>" +
-	        "<th style='padding: 10px;'>번호</th>" +
-	        "<th style='padding: 10px;'>패키지 제목</th>" +
-	        "<th style='padding: 10px;'>별점</th>" +
-	        "<th style='padding: 10px;'>후기 제목</th>" +
-	        "<th style='padding: 10px;'>내용</th>" +
-	        "<th style='padding: 10px;'>등록일</th>" +
-	        "<th style='padding: 10px;'>조회수</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>패키지 제목</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>별점</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>후기 제목</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>내용</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>등록일</th>" +
+	        "<th style='padding: 10px; white-space: nowrap;'>조회수</th>" +
 	        "</tr>"
 	    );
 

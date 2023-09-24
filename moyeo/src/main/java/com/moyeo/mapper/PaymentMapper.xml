@@ -5,7 +5,7 @@
 	<!-- 결제내역 추가 -->
 	<insert id = "insertPayment">
 		<selectKey resultType="int" keyProperty="paymentIdx" order="BEFORE">
-			SELECT pack_seq.nextval 
+			SELECT payment_seq.nextval 
 			FROM dual
 		</selectKey>
 		INSERT INTO payment( 
@@ -23,11 +23,55 @@
 				, #{packIdx}
 				, #{userinfoId}
 				, #{paymentAmount}
-				, #{paymentDate}
-				, #{paymentStatus}
+				, sysdate
+				, 0
 				, #{paymentIdx}
 		)
 	</insert>
+	
+	<!-- 결제 완료 -->
+	<update id="updatePayment">
+   		UPDATE payment 
+   		SET
+   			payment_status = 0
+   			, payment_date = sysdate
+   			, IMP_UID = #{impUid}
+   			, MERCHANT_UID = #{merchantUid}
+   		WHERE payment_idx = #{paymentIdx}
+   </update>
+	
+	<!-- 결제 취소 state -->
+	<update id="updatePaymentCancel">
+   		UPDATE payment 
+   		SET
+   			payment_status = 1
+   			, payment_date = sysdate
+   			, IMP_UID = #{impUid}
+   			, MERCHANT_UID = #{merchantUid}
+   		WHERE payment_idx = #{paymentIdx}
+   </update>
+	
+	<!-- 결제 취소 -->
+   <delete id="deletePayment">
+   		DELETE
+   		FROM payment
+   		WHERE payment_idx = #{paymentIdx}
+   </delete>
+   
+   <!-- 조회 -->
+   <select id="selectPayment" resultType="Payment">
+      SELECT 
+			imp_uid
+			, merchant_uid
+			, pack_idx
+			, userinfo_id
+			, payment_amount
+			, TO_CHAR(payment_date,'YYYY-MM-DD') AS payment_date
+			, payment_status
+			, payment_idx
+		FROM payment
+      WHERE userinfo_id = #{arg0} AND pack_idx = #{arg1}
+   </select>
 	
 	<!-- 결제내역 조회 -->
 	<select id="selectMyPayment" resultType="payment">

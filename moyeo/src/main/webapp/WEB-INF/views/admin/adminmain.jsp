@@ -2,10 +2,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<title>모여 관리자페이지</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css" >
 </head>
@@ -86,7 +87,10 @@
 		</div>
 	</div>
 </section>
-	
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 //CSRF 토큰 관련 정보를 자바스크립트 변수에 저장
 var csrfHeaderName = "${_csrf.headerName}";
@@ -123,7 +127,7 @@ $(document).ajaxSend(function(e, xhr){
         success: function(result) {
             $("#infoListDiv").empty();
             
-            var table = $("<table>").attr("id", "userinfoInfoTable");
+            var table = $("<table>").attr("id", "userinfoInfoTable").addClass('table table-striped');
             var thead = $("<thead>").append(
                 "<tr>" +
                 "<th style='padding: 10px; white-space: nowrap;'>아이디</th>" +
@@ -136,7 +140,6 @@ $(document).ajaxSend(function(e, xhr){
                 "<th style='padding: 10px; white-space: nowrap;'>가입일</th>" +
                 "<th style='padding: 10px; white-space: nowrap;'>마지막로그인</th>" +
                 "<th style='padding: 10px; white-space: nowrap;'>상태</th>" +
-                "<th style='padding: 10px; white-space: nowrap;'>권한</th>" +
                 "</tr>"
             );
 
@@ -144,7 +147,7 @@ $(document).ajaxSend(function(e, xhr){
 
             if (result.userinfoList.length == 0) { // 검색된 게시글이 없을 때
                 var row = "<tr>" +
-                    "<td colspan='11'>검색된 회원 정보가 없습니다.</td>" +
+                    "<td colspan='10'>검색된 회원 정보가 없습니다.</td>" +
                     "</tr>";
                 tbody.append(row);
             } 
@@ -171,7 +174,6 @@ $(document).ajaxSend(function(e, xhr){
                     "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.regdate.substring(0, 10) + "</td>" +
                     "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.logdate.substring(0, 10) + "</td>" +
                     "<td style='padding: 5px; white-space: nowrap;'>" + displayStatus + "</td>" +
-                    "<td style='padding: 5px; white-space: nowrap;'>" + userinfo.enabled + "</td>" +
                     "</tr>";
                 tbody.append(row);
            }
@@ -186,11 +188,13 @@ $(document).ajaxSend(function(e, xhr){
             searchDiv.empty();
 
             searchDiv.append(
-            		"<br>"+
-        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
-				 	"<br>"+        			
-          		 	"<button id='searchButton'>검색</button>"
-            )
+                    "<div class='input-group mb-3'>" +
+                    "<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>" +
+                    "<div class='input-group-append'>" +
+                    "<button id='searchButton' class='btn btn-outline-secondary' type='button'>검색</button>" +
+                    "</div>" +
+                    "</div>"
+            );
           
             // 페이지 번호 출력
             pageNumDisplay(result.pager, infoType);
@@ -229,7 +233,7 @@ $(document).ajaxSend(function(e, xhr){
            
 			// 목록으로 보기를 눌렀을 때
 			if(viewType === "list") {
-				var table = $("<table>").attr("id", "packageInfoTable");
+				var table = $("<table>").attr("id", "packageInfoTable").addClass('table table-striped');
                 var thead = $("<thead>").append(
                       "<tr>" +
                        "<th style='min-width:100px; white-space: nowrap;'>번호</th>" +
@@ -290,11 +294,13 @@ $(document).ajaxSend(function(e, xhr){
             searchDiv.empty();
 
             searchDiv.append(
-            		"<br>"+
-        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
-				 	"<br>"+        			
-          		 	"<button id='searchButton'>검색</button>"
-            )
+                    "<div class='input-group mb-3'>" +
+                    "<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>" +
+                    "<div class='input-group-append'>" +
+                    "<button id='searchButton' class='btn btn-outline-secondary' type='button'>검색</button>" +
+                    "</div>" +
+                    "</div>"
+            );
           
             // 페이지 번호 출력
             pageNumDisplay(result.pager, infoType);
@@ -331,7 +337,7 @@ $(document).ajaxSend(function(e, xhr){
 	        	console.log(result);
 	           	$("#infoListDiv").empty();
 	            
-	            var table = $("<table>").attr("id", "diyInfoTable");
+	            var table = $("<table>").attr("id", "diyInfoTable").addClass('table table-striped');
 	            var thead = $("<thead>").append(
 	                "<tr>" +
 	                "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
@@ -382,11 +388,13 @@ $(document).ajaxSend(function(e, xhr){
 	            searchDiv.empty();
 
 	            searchDiv.append(
-	            		"<br>"+
-	        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
-					 	"<br>"+        			
-	          		 	"<button id='searchButton'>검색</button>"
-	            )
+	                    "<div class='input-group mb-3'>" +
+	                    "<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>" +
+	                    "<div class='input-group-append'>" +
+	                    "<button id='searchButton' class='btn btn-outline-secondary' type='button'>검색</button>" +
+	                    "</div>" +
+	                    "</div>"
+	            );
 	          
 	            // 페이지 번호 출력
 	            pageNumDisplay(result.pager, infoType);
@@ -424,7 +432,7 @@ $(document).ajaxSend(function(e, xhr){
 	        	console.log(result);
 	           	$("#infoListDiv").empty();
 	            
-	            var table = $("<table>").attr("id", "noticeInfoTable");
+	            var table = $("<table>").attr("id", "noticeInfoTable").addClass('table table-striped');
 	            var thead = $("<thead>").append(
 	                "<tr>" +
 	                "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
@@ -467,11 +475,13 @@ $(document).ajaxSend(function(e, xhr){
 	            searchDiv.empty();
 
 	            searchDiv.append(
-	            		"<br>"+
-	        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
-					 	"<br>"+        			
-	          		 	"<button id='searchButton'>검색</button>"
-	            )
+	                    "<div class='input-group mb-3'>" +
+	                    "<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>" +
+	                    "<div class='input-group-append'>" +
+	                    "<button id='searchButton' class='btn btn-outline-secondary' type='button'>검색</button>" +
+	                    "</div>" +
+	                    "</div>"
+	            );
 	          
 	            // 페이지 번호 출력
 	            pageNumDisplay(result.pager, infoType);
@@ -508,7 +518,7 @@ $(document).ajaxSend(function(e, xhr){
 	        	console.log(result);
 	           	$("#infoListDiv").empty();
 	            
-	            var table = $("<table>").attr("id", "eventInfoTable");
+	            var table = $("<table>").attr("id", "eventInfoTable").addClass('table table-striped');
 	            var thead = $("<thead>").append(
 	                "<tr>" +
 	                "<th style='padding: 10px; white-space: nowrap;'>번호</th>" +
@@ -553,11 +563,13 @@ $(document).ajaxSend(function(e, xhr){
 	            searchDiv.empty();
 
 	            searchDiv.append(
-	            		"<br>"+
-	        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
-					 	"<br>"+        			
-	          		 	"<button id='searchButton'>검색</button>"
-	            )
+	                    "<div class='input-group mb-3'>" +
+	                    "<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>" +
+	                    "<div class='input-group-append'>" +
+	                    "<button id='searchButton' class='btn btn-outline-secondary' type='button'>검색</button>" +
+	                    "</div>" +
+	                    "</div>"
+	            );
 	          
 	            // 페이지 번호 출력
 	            pageNumDisplay(result.pager, infoType);
@@ -595,7 +607,7 @@ $(document).ajaxSend(function(e, xhr){
 	        	console.log(result);
 	            $("#infoListDiv").empty();
 	            
-	            var table = $("<table>").attr("id", "qaInfoTable");
+	            var table = $("<table>").attr("id", "qaInfoTable").addClass('table table-striped');
 	            var thead = $("<thead>").append(
 	                "<tr>" +
 	                "<th style='padding: 10px; white-space: nowrap;'>글번호</th>" +
@@ -653,11 +665,13 @@ $(document).ajaxSend(function(e, xhr){
 	            searchDiv.empty();
 
 	            searchDiv.append(
-	            		"<br>"+
-	        		 	"<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>"+
-					 	"<br>"+        			
-	          		 	"<button id='searchButton'>검색</button>"
-	            )
+	                    "<div class='input-group mb-3'>" +
+	                    "<input type='text' class='form-control' id='selectKeyword' placeholder='검색어를 입력하세요'>" +
+	                    "<div class='input-group-append'>" +
+	                    "<button id='searchButton' class='btn btn-outline-secondary' type='button'>검색</button>" +
+	                    "</div>" +
+	                    "</div>"
+	            );
 	          
 	            // 페이지 번호 출력
 	            pageNumDisplay(result.pager, infoType);

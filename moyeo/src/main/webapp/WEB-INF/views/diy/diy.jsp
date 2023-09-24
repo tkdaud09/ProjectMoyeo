@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="utf-8">
  <head>
@@ -81,10 +81,19 @@
 							</div>
 						</div>
 
-						
-						 <div class="div_btn1">
-							<a href="${pageContext.request.contextPath}/diy/diy_add"><button>참여하기</button></a>
-						</div>
+				<c:choose>
+                   <c:when test="${userinfo.id ne null}">
+                     <div class="div_btn1">
+                     <button class="btn" type="button" onclick="location.href='<c:url value="/diy/diy_add"/>';">참여하기</button>
+                   </div>
+                   </c:when>
+                 
+                   <c:otherwise>
+                     <div class="div_btn1">
+                       <button class="btn" type="button" onclick="Login()">참여하기</button>
+                   </div>  
+                   </c:otherwise>
+                 </c:choose>
 
 					</div><!-- /div_p -->
 				</div><!-- /div_con1 -->
@@ -139,6 +148,16 @@
     </div>	<!-- /container -->
 </section>
 
+	<script>
+   function Login() {
+       if (confirm("로그인 후 이용 가능합니다. 로그인하시겠습니까?")) {
+             
+              window.location.href = "${pageContext.request.contextPath}/user/login"; 
+          } else {
+              
+          }
+   }
+   </script>
 
 
   </body>

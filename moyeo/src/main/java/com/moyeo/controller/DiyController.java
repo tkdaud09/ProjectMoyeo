@@ -44,7 +44,13 @@ public class DiyController {
 	
 	// diy 페이지 요청
 	@GetMapping("/diy")
-	public String diyList() {
+	public String diyList(Model model, Authentication authentication) {
+		CustomUserDetails userinfo = null;
+		if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
+	         userinfo = (CustomUserDetails) authentication.getPrincipal();
+	      }
+		
+		model.addAttribute("userinfo", userinfo);
 		return "diy/diy";
 	}
 	// diy 자세히보기

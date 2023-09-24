@@ -3,30 +3,34 @@
 <%-- Security 태그 라이브러리를 JSP 문서에 포함 - Spring Security 관련 태그 사용 가능 --%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <style>
-	.admin-logout {
-		border: none;
-		background: none;
-		color: #989898;
-		font-size: 13px;
-		position: relative;
-		right: -150px;
-		letter-spacing: -0.5px;
-	}
-	
-	.user-logout {
-		border: none;
-		background: none;
-		color: #989898;
-		font-size: 13px;
-		position: relative;
-		right: -245px;
-		letter-spacing: -0.5px;
-	}
-	
-	.join {
-		position: relative;
-		right: -15px;
-	} 
+.admin-logout {
+	border: none;
+	background: none;
+	color: #989898;
+	font-size: 13px;
+	position: relative;
+	right: -150px;
+	letter-spacing: -0.5px;
+}
+
+.user-logout {
+	border: none;
+	background: none;
+	color: #989898;
+	font-size: 13px;
+	position: relative;
+	right: -245px;
+	letter-spacing: -0.5px;
+}
+
+.join {
+	position: relative;
+	right: -15px;
+}
+
+li.me-6 {
+	margin-right: 20px; /* 원하는 간격으로 조절 */
+}
 </style>
 <header class="header" id="pageTop">
 <!-- 일반회원용 헤더 내용 추가 -->
@@ -123,7 +127,9 @@
 					</li>
                       
             		<li class=" ">
+            		<sec:authorize access="hasRole('ROLE_USER')">
             		<a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
+            		</sec:authorize>
            			</li>
                 
             		<li class=" ">

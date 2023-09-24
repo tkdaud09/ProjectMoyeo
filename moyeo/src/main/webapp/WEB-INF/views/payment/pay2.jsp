@@ -37,16 +37,15 @@
 ——— DIY SECTION
 ===================================== -->
 <section class="">
-	<div class="container">
-		<div class="py-10">
-			<div class="review_content border_con">
-				<div class="diy_form_title">결제</div>
-					<form id="paymentForm" action="<c:url value='/payment/pay/'/>" method="POST" >
-						<div class="pay_form">
+			<div class="container">
+				<div class="py-10">
+					<div class="review_content border_con">
+						<div class="diy_form_title">결제</div>
+						<form id="paymentForm" action="<c:url value='/payment/pay/'/>" method="POST" >
+							<div class="pay_form">
 							<div class="pay_left">
-							
 								<div class="pay_con1_box pbox">
-									<sec:authentication property="principal" var="pinfo"/>
+								<sec:authentication property="principal" var="pinfo"/>
 									<p>주문 상품 정보</p>
 									<div class="pay_con1_img">
 										상품 이미지
@@ -57,7 +56,6 @@
 										<p>소인 수: <input type="hidden" name="packChildcount" value="${cart.packChildcount}">${cart.packChildcount}</p>
 									</c:forEach>
 								</div><!-- //pay_con1_box -->
-								
 								<div class="pay_con2_box pbox" >
 									<p>주문자 정보</p>
 									<ul>
@@ -67,29 +65,29 @@
 										<li><input type="hidden" name="userinfoEmail" value="${pinfo.email}">${pinfo.email}</li>
 									</ul>
 								</div><!-- //pay_con2_box -->
-								
 								<div class="pay_right">
-									<div class="pay_con3_box pbox">
-										<p>최종 결제금액</p>
-										<ul>
-											<li>총 결제금액 <span><input type="hidden" name="sumTotal" value="${sumTotal}">${sumTotal}</span></li>
-										</ul>
-									</div><!-- //pay_con3_box -->
+								<div class="pay_con3_box pbox">
+									<p>최종 결제금액</p>
+									<ul>
+										<li>총 결제금액 <span><input type="hidden" name="sumTotal" value="${sumTotal}">${sumTotal}</span></li>
+									</ul>
+								</div><!-- //pay_con3_box -->
 								</div>
-								
 								<div class="pay_con4_box pbox">
 									<p>결제 방법</p>
 									<button type="button" id="html5_inicis" class="pay">일반결재(KG이니시스)</button>
 								</div><!-- //pay_con4_box -->
-							</div>	
-						</div><!-- pay_form -->
-						<sec:csrfInput/>
-					</form>
+							</div><!-- pay_form -->
+							<sec:csrfInput/>
+						</form>
+					</div>
 				</div>
 			</div>
-		</div>
-</section>
-</div>
+		</section>
+		<!-- ... other sections ... -->
+	</div>
+	
+	<!-- ... your existing scripts ... -->
 </body>
 
 <script type="text/javascript">
