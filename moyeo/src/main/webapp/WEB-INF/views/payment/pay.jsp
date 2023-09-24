@@ -73,7 +73,7 @@
 									<div class="pay_con3_box pbox">
 										<p>최종 결제금액</p>
 										<ul>
-											<li>총 결제금액 <span><input type="hidden" name="sumTotal" value="${sumTotal}">${sumTotal}</span></li>
+											<li>총 결제금액 <span><input type="hidden" name="paymentAmount" value="${sumTotal}">${sumTotal}</span></li>
 										</ul>
 									</div><!-- //pay_con3_box -->
 								</div>

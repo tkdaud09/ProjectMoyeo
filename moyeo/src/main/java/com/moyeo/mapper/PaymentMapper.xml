@@ -86,7 +86,27 @@
 			, payment_idx
 		FROM payment
 		WHERE imp_uid=#{impUid} AND userinfo_id=#{userinfoId}
+	</select> 
+	
+	<!--<select id="selectMyPayment" resultType="payment">
+	    SELECT
+	        imp_uid,
+	        merchant_uid,
+	        userinfo_id,
+	        payment_amount,
+	        payment_date,
+	        payment_status,
+	        payment_idx
+	    FROM payment
+	    WHERE imp_uid = #{impUid}
+	    AND userinfo_id = #{userinfoId}
+	    AND (
+	        REGEXP_SUBSTR(pack_idx, '[0-9]+', 1, 1) = #{firstNumber}
+	        OR REGEXP_SUBSTR(pack_idx, '[0-9]+', 1, 2) = #{secondNumber}
+	        OR REGEXP_SUBSTR(pack_idx, '[0-9]+', 1, 3) = #{thirdNumber}
+	    );
 	</select>
+	  -->
 	
 	<!-- 관리자용 결제 내역 조회 -->
 	<select id="selectAllPayments" resultType="payment">
