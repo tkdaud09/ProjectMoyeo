@@ -41,7 +41,6 @@
 		<div class="py-10">
 			<div class="review_content border_con">
 				<div class="diy_form_title">결제</div>
-					<form id="paymentForm" action="<c:url value='/payment/pay/'/>" method="POST" >
 						<div class="pay_form">
 							<div class="pay_left">
 							
@@ -58,15 +57,17 @@
 									</c:forEach>
 								</div><!-- //pay_con1_box -->
 								
+								
 								<div class="pay_con2_box pbox" >
 									<p>주문자 정보</p>
 									<ul>
-										<li><input type="hidden" name="userinfoId" value="${pinfo.id}">${pinfo.id}</li>
-										<li><input type="hidden" name="userinfoName" value="${pinfo.name}">${pinfo.name}</li>
-										<li><input type="hidden" name="userinfoPhone" value="${pinfo.phone}">${pinfo.phone}</li>
-										<li><input type="hidden" name="userinfoEmail" value="${pinfo.email}">${pinfo.email}</li>
+										<li><input type="hidden" name="userinfoId" value="${userinfo.id}">${userinfo.id}</li>
+										<li><input type="hidden" name="userinfoName" value="${userinfo.name}">${userinfo.name}</li>
+										<li><input type="hidden" name="userinfoPhone" value="${userinfo.phone}">${userinfo.phone}</li>
+										<li><input type="hidden" name="userinfoEmail" value="${userinfo.email}">${userinfo.email}</li>
 									</ul>
 								</div><!-- //pay_con2_box -->
+						
 								
 								<div class="pay_right">
 									<div class="pay_con3_box pbox">
@@ -79,12 +80,10 @@
 								
 								<div class="pay_con4_box pbox">
 									<p>결제 방법</p>
-									<button type="button" id="html5_inicis" class="pay">일반결재(KG이니시스)</button>
+									<button type="button" id="html5_inicis" class="pay">일반결제(KG이니시스)</button>
 								</div><!-- //pay_con4_box -->
 							</div>	
 						</div><!-- pay_form -->
-						<sec:csrfInput/>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -94,11 +93,13 @@
 
 <script type="text/javascript">
 	 
-	var name = "${pack.packTitle}";
+	var name = "${sumTitle}";
 	//var paymentIdx = ${payment.paymentIdx};
 	
-	var userinfoId = "${pinfo.id}";
-	var packIdx = "${cart.packIdx}";
+	var sumPackIdx = "${sumPackIdx}";
+	
+	var userinfoId = "${userinfo.id}";
+	//var packIdx = ${cart.packIdx};
 	
 	var buyerEmail="${userinfo.email}";
 	var buyerName="${userinfo.name}";
@@ -113,12 +114,13 @@
 	
 	$(document).ready(function() {
 		var csrfHeaderName="${_csrf.headerName}"
-			var csrfTokenValue="${_csrf.token}";
-			$(document).ajaxSend(function(e, xhr) {
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			});
+	    var csrfTokenValue="${_csrf.token}";
+		$(document).ajaxSend(function(e, xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		});
 			
-	$(".pay").click(function() {
+		$(".pay").click(function() {
+
 		var pg=$(this).attr("id");
 		//alert(pg);
 		
@@ -135,7 +137,7 @@
 		// => 결제 후 결제정보와 비교하여 검증하기 위해 세션에 저장 
 		$.ajax({
 			type: "post",
-			url: "<c:url value="/payment/addPay"/>",
+			url: "<c:url value="/payment/pay"/>",
 			contentType: "application/json",
 			data: JSON.stringify({"merchantUid":merchantUid, "paymentAmount":paymentAmount}),
 			dataType: "text",
@@ -167,13 +169,18 @@
 								type: "post",
 								url: "<c:url value="/payment/complete"/>",
 								contentType: "application/json",
-								data: JSON.stringify({"impUid": response.imp_uid, "merchantUid": response.merchant_uid, "userinfoId": userinfoId, "packIdx": packIdx}),
+								data: JSON.stringify({
+									"impUid": response.imp_uid, 
+									"merchantUid": response.merchant_uid,
+									"packIdx": sumPackIdx
+								}),
 								dataType: "text",
 								success: function(result) {
 									
 									if(result == "success") {
 										//결제 성공 페이지로 이동
 										alert("결제 성공");
+										$("#paymentForm").submit(); 
 									} else {
 										//결제 실패 페이지로 이동
 										alert("결제 취소");
@@ -197,3 +204,4 @@
 </script>
 </body>
 </html>
+
