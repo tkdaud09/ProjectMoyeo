@@ -197,7 +197,7 @@
           <!-- 지도 -->
           <div id="map" style="width:80%; height:500px;"></div>
           
-          <!-- 로그인 정보가 일치하는 사람만 버튼 활성화 -->
+          <!-- 로그인 정보가 일치하는 사람만 버튼 활성화 --> 
           <sec:authorize access="isAuthenticated()">
           <sec:authorize access="hasRole('ROLE_ADMIN')" var="adminRole"/>
           <c:if test="${userinfo.id eq diyDetail.userinfoId || adminRole}">
