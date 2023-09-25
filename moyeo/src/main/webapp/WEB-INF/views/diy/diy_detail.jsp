@@ -10,6 +10,15 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=e3oa0wasfu"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
+<style>
+ 
+  .diy_tit_t {
+            text-align: center; 
+            margin: 0 auto;
+            max-width: 70ch; 
+    		word-wrap: break-word; 
+        }
+</style>
 
   </head>     
 
@@ -44,144 +53,124 @@
 <!-- ====================================
 ———	BOOKING SECTION
 ===================================== -->
-<section class="py-10">
+<section class="">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+    <div class="py-10">            	  
+      <div class="review_content border_con">
+      
+        <div class="diy_form_title">${diyDetail.diyTitle }</div>
+        <div class="diy_tit_t">${diyDetail.diyIntroduction }</div>
+     	   <div class="write_form diyy_form">
      	   
+     	   			<!-- 로그인 사용자의 좋아요 기능 -->
+                    <c:if test="${!empty(userinfo.id)}">
+                      <c:if test="${diyLoveStatus.loveIdx eq null}">
+		              	  <button type="button" id="heartButton" class="btn btn-xs btn-outline-secondary">
+		                  <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyDetail.loveCount}</i>
+		                  </button>
+                      </c:if>
+                      
+                      <c:if test="${diyLoveStatus.loveIdx ne null}">
+		                  <button type="button" id="heartButton" class="btn btn-xs btn-outline-secondary">
+		                  <i id="heartIcon" class="fas fa-heart" aria-hidden="false"><span id="like-count"> ${diyDetail.loveCount}</span></i>
+		                  </button>
+                      </c:if>
+                    </c:if>
+                    
+                    <!-- 비로그인 사용자의 좋아요 기능 -->
+                    <c:if test="${empty(userinfo.id)}">
+			   	        <a href="javascript: Login();" class="btn btn-xs btn-outline-secondary"> 
+			            <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyDetail.loveCount}</i>
+			            </a>
+                    </c:if>
+                    
+                    <input type="hidden" name="userinfoId" value="${userinfo.id }">
+		     		<input type="hidden" name="loveIdx" value="${diyLoveStatus.loveIdx }" id="loveIdx">
+     	   <sec:csrfInput/>
      	   
-     	   <div class="border_view">
-			    <div class="view">
-			        <h3 class="tit" id="diyTitle">${diyDetail.diyTitle }</h3>
-			        
-			        <p class="t1" id="userinfoId"><b>작성자:</b> ${diyDetail.userinfoId }</p>
-			        <p class="t1"><b>일정:</b> ${diyDetail.diyStartdate} ~ ${diyDetail.diyEnddate }</p>
-			        <p class="t1"><b>인원:</b> ${diyDetail.diyPeople }</p>
-			        <p class="t1"><b>지역:</b> ${diyDetail.diyLoc }</p>
-			        <p class="t1"><b>비용:</b> ${diyDetail.diyPrice }</p>
-		
-			    </div>
-		              <hr>
-				<div class="view_con" id="diyIntrodution">${diyDetail.diyIntroduction }</div>
+     	   <!-- 전체 input 태그 바꾸기 -->
+     	   	  <div class="form-group row">
+				    <div class="col-sm-10">
+				        <span>아이디 : ${diyDetail.userinfoId}</span>
+				    </div>
+				</div>
 				
+				<div class="form-group row">
+				    <div class="col-sm-10">
+				        <span>등록일 : ${diyDetail.diyRegdate}</span>
+				    </div>
+				</div>
 				
-				
-				 <!-- 지도 -->
-          		 <div id="map1" style="width:1200px; height:400px;"></div>
-           
-           
-           
-           
-           
-			<!-- day 1 사진-->
-			  <div class="position-relative form-group mb-5 diy_dinfo">	          
-		       <label for="diyContent1" class="dday">DAY 1</label>
-		        <p class="ddiy_left">
-		        	<img class="card-img-top rounded lazyestload" id="diyContent1Img" 
-		        	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent1Img}" 
-		        	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}" alt="Day 1 img">
-		        </p>
-		        
-		        <!--<div class="card-img-overlay card-hover-overlay rounded"></div>--> 
-		        <p class="ddiy_right" id="diyContent1">${diyDetail.diyContent1 }</p>
-	          </div>
-	          
-	 	
-	
-			<!-- day 2 사진 -->
-	          <div class="position-relative form-group mb-5 diy_dinfo">
-	          	 <label for="diyContent2" class="dday">DAY 2</label>
-	          	 <p class="ddiy_left">
-		       		 <img class="card-img-top rounded lazyestload" id="diyContent2Img" 
-		       		 data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent2Img}" 
-		       		 src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent2Img}" alt="Day 2 img">
-		       	 </p>
-		        <!--<div class="card-img-overlay card-hover-overlay rounded"></div>--> 
-		        <p class="ddiy_right" id="diyContent2">${diyDetail.diyContent2 }</p>
-		      </div>
-	       
-	
-			<!-- day 3 사진 -->
-           <div class="position-relative form-group mb-5 diy_dinfo">
-           	<label for="diyContent3" class="dday">DAY 3</label>
-           	<p class="ddiy_left">
-           		<img class="card-img-top rounded lazyestload" id="diyContent3Img" 
-	       		data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent3Img}" 
-	        	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent3Img}" alt="Day 3 img">
-           	</p>
-	        
-	        <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
-	        <p class="ddiy_right" id="diyContent3">${diyDetail.diyContent3 }</p>
-	      </div>
-          
+				<div style="display:none">
+				    <input type="text" name="diyIdx" value="${diyDetail.diyIdx}">
+				</div>
+  
+            
+     	   
+     	   <!-- 작성버튼 없애기, 아이디가같으면 수정버튼 생성 -> modify로 이동, 다 수정할 수 없게 만들기 /작성일, 수정일 보여지기 -->
+              <div class="diy_con1">
+                <label for="diyStartdate">출발일
+                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyStartdate" value="${diyDetail.diyStartdate }" readonly>
+                </label>
+                <label for="diyEnddate">도착일
+                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyEnddate" value="${diyDetail.diyEnddate }" readonly>
+                  </label>
+              </div>
+        
 
-             	<!-- day 4 사진 -->
-          <div class="position-relative form-group mb-5 diy_dinfo">
-          	<label for="diyContent4" class="dday">DAY 4</label>
-            <p class="ddiy_left">
-            	<img class="card-img-top rounded lazyestload" id="diyContent4Img" 
-            	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" 
-            	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
-            </p>
-            
-            <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
-            <p class="ddiy_right" id="diyContent4">${diyDetail.diyContent4 }</p>
-            
+    
+            <div class="diy_con2">
+                <label for="diyPeople">인원
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyPeople" name="diyPeople" value="${diyDetail.diyPeople }" readonly>
+                </label>
+                <label for="diyLoc">지역
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyLoc" name="diyLoc" value="${diyDetail.diyLoc }" readonly>
+    			</label>
+                <label for="diyPrice">비용
+                  <input type="text" class="form-control border-0 bg-smoke" id="diyPrice" name="diyPrice" value="${diyDetail.diyPrice }" readonly>
+                </label>
+            </div>
+    
+          
+           
+		  <!-- day 1 사진 -->
+		  <div class="diy_con4 form-group">
+		    <label for="diyContent1">DAY 1</label>	          
+	        <img class="card-img-top rounded lazyestload" id="diyContent1Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent1Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}" alt="Day 1 img">
+            <textarea class="form-control border-0 bg-smoke" id="diyContent1" rows="10" readonly>${diyDetail.diyContent1 }</textarea>
           </div>
-
-
-        
-        
-          <!-- 추가한 내용이 있으면 출력해준다.-->
-          <c:if test="${diyDetail.diyContent5 ne null}">
-	          <div class="position-relative form-group mb-5 diy_dinfo">
-	          	<label for="diyContent5" class="dday">DAY 5</label>
-	            <p class="ddiy_left">
-	            	<img class="card-img-top rounded lazyestload" id="diyContent4Img" 
-	            	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent5Img}" 
-	            	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent5Img}" alt="Day 5 img">
-	            </p>
-	            
-	            <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
-	            <p class="ddiy_right" id="diyContent5">${diyDetail.diyContent5 }</p>
-	            
-	          </div>
+				
+          <!-- day 2 사진 -->
+          <c:if test="${diyDetail.diyContent2 != null}">
+          <div class="diy_con4 form-group">
+            <label for="diyContent2">DAY 2</label>
+	        <img class="card-img-top rounded lazyestload" id="diyContent2Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent2Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent2Img}" alt="Day 2 img">
+            <textarea class="form-control border-0 bg-smoke" id="diyContent2" rows="10" readonly>${diyDetail.diyContent2 }</textarea>
+          </div>
           </c:if>
           
-          
-          <c:if test="${diyDetail.diyContent6 ne null}">
-	          <div class="position-relative form-group mb-5 diy_dinfo">
-	          	<label for="diyContent6" class="dday">DAY 6</label>
-	            <p class="ddiy_left">
-	            	<img class="card-img-top rounded lazyestload" id="diyContent4Img" 
-	            	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent6Img}" 
-	            	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 6 img">
-	            </p>
-	            
-	            <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
-	            <p class="ddiy_right" id="diyContent6">${diyDetail.diyContent6 }</p>
-	            
-	          </div>
+          <!-- day 3 사진 -->
+          <c:if test="${diyDetail.diyContent3 != null}">
+          <div class="diy_con4 form-group">
+            <label for="diyContent3">DAY 3</label>
+	        <img class="card-img-top rounded lazyestload" id="diyContent3Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent3Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent3Img}" alt="Day 3 img">
+            <textarea class="form-control border-0 bg-smoke" id="diyContent3" rows="10" readonly>${diyDetail.diyContent3 }</textarea>
+          </div>
           </c:if>
           
-          <c:if test="${diyDetail.diyContent7 ne null}">
-	          <div class="position-relative form-group mb-5 diy_dinfo">
-	          	<label for="diyContent7" class="dday">DAY 7</label>
-	            <p class="ddiy_left">
-	            	<img class="card-img-top rounded lazyestload" id="diyContent4Img" 
-	            	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent7Img}" 
-	            	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent7Img}" alt="Day 7 img">
-	            </p>
-	            
-	            <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
-	            <p class="ddiy_right" id="diyContent4">${diyDetail.diyContent7 }</p>
-	            
-	          </div>
+          <!-- day 4 사진 -->
+          <c:if test="${diyDetail.diyContent4 != null}">
+          <div class="diy_con4 form-group">
+            <label for="diyContent4">DAY 4</label>
+            <img class="card-img-top rounded lazyestload" id="diyContent4Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
+            <textarea class="form-control border-0 bg-smoke" id="diyContent4" rows="10" readonly>${diyDetail.diyContent4 }</textarea>
+          </div>
           </c:if>
-           
           
-           <!-- 추가한 내용이 있으면 출력해준다.
-          <c:if test="${diyDetail.diyContent5 ne null}">
+          <!-- 추가한 내용이 있으면 출력해준다. -->
+          <c:if test="${diyDetail.diyContent5 != null}">
           <div class="diy_con4 form-group">
             <label for="diyContent4">DAY 5</label>
             <img class="card-img-top rounded lazyestload" id="diyContent5Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent5Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent5Img}" alt="Day 5 img">
@@ -189,7 +178,7 @@
           </div>
           </c:if>
           
-          <c:if test="${diyDetail.diyContent6 ne null}">
+          <c:if test="${diyDetail.diyContent6 != null}">
           <div class="diy_con4 form-group">
             <label for="diyContent4">DAY 6</label>
             <img class="card-img-top rounded lazyestload" id="diyContent6Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent6Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent6Img}" alt="Day 6 img">
@@ -197,57 +186,16 @@
           </div>
           </c:if>
           
-          <c:if test="${diyDetail.diyContent7 ne null}">
+          <c:if test="${diyDetail.diyContent7 != null}">
           <div class="diy_con4 form-group">
             <label for="diyContent4">DAY 7</label>
             <img class="card-img-top rounded lazyestload" id="diyContent7Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent7Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent7Img}" alt="Day 7 img">
             <textarea class="form-control border-0 bg-smoke" id="diyContent7" rows="10" readonly>${diyDetail.diyContent7 }</textarea>
           </div>
           </c:if>
-           -->
           
-          
-          
-          <div class="diy_like_big">
-          <!-- 로그인 사용자의 좋아요 기능 -->
-                    <c:if test="${!empty(userinfo.id)}">
-                      <c:if test="${diyLoveStatus.loveIdx eq null}">
-		              	  <div class="diy_bbtn">
-			              	  <button type="button" id="heartButton" class="btn btn-xs btn-outline-secondary d_like">
-			                  <i id="heartIcon" class="far fa-heart" aria-hidden="false">&nbsp;좋아요 ${diyDetail.loveCount}</i>
-			                  </button>
-		                  </div>
-		                  
-                      </c:if>
-                      
-                      <c:if test="${diyLoveStatus.loveIdx ne null}">
-		                  <div class="diy_bbtn">
-		                  	<button type="button" id="heartButton" class="btn btn-xs btn-outline-secondary d_like">
-		                  	<i id="heartIcon" class="fas fa-heart" aria-hidden="false">&nbsp;좋아요<span id="like-count"> ${diyDetail.loveCount}</span></i>
-		                 	 </button>
-		                  </div>
-                      </c:if>
-                    </c:if>
-                    
-                    <!-- 비로그인 사용자의 좋아요 기능 -->
-                    <c:if test="${empty(userinfo.id)}">
-			   	        <div class="diy_bbtn">
-				   	        <a href="javascript: Login();" class="btn btn-xs btn-outline-secondary d_like"> 
-				            <i id="heartIcon" class="far fa-heart" aria-hidden="false" style="padding:7px;">&nbsp;좋아요 ${diyDetail.loveCount}</i>
-				            </a>
-			            </div>
-                    </c:if>
-                    
-                    <input type="hidden" name="userinfoId" value="${userinfo.id }">
-		     		<input type="hidden" name="loveIdx" value="${diyLoveStatus.loveIdx }" id="loveIdx">
-     	   <sec:csrfInput/>
-          </div>
-          
-    </div><!-- border_view -->
-              
-          
-          
-      
+          <!-- 지도 -->
+          <div id="map" style="width:80%; height:500px;"></div>
           
           <!-- 로그인 정보가 일치하는 사람만 버튼 활성화 -->
           <c:if test="${userinfo.id eq diyDetail.userinfoId}">
@@ -272,6 +220,7 @@
    	   </div>
       </div>
     </div>
+  </div>
 </section>
     <!-- ====================================
     ——— FOOTER SECTION
@@ -416,7 +365,7 @@
     var HOME_PATH = window.HOME_PATH || '.';
 
     var cityhall = new naver.maps.LatLng(37.5666805, 126.9784147),
-        map = new naver.maps.Map('map1', {
+        map = new naver.maps.Map('map', {
             center: cityhall.destinationPoint(0, 500),
             zoom: 15
         }),
@@ -454,6 +403,25 @@
 	
 	
     
-  
+    <!-- Javascript -->
+    
+    <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/menuzord/js/menuzord.js"></script>
+    
+    <script src='${pageContext.request.contextPath}/assets/plugins/fancybox/jquery.fancybox.min.js'></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/lazyestload/lazyestload.js"></script>
+    
+    <script src='${pageContext.request.contextPath}/assets/plugins/selectric/jquery.selectric.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/moment.min.js'></script>
+    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/daterangepicker.min.js'></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
   </body>
 </html>

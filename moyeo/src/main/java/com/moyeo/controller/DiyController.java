@@ -48,7 +48,19 @@ public class DiyController {
 	
 	// diy 페이지 요청
 	@GetMapping("/diy")
-	public String diyList() {
+	public String diyList(Model model
+			, Authentication authentication) {
+		
+		CustomUserDetails userinfo = null;
+		
+		if (authentication == null) {
+			
+		} else {
+			
+			userinfo = (CustomUserDetails) authentication.getPrincipal();
+			model.addAttribute("userinfo", userinfo);
+		}
+		
 		return "diy/diy";
 	}
 	// diy 자세히보기
@@ -197,11 +209,7 @@ public class DiyController {
 	   @RequestParam(value="diyThumbnailFile", required = false) MultipartFile diyThumbnailFile,
 	   @RequestParam(value = "diyContent1ImgFile" ,required = false) MultipartFile diyContent1ImgFile,
 	   @RequestParam(value = "diyContent2ImgFile" ,required = false) MultipartFile diyContent2ImgFile,
-	   @RequestParam(value = "diyContent3ImgFile" ,required = false) MultipartFile diyContent3ImgFile,
-	   @RequestParam(value = "diyContent4ImgFile" ,required = false) MultipartFile diyContent4ImgFile,
-	   @RequestParam(value = "diyContent5ImgFile" ,required = false) MultipartFile diyContent5ImgFile,
-	   @RequestParam(value = "diyContent6ImgFile" ,required = false) MultipartFile diyContent6ImgFile,
-	   @RequestParam(value = "diyContent7ImgFile" ,required = false) MultipartFile diyContent7ImgFile,
+	   
 	   Model model, Authentication authentication) throws IllegalStateException, IOException { 
 		
 		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
@@ -220,30 +228,13 @@ public class DiyController {
 	   String uploadDiyContent2 = UUID.randomUUID().toString()+"-"+diyContent2ImgFile.getOriginalFilename();
 	   diy.setDiyContent2Img(uploadDiyContent2);
 	   
-	   String uploadDiyContent3 = UUID.randomUUID().toString()+"-"+diyContent3ImgFile.getOriginalFilename();
-	   diy.setDiyContent3Img(uploadDiyContent3);
 	   
-	   String uploadDiyContent4 = UUID.randomUUID().toString()+"-"+diyContent4ImgFile.getOriginalFilename();
-	   diy.setDiyContent4Img(uploadDiyContent4);
-	   
-	   String uploadDiyContent5 = UUID.randomUUID().toString()+"-"+diyContent4ImgFile.getOriginalFilename();
-	   diy.setDiyContent4Img(uploadDiyContent5);
-	   
-	   String uploadDiyContent6 = UUID.randomUUID().toString()+"-"+diyContent4ImgFile.getOriginalFilename();
-	   diy.setDiyContent4Img(uploadDiyContent6);
-	   
-	   String uploadDiyContent7 = UUID.randomUUID().toString()+"-"+diyContent4ImgFile.getOriginalFilename();
-	   diy.setDiyContent4Img(uploadDiyContent7);
 	   
 	   //파일 업로드 처리 - 복붙해서 넣어주는게 아니라 서버에 넣어줌
 	   diyThumbnailFile.transferTo(new File(uploadDirectory,uploadDiyThumbnail));
 	   diyContent1ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent1));
 	   diyContent2ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent2));
-	   diyContent3ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent3));
-	   diyContent4ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent4));
-	   diyContent5ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent5));
-	   diyContent6ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent6));
-	   diyContent7ImgFile.transferTo(new File(uploadDirectory,uploadDiyContent7));
+	   
 	   
 
 	   
