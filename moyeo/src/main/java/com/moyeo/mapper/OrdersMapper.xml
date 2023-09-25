@@ -4,27 +4,34 @@
 
 	<!-- 주문내역 추가 -->
 	<insert id="insertOrders">
-		<selectKey resultType="int" keyProperty="ordersIdx" order="BEFORE">
-			SELECT orders_seq.nextval 
-			FROM dual
-		</selectKey>
-		INSERT INTO orders (
-				orders_idx
-				, userinfo_id
-				, pack_idx
-				, orders_date
-				, pack_previewimg
-				, pack_title
-		) VALUES (
-				, #{ordersIdx}
-				, #{userinfoId}
-				, #{packIdx}
-				, #{ordersDate}
-				, #{packPreviewImg}
-				, #{packTitle}
-		)
+    <selectKey resultType="int" keyProperty="ordersIdx" order="BEFORE">
+        SELECT orders_seq.nextval 
+        FROM dual
+    </selectKey>
+    INSERT INTO orders (
+            orders_idx
+            , userinfo_id
+            , pack_idx
+            , orders_date
+            , pack_previewimg
+            , pack_title
+    ) VALUES (
+            #{ordersIdx}
+            , #{userinfoId}
+            , #{packIdx}
+            , sysdate
+            , #{packPreviewImg}
+            , #{packTitle}
+    )
 	</insert>
-
-
-
+	
+	
+	<!-- 유저 아이디별 패키지 결제내역 목록 검색 (Join) -->
+    <select id="selectUserPaymentListById" resultType="Pack">
+    	SELECT p.*
+        FROM pack p
+        INNER JOIN orders o ON p.pack_idx = o.pack_idx
+        WHERE o.userinfo_id = #{userinfoId}
+    </select>
+	
 </mapper>

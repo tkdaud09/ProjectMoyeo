@@ -1,5 +1,7 @@
 package com.moyeo.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +21,9 @@ public class OrdersDAOImpl implements OrdersDAO {
 		sqlSession.getMapper(OrdersMapper.class).insertOrders(orders);
 	}
 	
+	//유저 아이디별 패키지 결제내역 목록 검색
+	@Override
+	public List<Orders> selectUserPaymentListById(String userinfoId) {
+		return sqlSession.getMapper(OrdersMapper.class).selectUserPaymentListById(userinfoId);
+	}	
 }

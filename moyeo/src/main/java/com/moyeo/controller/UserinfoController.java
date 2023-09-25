@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.moyeo.dto.Diy;
+import com.moyeo.dto.Orders;
 import com.moyeo.dto.Pack;
 import com.moyeo.dto.Qa;
 import com.moyeo.dto.Review;
@@ -34,6 +35,7 @@ import com.moyeo.exception.UserinfoNotFoundException;
 import com.moyeo.security.CustomUserDetails;
 import com.moyeo.service.DiyService;
 import com.moyeo.service.MailSendService;
+import com.moyeo.service.OrdersService;
 import com.moyeo.service.PackageHeartService;
 import com.moyeo.service.QaService;
 import com.moyeo.service.ReviewService;
@@ -61,9 +63,12 @@ public class UserinfoController {
 
 	@Autowired
 	private ReviewService reviewService;
-	
+
 	@Autowired
 	private DiyService diyService;
+	
+	@Autowired
+	private OrdersService ordersService;
 
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -242,8 +247,12 @@ public class UserinfoController {
 		System.out.println("아이디 값 = " + userinfoIdVal);
 
 		List<Pack> heartList = packageHeartService.getUserHeartListById(userinfo.getId());
+		List<Orders> ordersList = ordersService.getUserPaymentListById(userinfoIdVal);
+
 		model.addAttribute("heartList", heartList);
 		model.addAttribute("userinfo", userinfo);
+		model.addAttribute("ordersList", ordersList);
+
 		return "mypage/main";
 	}
 
@@ -431,7 +440,7 @@ public class UserinfoController {
 	public String myDiyGET(Authentication authentication, Model model) {
 
 		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
-		
+
 		List<Diy> diyList = diyService.getUserDiyListById(userinfo.getId());
 
 		model.addAttribute("userinfo", userinfo);

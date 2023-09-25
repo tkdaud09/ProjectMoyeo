@@ -96,8 +96,12 @@
 	var name = "${sumTitle}";
 	//var paymentIdx = ${payment.paymentIdx};
 	
-	var sumPackIdx = "${sumPackIdx}";
-	
+	var packIdx = []; // JavaScript 배열 생성
+
+    <c:forEach items="${packIdxArray}" var="packIdxValue">
+        packIdx.push(${packIdxValue}); // 배열에 값 추가
+    </c:forEach>
+
 	var userinfoId = "${userinfo.id}";
 	//var packIdx = ${cart.packIdx};
 	
@@ -172,7 +176,7 @@
 								data: JSON.stringify({
 									"impUid": response.imp_uid, 
 									"merchantUid": response.merchant_uid,
-									"packIdx": sumPackIdx
+									"packIdx": packIdx
 								}),
 								dataType: "text",
 								success: function(result) {

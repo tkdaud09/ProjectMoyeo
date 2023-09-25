@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="utf-8">
@@ -22,8 +22,8 @@
     }
     
     .my h1:nth-child(1){
-    	text-align: center;
-    	margin-top: 5%;
+       text-align: center;
+       margin-top: 5%;
     }
     
     .my h4{
@@ -70,7 +70,7 @@
     }
     
     .my #mypage a{
-    	color: #000;
+       color: #000;
     }
     
     .my #mypage div{
@@ -82,31 +82,31 @@
     }
     
     .heart {
-    	display: flex;
-    	padding-left: 10px;
+       display: flex;
+       padding-left: 10px;
     }
     
     .heart li {
-    	width: 250px;
-    	margin-right: 35px;
+       width: 250px;
+       margin-right: 35px;
     }
     
     .heart li img {
-    	width: 250px;
-    	height: 280px;
-    	border-radius: 10px;
-    	margin: 15px;
+       width: 250px;
+       height: 280px;
+       border-radius: 10px;
+       margin: 15px;
     }
     
     .heart li span {
-    	display: block;
-    	font-size: 20px;
-    	margin: -5px 20px;
+       display: block;
+       font-size: 20px;
+       margin: -5px 20px;
     }
     
     .my-main {
-	   	text-decoration: none; /* 밑줄 제거 */
-	    color: black; /* 검정색으로 변경 */
+         text-decoration: none; /* 밑줄 제거 */
+       color: black; /* 검정색으로 변경 */
     }
 </style>
 </head>     
@@ -115,9 +115,9 @@
 
 
 <div class="my">
-	<h1><a href="${pageContext.request.contextPath}/user/mypage" class="my-main">마이페이지</a></h1>
+   <h1><a href="${pageContext.request.contextPath}/user/mypage" class="my-main">마이페이지</a></h1>
 
-	<h1><u>${userinfo.name}</u>님, 안녕하세요!</h1>
+   <h1><u>${userinfo.name}</u>님, 안녕하세요!</h1>
 
     <section class="quick_menu">
         <h4>서비스 바로가기</h4>
@@ -161,25 +161,51 @@
     <section id="mypage">
         <h4>예약 내역</h4>
         <p><a href="#">더보기 &nbsp;→</a></p>
-        <div></div>
+        <div>
+        <ul class="payment">
+           <c:forEach var="pack" items="${ordersList}" begin="0" end="3">
+               <li>
+                   <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}">
+                       <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>" alt="">
+                       <span>${pack.packTitle}</span>
+                   </a>
+                   <button onclick="cancelOrder(${pack.packIdx})">결제 취소</button>
+                 <button onclick="writeReview(${pack.packIdx})">리뷰 작성</button>
+               </li>
+           </c:forEach>
+       </ul>
+        </div>
     </section>
     
     <section id="mypage">
-	    <h4>찜 내역</h4>
-	    <p><a href="#">더보기 &nbsp;→</a></p>
-	    <div>
-	    <ul class="heart">
-	        <c:forEach var="pack" items="${heartList}" begin="0" end="3">
-	            <li>
-	                <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}">
-	                    <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>" alt="">
-	                    <span>${pack.packTitle}</span>
-	                </a>
-	            </li>
-	        </c:forEach>
-	    </ul>
-		</div>
-	</section>
+       <h4>찜 내역</h4>
+       <p><a href="#">더보기 &nbsp;→</a></p>
+       <div>
+       <ul class="heart">
+           <c:forEach var="pack" items="${heartList}" begin="0" end="3">
+               <li>
+                   <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}">
+                       <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>" alt="">
+                       <span>${pack.packTitle}</span>
+                   </a>
+               </li>
+           </c:forEach>
+       </ul>
+      </div>
+   </section>
 </div>
+
+<script>
+/*
+    function cancelOrder(packIdx) {
+        window.location.href = '${pageContext.request.contextPath}/cancel-url/' + packIdx;
+    }
+*/
+    function writeReview(packIdx) {
+        window.location.href = '${pageContext.request.contextPath}/review/write/';
+    }
+</script>
+
+
 </body>
 </html>
