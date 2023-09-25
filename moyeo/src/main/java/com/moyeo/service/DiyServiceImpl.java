@@ -56,7 +56,7 @@ public class DiyServiceImpl implements DiyService {
 	}
 
 	@Override
-	public Diy selectDiy(int diyIdx) {
+	public Diy getselectDiy(int diyIdx) {
 		// TODO Auto-generated method stub
 		return diyDao.selectDiy(diyIdx);
 	}
@@ -65,6 +65,7 @@ public class DiyServiceImpl implements DiyService {
 	public Map<String, Object> getDiyList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		int pageNum=1;
+		
 		if(map.get("pageNum") != null && !map.get("pageNum").equals("")) {
 			pageNum=Integer.parseInt((String)map.get("pageNum"));
 		}
@@ -147,4 +148,5 @@ public class DiyServiceImpl implements DiyService {
 	public List<Diy> getUserDiyListById(String userinfoId) {
 		return diyDao.selectUserDiyListById(userinfoId);
 	}
+
 }

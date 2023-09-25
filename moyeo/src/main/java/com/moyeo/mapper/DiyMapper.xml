@@ -3,7 +3,14 @@
 
 
 <mapper namespace="com.moyeo.mapper.DiyMapper">
-	<insert id="insertDiy" parameterType="hashmap">
+
+<resultMap id="diyResultMap" type="Diy">
+    <!-- Other result mappings -->
+    <result property="diy_startdate" column="diy_startdate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+    <result property="diy_enddate" column="diy_enddate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+</resultMap>
+
+	<insert id="insertDiy" parameterType="Diy">
 		<selectKey resultType="int" keyProperty="diyIdx" order="BEFORE">
 			SELECT diy_seq.nextval 
 			FROM DUAL
@@ -28,13 +35,19 @@
         		,diy_content3img
         		,diy_content3
         		,diy_content4img
-        		,diy_content4)
+        		,diy_content4
+        		,diy_content5img
+        		,diy_content5
+        		,diy_content6img
+        		,diy_content6
+        		,diy_content7img
+        		,diy_content7)
         
         VALUES(
                 #{diyIdx}
                 ,#{userinfoId}
-                ,TO_DATE(#{diyStartdate}, 'yyyy-mm-dd')
-                ,TO_DATE(#{diyEnddate}, 'yyyy-mm-dd')
+                ,TO_DATE(#{diyStartdate}, 'yyyy-MM-dd')
+                ,TO_DATE(#{diyEnddate}, 'yyyy-MM-dd')
                 ,#{diyPeople}
                 ,#{diyLoc}
                 ,#{diyPrice}
@@ -50,7 +63,13 @@
                 ,#{diyContent3Img}
                 ,#{diyContent3}
                 ,#{diyContent4Img}
-                ,#{diyContent4})
+                ,#{diyContent4}
+                ,#{diyContent5Img}
+                ,#{diyContent5}
+                ,#{diyContent6Img}
+                ,#{diyContent6}
+                ,#{diyContent7Img}
+                ,#{diyContent7})
     </insert>
     
     <select id="getUserinfoById" resultType="Diy">
@@ -65,14 +84,14 @@
         SELECT 
         		diy_idx
         		,userinfo_id
-        		,diy_startdate
-        		,diy_enddate
+        		,TO_CHAR(diy_startdate, 'yyyy-mm-dd') AS diy_startdate
+        		,TO_CHAR(diy_enddate, 'yyyy-mm-dd') AS diy_enddate
         		,diy_people
         		,diy_loc
         		,diy_price
         		,diy_map
-        		,TO_CHAR(diy_regdate, 'yyyy-mm-dd')
-        		,TO_CHAR(diy_modifydate, 'yyyy-mm-dd')
+        		,TO_CHAR(diy_regdate, 'yyyy-mm-dd') AS diy_regdate
+        		,TO_CHAR(diy_modifydate, 'yyyy-mm-dd') AS diy_modifydate
         		,love_count
         		,diy_title
         		,diy_introduction
@@ -84,8 +103,16 @@
         		,diy_content3
         		,diy_content4img
         		,diy_content4
-        FROM diy
-        WHERE diy_idx=#{diyIdx}
+        		,diy_content5img
+        		,diy_content5
+        		,diy_content6img
+        		,diy_content6
+        		,diy_content7img
+        		,diy_content7
+        		
+        FROM 	diy
+        
+        WHERE   diy_idx=#{diyIdx}
 	</select>
 	
 	
@@ -101,9 +128,9 @@
         						,diy_thumbnail
         						,diy_title
         						,diy_people
-        						,diy_startdate
+        						,TO_CHAR(diy_startdate, 'yyyy-mm-dd') AS diy_startdate
+        						,TO_CHAR(diy_enddate, 'yyyy-mm-dd') AS diy_enddate
         						,diy_loc
-        						,diy_regdate
         						,love_count
         						,diy_introduction
 					 	FROM diy
@@ -137,11 +164,6 @@
 					 )
         WHERE rn BETWEEN #{startRow} and #{endRow}  
     </select>
-        <!-- 여기에로그인아이디를 출력해주고 글마다...?
-        로그인한 사람의 세션을 좋아요 누를떄 insert 해주고 글 번호도 같
-        여기에 상태로 출력해줘야할거같은데 글번호가 같고, 로그인한사람의 상태를 반환해줘야할거같음 diy=diy userinfoid=로그인아이 -->
-    
-    <!-- 목록 출력할때 같이 love 테이블의 love idx, love status 로그인한 사람 의 diylove 상태  -->
     
    	<select id="selectDiyListCount" resultType="int">
         SELECT count(*)
@@ -247,6 +269,30 @@
         	
         	<if test="diyContent4 != null and diyContent4 != ''">
         		 ,diy_content4=#{diyContent4}
+        	</if>
+        	
+        	<if test="diyContent5Img != null and diyContent5Img != ''">
+        		 ,diy_content5img=#{diyContent5Img}
+        	</if>
+        	
+        	<if test="diyContent5 != null and diyContent5 != ''">
+        		 ,diy_content5=#{diyContent5}
+        	</if>
+        	
+        	<if test="diyContent6Img != null and diyContent6Img != ''">
+        		 ,diy_content6img=#{diyContent6Img}
+        	</if>
+        	
+        	<if test="diyContent6 != null and diyContent6 != ''">
+        		 ,diy_content6=#{diyContent6}
+        	</if>
+        	
+        	<if test="diyContent7Img != null and diyContent7Img != ''">
+        		 ,diy_content7img=#{diyContent7Img}
+        	</if>
+        	
+        	<if test="diyContent7 != null and diyContent7 != ''">
+        		 ,diy_content7=#{diyContent7}
         	</if>
         	
         </set>
@@ -408,9 +454,16 @@
         	,diy_content3
         	,diy_content4img
         	,diy_content4
+        	,diy_content5img
+        	,diy_content5
+        	,diy_content6img
+        	,diy_content6
+        	,diy_content7img
+        	,diy_content7
         FROM diy
         WHERE userinfo_id = #{userinfoId}
         ORDER BY diy_idx DESC
 	</select>
+   
 
 </mapper>

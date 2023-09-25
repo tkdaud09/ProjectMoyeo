@@ -13,4 +13,7 @@ public class Event {
      private String eventEnddate;
      private String eventPreviewimg;
      private String eventContentimg;
+     private String eventContentimg2;
+     private String eventContentimg3;
+     
 }

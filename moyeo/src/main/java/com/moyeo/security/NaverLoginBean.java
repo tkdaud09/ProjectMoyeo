@@ -20,7 +20,7 @@ public class NaverLoginBean {
 	//로그인에 필요한 정보를 저장한 필드(상수) 선언
 	private static final String CLIENT_ID="KZtinspb8zuFQ5e5nve4";
 	private static final String CLIENT_SAECRET="PDRefcKfIm";
-	private static final String REDIRECT_URI="http://localhost:8080/moyeo/naver/callback";
+	private static final String REDIRECT_URI="http://localhost:8000/moyeo/naver/callback";
 	private static final String SESSION_STATE="naverState";
 	//사용자 프로필을 조회하기 위한 API의 URL 주소 저장
 	private static final String PROFILE_API_URI="https://openapi.naver.com/v1/nid/me";

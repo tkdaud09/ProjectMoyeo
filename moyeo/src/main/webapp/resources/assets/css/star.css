@@ -22034,7 +22034,7 @@ img.lazyestload {
 .div_con1{
 	width:100%;
 	height:auto;
-	background:#eee;
+	/*background:#eee;*/
 	margin-top:30px;
 }
 .div_con1:after{
@@ -22042,12 +22042,22 @@ img.lazyestload {
 	display:block;
 	clear:both;
 }
-.div_con1 .p1{
+/*.div_con1 .p1{
+	width:1200px;
 	font-size: 16px;
 	font-weight: 700;
 	text-align: center;
 	color: #333;
 	padding:150px 0;
+}*/
+
+.div_con1 .p1{
+	width: 100%;
+	padding: 0px 0;
+}
+
+.div_con1 .p1 img{
+	width:100%;
 }
 .div_con1 .div_title{
 	padding: 10px 0 30px 0;
@@ -22162,7 +22172,8 @@ img.lazyestload {
 .div_con2 .dls_right .l2{
  font-size:15px;
  word-break: keep-all;
-  margin-bottom:18px;
+ margin-bottom:18px;
+ text-overflow: ellipsis;
 }
 .div_con2 .dls_right .l3{
  font-size:14px;
@@ -22202,7 +22213,9 @@ img.lazyestload {
 	text-align: center;
 	color: #333;
 }
-
+.diy_spp{
+	margin-bottom:40px;
+}
 .from_box{
 	width:1000px;
 	margin:0 auto;
@@ -22684,10 +22697,12 @@ label {
 
 	/*--div �̺�Ʈ--------------------------------------------------*/
 	.div_con1{
-		width:100%;
+		width: 1100px;
 		height:auto;
-		background:#eee;
-		margin-top:30px;
+		/* background:#eee; */
+		/* margin-top:30px; */
+		margin: 0 auto;
+		position: relative;
 	}
 	.div_con1:after{
 		content:"";
@@ -22695,7 +22710,7 @@ label {
 		clear:both;
 	}
 	.div_con1 .div_title{
-		padding: 10px 0 50px 0;
+		padding: 60px 0 50px 0;
 		font-size: 30px;
 		font-weight: 700;
 		text-align: center;
@@ -22779,10 +22794,16 @@ label {
 		font-size: 23px;
 		font-weight: 700;
 		margin-bottom: 80px;
+		position: absolute;
+		bottom: 14px;
+		left: 96px;
 	}
 
 	.div_con2{
 		margin-top:80px;
+		width: 1100px;
+		margin: 0 auto;
+		padding-top: 50px;
 	}
 	.div_list_sample{
 		margin-bottom:40px;
@@ -22815,7 +22836,14 @@ label {
 	.div_con2 .dls_right .l2{
 	 font-size:15px;
 	 word-break: keep-all;
-	  margin-bottom:18px;
+	 margin-bottom:18px;
+	 text-overflow: ellipsis;
+	 width: 100%;
+	 /* display: inline-block; */
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
+	 overflow: hidden;
+	 width: 100%;
 	}
 	.div_con2 .dls_right .l3{
 	 font-size:14px;
@@ -22846,7 +22874,7 @@ label {
 	
 
 
-	/*--diy �Է���--------------------------------------------------*/
+	/*--diy pc--------------------------------------------------*/
 	.map_spot:after{
 		content:""; 
 		display:block; 
@@ -23717,6 +23745,67 @@ label {
 	}
 	
 	
+	/*--diy 디테일--*/
+	.diy_dinfo{
+		width:100%;
+		margin-top:40px;
+	}
+	.diy_dinfo:after{
+		contet:"";
+		display:block;
+		clear:both;
+	}
+	.dday{
+		font-size: 23px;
+		font-weight:600;
+		margin-bottom: 20px;
+		/* margin-top: 50px; */
+	}
+	.ddiy_left{
+		width:40%;
+		height: 300px;
+		background:#eee;
+		margin-right:2%;
+		float:left;
+	}
+	.ddiy_left img{
+		width:100%;
+		height:300px;
+		object-fit:cover;
+	}
+	.ddiy_right{
+		width:58%;
+		height:300px;
+		float:left;
+		color: #000;
+		font-size: 16px;
+		line-height: 25px;
+	}
+	
+	
+	
+	.diy_like_big{
+		width:100%;
+		position: relative;
+	}
+	.d_like{
+		width: 223px;
+	    position: absolute;
+	    left: 70%;
+	    bottom: -352px;
+	    height: 45px;
+	}
+	
+	
+	.diy_like_big #heartIcon{
+    	font-size: 14px;
+   		font-weight: 600;
+	}
+	
+	
+	.diy_ser{
+		margin-bottom:50px;
+	}
 
 	
 	

@@ -1,10 +1,10 @@
 package com.moyeo.repository;
 
-import com.moyeo.dto.UserinfoSecurity;
-import com.moyeo.dto.UserinfoSecurityAuth;
+import com.moyeo.dto.SecurityAuth;
+import com.moyeo.dto.Userinfo;
 
 public interface UserinfoSecurityRepository {
-	int insertUserinfoSecurity(UserinfoSecurity userinfo);
-	int insertUserinfoSecurityAuth(UserinfoSecurityAuth auth);
-	UserinfoSecurity selectUserinfoSecurityByUserid(String id);
+	int insertUserinfoSecurity(Userinfo userinfo);
+	int insertSecurityAuth(SecurityAuth auth);
+	Userinfo selectUserinfoSecurityByUserid(String id);
 }

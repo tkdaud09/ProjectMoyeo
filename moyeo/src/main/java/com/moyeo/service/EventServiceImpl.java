@@ -80,7 +80,7 @@ public class EventServiceImpl implements EventService {
 			pageNum=Integer.parseInt((String)map.get("pageNum"));
 		}
 
-		int pageSize=10;
+		int pageSize=6;
 		int totalBoard=eventDAO.selectCloseEventCount(map);
 		int blockSize=5;
 

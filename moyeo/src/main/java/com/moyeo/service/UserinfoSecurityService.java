@@ -1,11 +1,12 @@
 package com.moyeo.service;
 
-import com.moyeo.dto.UserinfoSecurity;
-import com.moyeo.dto.UserinfoSecurityAuth;
+import com.moyeo.dto.SecurityAuth;
+import com.moyeo.dto.Userinfo;
+
 
 public interface UserinfoSecurityService {
-	void addUserinfoSecurity(UserinfoSecurity userinfo);
-	void addUserinfoSecurityAuth(UserinfoSecurityAuth auth);
-	UserinfoSecurity getUserinfoSecurity(String id);
+	void addUserinfoSecurity(Userinfo userinfo);
+	void addSecurityAuth(SecurityAuth auth);
+	Userinfo getUserinfoSecurity(String id);
 
 }

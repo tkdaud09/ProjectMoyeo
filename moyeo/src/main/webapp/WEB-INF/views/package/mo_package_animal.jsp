@@ -48,7 +48,7 @@
                 </div>
 
 <form action="<c:url value='/cart/insert'/>" method="post">
-               <c:set var="packIdx" value="${pack.packIdx}" />
+
 <div class="form-group mb-5">
     <div class="row align-items-center" >
         <label class="control-label col-xl-3 text-center text-xl-right"><b>성인</b></label>
@@ -96,6 +96,7 @@
                   예약하기
                 </button>
                  <input type="hidden" name="packIdx" value="${packIdx}" />
+                 <input type="hidden" name="packPreviewImg" value="${pack.packPreviewImg}" />
             <button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01" value="장바구니"onclick="showAlert()">
                장바구니
             </button>

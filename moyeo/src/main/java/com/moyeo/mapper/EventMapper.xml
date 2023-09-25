@@ -16,7 +16,9 @@
             event_enddate,
             event_status,
             event_previewimg,
-            event_contentimg
+            event_contentimg,
+            event_contentimg2,
+            event_contentimg3
         )
         VALUES (
             #{eventIdx},
@@ -27,7 +29,9 @@
 			TO_DATE(#{eventEnddate}, 'YYYY-MM-DD'),
             #{eventStatus},
             #{eventPreviewimg},
-            #{eventContentimg}
+            #{eventContentimg},
+            #{eventContentimg2},
+            #{eventContentimg3}
         )
     </insert>
     
@@ -57,7 +61,13 @@
                 event_previewimg = #{eventPreviewimg},
             </if>
             <if test="eventContentimg != null and eventContentimg != ''">
-                event_contentimg = #{eventContentimg}
+                event_contentimg = #{eventContentimg},
+            </if>
+             <if test="eventContentimg2 != null and eventContentimg2 != ''">
+                event_contentimg2 = #{eventContentimg2},
+            </if>
+             <if test="eventContentimg3 != null and eventContentimg3 != ''">
+                event_contentimg3 = #{eventContentimg3}
             </if>
         </set>
         WHERE event_idx = #{eventIdx}
@@ -74,7 +84,9 @@
         TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
         event_status,
         event_previewimg,
-        event_contentimg
+        event_contentimg,
+        event_contentimg2,
+        event_contentimg3
     FROM event
     WHERE event_idx = #{eventIdx}
 </select>
@@ -90,7 +102,9 @@
         TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
         event_status,
         event_previewimg,
-        event_contentimg
+        event_contentimg,
+        event_contentimg2,
+        event_contentimg3
     FROM event
     ORDER BY event_idx
 </select>
@@ -129,7 +143,9 @@
         TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
         event_status,
         event_previewimg,
-        event_contentimg
+        event_contentimg,
+        event_contentimg2,
+        event_contentimg3
     FROM (
         SELECT rownum as rn, event.*
         FROM (
@@ -188,7 +204,9 @@
 	        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
 	        event_status,
 	        event_previewimg,
-	        event_contentimg
+	        event_contentimg,
+	        event_contentimg2,
+	        event_contentimg3
 			FROM event
 		WHERE
 		<choose>
@@ -225,7 +243,9 @@
         TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
         event_status,
         event_previewimg,
-        event_contentimg
+        event_contentimg,
+        event_contentimg2,
+        event_contentimg3
     FROM (
         SELECT rownum as rn, event.*
         FROM (
@@ -284,7 +304,9 @@
 	        TO_CHAR(event_enddate, 'yyyy-mm-dd') AS event_enddate,
 	        event_status,
 	        event_previewimg,
-	        event_contentimg
+	        event_contentimg,
+	        event_contentimg2,
+	        event_contentimg3
 			FROM event
 		WHERE
 		<choose>

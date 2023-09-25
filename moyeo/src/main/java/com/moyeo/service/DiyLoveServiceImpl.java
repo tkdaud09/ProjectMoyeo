@@ -1,5 +1,7 @@
 package com.moyeo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.moyeo.dao.DiyLoveDAO;
@@ -12,23 +14,44 @@ import lombok.RequiredArgsConstructor;
 public class DiyLoveServiceImpl implements DiyLoveService {
 
 	private final DiyLoveDAO diyLoveDao;
-	
+
 	@Override
-	public void insertDiyLove(DiyLove diyLove) {
-		// TODO Auto-generated method stub
+	public void addDiyLove(DiyLove diyLove) {
 		diyLoveDao.insertDiyLove(diyLove);
 	}
 
 	@Override
-	public void deleteDiyLove(DiyLove diyLove) {
-		// TODO Auto-generated method stub
+	public void removeDiyLove(DiyLove diyLove) {
 		diyLoveDao.deleteDiyLove(diyLove);
 	}
 
 	@Override
-	public DiyLove loveStatus() {
-		// TODO Auto-generated method stub
-		return diyLoveDao.loveStatus();
+	public List<DiyLove> getDiyLoveListById(String userinfoId) {
+		return diyLoveDao.selectDiyLoveListById(userinfoId);
 	}
+
+	@Override
+	public DiyLove getDiyLoveStatusByIdByDiyIdx(int diyIdx, String userinfoId) {
+		return diyLoveDao.selectDiyLoveStatusByIdByDiyIdx(diyIdx, userinfoId);
+	}
+
+	@Override
+	public void deleteAllByDiyIdx(int diyIdx) {
+		diyLoveDao.deleteAllByDiyIdx(diyIdx);
+	}
+
+	@Override
+	public List<DiyLove> getDiyLoveStatusByIdByDiyIdxList(int diyIdx, String userinfoId) {
+		// TODO Auto-generated method stub
+		return diyLoveDao.selectDiyLoveStatusByIdByDiyIdxList(diyIdx, userinfoId);
+	}
+
+	@Override
+	public DiyLove getDiyLoveByIdx(int diyIdx) {
+		// TODO Auto-generated method stub
+		return diyLoveDao.selectDiyLoveByIdx(diyIdx);
+	}
+
+	
 
 }

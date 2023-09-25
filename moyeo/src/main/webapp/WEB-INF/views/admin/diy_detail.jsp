@@ -2,12 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>  
 <!DOCTYPE html>
 <html lang="utf-8">
   
   <head>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=e3oa0wasfu"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
 
   </head>     
 
@@ -46,149 +48,214 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h3 class="text-capitalize mb-5">personal info</h3>
-     	   <div class="row">
      	   
-     	   <!-- 전체 input 태그 바꾸기 -->
-     	   	  <div class="form-group row">
-	            <label for="userinfoId" class="col-sm-2 col-form-label">아이디</label>
-	            <div class="col-sm-10">
-	              <input type="text" readonly class="form-control-plaintext" id="userinfoId" value="${diyDetail.userinfoId }" readonly>
-	            </div>
-	            <div style="display:none">
-         		  <input type="text" name="diyIdx" value="${diyDetail.diyIdx}">
-	            </div>
-	          </div>
-  
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="diyTitle">제목</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyTitle" name="diyTitle" value="${diyDetail.diyTitle }" readonly>
-              </div>
-            </div>
      	   
-     	   <!-- 작성버튼 없애기, 아이디가같으면 수정버튼 생성 -> modify로 이동, 다 수정할 수 없게 만들기 /작성일, 수정일 보여지기 -->
-              <div class="col-lg-6">
-                <label for="diyStartdate">출발일</label>
-                <div class="form-group form-group-icon form-group-icon-default">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                </div>
-                  <input type="text" class="form-control border-0 bg-smoke" id="diyStartdate" value="${diyDetail.diyStartdate }" readonly>
-                </div>
-                
-  	  
-    
-             <div class="col-lg-6">
-                <label for="diyEnddate">도착일</label>
-                <div class="form-group form-group-icon form-group-icon-default">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <input type="text" class="form-control border-0 bg-smoke" id="diyEnddate" value="${diyDetail.diyEnddate }" readonly>
-                </div>
-              </div>
-        
-
-    
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="diyPeople">인원</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyPeople" name="diyPeople" value="${diyDetail.diyPeople }" readonly>
-              </div>
-            </div>
-    
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="diyLoc">지역</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyLoc" name="diyLoc" value="${diyDetail.diyLoc }" readonly>
-              </div>
-            </div>
-    
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="diyPrice">비용</label>
-                <input type="text" class="form-control border-0 bg-smoke" id="diyPrice" name="diyPrice" value="${diyDetail.diyPrice }" readonly>
-              </div>
-            </div>
-    
-          
-           
-           
-             <!-- 다른것도 태그바꾸기 -->
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="diyIntrodution">간단한 소개글</label>
-              <textarea class="form-control border-0 bg-smoke" id="diyIntrodution" rows="5" readonly>${diyDetail.diyIntroduction }</textarea>
-            </div>
-          </div>
-           
-           <!-- 지도 -->
-           <div id="map" style="width:80%; height:500px;"></div>
-           
-				<!-- day 1 사진 -->
-		  <div class="position-relative">	          
-	        <img class="card-img-top rounded lazyestload" id="diyContent1Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent1Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}" alt="Day 1 img">
-	        <div class="card-img-overlay card-hover-overlay rounded"></div>
-          </div>
-		 	
-          <div class="form-group mb-5">
-            <label for="diyContent1">DAY 1</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent1" rows="10" readonly>${diyDetail.diyContent1 }</textarea>
-          </div>
+     	   <div class="border_view">
+			    <div class="view">
+			        <h3 class="tit" id="diyTitle">${diyDetail.diyTitle }</h3>
+			        
+			        <p class="t1" id="userinfoId"><b>작성자:</b> ${diyDetail.userinfoId }</p>
+			        <p class="t1"><b>일정:</b> ${diyDetail.diyStartdate} ~ ${diyDetail.diyEnddate }</p>
+			        <p class="t1"><b>인원:</b> ${diyDetail.diyPeople }</p>
+			        <p class="t1"><b>지역:</b> ${diyDetail.diyLoc }</p>
+			        <p class="t1"><b>비용:</b> ${diyDetail.diyPrice }</p>
+		
+			    </div>
+		              <hr>
+				<div class="view_con" id="diyIntrodution">${diyDetail.diyIntroduction }</div>
 				
-          		<!-- day 2 사진 -->
-          <div class="position-relative">
-	        <img class="card-img-top rounded lazyestload" id="diyContent2Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent2Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent2Img}" alt="Day 2 img">
-	        <div class="card-img-overlay card-hover-overlay rounded"></div>
-	      </div>
-            
-          <div class="form-group mb-5">
-            <label for="diyContent2">DAY 2</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent2" rows="10" readonly>${diyDetail.diyContent2 }</textarea>
-          </div>
-          
-         	 	<!-- day 3 사진 -->
-          <div class="position-relative">
-	        <img class="card-img-top rounded lazyestload" id="diyContent3Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent3Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent3Img}" alt="Day 3 img">
-	        <div class="card-img-overlay card-hover-overlay rounded"></div>
-	      </div>
-            
-          <div class="form-group mb-5">
-            <label for="diyContent3">DAY 3</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent3" rows="10" readonly>${diyDetail.diyContent3 }</textarea>
-          </div>
-          
-             	<!-- day 4 사진 -->
-          <div class="position-relative">
-            <img class="card-img-top rounded lazyestload" id="diyContent4Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
-            <div class="card-img-overlay card-hover-overlay rounded"></div>
-          </div>
+				
+				
+				 <!-- 지도 -->
+          		 <div id="map1" style="width:1200px; height:400px;"></div>
            
-		  <div class="form-group mb-5">
-            <label for="diyContent4">DAY 4</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent4" rows="10" readonly>${diyDetail.diyContent4 }</textarea>
-          </div>
+           
+           
+           
+           
+			<!-- day 1 사진-->
+			  <div class="position-relative form-group mb-5 diy_dinfo">	          
+		       <label for="diyContent1" class="dday">DAY 1</label>
+		        <p class="ddiy_left">
+		        	<img class="card-img-top rounded lazyestload" id="diyContent1Img" 
+		        	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent1Img}" 
+		        	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent1Img}" alt="Day 1 img">
+		        </p>
+		        
+		        <!--<div class="card-img-overlay card-hover-overlay rounded"></div>--> 
+		        <p class="ddiy_right" id="diyContent1">${diyDetail.diyContent1 }</p>
+	          </div>
+	          
+	 	
+	
+			<!-- day 2 사진 -->
+	          <div class="position-relative form-group mb-5 diy_dinfo">
+	          	 <label for="diyContent2" class="dday">DAY 2</label>
+	          	 <p class="ddiy_left">
+		       		 <img class="card-img-top rounded lazyestload" id="diyContent2Img" 
+		       		 data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent2Img}" 
+		       		 src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent2Img}" alt="Day 2 img">
+		       	 </p>
+		        <!--<div class="card-img-overlay card-hover-overlay rounded"></div>--> 
+		        <p class="ddiy_right" id="diyContent2">${diyDetail.diyContent2 }</p>
+		      </div>
+	       
+	
+			<!-- day 3 사진 -->
+           <div class="position-relative form-group mb-5 diy_dinfo">
+           	<label for="diyContent3" class="dday">DAY 3</label>
+           	<p class="ddiy_left">
+           		<img class="card-img-top rounded lazyestload" id="diyContent3Img" 
+	       		data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent3Img}" 
+	        	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent3Img}" alt="Day 3 img">
+           	</p>
+	        
+	        <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
+	        <p class="ddiy_right" id="diyContent3">${diyDetail.diyContent3 }</p>
+	      </div>
           
-          <!-- 추가한 내용이 있으면 출력해준다. -->
-          <%-- <c:if test="${diyDetail.diyContent5Img ne null}">
-          <div class="position-relative">
+
+             	<!-- day 4 사진 -->
+          <div class="position-relative form-group mb-5 diy_dinfo">
+          	<label for="diyContent4" class="dday">DAY 4</label>
+            <p class="ddiy_left">
+            	<img class="card-img-top rounded lazyestload" id="diyContent4Img" 
+            	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent4Img}" 
+            	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 4 img">
+            </p>
+            
+            <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
+            <p class="ddiy_right" id="diyContent4">${diyDetail.diyContent4 }</p>
+            
+          </div>
+
+
+        
+        
+          <!-- 추가한 내용이 있으면 출력해준다.-->
+          <c:if test="${diyDetail.diyContent5 ne null}">
+	          <div class="position-relative form-group mb-5 diy_dinfo">
+	          	<label for="diyContent5" class="dday">DAY 5</label>
+	            <p class="ddiy_left">
+	            	<img class="card-img-top rounded lazyestload" id="diyContent4Img" 
+	            	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent5Img}" 
+	            	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent5Img}" alt="Day 5 img">
+	            </p>
+	            
+	            <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
+	            <p class="ddiy_right" id="diyContent5">${diyDetail.diyContent5 }</p>
+	            
+	          </div>
+          </c:if>
+          
+          
+          <c:if test="${diyDetail.diyContent6 ne null}">
+	          <div class="position-relative form-group mb-5 diy_dinfo">
+	          	<label for="diyContent6" class="dday">DAY 6</label>
+	            <p class="ddiy_left">
+	            	<img class="card-img-top rounded lazyestload" id="diyContent4Img" 
+	            	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent6Img}" 
+	            	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent4Img}" alt="Day 6 img">
+	            </p>
+	            
+	            <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
+	            <p class="ddiy_right" id="diyContent6">${diyDetail.diyContent6 }</p>
+	            
+	          </div>
+          </c:if>
+          
+          <c:if test="${diyDetail.diyContent7 ne null}">
+	          <div class="position-relative form-group mb-5 diy_dinfo">
+	          	<label for="diyContent7" class="dday">DAY 7</label>
+	            <p class="ddiy_left">
+	            	<img class="card-img-top rounded lazyestload" id="diyContent4Img" 
+	            	data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent7Img}" 
+	            	src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent7Img}" alt="Day 7 img">
+	            </p>
+	            
+	            <!--<div class="card-img-overlay card-hover-overlay rounded"></div>-->
+	            <p class="ddiy_right" id="diyContent4">${diyDetail.diyContent7 }</p>
+	            
+	          </div>
+          </c:if>
+           
+          
+           <!-- 추가한 내용이 있으면 출력해준다.
+          <c:if test="${diyDetail.diyContent5 ne null}">
+          <div class="diy_con4 form-group">
+            <label for="diyContent4">DAY 5</label>
             <img class="card-img-top rounded lazyestload" id="diyContent5Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent5Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent5Img}" alt="Day 5 img">
-            <div class="card-img-overlay card-hover-overlay rounded"></div>
+            <textarea class="form-control border-0 bg-smoke" id="diyContent5" rows="10" readonly>${diyDetail.diyContent5 }</textarea>
           </div>
           </c:if>
           
-          <c:if test="${diyDetail.diyContent5 ne null}">
-          <div class="form-group mb-5">
-            <label for="diyContent4">DAY 5</label>
-            <textarea class="form-control border-0 bg-smoke" id="diyContent5" rows="10" readonly>${diyDetail.diyContent5 }</textarea>
+          <c:if test="${diyDetail.diyContent6 ne null}">
+          <div class="diy_con4 form-group">
+            <label for="diyContent4">DAY 6</label>
+            <img class="card-img-top rounded lazyestload" id="diyContent6Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent6Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent6Img}" alt="Day 6 img">
+            <textarea class="form-control border-0 bg-smoke" id="diyContent6" rows="10" readonly>${diyDetail.diyContent6 }</textarea>
           </div>
-          </c:if> --%>
+          </c:if>
+          
+          <c:if test="${diyDetail.diyContent7 ne null}">
+          <div class="diy_con4 form-group">
+            <label for="diyContent4">DAY 7</label>
+            <img class="card-img-top rounded lazyestload" id="diyContent7Img" data-src="${pageContext.request.contextPath}/assets/img/upload/${diyDetail.diyContent7Img}" src="${pageContext.request.contextPath}/assets/img/upload/${diyList.diyContent7Img}" alt="Day 7 img">
+            <textarea class="form-control border-0 bg-smoke" id="diyContent7" rows="10" readonly>${diyDetail.diyContent7 }</textarea>
+          </div>
+          </c:if>
+           -->
+          
+          
+          
+          <div class="diy_like_big">
+          <!-- 로그인 사용자의 좋아요 기능 -->
+                    <c:if test="${!empty(userinfo.id)}">
+                      <c:if test="${diyLoveStatus.loveIdx eq null}">
+		              	  <div class="diy_bbtn">
+			              	  <button type="button" id="heartButton" class="btn btn-xs btn-outline-secondary d_like">
+			                  <i id="heartIcon" class="far fa-heart" aria-hidden="false">&nbsp;좋아요 ${diyDetail.loveCount}</i>
+			                  </button>
+		                  </div>
+		                  
+                      </c:if>
+                      
+                      <c:if test="${diyLoveStatus.loveIdx ne null}">
+		                  <div class="diy_bbtn">
+		                  	<button type="button" id="heartButton" class="btn btn-xs btn-outline-secondary d_like">
+		                  	<i id="heartIcon" class="fas fa-heart" aria-hidden="false">&nbsp;좋아요<span id="like-count"> ${diyDetail.loveCount}</span></i>
+		                 	 </button>
+		                  </div>
+                      </c:if>
+                    </c:if>
+                    
+                    <!-- 비로그인 사용자의 좋아요 기능 -->
+                    <c:if test="${empty(userinfo.id)}">
+			   	        <div class="diy_bbtn">
+				   	        <a href="javascript: Login();" class="btn btn-xs btn-outline-secondary d_like"> 
+				            <i id="heartIcon" class="far fa-heart" aria-hidden="false" style="padding:7px;">&nbsp;좋아요 ${diyDetail.loveCount}</i>
+				            </a>
+			            </div>
+                    </c:if>
+                    
+                    <input type="hidden" name="userinfoId" value="${userinfo.id }">
+		     		<input type="hidden" name="loveIdx" value="${diyLoveStatus.loveIdx }" id="loveIdx">
+     	   <sec:csrfInput/>
+          </div>
+          
+    </div><!-- border_view -->
+              
+          
+          
+      
           
           <!-- 로그인 정보가 일치하는 사람만 버튼 활성화 -->
-          <c:if test="${userinfo.id eq diyDetail.userinfoId }">
+          <c:if test="${userinfo.id eq diyDetail.userinfoId}">
           <div class="mb-6">
-           <a href="${pageContext.request.contextPath}/diy/diy_modify/${diyDetail.diyIdx}" >
-            <button type="submit" class="btn btn-outline-primary mb-2" id="editButton">
-              수정하기
-            </button>
+            <a href="${pageContext.request.contextPath}/diy/diy_modify/${diyDetail.diyIdx}" >
+              <button type="submit" class="btn btn-outline-primary mb-2" id="editButton">
+               수정하기
+              </button>
             </a>
            
             <button type="submit" class="btn btn-outline-primary mb-2" id="deleteButton" onclick="deleteConfirm()">
@@ -205,7 +272,6 @@
    	   </div>
       </div>
     </div>
-  </div>
 </section>
     <!-- ====================================
     ——— FOOTER SECTION
@@ -215,23 +281,142 @@
     ——— MODAL SECTION
     ===================================== -->
     <!-- Signup Modal -->
-    
     <script>
-	function deleteConfirm() {
-	    if (confirm("정말로 삭제하시겠습니까?")) {
-	    	
-	        window.location.href = "${pageContext.request.contextPath}/diy/diy_delete/${diyDetail.diyIdx}"; 
+	var isLoveAdded = ${isLoveAdded};
+	var isButtonEnabled = true;
+	
+    document.getElementById('heartButton').addEventListener('click',function (){
+    
+    	var csrfHeaderName="${_csrf.headerName}";
+        var csrfTokenValue="${_csrf.token}";
+        
+        $(document).ajaxSend(function(e, xhr) {
+            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+         });
+    
+        isLoveAdded = !isLoveAdded;
+	    
+	    var heartIcon = document.getElementById('heartIcon');
+	    
+	    if (isLoveAdded) {
+	 	   heartIcon.classList.remove('far', 'fa-heart');
+	 	   heartIcon.classList.add('fas', 'fa-heart');
+	 	   loveCheck_func();
+	 	  
 	    } else {
-	        
+	 	   heartIcon.classList.remove('fas', 'fa-heart');
+	 	   heartIcon.classList.add('far', 'fa-heart');
+	 	   loveCancle_func();
 	    }
-	}
+	    
+	    setTimeout(function () {
+            isButtonEnabled = true;
+        }, 6000);
+	    
+    });
+	   
+	   function loveCheck_func() {
+	       var diyIdx = ${diyDetail.diyIdx};
+	       var userinfoId = "${userinfo.id}";
+	       
+	        // 상태 토글
+
+	       $.ajax({
+	           url: "${pageContext.request.contextPath}/diy/loveCheck",
+	           method: "POST",
+	           data: {
+	               'diyIdx': diyIdx
+	               ,'userinfoId': userinfoId
+	           },
+	           success: function (response) {
+	              isLoveAdded = true; // 찜이 추가되었으므로 상태를 true로 변경
+	              // alert("좋아요 체크 성공!");
+	              console.log("좋아요 체크 성공!");
+	              updateHeartImage();
+	              
+	           },
+	           error: function () {
+	               console.error("좋아요 체크 실패");
+	           }
+	       });
+	   }
+
+	   // 좋아요 취소
+	   function loveCancle_func() {
+	       var loveIdx = document.getElementById("loveIdx").value
+	       var userinfoId = "${userinfo.id}";
+	       var diyIdx = ${diyDetail.diyIdx};
+	       
+	       $.ajax({
+	           url: "${pageContext.request.contextPath}/diy/loveCancel", 
+	           method: "POST",
+	           data: {
+	        	   'diyIdx': diyIdx
+	        	   ,'loveIdx': loveIdx
+	               ,'userinfoId': userinfoId
+	           },
+	           success: function (response) {
+	        	   // alert("좋아요 취소 성공!");
+	               console.log("좋아요 취소 성공!");
+	               isLoveAdded = false; // 찜이 삭제되었으므로 상태를 false로 변경
+	               updateHeartImage(); // 하트 이미지 업데이트
+	           },
+	           error: function () {
+	               console.error("좋아요 취소 실패");
+	           }
+	       });
+	   }
+	   
+	   // 하트 이미지 업데이트 함수
+	   
+	   
+	   function updateHeartImage() {
+		   
+	       var heartIcon = document.getElementById('heartIcon');
+	       
+	       var loveCount = parseInt(heartIcon.textContent);
+	       
+	       if (isLoveAdded) {
+	    	   isLoveAdded = true;
+	    	   loveCount += 1;
+	    	   heartIcon.classList.remove('far', 'fa-heart');
+	    	   heartIcon.classList.add('fas', 'fa-heart');
+	       } else {
+	    	   isLoveAdded = false;
+	    	   loveCount -= 1;
+	    	   heartIcon.classList.remove('fas', 'fa-heart');
+	    	   heartIcon.classList.add('far', 'fa-heart');
+	       }
+	       heartIcon.textContent = ' ' +loveCount;
+	   }
+	   </script>
+		
+	   <script>
+	   // 비로그인 시 하트 클릭했을때 
+		function Login() {
+			 if (confirm("로그인 후 이용 가능합니다. 로그인하시겠습니까?")) {
+			    	
+			        window.location.href = "${pageContext.request.contextPath}/user/login"; 
+			    } else {
+			        
+			    }
+		}
+		
+		function deleteConfirm() {
+		    if (confirm("정말로 삭제하시겠습니까?")) {
+		    	
+		        window.location.href = "${pageContext.request.contextPath}/diy/diy_delete/${diyDetail.diyIdx}"; 
+		    } else {
+		        
+		    }
+		}
 	</script>
 
 	<script>
     var HOME_PATH = window.HOME_PATH || '.';
 
     var cityhall = new naver.maps.LatLng(37.5666805, 126.9784147),
-        map = new naver.maps.Map('map', {
+        map = new naver.maps.Map('map1', {
             center: cityhall.destinationPoint(0, 500),
             zoom: 15
         }),
@@ -266,26 +451,9 @@
 
     infowindow.open(map, marker);
 	</script>
+	
+	
     
-    <!-- Javascript -->
-    
-    <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/plugins/menuzord/js/menuzord.js"></script>
-    
-    <script src='${pageContext.request.contextPath}/assets/plugins/fancybox/jquery.fancybox.min.js'></script>
-    <script src="${pageContext.request.contextPath}/assets/plugins/lazyestload/lazyestload.js"></script>
-    
-    <script src='${pageContext.request.contextPath}/assets/plugins/selectric/jquery.selectric.min.js'></script>
-    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/moment.min.js'></script>
-    <script src='${pageContext.request.contextPath}/assets/plugins/daterangepicker/js/daterangepicker.min.js'></script>
-    
-    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
-    
-    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
-    
-    <script src="${pageContext.request.contextPath}/assets/plugins/smoothscroll/SmoothScroll.js"></script>
-    
-    <script src="${pageContext.request.contextPath}/assets/js/star.js"></script>
+  
   </body>
 </html>

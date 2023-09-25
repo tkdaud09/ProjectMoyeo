@@ -339,7 +339,7 @@ public class AdminController {
 	@ResponseBody
 	@Nullable
 	public String diyDetail(@PathVariable("diyIdx") int diyIdx, Model model) {
-		model.addAttribute("diyDetail", diyService.selectDiy(diyIdx));
+		model.addAttribute("diyDetail", diyService.getselectDiy(diyIdx));
 		return "admin/diy_detail";
 	}
 
@@ -454,6 +454,8 @@ public class AdminController {
 	public String addEvent(@ModelAttribute Event event,
 	        @RequestParam("eventPreviewImgFile") MultipartFile eventPreviewImgFile,
 	        @RequestParam("eventContentImgFile") MultipartFile eventContentImgFile,
+	        @RequestParam("eventContentImgFile2") MultipartFile eventContentImgFile2,
+	        @RequestParam("eventContentImgFile3") MultipartFile eventContentImgFile3,
 	        Model model) throws IllegalStateException, IOException {
 
 	    if (eventPreviewImgFile.isEmpty() || eventContentImgFile.isEmpty()) {
@@ -471,10 +473,22 @@ public class AdminController {
 
 	    String uploadContent = UUID.randomUUID().toString() + "-" + eventContentImgFile.getOriginalFilename();
 	    event.setEventContentimg(uploadContent);
+	    
+	    String uploadContent2 = UUID.randomUUID().toString() + "-" + eventContentImgFile2.getOriginalFilename();
+	    event.setEventContentimg2(uploadContent2);
+	    
+	    String uploadContent3 = UUID.randomUUID().toString() + "-" + eventContentImgFile3.getOriginalFilename();
+	    event.setEventContentimg3(uploadContent3);
+	    
+	    
 
 	    // 파일 업로드 처리
 	    eventPreviewImgFile.transferTo(new File(uploadDirectory, uploadPreview));
 	    eventContentImgFile.transferTo(new File(uploadDirectory, uploadContent));
+	    eventContentImgFile2.transferTo(new File(uploadDirectory, uploadContent2));
+	    eventContentImgFile3.transferTo(new File(uploadDirectory, uploadContent3));
+
+
 
 	    // 이벤트 등록
 	    eventService.insertEvent(event);
@@ -496,7 +510,9 @@ public class AdminController {
 	@RequestMapping(value = "/edit/{eventIdx}", method = RequestMethod.POST)
 	public String editEvent(@PathVariable int eventIdx, @ModelAttribute Event event,
 			@RequestParam("eventPreviewImgFile") MultipartFile eventPreviewImgFile,
-			@RequestParam("eventContentImgFile") MultipartFile eventContentImgFile) throws IllegalStateException, IOException {
+			@RequestParam("eventContentImgFile") MultipartFile eventContentImgFile,
+			@RequestParam("eventContentImgFile2") MultipartFile eventContentImgFile2,
+			@RequestParam("eventContentImgFile3") MultipartFile eventContentImgFile3)throws IllegalStateException, IOException {
 
 		if (!eventPreviewImgFile.isEmpty()) {
 			// 새로운 미리보기 이미지 파일이 업로드된 경우 처리
@@ -512,6 +528,22 @@ public class AdminController {
 			String uploadContent = UUID.randomUUID().toString() + "-" + eventContentImgFile.getOriginalFilename();
 			event.setEventContentimg(uploadContent);
 			eventContentImgFile.transferTo(new File(uploadDirectory, uploadContent));
+		}
+		
+		if (!eventContentImgFile2.isEmpty()) {
+			// 새로운 이벤트 설명 이미지 파일이 업로드된 경우 처리
+			String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
+			String uploadContent2 = UUID.randomUUID().toString() + "-" + eventContentImgFile2.getOriginalFilename();
+			event.setEventContentimg2(uploadContent2);
+			eventContentImgFile2.transferTo(new File(uploadDirectory, uploadContent2));
+		}
+		
+		if (!eventContentImgFile3.isEmpty()) {
+			// 새로운 이벤트 설명 이미지 파일이 업로드된 경우 처리
+			String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img/upload");
+			String uploadContent3 = UUID.randomUUID().toString() + "-" + eventContentImgFile3.getOriginalFilename();
+			event.setEventContentimg3(uploadContent3);
+			eventContentImgFile3.transferTo(new File(uploadDirectory, uploadContent3));
 		}
 
 		event.setEventIdx(eventIdx);

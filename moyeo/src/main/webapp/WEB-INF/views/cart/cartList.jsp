@@ -81,7 +81,7 @@
                              <td class="t2">
                                  <input type="checkbox" class="cartCheckbox" name="cartIdx" value="${cartItem.cartIdx}">
                              </td>
-                             <td class="t2 t_img"><a href="#">이미지</a></td>
+                             <td class="t2 t_img"> <img class="card-img-top rounded lazyestload" width="250" height="300" data-src="${pageContext.request.contextPath}/assets/img/upload/${cartItem.packPreviewImg}" alt="Card image cap"></td>
                              <td class="t2">${cartItem.packTitle}</td>
                              <td class="t2">
                                  <div class="input-group">
@@ -111,7 +111,7 @@
                            </div>
                            <div class="cart_btn">
                                <button type="submit" class="b1" id="deleteButton">선택상품 삭제</button>
-                               <button type="button" class="b1" id="updateButton">선택상품 수정</button>    
+                               <button type="button" class="b1" id="updateButton">수정</button>    
                                <%-- <button type="button" class="b1" id="orderButton">선택상품 주문</button>--%>
                                <button type="button" class="b1" id="allorderButton">상품 주문</button>         
                            </div>   
@@ -157,6 +157,7 @@
            });
        });
        
+    // 선택상품수정버튼 클릭 이벤트 핸들러
        document.getElementById('updateButton').addEventListener('click', function () {
            console.log("Update button clicked");
 
@@ -169,11 +170,10 @@
            var childInputFields = document.querySelectorAll('.child-count-input');
 
            for (var i = 0; i < cartCheckboxes.length; i++) {
-               if (cartCheckboxes[i].checked) {
-                   selectedCartIdx.push(cartCheckboxes[i].value);
-                   selectedAdultCounts.push(adultInputFields[i].value);
-                   selectedChildCounts.push(childInputFields[i].value);
-               }
+               cartCheckboxes[i].checked = true; // 모든 체크박스 선택
+               selectedCartIdx.push(cartCheckboxes[i].value);
+               selectedAdultCounts.push(adultInputFields[i].value);
+               selectedChildCounts.push(childInputFields[i].value);
            }
 
            // FormData 객체를 생성하여 데이터 추가
@@ -193,8 +193,7 @@
                if (response.ok) {
                    console.log('Update successful');
                    alert('수정되었습니다.');
-                   location.reload();
-                   // 서버로부터 업데이트가 완료되면 필요한 작업을 수행하세요.
+                   location.reload(); // 서버로부터 업데이트가 완료되면 페이지 새로고침
                } else {
                    console.error('Update failed');
                }

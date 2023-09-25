@@ -13,7 +13,7 @@
     text-align: center;
     color: #333;
     margin-bottom:50px;
-   
+
 }
 
 .input_f {
@@ -51,11 +51,12 @@
 
 .btn_f{
    width: 100%;
-    padding: 14px 0;
-    background: #000;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
+   padding: 14px 0;
+   background: #000;
+   color: #fff;
+   font-size: 16px;
+   font-weight: 700;
+   border-radius: 6px;
 }
 .btn_kakao{
     width: 100%;
@@ -290,6 +291,11 @@ input.agree {
        text-align: center;
        margin-top: 30px;
    }
+.login_button_wrap:after{
+       content:"";
+       display:block;
+       clear:both;
+   }
 .login_button_wrap button{
    width:170px;
    padding:13px 0;
@@ -304,6 +310,31 @@ input.agree {
    color:#fff;
    padding:11px 61px;
    
+}
+
+
+.btn_k{
+	width:49%;
+	float:left;
+	margin-right:2%;
+	background:#fee500;
+	padding:1px 0;
+	border-radius: 6px;
+	margin-top:10px;
+}
+.btn_k img{
+	width:70%;
+}
+.btn_n{
+	width:49%;
+	float:left;
+	background:#03c75a;
+	padding:1px 0;
+	border-radius: 6px;
+	margin-top:10px;
+}
+.btn_n img{
+	width:64%;
 }
 
 

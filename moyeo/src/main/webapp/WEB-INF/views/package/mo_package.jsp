@@ -8,9 +8,11 @@
 <html lang="utf-8">
 <style>
 .btn-type-s.total {
-    background-color: white;
-    color: black;
-    border: none; 
+    background-color: #ff891e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
   /* 검색된 게시글이 없을 때의 스타일 */
@@ -86,7 +88,7 @@
             </select>
          </div>
       -->
-      <div class="total-list">
+     <!-- <div class="total-list">
          
       </div>
       <div class="inp-search">
@@ -96,7 +98,7 @@
          <input type="text" class="inp-base" id="schValue" name="keyword" placeholder="패키지 이름을 입력하세요">
          <button class="btn-type-s search" id="btnSearch">검색</button>
       </div>
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->
    </form>
 
    <div id="filters" class="button-group">
@@ -190,48 +192,70 @@
       </div>
 
       </c:forEach>
+      
 
     </div>   
-            <div class="page_t">
-                        <%-- 페이지 번호 출력 --%>
-                        <c:choose>
-                           <c:when test="${result.pager.startPage > result.pager.blockSize }">
-                              <a
-                                 href="<c:url value="/package/"/>?pageNum=${result.pager.prevPage}&keyword=${search.keyword}">
-                                 [이전]
-                              </a>
-                           </c:when>
-                           <c:otherwise>
-                               [이전]
-                           </c:otherwise>
-                        </c:choose>
+    
+    
+    
+    <div class="bord_search">
+	     <form action="<c:url value="/package/"/>" method="post" class="search-area">
+	     <div class="total-list">
+	         
+	      </div>
+	      <div class="inp-search">
+	         <button class="btn-type-s total" id="total">
+	            전체보기
+	         </button>
+	         <input type="text" class="inp-base" id="schValue" name="keyword" placeholder="패키지 이름을 입력하세요">
+	         <button class="btn-type-s search" id="btnSearch">검색</button>
+	      </div>
+	      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	   </form>
+    </div>
+    
+    
+    
+         <div class="page_t">
+            <%-- 페이지 번호 출력 --%>
+            <c:choose>
+               <c:when test="${result.pager.startPage > result.pager.blockSize }">
+                  <a
+                     href="<c:url value="/package/"/>?pageNum=${result.pager.prevPage}&keyword=${search.keyword}">
+                     [이전]
+                  </a>
+               </c:when>
+               <c:otherwise>
+                   [이전]
+               </c:otherwise>
+            </c:choose>
 
-                        <c:forEach var="i" begin="${result.pager.startPage }"
-                           end="${result.pager.endPage }" step="1">
-                           <c:choose>
-                              <c:when test="${result.pager.pageNum != i  }">
-                                 <a href="<c:url value="/package/"/>?pageNum=${i}&keyword=${search.keyword}"><span
-                                    class="p_num">${i }</span></a>
-                              </c:when>
-                              <c:otherwise>
-                                 <span class="p_num">${i }</span>
-                              </c:otherwise>
-                           </c:choose>
-                        </c:forEach>
+            <c:forEach var="i" begin="${result.pager.startPage }"
+               end="${result.pager.endPage }" step="1">
+               <c:choose>
+                  <c:when test="${result.pager.pageNum != i  }">
+                     <a href="<c:url value="/package/"/>?pageNum=${i}&keyword=${search.keyword}"><span
+                        class="p_num">${i }</span></a>
+                  </c:when>
+                  <c:otherwise>
+                     <span class="p_num">${i }</span>
+                  </c:otherwise>
+               </c:choose>
+            </c:forEach>
 
-                        <c:choose>
-                           <c:when test="${result.pager.endPage != result.pager.totalPage }">
-                              <a
-                                 href="<c:url value="/package/"/>?pageNum=${result.pager.nextPage}&keyword=${search.keyword}"><span
-                                 class="p_next">
-                                    [다음]
-                              </span></a>
-                           </c:when>
-                           <c:otherwise>
-                               [다음] 
-                           </c:otherwise>
-                        </c:choose>
-                     </div>
+            <c:choose>
+               <c:when test="${result.pager.endPage != result.pager.totalPage }">
+                  <a
+                     href="<c:url value="/package/"/>?pageNum=${result.pager.nextPage}&keyword=${search.keyword}"><span
+                     class="p_next">
+                        [다음]
+                  </span></a>
+               </c:when>
+               <c:otherwise>
+                   [다음] 
+               </c:otherwise>
+            </c:choose>
+         </div>
 
 </section>
 

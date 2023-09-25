@@ -46,6 +46,6 @@ public class UserinfoSecurity {
 	private String email;
 	@Nullable
 	private String enabled;
-	private List<UserinfoSecurityAuth> UserinfoSecurityAuthList;
+	private List<SecurityAuth> SecurityAuthList;
 
 }

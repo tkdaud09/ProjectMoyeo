@@ -1,4 +1,4 @@
-package com.moyeo.auth;
+	package com.moyeo.auth;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.moyeo.dto.SecurityAuth;
+import com.moyeo.dto.Userinfo;
 import com.moyeo.dto.UserinfoSecurity;
 import com.moyeo.dto.UserinfoSecurityAuth;
 import com.moyeo.security.CustomUserDetails;
@@ -78,25 +80,25 @@ public class NaverLoginController {
 		String email=(String)responseObject.get("email");
 		
 		//반환받은 네이버 사용자 프로필의 값을 사용하여 Java 객체의 필드값으로 저장
-		UserinfoSecurityAuth auth=new UserinfoSecurityAuth();
+		SecurityAuth auth=new SecurityAuth();
 		auth.setId("naver_"+id);
 		auth.setAuth("ROLE_USER");
 		
-		List<UserinfoSecurityAuth> authList=new ArrayList<UserinfoSecurityAuth>();
+		List<SecurityAuth> authList=new ArrayList<SecurityAuth>();
 		authList.add(auth);
 		
-		UserinfoSecurity userinfo=new UserinfoSecurity();
+		Userinfo userinfo=new Userinfo();
 		userinfo.setId("naver_"+id);
 		userinfo.setPw(UUID.randomUUID().toString());
 		userinfo.setName(name);
 		userinfo.setEmail(email);
-		userinfo.setEnabled("1");
-		userinfo.setUserinfoSecurityAuthList(authList);
+		userinfo.setEnabled("0");
+		userinfo.setSecurityAuthList(authList);
 		
 		// 네이버 로그인 사용자의 정보를 SECURITY_USERS 테이블과 SECURITY_AUTH 테이블에 저장
 		userinfoSecurityService.addUserinfoSecurity(userinfo);
-		userinfoSecurityService.addUserinfoSecurityAuth(auth);
-		/*
+		userinfoSecurityService.addSecurityAuth(auth);
+
 		//네이버 로그인 사용자 정보를 사용하여 UserDetails 객체(로그인 사용자)를 생성하여 저장
 		CustomUserDetails customUserDetails=new CustomUserDetails(userinfo);
 		
@@ -109,7 +111,7 @@ public class NaverLoginController {
 		
 		//SecurityContextHolder 객체 : 인증 사용자의 권한 관련 정보를 저장하기 위한 객체
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		*/
+
 		return "redirect:/";
 	}
 }

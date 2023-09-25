@@ -7,6 +7,5 @@ public class DiyLove {
 	private int loveIdx;
 	private String userinfoId;
 	private int diyIdx;
-	private int loveStatus;
 
 }

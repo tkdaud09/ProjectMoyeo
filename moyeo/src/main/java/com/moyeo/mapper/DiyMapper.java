@@ -37,4 +37,5 @@ public interface DiyMapper {
 	
 	/*마이페이지*/
 	List<Diy> selectUserDiyListById(String userinfoId);//아이디로 유저 정보 검색 - 페이징X
+
 }

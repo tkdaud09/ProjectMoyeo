@@ -12,23 +12,30 @@
 	</insert> -->
 	
 	<insert id="insertUserinfoSecurity">
-		INSERT INTO userinfo_security (
-					id
-					,pw
-					,name
-					,email
-					,enabled) 
-		VALUES (
-					#{id}
-					,#{pw}
-					,#{name}
-					,#{email}
-					,#{enabled})
-	</insert>
-	
-	<insert id="insertUserinfoSecurityAuth">
-		INSERT INTO userinfo_security_auth values(#{id}, #{auth})
-	</insert>
+    <!-- 중복 데이터가 없을 때만 삽입 -->
+    INSERT INTO userinfo (
+        id, pw, name, email, enabled
+    ) SELECT 
+        #{id}, #{pw}, #{name}, #{email}, #{enabled}
+    FROM DUAL
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM userinfo
+        WHERE id = #{id}
+    )
+</insert>
+
+<insert id="insertSecurityAuth">
+    <!-- 중복 데이터가 없을 때만 삽입 -->
+    INSERT INTO security_auth (id, auth)
+    SELECT #{id}, #{auth}
+    FROM DUAL
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM security_auth
+        WHERE id = #{id} AND auth = #{auth}
+    )
+</insert>
 	
 	<resultMap type="UserinfoSecurity" id="userinfoSecurityResultMap">
 		<id column="id" property="id"/>
@@ -36,15 +43,15 @@
 		<result column="name" property="name"/>
 		<result column="email" property="email"/>
 		<result column="enabled" property="enabled"/>
-		<collection property="UserinfoSecurityAuthList" select="selectUserinfoSecurityAuthByUserid" column="id"/>
+		<collection property="SecurityAuthList" select="selectSecurityAuthByUserid" column="id"/>
 	</resultMap>
 	
-	<select id="selectUserinfoSecurityAuthByUserid" resultType="UserinfoSecurityAuth">
+	<select id="selectSecurityAuthByUserid" resultType="SecurityAuth">
 		SELECT 
 			 id
 			 ,auth
 			  
-		FROM userinfo_security_auth 
+		FROM security_auth
 		WHERE id=#{id}
 	</select>
 	
@@ -56,7 +63,7 @@
 			 ,email
 			 ,enabled
 			 
-		FROM userinfo_security
+		FROM userinfo
 		WHERE id=#{id}
 	</select>
 </mapper>

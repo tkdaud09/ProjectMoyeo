@@ -10,4 +10,4 @@ public interface OrdersDAO {
 	
 	//유저 아이디별 패키지 결제내역 목록 검색
 	List<Orders> selectUserPaymentListById(String userinfoId);
-}
+}		

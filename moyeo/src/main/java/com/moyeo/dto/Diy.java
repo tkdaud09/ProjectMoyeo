@@ -1,6 +1,8 @@
 package com.moyeo.dto;
 
+
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 // import java.time.LocalDateTime;
 
@@ -32,6 +34,13 @@ public class Diy {
         private String diyContent3;
         private String diyContent4Img;
         private String diyContent4;
+        private String diyContent5Img;
+        private String diyContent5;
+        private String diyContent6Img;
+        private String diyContent6;
+        private String diyContent7Img;
+        private String diyContent7;
+        
        //  private LocalDateTime time;
         
 }

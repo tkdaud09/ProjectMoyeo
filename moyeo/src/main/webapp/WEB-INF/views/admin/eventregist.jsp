@@ -191,6 +191,28 @@
 	                <div class="form_section_content">
 	                    <input type="file" name="eventContentImgFile">
 	                </div>
+	                </div>
+	                
+	                <div class="form_section">
+	                <div class="form_section_title">
+	                    <label>이벤트 설명 이미지2</label>
+	                </div>
+	                <div class="form_section_content">
+	                    <input type="file" name="eventContentImgFile2">
+	                </div>
+	                </div>
+	                
+	                <div class="form_section">
+	                <div class="form_section_title">
+	                    <label>이벤트 설명 이미지3</label>
+	                </div>
+	                <div class="form_section_content">
+	                    <input type="file" name="eventContentImgFile3">
+	                </div>
+	                </div>
+	                
+	                
+	                
 	
 	            <div class="form_section">
 	                <div class="form_section_title">
@@ -206,7 +228,7 @@
 				<br>
 				
 	            <div class="btn_section">
-	                <a href="${pageContext.request.contextPath}/admin/eventlist/" class="btn">취소</a>
+	                <a href="${pageContext.request.contextPath}/admin/main" class="btn">취소</a>
 	                <button id="enrollBtn" class="btn enroll_btn">등 록</button>
 	            </div>
 	            <sec:csrfInput/>

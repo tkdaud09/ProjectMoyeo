@@ -13,4 +13,5 @@ public class CartDTO {
 	private int packChildpirce;
 	private String packTitle;
 	private int packTotalprice;
-} 
+	private String packPreviewImg;
+}

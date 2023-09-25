@@ -68,62 +68,50 @@
 <section class="py-9 py-md-10">
   <div class="container">
     
-		<!-- 오른쪽 위치 
-	  <div class="col-lg-4 col-xl-3 offset-lg-8 offset-xl-9 "></div> -->
-		<div class="col-md-6 col-lg-12 ">
-			<form action="<c:url value="/diy/diy_list"/>" method="GET" class="search-area">
-				<div class="bg-smoke border border-light-gray rounded p-3 mb-4">
-					<select class="sel-base" name="column" >
-						<option value="diy_title">제목</option>
-						<option value="diy_content">내용</option>
-				        <option value="diy_loc" >지역</option>
-					</select>
-				</div>
-				
-				<div class="input-group-sm bg-smoke border border-light-gray rounded p-3 mb-4">
-					<input class="inp-base" type="text" name="keyword" placeholder="검색어를 입력하세요">
-					<button class="input-group-text border-0 btn bg-primary" type="submit">
+      <!-- 오른쪽 위치 
+     <div class="col-lg-4 col-xl-3 offset-lg-8 offset-xl-9 "></div> -->
+      <div class="col-md-6 col-lg-12 diy_ser">
+         <form action="<c:url value="/diy/diy_list"/>" method="GET" class="search-area">
+            <div class="rounded mb-4">
+               <select class="sel-base" name="column" >
+                  <option value="diy_title">제목</option>
+                  <option value="diy_content">내용</option>
+                    <option value="diy_loc" >지역</option>
+               </select>
+            </div>
+            
+            <div class="input-group-sm rounded mb-4">
+               <input class="inp-base" type="text" name="keyword" placeholder="검색어를 입력하세요">
+               <button class="input-group-text border-0 btn bg-primary" type="submit" style="padding: 9px 20px; margin-top: -2px;">
                       <i class="fa fa-search text-white" aria-hidden="true"></i>
                     </button>
-	                <a href="${pageContext.request.contextPath}/diy/diy_list" class="btn btn-secondary btn-sm">
+                   <a href="${pageContext.request.contextPath}/diy/diy_list" class="btn btn-secondary btn-sm" style="padding: 8px 20px;margin-top: -2px;">
                       초기화
                     </a>
-				</div>
-				
-				<div>
-				  <button class="btn btn-secondary btn-sm" name="type" value="recently" type="submit">
+            </div>
+            
+            <div style="text-align:right;">
+              <button class="btn btn-secondary btn-sm" name="type" value="recently" type="submit" style="padding: 9px 20px; margin-top: -18px;">
                     최신순
                   </button>
-                  <button class="btn btn-secondary btn-sm" name="type" value="love" type="submit">
+                  <button class="btn btn-secondary btn-sm" name="type" value="love" type="submit" style="padding: 9px 20px; margin-top: -18px;" >
                     인기순
                   </button>
                 </div>
+            
+         </form>   
+      </div><!-- //bord_search //diy_ser-->
+     <!-- //bord_search -->
+
+	  
 				
-			</form>	
-		</div><!-- //bord_search -->
-	  <!-- //bord_search -->
-	   
+                    
+
+         
       <div class="container">
        <div class="row">
        
-       
-         <!-- <div class="col-md-6 col-lg-12">
-			<div class="bg-smoke border border-light-gray rounded p-3 mb-4">	
-				<div class="search_area">
-					<select class="select-option" id="schKeyword">
-						<option value="both" >제목+내용</option>
-						<option value="title">제목</option>
-						<option value="contents">내용</option>
-					</select>
-				</div>
-				
-				<div class="inp-search">
-					<input  type="text" class="form-control form-control-sm border-0" id="schValue" placeholder="검색어를 입력하세요">
-					<button class="input-group-text border-0 btn bg-primary" id="btnSearch">검색</button>
-				</div>
-			</div>
-	     </div> -->
-        
+         
           <c:choose>
        	    <c:when test="${empty(diyList.diyList) }">
  		      <tr align="center">
@@ -132,7 +120,7 @@
  			</c:when>
     			
     	    <c:otherwise>
-          	  <c:forEach var="diyList" items="${diyList.diyList}">
+          	  <c:forEach var="diyList" items="${diyList.diyList}" varStatus="status">
                 <div class="col-md-6 col-lg-4">
                   <div class="card card-transparent mb-7">
                     
@@ -153,13 +141,13 @@
                             <li class="meta-tag me-4 mb-1">
                               <i class="fa fa-user text-gray-color" aria-hidden="true"></i>
                                 <a class="text-gray-color hover-text-primary">
-                                  <span class="ms-1 text-capitalize">${diyList.diyPeople}</span>
+                                  <span class="ms-1 text-capitalize">${diyList.diyPeople}명</span>
                                 </a>
                             </li>
                                   
                             <li class="meta-tag text-gray-color me-4 mb-1">
 			                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-			                  <span class="ms-1 text-capitalize">${diyList.diyStartdate}</span>
+			                  <span class="ms-1 text-capitalize">${diyList.diyStartdate}~${diyList.diyEnddate}</span>
 			                </li>
 			
 			                <li class="meta-tag text-gray-color me-4 mb-1">
@@ -169,41 +157,35 @@
 			                
 			                <li class="meta-tag text-gray-color me-4 mb-1">
 			                  <i class="fa fa-envelope" aria-hidden="true"></i>
-			                  <span class="ms-1 text-capitalize">${diyList.diyRegdate}</span>
-			                </li>
-			                
-			
-			                <li class="meta-tag text-gray-color me-4 mb-1">
-			                  <i class="fa fa-envelope" aria-hidden="true"></i>
-			                  <span class="ms-1 text-capitalize">0</span>
+			                  <span class="ms-1 text-capitalize">1</span>
 			                </li>
                                     
                           </ul>
                         </div>
 
                             <p class="comment">${diyList.diyIntroduction}</p>
-                            <%-- <input name="userinfoId" value="${userinfo.id }">
-						    <input name="diyIdx" value="${diyList.diyIdx }"> --%>
+                            <input name="userinfoId" value="${userinfo.id}">
+						    <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
                       </div>
                       
                      	  
                     <c:if test="${!empty(userinfo.id)}">
-                      <c:if test="${empty(loveStatus.loveStatus)}">
+                      <c:if test="${diyLove.loveStatus eq null}">
                         <div class="card-footer px-5">
-		              	  <a href="javascript: loveCheck_func();" class="btn btn-xs btn-outline-secondary" id="btn_love">
-		                  <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
-		                  </a>
+		              	  <a href="javascript: " class="btn btn-xs btn-outline-secondary"> 
+			              <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
+			              </a>
 		              	  <input type="hidden" name="userinfoId" value="${userinfo.id }">
 		     		      <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
 		                  <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
 		                </div>
                       </c:if>
                       
-                      <c:if test="${loveStatus.loveStatus eq 1}">
+                      <c:if test="${diyLove.loveStatus ne null}">
                         <div class="card-footer px-5">
-		                  <a href="javascript: loveCancle_func();" class="btn btn-xs btn-outline-secondary">
-		                  <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
-		                  </a>
+		                  <a href="javascript: " class="btn btn-xs btn-outline-secondary"> 
+			              <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
+			              </a>
 		              	  <input type="hidden" name="userinfoId" value="${userinfo.id }">
 		     		      <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
 		                  <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
@@ -214,10 +196,11 @@
                     
                     <c:if test="${empty(userinfo.id)}">
                       <div class="card-footer px-5">
-			   	        <a href="javascript: Login();" class="btn btn-xs btn-outline-secondary"> 
-			            <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}
-			            </i>
+			   	        <a href="javascript: " class="btn btn-xs btn-outline-secondary"> 
+			            <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
 			            </a>
+			            <input type="hidden" name="userinfoId" value="${userinfo.id }">
+		     		    <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
 			            <a href="${pageContext.request.contextPath}/diy/diy_detail/${diyList.diyIdx}" class="btn btn-sm btn-outline-secondary text-uppercase">자세히보기</a>
 			          </div>
                     </c:if>
@@ -303,7 +286,7 @@
       <c:forEach var="i" begin="${diyList.pager.startPage }" end="${diyList.pager.endPage }" step="1">
         <c:choose>
           <c:when test="${diyList.pager.pageNum != i  }">
-            <a href="<c:url value="/diy/diy_list"/>?pageNum=${i}&column=${search.column}&keyword=${search.keyword}"><span class="p_num">${i }</span></a>
+            <a href="<c:url value="/diy/diy_list"/>?pageNum=${i}&column=${search.column}&keyword=${search.keyword}&type=${search.type}"><span class="p_num">${i }</span></a>
           </c:when>
           <c:otherwise>
             <span class="p_num">${i }</span>
@@ -335,139 +318,7 @@
 		    }
 	}
 	</script>
-
-	<!-- <script>
-	// 좋아요 체크 
-	function loveCheck_func() {
-	    var diyIdx = ${diyList.diyIdx};
-	    var userinfoId = "${userinfo.id}";
-
-	    console.log("diyIdx: " + diyIdx);
-	    console.log("userinfoId: " + userinfoId);
-	    
-	    $.ajax({
-	        url: "${pageContext.request.contextPath}/diy/loveCheck.do",
-	        method: "POST",
-	        data: {
-	        	diyIdx: diyIdx,
-	            userinfoId: userinfoId
-	        },
-	        success: 
-	        	function (likeCheck) {
-	                   	alert("추천완료.");
-	        }
-	    });
-	}
-	</script>
-	  
-	<script>
-	function loveCheck_func(){
-		  $.ajax({
-			    url: "${pageContext.request.contextPath}/diy/loveCheck.do",
-			    type: "POST",
-			    cache: false,
-			    dataType: "json",
-			    data: $('#like_form').serialize(),   //아이디가 like_form인 곳의 모든 정보를 가져와  파라미터 전송 형태(표준 쿼리형태)로 만들어줌
-			    success: 
-			    function(data){      					//ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-			    	alert("'좋아요'가 반영되었습니다!") ;  // data중 put한 것의 이름 like
-	                $("#like_result").html(data.like);  //id값이 like_result인 html을 찾아서 data.like값으로 바꿔준다.
-	               태그를 바꿔주자
-			    },   
-			    
-			    error: 
-			    function (request, status, error){  
-			      alert("ajax실패")                  
-			    }
-			  });
-	}
-	</script> -->
 	
-	<script>
-	function loveCheck_func() {
-		  var heartIcon = document.getElementById('heartIcon');
-		  heartIcon.className = 'fas fa-heart';
-	</script>
-    
-
-	      
-	      
-	      
-	      
-      
-      <!-- <script>
-      var userinfoId = ${userinfoId};
-      var diyIdx = ${diyIdx};
-       
-      var btn_love = document.getElementById("btn_love");
-      btn_love.onclick = function(){ loveCheck(); }
-       
-      // 게시글 하트를 처음으로 눌렀을때 
-       function loveCancle_func(){ 
-           $.ajax({
-                  url : "/loveCancel.do",       
-                  type : "GET",  
-                  dataType : "json",   
-                  data : "userinfoId="+userinfoId+"&diyIdx="+diyIdx,
-                  
-                  error : function(){
-                      Rnd.alert("통신 에러","error","확인",function(){});
-                  },
-                  
-                  success : function(jdata) {
-                      if(jdata.resultCode == -1){
-                          Rnd.alert("좋아요 오류","error","확인",function(){});
-                      }
-                      else{
-                          if(jdata.likecheck == 1){
-                              $("#btn_like").attr("src","/home/img/ico_like_after.png");
-                              $("#likecnt").empty();
-                              $("#likecnt").append(jdata.likecnt);
-                          }
-                          else if (jdata.likecheck == 0){
-                              $("#btn_like").attr("src","/home/img/ico_like_before.png");
-                              $("#likecnt").empty();
-                              $("#likecnt").append(jdata.likecnt);
-                              
-                          }
-                      }
-                  }
-              });
-       }
-      
-       function loveCheck_func(){ 
-           $.ajax({
-                  url : "/loveCheck.do",       
-                  type : "GET",  
-                  dataType : "json",   
-                  data : "userinfoId="+userinfoId+"&diyIdx="+diyIdx,
-                  
-                  error : function(){
-                      Rnd.alert("통신 에러","error","확인",function(){});
-                  },
-                  
-                  success : function(jdata) {
-                      if(jdata.resultCode == -1){
-                          Rnd.alert("좋아요 오류","error","확인",function(){});
-                      }
-                      else{
-                          if(jdata.likecheck == 1){
-                              $("#btn_like").attr("src","/home/img/ico_like_after.png");
-                              $("#likecnt").empty();
-                              $("#likecnt").append(jdata.likecnt);
-                          }
-                          else if (jdata.likecheck == 0){
-                              $("#btn_like").attr("src","/home/img/ico_like_before.png");
-                              $("#likecnt").empty();
-                              $("#likecnt").append(jdata.likecnt);
-                              
-                          }
-                      }
-                  }
-              });
-       }
-
-      </script> -->
    
     <script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

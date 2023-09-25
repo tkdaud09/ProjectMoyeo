@@ -4,8 +4,8 @@
 	
     <!-- 1. 장바구니 추가 -->
     <insert id="addCart" parameterType="com.moyeo.dto.CartDTO">
-    INSERT INTO cart (cart_idx, userinfo_id, pack_idx, pack_adultcount, pack_childcount)
-    VALUES (cart_seq.NEXTVAL, #{userinfoId}, #{packIdx}, #{packAdultcount}, #{packChildcount} )
+    INSERT INTO cart (cart_idx, userinfo_id, pack_idx, pack_adultcount, pack_childcount, pack_previewimg)
+    VALUES (cart_seq.NEXTVAL, #{userinfoId}, #{packIdx}, #{packAdultcount}, #{packChildcount}, #{packPreviewImg} )
 </insert>
     
     <!-- 2. 장바구니 목록 -->
@@ -14,6 +14,7 @@
         c.cart_idx as cartIdx,
         c.userinfo_id as userinfoId,
         c.pack_idx as packIdx,
+        c.pack_previewimg as packPreviewImg,
         p.pack_title as packTitle,  
         c.pack_adultcount as packAdultcount,
         c.pack_childcount as packChildcount,

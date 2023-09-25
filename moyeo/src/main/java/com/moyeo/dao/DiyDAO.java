@@ -8,8 +8,8 @@ import com.moyeo.dto.Diy;
 public interface DiyDAO {
 	int insertDiy(Diy diy);  // Diy 글 작성
 	int updateDiy(Diy diy);  // Diy 글 수정
-	int loveCheck(Diy diy);  //  Diy 좋아요 체크
-	int loveCancel(Diy diy);  // Diy 좋아요 취소 
+	int loveCheck(Diy diy);  //  Diy 좋아요 체크(count + 1)
+	int loveCancel(Diy diy);  // Diy 좋아요 취소(count - 1)
 	int deleteDiy(int diyIdx);  // Diy 글 삭제 
 	
 	// DIY detail 페이지 출력 
@@ -31,4 +31,5 @@ public interface DiyDAO {
 	
 	/*마이페이지*/
 	List<Diy> selectUserDiyListById(String userinfoId);//아이디로 유저 정보 검색 - 페이징X
+	
 }
