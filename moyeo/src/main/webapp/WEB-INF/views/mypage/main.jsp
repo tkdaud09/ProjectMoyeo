@@ -160,7 +160,6 @@
 
     <section id="mypage">
         <h4>예약 내역</h4>
-        <p><a href="#">더보기 &nbsp;→</a></p>
         <div>
         <ul class="heart">
            <c:forEach var="pack" items="${ordersList}" begin="0" end="3">
@@ -170,7 +169,7 @@
                        <span>${pack.packTitle}</span>
                    </a>
                    <button onclick="cancelOrder(${pack.packIdx})">결제 취소</button>
-                   <button onclick="writeReview(${pack.packIdx})">리뷰 작성</button>
+                   <button onclick="writeReview(${pack.packIdx}, '${pack.packTitle}')">리뷰 작성</button>
                </li>
            </c:forEach>
        </ul>
@@ -179,7 +178,6 @@
     
     <section id="mypage">
        <h4>찜 내역</h4>
-       <p><a href="#">더보기 &nbsp;→</a></p>
        <div>
        <ul class="heart">
            <c:forEach var="pack" items="${heartList}" begin="0" end="3">
@@ -204,6 +202,10 @@
     function writeReview(packIdx) {
         window.location.href = '${pageContext.request.contextPath}/review/write/';
     }
+    
+function writeReview(packIdx, packTitle) {
+    location.href = '/moyeo/review/write?packTitle=' + packTitle;
+}
 </script>
 
 
