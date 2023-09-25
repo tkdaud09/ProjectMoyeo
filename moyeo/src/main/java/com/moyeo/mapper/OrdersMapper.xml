@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moyeo.mapper.OrdersMapper">
+
+	<!-- 주문내역 추가 -->
+	<insert id="insertOrders">
+		<selectKey resultType="int" keyProperty="ordersIdx" order="BEFORE">
+			SELECT orders_seq.nextval 
+			FROM dual
+		</selectKey>
+		INSERT INTO orders (
+				orders_idx
+				, userinfo_id
+				, pack_idx
+				, orders_date
+				, pack_previewimg
+				, pack_title
+		) VALUES (
+				, #{ordersIdx}
+				, #{userinfoId}
+				, #{packIdx}
+				, #{ordersDate}
+				, #{packPreviewImg}
+				, #{packTitle}
+		)
+	</insert>
+
+
+
+</mapper>
