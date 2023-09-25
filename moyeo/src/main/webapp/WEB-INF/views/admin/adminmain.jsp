@@ -73,8 +73,6 @@
 
 				<!-- 버튼 추가
 				<div id="viewSelect" class="nav nav-pills text-right mb-3"></div>
-				
-				
 				<!-- 게시글 목록을 출력하는 태그 -->
 				<div id="infoListDiv" class="mb-3"></div>
 

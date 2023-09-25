@@ -11,105 +11,102 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
-    .admin_content_wrap{
-        max-width: 1200px;
-        margin: 0 auto;
-        height: 1000px;
-    }
-    
-    .admin_content_subject{
-        text-align: center;
-        font-size: 1.9em;
-        padding: 40px;
-        margin-top: -50px;
-    }
-    
-    .admin_content_main{
-        width: 500px;
-        margin: 0 auto;
-    }
-    
-    .form_section{
-        margin: 35px;
-        position: relative
-    }
-    
-    .form_section_title{
-        font-size: 1em;
-        width: 170px;
-        height: 20px;
-        line-height: 31px;
-        text-align: center;
-    }
-    
-    .form_section_content{
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-    
-    .form_section_content input{
-        width: 190px;
-        height: 25px;
-        border: 1px solid #8d8d8d;
-        font-size: 0.6em;
-        padding: 1px 5px;
-    }
-    
-    .aihocf{
-       font-size: 0.3px;
-        display: block;
-        position: absolute;
-        left: 245px;
-        top: 30px;
-        width: 300px;
-        color: #7d7d7d;
-    }
-    
-    .cate_wrap{
-        margin-left: -185px;
-    }
-    
-    .cate_wrap span{
-        font-size: 0.8em;
-        margin-right: 30px;
-    }
-    
-    .cate1{
-        font-size: 0.7em;
-        width: 60px;
-        height: 25px;
-        padding: 0px 5px;
-        border-radius: 4px;
-    }
-    
-    .btn_section{
-       text-align: center;
-       margin-top: 70px;
-   }
-    
-   .btn_section button{
-      width: 130px;
-      padding: 8px;
-        border: none;
-        font-size: 0.9em;
-        letter-spacing: 2px;
-        cursor: pointer;
-   }
-    
-   .btn_section .btn{
-      background: #eee;
-      margin-right: 5px;
-   }
-    
-   .btn_section .enroll_btn{
-      background:#000;
-      color:#fff;
-   }
+.admin_content_wrap {
+	max-width: 1200px;
+	margin: 0 auto;
+	height: 1200px;
+}
 
+.admin_content_subject {
+	text-align: center;
+	font-size: 1.9em;
+	padding: 40px;
+	margin-top: -50px;
+}
 
+.admin_content_main {
+	width: 500px;
+	margin: 0 auto;
+}
+
+.form_section {
+	margin: 35px;
+	position: relative
+}
+
+.form_section_title {
+	font-size: 1em;
+	width: 170px;
+	height: 20px;
+	line-height: 31px;
+	text-align: center;
+}
+
+.form_section_content {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.form_section_content input {
+	width: 190px;
+	height: 25px;
+	border: 1px solid #8d8d8d;
+	font-size: 0.6em;
+	padding: 1px 5px;
+}
+
+.aihocf {
+	font-size: 0.3px;
+	display: block;
+	position: absolute;
+	left: 245px;
+	top: 30px;
+	width: 300px;
+	color: #7d7d7d;
+}
+
+.cate_wrap {
+	margin-left: -185px;
+}
+
+.cate_wrap span {
+	font-size: 0.8em;
+	margin-right: 30px;
+}
+
+.cate1 {
+	font-size: 0.7em;
+	width: 60px;
+	height: 25px;
+	padding: 0px 5px;
+	border-radius: 4px;
+}
+
+.btn_section {
+	text-align: center;
+	margin-top: 70px;
+}
+
+.btn_section button {
+	width: 130px;
+	padding: 8px;
+	border: none;
+	font-size: 0.9em;
+	letter-spacing: 2px;
+	cursor: pointer;
+}
+
+.btn_section .btn {
+	background: #eee;
+	margin-right: 5px;
+}
+
+.btn_section .enroll_btn {
+	background: #000;
+	color: #fff;
+}
 </style>
-
 <body id="body" class="up-scroll">
 
    <div class="main-wrapper packages-grid">
@@ -327,9 +324,8 @@
                                <button id="cancelBtn" class="btn">취 소</button>
                                <button id="deleteBtn" class="btn delete_btn">삭제하기</button>
                                <button id="stateBtn" class="btn state_btn">상태변경</button>
-                               <button id="modifyBtn" class="btn modify_btn">수정하기</button>
+                               <button id="modifyBtn" class="btn modify_btn">수정하기</button> 
                           </div>
-                          <sec:csrfInput/>
                          </form>
                     </div>                    
                 </div>
@@ -386,17 +382,7 @@
 	
     
 $(document).ready(function () {
-		
-		//CSRF 토큰 관련 정보를 자바스크립트 변수에 저`장
-		var csrfHeaderName = "${_csrf.headerName}";
-		var csrfTokenValue = "${_csrf.token}";
 		var packIdx = ${pack.packIdx};
-
-		// Ajax 기능을 사용하여 요청하는 모든 웹 프로그램에게 CSRF 토큰 전달 가능
-		// ▶ Ajax 요청 시 beforeSend 속성을 설정할 필요 없음
-		$(document).ajaxSend(function(e, xhr){
-		   xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-		});
 		
     /* 삭제 버튼 클릭 시 */
     $("#deleteBtn").on("click", function(e) {
