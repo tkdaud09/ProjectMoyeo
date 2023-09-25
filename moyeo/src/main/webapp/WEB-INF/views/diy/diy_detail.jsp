@@ -198,7 +198,9 @@
           <div id="map" style="width:80%; height:500px;"></div>
           
           <!-- 로그인 정보가 일치하는 사람만 버튼 활성화 -->
-          <c:if test="${userinfo.id eq diyDetail.userinfoId}">
+          <sec:authorize access="isAuthenticated()">
+          <sec:authorize access="hasRole('ROLE_ADMIN')" var="adminRole"/>
+          <c:if test="${userinfo.id eq diyDetail.userinfoId || adminRole}">
           <div class="mb-6">
             <a href="${pageContext.request.contextPath}/diy/diy_modify/${diyDetail.diyIdx}" >
               <button type="submit" class="btn btn-outline-primary mb-2" id="editButton">
@@ -211,6 +213,8 @@
             </button>
            </div>
           </c:if>
+         <sec:csrfInput/>
+         </sec:authorize>
          
            
            <div class="text-center text-md-start text-lg-end">
