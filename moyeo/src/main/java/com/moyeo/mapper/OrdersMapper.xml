@@ -15,6 +15,7 @@
             , orders_date
             , pack_previewimg
             , pack_title
+            , merchant_uid
     ) VALUES (
             #{ordersIdx}
             , #{userinfoId}
@@ -22,6 +23,7 @@
             , sysdate
             , #{packPreviewImg}
             , #{packTitle}
+            , #{merchantUid}
     )
 	</insert>
 	

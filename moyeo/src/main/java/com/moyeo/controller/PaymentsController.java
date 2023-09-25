@@ -102,11 +102,13 @@ public class PaymentsController {
 	    returnPayment.setUserinfoId(userinfo.getId());
 
 	    int[] packIdxArray = payment.getPackIdx();
+	    String merchantUid = payment.getMerchantUid();
 
 	    for (int packIdx : packIdxArray) {
 	        Orders orders = new Orders(); 
 	        orders.setUserinfoId(userinfo.getId());
 	        orders.setPackIdx(packIdx);
+	        orders.setMerchantUid(merchantUid);
 	        ordersService.addOrders(orders); 
 	    }
 
@@ -120,4 +122,29 @@ public class PaymentsController {
 
 	    return "success";
 	}
+	
+	//결제 취소
+	/*
+	 @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+	   @ResponseBody
+	   public String realCancel(@RequestBody Payment payment) {
+	      Payment cancelPayment = paymentService.get
+	      
+	      if(cancelDonation == null) {
+	         return "error";
+	      }
+	      
+	      String accessToken = donationService.getAccessToken(cancelDonation);
+	      
+	      String returnValue = donationService.cancelDonation(accessToken, cancelDonation);
+	      
+	      if(returnValue=="success") {
+	         donationService.refundDonation(cancelDonation);
+	         return returnValue;
+	      }
+	      return "error";
+	   }
+	}
+	*/
+	
 }

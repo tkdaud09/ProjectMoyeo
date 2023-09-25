@@ -162,7 +162,7 @@
         <h4>예약 내역</h4>
         <p><a href="#">더보기 &nbsp;→</a></p>
         <div>
-        <ul class="payment">
+        <ul class="heart">
            <c:forEach var="pack" items="${ordersList}" begin="0" end="3">
                <li>
                    <a href="${pageContext.request.contextPath}/package/detail/${pack.packIdx}">
@@ -170,7 +170,7 @@
                        <span>${pack.packTitle}</span>
                    </a>
                    <button onclick="cancelOrder(${pack.packIdx})">결제 취소</button>
-                 <button onclick="writeReview(${pack.packIdx})">리뷰 작성</button>
+                   <button onclick="writeReview(${pack.packIdx})">리뷰 작성</button>
                </li>
            </c:forEach>
        </ul>
