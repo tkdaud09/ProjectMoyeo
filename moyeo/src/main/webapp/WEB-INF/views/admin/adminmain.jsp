@@ -960,7 +960,7 @@ $(document).ajaxSend(function(e, xhr){
 				$("#infoListDiv").on("click", "#diyInfoTable tbody tr", function() {
 				    var idx = $(this).data("idx");
 				    // 패키지 정보를 가져온 후, 수정 페이지로 이동
-				    window.location.href = "/moyeo/diy/diy_detail/" + idx; // 수정된 경로
+				    window.location.href = "/moyeo/admin/diy_detail/" + idx; // 수정된 경로
 				});
 				
 				// 공지사항 tr 태그 클릭 시 공지사항 수정 페이지 이동

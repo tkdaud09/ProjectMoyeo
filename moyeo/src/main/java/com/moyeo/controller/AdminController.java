@@ -29,6 +29,8 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.moyeo.dto.Diy;
+import com.moyeo.dto.DiyLove;
 import com.moyeo.dto.Event;
 import com.moyeo.dto.Notice;
 import com.moyeo.dto.Pack;
@@ -36,6 +38,7 @@ import com.moyeo.dto.Qa;
 import com.moyeo.dto.QaReply;
 import com.moyeo.exception.UserinfoNotFoundException;
 import com.moyeo.security.CustomUserDetails;
+import com.moyeo.service.DiyLoveService;
 import com.moyeo.service.DiyService;
 import com.moyeo.service.EventService;
 import com.moyeo.service.NoticeService;
@@ -63,6 +66,7 @@ public class AdminController {
 	private final QaService qaService;
 	private final QaReplyService qaReplyService;
 	private final EventService eventService;
+	private final DiyLoveService diyLoveService;
 	
 	@GetMapping(value = "/main")
 	public String adminpage(Authentication authentication, Model model) {
@@ -335,13 +339,53 @@ public class AdminController {
 	}
 
 	// diy 자세히보기
-	@GetMapping("/diyDetail/{diyIdx}")
-	@ResponseBody
-	@Nullable
-	public String diyDetail(@PathVariable("diyIdx") int diyIdx, Model model) {
-		model.addAttribute("diyDetail", diyService.getselectDiy(diyIdx));
-		return "admin/diy_detail";
-	}
+		@GetMapping("/diy_detail/{diyIdx}")
+		public String diyDetail(@PathVariable("diyIdx") Integer diyIdx, Model model
+				, Authentication authentication) {
+			
+			CustomUserDetails userinfo = null;
+			// 비로그인시 
+			if (authentication == null) {
+				Diy diy = diyService.getselectDiy(diyIdx);
+				model.addAttribute("diyDetail", diy);
+			} else {
+				// CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
+				userinfo = (CustomUserDetails) authentication.getPrincipal();
+				
+				DiyLove diyLove = new DiyLove();
+				diyLove.setDiyIdx(diyIdx);
+				diyLove.setUserinfoId(userinfo.getId());
+				System.out.println("세션으로 전달받은 로그인 유저 정보 : " + userinfo);
+			
+			
+			if(diyIdx == null) {
+				return "redirect:/error"; 
+			}
+			
+			Diy diy = diyService.getselectDiy(diyIdx);
+			if (diy == null) {
+				return "redirect:/error"; 
+			}
+			
+			// 로그인한 유저인 경우 isLoggedin 변수를 true로 설정
+			boolean isLoggedin = userinfo != null;
+			
+			// 로그인 한 유저가 좋아요 눌렀는지 확인
+			DiyLove diyLoveStatus = diyLoveService.getDiyLoveStatusByIdByDiyIdx(diyIdx, userinfo != null ? userinfo.getId() : null);
+			boolean isLoveAdded = diyLoveStatus != null;
+			
+			
+			model.addAttribute("diyDetail", diy);
+			model.addAttribute("diyLoveStatus", diyLoveStatus);
+			System.out.println("diyLoveStatus : " + diyLoveStatus);
+			model.addAttribute("isLoveAdded", isLoveAdded);
+			model.addAttribute("isLoggedin", isLoggedin);
+			model.addAttribute("userinfo", userinfo);
+				
+			}
+			
+			return "diy/diy_detail";
+		}
 
 	//공지사항 등록 - GET (기존에 "/create" 대신 "/write"로 바꿈)
 	@RequestMapping(value = "/write", method = RequestMethod.GET)

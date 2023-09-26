@@ -127,9 +127,7 @@ li.me-6 {
 					</li>
                       
             		<li class=" ">
-            		<sec:authorize access="hasRole('ROLE_USER')">
             		<a href="${pageContext.request.contextPath}/diy/diy_add">DIY 참여하기</a>
-            		</sec:authorize>
            			</li>
                 
             		<li class=" ">
