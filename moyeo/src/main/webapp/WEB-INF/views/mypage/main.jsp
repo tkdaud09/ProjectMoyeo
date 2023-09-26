@@ -3,11 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="utf-8">
-  
 <head>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <style> 
     .my{
         max-width: 1200px;
@@ -168,7 +165,6 @@
                        <img src="<c:url value='/assets/img/upload/${pack.packPreviewImg}'/>" alt="">
                        <span>${pack.packTitle}</span>
                    </a>
-                   <button onclick="cancelOrder(${pack.packIdx})">결제 취소</button>
                    <button onclick="writeReview(${pack.packIdx}, '${pack.packTitle}')">리뷰 작성</button>
                </li>
            </c:forEach>
@@ -204,7 +200,7 @@
     }
     
 function writeReview(packIdx, packTitle) {
-    location.href = '/moyeo/review/write?packTitle=' + packTitle;
+    location.href = '/moyeo/review/write?packTitle=' + encodeURIComponent(packTitle);
 }
 </script>
 
