@@ -210,6 +210,7 @@ public class DiyController {
 	   @RequestParam(value = "diyContent1ImgFile" ,required = false) MultipartFile diyContent1ImgFile,
 	   @RequestParam(value = "diyContent2ImgFile" ,required = false) MultipartFile diyContent2ImgFile,
 	   
+	   
 	   Model model, Authentication authentication) throws IllegalStateException, IOException { 
 		
 		CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
@@ -227,6 +228,7 @@ public class DiyController {
 	   
 	   String uploadDiyContent2 = UUID.randomUUID().toString()+"-"+diyContent2ImgFile.getOriginalFilename();
 	   diy.setDiyContent2Img(uploadDiyContent2);
+	   
 	   
 	   
 	   

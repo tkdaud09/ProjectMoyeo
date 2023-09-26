@@ -91,24 +91,24 @@
 				    		</label>
 	
 			                <label for="diyTitle">제목
-			                	<input type="text" class="form-control border-0 bg-smoke" name="diyTitle" placeholder="ex) 3박 4일 강릉여행 후기!!">
+			                	<input type="text" class="form-control border-0 bg-smoke" id= "diyTitle" name="diyTitle" placeholder="ex) 3박 4일 강릉여행 후기!!">
 			                </label>
               
 			                <label for="inputName">간단한 소개글
-			                	<textarea class="form-control border-0 bg-smoke" rows="2" name="diyIntroduction" placeholder="ex) 여행을 간단하게 소개해주세요"></textarea>
+			                	<textarea class="form-control border-0 bg-smoke" rows="2" id= "diyIntroduction" name="diyIntroduction" placeholder="ex) 여행을 간단하게 소개해주세요"></textarea>
 			                </label>
 			            </div>   
 			                
 						<div class="diy_con4 form-group">   
 				    		<label for="imgUpload">DAY 1 사진  여행정보</label>
 				    		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase diy_f" id="diyContent1Img" name="diyContent1ImgFile">
-				            <textarea class="form-control border-0 bg-smoke" name="diyContent1" rows="7"></textarea>
+				            <textarea class="form-control border-0 bg-smoke" id= "diyContent1" name="diyContent1" rows="7"></textarea>
 						</div>
 						
 						<div class="diy_con4 form-group">  
 						<label for="imgUpload">DAY 2 사진  여행정보</label>
 					  		<input type="file" class="btn btn-xs btn-outline-secondary text-uppercase diy_f" id="diyContent2Img" name="diyContent2ImgFile">
-				            <textarea class="form-control border-0 bg-smoke" rows="7" name="diyContent2" ></textarea>
+				            <textarea class="form-control border-0 bg-smoke" rows="7" id="diyContent2" name="diyContent2" ></textarea>
 				        </div>
 							
 						<div id="elementContainer" class="mt-3"> </div>
@@ -136,7 +136,7 @@
 				
 				
 				
-				
+				<!-- 
 				<script>
 				    // 폼 제출 전에 실행되는 함수
 				    function validateForm() {
@@ -156,19 +156,19 @@
 				        
 				        const numberPattern = /^\d+$/;
 				
-				        if (diyStartdate === '') {
+				        if (diyStartdate === "") {
 				            alert('출발일을 작성해주세요.');
 				            return false;
-				        } else if (diyEnddate === '') {
+				        } else if (diyEnddate === "") {
 				            alert('도착일을 작성해주세요.');
 				            return false;
-				        } else if (diyPeople === '') {
+				        } else if (diyPeople === "") {
 				            alert('인원수를 작성해주세요.');
 				            return false;
-				        } else if (diyLoc === '') {
+				        } else if (diyLoc === "") {
 				            alert('지역을 작성해주세요.');
 				            return false;
-				        } else if (diyPrice === '') {
+				        } else if (diyPrice === "") {
 				            alert('가격을 작성해주세요.');
 				            return false;
 				        } else if (!numberPattern.test(diyPeople)) {
@@ -177,34 +177,85 @@
 				        } else if (!numberPattern.test(diyPrice)) {
 				            alert('인원수를 숫자로 작성해주세요.');
 				            return false;
-				        } else if (diyTitle === '') {
+				        } else if (diyTitle === "") {
 				            alert('제목을 작성해주세요.');
 				            return false;
-				        } else if (!diyThumbnail.files || diyThumbnail.files.length === 0) {
+				        } else if (!diyThumbnail.files || diyThumbnail.files.length === "") {
 				            alert('썸네일 사진을 올려주세요.');
 				            return false;
-				        } else if (diyIntroduction === '') {
+				        } else if (diyIntroduction === "") {
 				            alert('소개글을 작성해주세요.');
 				            return false;
-				        } else if (!diyContent1Img.files || diyContent1Img.files.length === 0) {
+				        } else if (!diyContent1Img.files || diyContent1Img.files.length === "") {
 				            alert('1일차 사진을 올려주세요.');
 				            return false;
-				        } else if (diyContent1 === '') {
+				        } else if (diyContent1 === "") {
 				            alert('1일차 내용을 작성해주세요.');
 				            return false;
-				        } else if (!diyContent2Img.files || diyContent2Img.files.length === 0) {
+				        } else if (!diyContent2Img.files || diyContent2Img.files.length === "") {
 				            alert('2일차 사진을 올려주세요.');
 				            return false;
-				        } else if (diyContent2 === '') {
+				        } else if (diyContent2 === "") {
 				            alert('2일차 내용을 작성해주세요.');
 				            return false;
-				        } else {
-				        	
+				        } 
+				        
 					        return true;
-				        }
+				       
 				
 				    }
 				</script>
+				 -->
+				<script>
+			        function validateForm() {
+			            var diyPeople = document.getElementById("diyPeople").value;
+			            var diyLoc = document.getElementById("diyLoc").value;
+			            var diyPrice = document.getElementById("diyPrice").value;
+			            
+			            var diyTitle = document.getElementById("diyTitle").value;
+			            var diyIntroduction = document.getElementById("diyIntroduction").value;
+			            var diyContent1 = document.getElementById("diyContent1").value;
+			            
+			           // var diyThumbnail = document.getElementById("diyThumbnail").value;
+			           // var diyContent1Img = document.getElementById("diyContent1Img").value;
+			           // var diyContent2Img = document.getElementById("diyContent2Img").value;
+			            var numberPattern = /^\d+$/;
+			            
+			            
+			
+			            if (diyPeople === "") {
+			                alert("인원수를 입력해주세요.");
+			                return false; // Prevent form submission
+			            } else if (diyLoc === "") {
+			            	alert("지역을 입력해주세요.");
+			                return false;
+						} else if (diyPrice === "") {
+							alert("가격을 입력해주세요.");
+			                return false;
+						} else if (diyTitle === "") {
+							alert("제목을 입력해주세요.");
+			                return false;
+						} else if (diyIntroduction === "") {
+							alert("소개글을 입력해주세요.");
+			                return false;
+						} else if (diyContent1 === "") {
+							alert("1일차 내용을 입력해주세요.");
+			                return false;
+						} else if (!numberPattern.test(diyPeople)) {
+							alert("인원수를 숫자로만 입력해주세요.");
+			                return false;
+						} else if (!numberPattern.test(diyPrice)) {
+							alert("1일차 내용을 입력해주세요.");
+			                return false;
+						}
+			            
+						
+						else {
+							
+			            return true; // Allow form submission if all fields are filled
+						}
+			        }
+			    </script>
 				
 				 
 				<script>
