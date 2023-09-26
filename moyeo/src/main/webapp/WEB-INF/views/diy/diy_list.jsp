@@ -155,16 +155,16 @@
 			                  <span class="ms-1 text-capitalize">${diyList.diyLoc}</span>
 			                </li>
 			                
-			                <li class="meta-tag text-gray-color me-4 mb-1">
+			                <!-- <li class="meta-tag text-gray-color me-4 mb-1">
 			                  <i class="fa fa-envelope" aria-hidden="true"></i>
 			                  <span class="ms-1 text-capitalize">1</span>
-			                </li>
+			                </li> -->
                                     
                           </ul>
                         </div>
 
                             <p class="comment">${diyList.diyIntroduction}</p>
-                            <input name="userinfoId" value="${userinfo.id}">
+                            <input type="hidden" name="userinfoId" value="${userinfo.id}">
 						    <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
                       </div>
                       
@@ -173,7 +173,7 @@
                       <c:if test="${diyLove.loveStatus eq null}">
                         <div class="card-footer px-5">
 		              	  <a href="javascript: " class="btn btn-xs btn-outline-secondary"> 
-			              <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
+			              <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
 			              </a>
 		              	  <input type="hidden" name="userinfoId" value="${userinfo.id }">
 		     		      <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
@@ -184,7 +184,7 @@
                       <c:if test="${diyLove.loveStatus ne null}">
                         <div class="card-footer px-5">
 		                  <a href="javascript: " class="btn btn-xs btn-outline-secondary"> 
-			              <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
+			              <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
 			              </a>
 		              	  <input type="hidden" name="userinfoId" value="${userinfo.id }">
 		     		      <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
@@ -197,7 +197,7 @@
                     <c:if test="${empty(userinfo.id)}">
                       <div class="card-footer px-5">
 			   	        <a href="javascript: " class="btn btn-xs btn-outline-secondary"> 
-			            <i id="heartIcon" class="far fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
+			            <i id="heartIcon" class="fas fa-heart" aria-hidden="false"> ${diyList.loveCount}</i>
 			            </a>
 			            <input type="hidden" name="userinfoId" value="${userinfo.id }">
 		     		    <input type="hidden" name="diyIdx" value="${diyList.diyIdx }">
