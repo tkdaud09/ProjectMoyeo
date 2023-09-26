@@ -34,7 +34,7 @@ public interface PackageService {
 	
 	/* 리뷰 */
 	//최신 리뷰를 가져오는 메서드
-	List<Review> getLatestReviews(int count);
+	List<Review> getLatestReviews(String packTitle);
 	
 	/* 관리자 */
 	//관리자가 패키지 검색 시 사용

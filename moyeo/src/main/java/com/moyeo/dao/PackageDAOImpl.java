@@ -76,8 +76,8 @@ public class PackageDAOImpl implements PackageDAO {
 	/* 리뷰 */
 	//최신 리뷰를 가져오는 메서드
 	@Override
-	public List<Review> selectLatestReviews(int count) {
-		return sqlSession.getMapper(ReviewMapper.class).selectLatestReviews(count);
+	public List<Review> selectLatestReviews(String packTitle) {
+		return sqlSession.getMapper(PackageMapper.class).selectLatestReviews(packTitle);
 	}
 	
 	/* 관리자 */
@@ -128,5 +128,6 @@ public class PackageDAOImpl implements PackageDAO {
     public int updatePackStatus(Pack pack) {
         return sqlSession.update("com.moyeo.mapper.PackageMapper.updatePackStatus", pack);
     }
+
 
 }

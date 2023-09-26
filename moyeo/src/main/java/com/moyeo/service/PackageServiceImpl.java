@@ -71,8 +71,8 @@ public class PackageServiceImpl implements PackageService {
 	/* 리뷰 */
 	//최신 리뷰를 가져오는 메서드
 	@Override
-	public List<Review> getLatestReviews(int count) {
-		return reviewDAO.selectLatestReviews(count);
+	public List<Review> getLatestReviews(String packTitle) {
+		return packageDAO.selectLatestReviews(packTitle);
 	}
 	
 	/* 관리자 */
@@ -161,4 +161,5 @@ public class PackageServiceImpl implements PackageService {
     public void updatePackStatus(Pack pack) {
         packageDAO.updatePackStatus(pack);
     }
+
 }

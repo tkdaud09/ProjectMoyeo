@@ -37,7 +37,7 @@ public interface PackageMapper {
 	
 	/* 리뷰 */
 	//최신 리뷰를 가져오는 메서드
-	List<Review> selectLatestReviews(int count);
+	List<Review> selectLatestReviews(String packTitle);
 	
 	/* 관리자 */
 	//관리자가 패키지 검색 시 사용

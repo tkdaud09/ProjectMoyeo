@@ -228,7 +228,7 @@
 		    FROM review
 		    ORDER BY review_regdate DESC
 		)
-		WHERE ROWNUM &lt;= #{count}
+		WHERE pack_title = #{packTitle}
 	</select>
 	
 	

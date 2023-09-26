@@ -80,7 +80,7 @@ public class PackageController {
        boolean isHeartAdded = packHeart != null;
 
        // 최신 리뷰 3개
-       List<Review> latestReviews = reviewService.getLatestReviews(3);
+       List<Review> latestReviews = packageService.getLatestReviews(pack.getPackTitle());
 
        model.addAttribute("pack", pack);
        model.addAttribute("packHeartList", packHeart);
