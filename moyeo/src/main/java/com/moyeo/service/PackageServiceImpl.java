@@ -105,7 +105,7 @@ public class PackageServiceImpl implements PackageService {
 			pageNum=Integer.parseInt((String)map.get("pageNum"));
 		}
 
-		int pageSize=3;		
+		int pageSize=6;		
 		int totalBoard=packageDAO.packageCount(map);
 		int blockSize=5;
 		

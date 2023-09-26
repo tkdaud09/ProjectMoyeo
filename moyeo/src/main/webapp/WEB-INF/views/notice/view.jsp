@@ -51,7 +51,7 @@
                         <p class="t1">조회수: ${notice.noticeViewcnt }</p>
                      </div>
                      <hr>
-                     <div class="view_con">${notice.noticeContent}</div>
+                     <div class="view_con" style="white-space:pre;">${notice.noticeContent}</div>
                      <div class="view_img">
                         <img
                            src="<c:url value='/assets/img/upload/${notice.noticeImg}'/>"

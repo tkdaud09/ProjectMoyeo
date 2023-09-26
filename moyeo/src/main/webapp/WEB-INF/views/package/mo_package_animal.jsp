@@ -91,13 +91,11 @@
 
               <div class="pack_option_btn">
   
-                <button type="button" onclick="location.href='booking-step-1.html';"
-                  class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01">
-                  예약하기
-                </button>
+            
                  <input type="hidden" name="packIdx" value="${packIdx}" />
                  <input type="hidden" name="packPreviewImg" value="${pack.packPreviewImg}" />
-            <button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01" value="장바구니"onclick="showAlert()">
+            <button type="submit" class="btn btn-hover btn-lg btn-block btn-outline-secondary text-uppercase bsize po_btn01" value="장바구니" onclick="showAlert()" style="
+    		width: 264px;">
                장바구니
             </button>
             <!-- 찜 기능 -->

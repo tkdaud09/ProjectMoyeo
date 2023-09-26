@@ -62,7 +62,7 @@
          <div class="py-10">
          <div class="review_content">
          
-            <div class="diy_form_title">
+            <div class="diy_form_title"> 
                공지사항 작성
             </div>
             
@@ -70,7 +70,7 @@
             <form class="w_f" action="addNotice" method="post" id="enrollForm" enctype="multipart/form-data">            
                    <p>작성자</p>
                         <input class="text" type="text" name="userinfoId"
-                           value="${userinfo.id }" readonly>
+                           value="운영자" readonly>
 
                         <p>제목</p>
                    <input class="text" type="text" name="noticeTitle" placeholder="제목">
