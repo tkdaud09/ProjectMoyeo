@@ -71,11 +71,15 @@
 	
 	
 						
-						<p>패키지 상품</p>
-						<select name="packTitle" required>
+						<select name="packTitle_display" disabled>
 						    <option value="">선택</option> 
 						    <c:forEach var="title" items="${packageTitles}">
-						        <option value="${title}">${title}</option> 
+						        <c:if test="${title == selectedPackageTitle}">
+						            <option value="${title}" selected>${title}</option> 
+						        </c:if>
+						        <c:if test="${title != selectedPackageTitle}">
+						            <option value="${title}">${title}</option> 
+						        </c:if>
 						    </c:forEach>
 						</select>
 						

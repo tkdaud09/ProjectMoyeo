@@ -47,20 +47,19 @@ public class ReviewController {
        
        return "review/review_list";
    }
-
     
  
    // 리뷰 작성 페이지로 이동(GET 요청)
    //@PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/write", method = RequestMethod.GET)
-    public String write(Model model, Authentication authentication) {
+    public String write(@RequestParam("packTitle") String selectedPackageTitle, Model model, Authentication authentication) {
        CustomUserDetails userinfo = (CustomUserDetails) authentication.getPrincipal();
        
        List<String> packageTitles = reviewService.getAllPackageTitles(); //패키지 타이틀
        
         model.addAttribute("packageTitles", packageTitles);
         model.addAttribute("userinfo", userinfo);
-        
+        model.addAttribute("selectedPackageTitle", selectedPackageTitle);
         return "review/write";
     }
 

@@ -100,21 +100,6 @@
                   </c:choose>
                </table>
             </div>
-            
-            <c:choose>
-                   <c:when test="${userinfo.id ne null}">
-                     <div class="btn_right">
-                     <button class="btn" type="button" onclick="location.href='<c:url value="/review/write"/>';">글쓰기</button>
-                   </div>
-                   </c:when>
-                 
-                   <c:otherwise>
-                     <div class="btn_right">
-                       <button class="btn" type="button" onclick="Login()">글쓰기</button>
-                   </div>  
-                   </c:otherwise>
-                 </c:choose>
-                 
                  
                  <!--  <input type="text" name="userinfoId" value="${userinfo.id }">-->
             
