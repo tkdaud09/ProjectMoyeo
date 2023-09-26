@@ -112,7 +112,7 @@ public class PaymentsController {
 	        ordersService.addOrders(orders); 
 	    }
 
-        if (beforeAmount == amount) {// 검증 성공
+        if (beforeAmount.equals(amount)) {// 검증 성공
             paymentService.addPayment(returnPayment);// 테이블에 결제정보 삽입 처리
            
         } else {// 검증 실패(결제 금액 불일치) - 위변조된 결제
@@ -122,29 +122,5 @@ public class PaymentsController {
 
 	    return "success";
 	}
-	
-	//결제 취소
-	/*
-	 @RequestMapping(value = "/cancel", method = RequestMethod.POST)
-	   @ResponseBody
-	   public String realCancel(@RequestBody Payment payment) {
-	      Payment cancelPayment = paymentService.get
-	      
-	      if(cancelDonation == null) {
-	         return "error";
-	      }
-	      
-	      String accessToken = donationService.getAccessToken(cancelDonation);
-	      
-	      String returnValue = donationService.cancelDonation(accessToken, cancelDonation);
-	      
-	      if(returnValue=="success") {
-	         donationService.refundDonation(cancelDonation);
-	         return returnValue;
-	      }
-	      return "error";
-	   }
-	}
-	*/
 	
 }

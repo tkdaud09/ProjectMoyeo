@@ -45,10 +45,12 @@
 							<div class="pay_left">
 							
 								<div class="pay_con1_box pbox">
+									<sec:authentication property="principal" var="pinfo"/>
 									<p>주문 상품 정보</p>
+									<div class="pay_con1_img">
+										상품 이미지
+									</div>
 									<c:forEach var="cart" items="${cartList}" varStatus="i">
-										<img class="pay_con1_img" data-src="${pageContext.request.contextPath}/assets/img/upload/${cart.packPreviewImg}" 
-              							 src="${pageContext.request.contextPath}/assets/img/upload/${pack.packPreviewImg}" alt="">
 										<p>패키지 번호: <input type="hidden" name="packIdx" value="${cart.packIdx}">${cart.packIdx}</p>
 										<p>성인 수: <input type="hidden" name="packAdultcount" value="${cart.packAdultcount}">${cart.packAdultcount}</p>
 										<p>소인 수: <input type="hidden" name="packChildcount" value="${cart.packChildcount}">${cart.packChildcount}</p>
@@ -59,10 +61,10 @@
 								<div class="pay_con2_box pbox" >
 									<p>주문자 정보</p>
 									<ul>
-										<li><input type="hidden" name="userinfoId" value="${userinfo.id}">아이디 : ${userinfo.id}</li>
-										<li><input type="hidden" name="userinfoName" value="${userinfo.name}">이름 : ${userinfo.name}</li>
-										<li><input type="hidden" name="userinfoPhone" value="${userinfo.phone}">번호 : ${userinfo.phone}</li>
-										<li><input type="hidden" name="userinfoEmail" value="${userinfo.email}">이메일 : ${userinfo.email}</li>
+										<li><input type="hidden" name="userinfoId" value="${userinfo.id}">${userinfo.id}</li>
+										<li><input type="hidden" name="userinfoName" value="${userinfo.name}">${userinfo.name}</li>
+										<li><input type="hidden" name="userinfoPhone" value="${userinfo.phone}">${userinfo.phone}</li>
+										<li><input type="hidden" name="userinfoEmail" value="${userinfo.email}">${userinfo.email}</li>
 									</ul>
 								</div><!-- //pay_con2_box -->
 						
@@ -144,6 +146,7 @@
 			data: JSON.stringify({"merchantUid":merchantUid, "paymentAmount":paymentAmount}),
 			dataType: "text",
 			success: function(result) {
+				alert(result);
 				if(result=="ok") {
 					//결제를 요청하는 메소드 호출
 					IMP.request_pay({
@@ -182,7 +185,8 @@
 									if(result == "success") {
 										//결제 성공 페이지로 이동
 										alert("결제 성공");
-										$("#paymentForm").submit(); 
+										//$("#paymentForm").submit();
+										window.location.href = "<c:url value="/user/mypage"/>";
 									} else {
 										//결제 실패 페이지로 이동
 										alert("결제 취소");
@@ -206,3 +210,4 @@
 </script>
 </body>
 </html>
+
