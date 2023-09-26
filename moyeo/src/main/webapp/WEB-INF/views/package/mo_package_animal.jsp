@@ -145,13 +145,13 @@
             <h3 class="text-uppercase mb-0">
               <span class="me-2"  style="font-weight:600; font-size:25px;">Review</span>
 
-              <span class="text-warning">
+              <!--<span class="text-warning">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-              </span>
+              </span>  -->
             </h3>
           </div>
 
